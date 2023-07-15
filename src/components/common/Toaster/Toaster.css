@@ -1,0 +1,47 @@
+.toaster {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 12px; /* Adjust the padding as needed */
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .toaster.show {
+    opacity: 1;
+  }
+  
+  .toaster.hide {
+    opacity: 0;
+  }
+  
+  .toaster.error {
+    background-color: #ff5555;
+  }
+  
+  .toaster.success {
+    background-color: #27ae60;
+  }
+  
+  .toaster-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .toaster-message {
+    font-size: 14px;
+  }
+  
+  .toaster-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  

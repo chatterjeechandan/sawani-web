@@ -14,6 +14,7 @@ const Header = () => {
     const handleLoginClick = (e) => {
         e.preventDefault();
         setLoginPopupOpen(true);
+        setMenuOpen(false);
     };
 
     const handleCloseLoginPopup = () => {
@@ -51,7 +52,6 @@ const Header = () => {
                         {/* Login and Registration options */}
                         <li>
                             <Link to="/login" onClick={(e) => handleLoginClick(e)}>Login</Link>
-                            {isLoginPopupOpen && <LoginPopup onClose={handleCloseLoginPopup} />}
                         </li>
                         <li>
                             <Link to="/registration">Registration</Link>
@@ -64,6 +64,7 @@ const Header = () => {
                     <i className="fas fa-shopping-cart"></i>
                 </Link>
             </div>
+            {isLoginPopupOpen && <LoginPopup onClose={handleCloseLoginPopup} />}
         </header>
     );
 };
