@@ -9,11 +9,14 @@ import search from "../assets/images/search.png";
 import pots from "../assets/images/pots.png";
 import Loader from '../components/common/Loader/Loader';
 import { fetchCategories } from '../api/category';
+import { useNavigate } from 'react-router-dom';
 
 const CategoryListingPage = () => {
     document.title = "SAWANI CATEGORY";
     const [categories, setCategories] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
+    const [activeTab, setActiveTab] = useState('inStore');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,6 +33,20 @@ const CategoryListingPage = () => {
         fetchData();
     }, []);
 
+    const handleTabClick = (tab) => {
+        setActiveTab(tab);
+        switch (tab) {
+            case 'inStore':
+                navigate('/category');
+                break;
+            case 'delivery':
+                navigate('/delivery');
+                break;
+            default:
+                break;
+        }
+    };
+
     return (
         <div className="dashboardPageMaimWraper">
             <Header />
@@ -37,7 +54,7 @@ const CategoryListingPage = () => {
                 <div className='tabSearchWraper'>
                     <div className='tabWraper'>
                         <ul className='tabUl'>
-                            <li className='active'>
+                            <li className={activeTab === 'inStore' ? 'active' : ''} onClick={() => handleTabClick('inStore')}>
                                 <span>
                                     <img src={tab1} alt='' />
                                 </span>
@@ -49,11 +66,11 @@ const CategoryListingPage = () => {
                                 </span>
                                 Pick up
                             </li>
-                            <li>
+                            <li className={activeTab === 'delivery' ? 'active' : ''} onClick={() => handleTabClick('delivery')}>
                                 <span>
                                     <img src={tab3} alt='' />
                                 </span>
-                                Delhivery
+                                Delivery
                             </li>
                         </ul>
                     </div>

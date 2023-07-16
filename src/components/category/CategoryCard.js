@@ -7,9 +7,8 @@ const CategoryCard = ({ category }) => {
 
   return (
     <div className='individualProduct'>
-      <Link to={`/categories/${id}`} className="categoryLink">
-        <img src={image} alt={name} />
-        <h3 className="categoryName">{name}</h3>
+      <Link to={`/categories/${id}`} className="categoryLink" style={{ display: 'inline' }}>
+        <img src={`data:image/png;base64,${image}`} alt={name} />
       </Link>
     </div>
   );
