@@ -12,8 +12,8 @@ const Header = () => {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
     const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
-    const { loginResponse, logout } = useContext(AuthContext);
     const [toaster, setToaster] = useState(null);
+    const { loginResponse, logout } = useContext(AuthContext);
 
 
     const toggleMenu = () => {
@@ -51,6 +51,14 @@ const Header = () => {
 
     const handleToasterClose = () => {
         setToaster(null);
+    };
+
+    const handleSignupClickFromChild = () => {
+        setSignupPopupOpen(true);
+    };
+
+    const handleLoginClickFromChild = () => {
+        setLoginPopupOpen(true);
     };
 
     return (
@@ -134,8 +142,8 @@ const Header = () => {
                     <i className="fas fa-shopping-cart"></i>
                 </Link>
             </div>
-            {isLoginPopupOpen && <LoginPopup onClose={handleCloseLoginPopup} />}
-            {isSignupPopupOpen && <SignUpPopup onClose={handleCloseSignupPopup} />}
+            {isLoginPopupOpen && <LoginPopup onClose={handleCloseLoginPopup} onOpenSignup={handleSignupClickFromChild} />}
+            {isSignupPopupOpen && <SignUpPopup onClose={handleCloseSignupPopup} onOpenLogin={handleLoginClickFromChild} />}
         </header>
     );
 };

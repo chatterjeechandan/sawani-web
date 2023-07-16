@@ -144,3 +144,11 @@ span.loginInfoDetails {
 span.iconsLogin {
   margin-left: auto;
 }
+
+.submitpopup .loader{
+  padding: 8px;
+}
+
+.submitpopup .loader span{
+  margin-left: 10px;
+}

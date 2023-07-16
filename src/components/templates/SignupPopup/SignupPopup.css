@@ -126,3 +126,11 @@ float: left;
 .signupPasswordWraper {
   margin-bottom: 20px;
 }
+
+.submitpopup .loader{
+  padding: 8px;
+}
+
+.submitpopup .loader span{
+  margin-left: 10px;
+}

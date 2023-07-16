@@ -7,18 +7,39 @@ import l1 from "../../../assets/images/l1.png";
 import l2 from "../../../assets/images/l2.png";
 import l3 from "../../../assets/images/l3.png";
 import { AuthContext } from '../../../utils/AuthContext';
+import { Link } from 'react-router-dom';
 
-const LoginPopup = ({ onClose }) => {
+const LoginPopup = ({ onClose, onOpenSignup }) => {
     const [mobile, setMobile] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [loginFormState, setLoginFormState] = useState(false);
     const [toaster, setToaster] = useState(null);
+    const [mobileError, setMobileError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
 
     const { login: setLoginResponse } = useContext(AuthContext);
 
     const handleLogin = async (e) => {
         e.preventDefault();
+
+        const mobileFormat = /^[0-9]{10}$/;
+
+        if (!mobile) {
+            setMobileError('Please enter mobile number');
+            return;
+        }
+
+        if (!mobile.match(mobileFormat)) {
+            setMobileError('Invalid mobile number format');
+            return;
+        }
+
+        if (!password) {
+            setPasswordError('Please enter password');
+            return;
+        }
+
         try {
             setIsLoading(true);
             const response = await login({ mobile, password });
@@ -54,6 +75,12 @@ const LoginPopup = ({ onClose }) => {
         setToaster(null);
     };
 
+    const handleOpenSignup = (e) => {
+        e.preventDefault();
+        onClose();
+        onOpenSignup();
+    };
+
     return (
         <div className="popup-overlay" onClick={handleOverlayClick}>
             {toaster && (
@@ -65,11 +92,11 @@ const LoginPopup = ({ onClose }) => {
                 />
             )}
             <div className="popup-content">
-            {loginFormState ? (
-                <h2>Login</h2>
-            ) : (
-                <h2>Please sign in or up to continue</h2>
-            )}
+                {loginFormState ? (
+                    <h2>Login</h2>
+                ) : (
+                    <h2>Please sign in or up to continue</h2>
+                )}
                 <button className='closeBtn' type="button" onClick={onClose}>
                     X
                 </button>
@@ -78,23 +105,33 @@ const LoginPopup = ({ onClose }) => {
                         <form onSubmit={handleLogin}>
                             <input
                                 type="text"
-                                className='inputBox'
+                                className={`inputBox ${mobileError ? 'inputError' : ''}`}
                                 placeholder="Mobile Number"
                                 value={mobile}
-                                onChange={(e) => setMobile(e.target.value)}
+                                onChange={(e) => {
+                                    setMobile(e.target.value);
+                                    setMobileError('');
+                                }}
                             />
+                            {mobileError && <span className="errorText">{mobileError}</span>}
                             <span className='passwordWraper'>
-                            <input
-                                type="password"
-                                className='inputBox'
-                                placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
+                                <input
+                                    type="password"
+                                    className={`inputBox ${passwordError ? 'inputError' : ''}`}
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+                                        setPasswordError('');
+                                    }}
+                                />
                             </span>
+                            {passwordError && <span className="errorText">{passwordError}</span>}
                             <p className='forgotPassword'>Forgot your password?</p>
-                            <button className='submitpopup' type="submit">Log in</button>
-                            <p className='joinNow'>You don’t have an account? <b>Join now</b></p>
+                            <button className='submitpopup' type="submit">
+                                {isLoading ? <Loader size={24} color="#ffffff" /> : 'Log in'}
+                            </button>
+                            <p className='joinNow'>You don’t have an account? <Link to="/signup" onClick={(e) => handleOpenSignup(e)}><b>Join now</b></Link></p>
                         </form>
                     </div>
                 ) : (
@@ -119,9 +156,7 @@ const LoginPopup = ({ onClose }) => {
                         </div>
                     </div>
                 )}
-                
             </div>
-            {isLoading ? <Loader showOverlay={isLoading} /> : ''}
         </div>
     );
 };
