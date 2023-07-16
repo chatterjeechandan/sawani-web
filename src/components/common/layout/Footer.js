@@ -2,7 +2,6 @@ import React from "react";
 import footerLogo from "../../../assets/images/footerLogo.png";
 import s1 from "../../../assets/images/s1.png";
 import s2 from "../../../assets/images/s2.png";
-
 import { Link } from "react-router-dom";
 
 const Footer = () => {
