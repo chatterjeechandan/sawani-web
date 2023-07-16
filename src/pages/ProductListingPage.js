@@ -3,6 +3,8 @@ import Header from '../components/common/layout/Header/Header';
 import iconSelect from "../assets/images/iconSelect.png";
 import dropimg from "../assets/images/drop.png";
 import Footer from '../components/common/layout/Footer';
+import products1 from "../assets/images/products1.png";
+import add from "../assets/images/addCounter.png";
 
 const ProductListingPage = () => {
     const [dropDownOpen, setDropDownOpen] = useState(false);
@@ -94,12 +96,27 @@ const ProductListingPage = () => {
                     </span>
                 </div>
             </div>
-
+            <div className='productsRow'>
+                <div className='indProduct'>
+                    <span className='produtImage'>
+                        <img src={products1} alt='' />
+                        <span className='addDelWraper'>
+                            <span className='addSec'>
+                                <img src={add} alt='' />
+                            </span>
+                        </span>
+                    </span>
+                    <span className='productInfoDetails'>
+                        <h5>Date Milk</h5>
+                        <p>250.00 SAR</p>
+                    </span>
+                </div>
+            </div>
             
 
             </div>
             
-        </div>
+       
         <Footer />
         </div>
     );

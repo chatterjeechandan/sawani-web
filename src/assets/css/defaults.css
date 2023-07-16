@@ -909,3 +909,58 @@ span.dropArrows {
     right: 0px;
     top: 3px;
 }
+
+
+.productsRow {
+    width: 100%;
+    float: left;
+    margin: 60px 0;
+}
+
+.indProduct {
+    width: 20%;
+    float: left;
+    padding: 0 15px;
+    margin: 5px 0;
+}
+.produtImage {
+    width: 100%;
+    position: relative;
+    float: left;
+}
+.produtImage img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+span.productInfoDetails {
+    width: 100%;
+    float: left;
+    display: block;
+}
+.productInfoDetails h5 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000;
+}
+.productInfoDetails p {
+    font-size: 14px;
+    font-weight: 800;
+    color: #000000;
+}
+span.addDelWraper {
+    width: 40px;
+    position: absolute;
+    right: -10px;
+    /* border: 1px solid #fff; */
+    display: block;
+    top: -5px;
+}
+.addSec {
+    width: 40px;
+    float: left;
+}
+.addSec img {
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
