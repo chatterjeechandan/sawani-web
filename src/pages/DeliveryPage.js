@@ -5,6 +5,9 @@ import tab1 from "../assets/images/cart.png";
 import tab2 from "../assets/images/pickup.png";
 import tab3 from "../assets/images/delhivery.png";
 import search from "../assets/images/search.png";
+import apple from "../assets/images/apple.png";
+import android from "../assets/images/android.png";
+import camel from "../assets/images/delhiveryBanner.png";
 import { useNavigate } from 'react-router-dom';
 
 const DeliveryPage = () => {
@@ -29,7 +32,7 @@ const DeliveryPage = () => {
     return (
         <div className="dashboardPageMaimWraper">
             <Header />
-            <div className="dashboardMidContent">
+            <div className="dashboardMidContentDelhivery">
                 <div className='tabSearchWraper'>
                     <div className='tabWraper'>
                         <ul className='tabUl'>
@@ -63,8 +66,23 @@ const DeliveryPage = () => {
                         <button className='searchBtn'>Locate me</button>
                     </div>
                 </div>
-                <div className='tabContentWraper'>
-                    Test content here....
+                <div className='tabContentWraper delhiveryTabContent'>
+                   <div className="leftInfoContent">
+                    <h3 className="blackHeading">WANT IT DELIVERED?</h3>
+                    <h2 className="brownHeading">Download the APP</h2>
+                    <p>Earn points and redeem rewards. Order ahead <br />and pay. And get it delivered!</p>
+                    <div className="appBtn Wrapers">
+                        <span className="appleWraper">
+                            <img src={apple} alt="" />
+                        </span>
+                        <span className="androidWraper">
+                            <img src={android} alt="" />
+                        </span>
+                    </div>
+                   </div>
+                   <div className="rightDivwraper">
+                    <img src={camel} alt="" />
+                   </div>
                 </div>
             </div>
             <Footer />
