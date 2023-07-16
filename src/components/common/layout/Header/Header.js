@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './Header.css'; // Import CSS file for header styles
 import LoginPopup from '../../../templates/LoginPopup/LoginPopup';
 import SignUpPopup from '../../../templates/SignupPopup/SignupPopup';
+import ForgetPasswordPopup from '../../../templates/ForgetPasswordPopup/ForgetPasswordPopup';
 import logo from "../../../../assets/images/logo.png";
 import translate from "../../../../assets/images/translate.png";
 import { AuthContext } from '../../../../utils/AuthContext';
@@ -12,6 +13,7 @@ const Header = () => {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
     const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
+    const [isForgotPasswordPopupOpen, setForgotPasswordPopupOpen] = useState(false);
     const [toaster, setToaster] = useState(null);
     const { loginResponse, logout } = useContext(AuthContext);
 
@@ -60,6 +62,15 @@ const Header = () => {
     const handleLoginClickFromChild = () => {
         setLoginPopupOpen(true);
     };
+
+    const handleForgotPasswordClickFromChild = () => {
+        setForgotPasswordPopupOpen(true);
+    };
+
+    const handleCloseForgotPasswordPopup = () => {
+        setForgotPasswordPopupOpen(false);
+    };
+
 
     return (
         <header className="header headerWrapers">
@@ -142,8 +153,10 @@ const Header = () => {
                     <i className="fas fa-shopping-cart"></i>
                 </Link>
             </div>
-            {isLoginPopupOpen && <LoginPopup onClose={handleCloseLoginPopup} onOpenSignup={handleSignupClickFromChild} />}
+            {isLoginPopupOpen && <LoginPopup onClose={handleCloseLoginPopup} onOpenSignup={handleSignupClickFromChild} onOpenForgotPassword={handleForgotPasswordClickFromChild} />}
             {isSignupPopupOpen && <SignUpPopup onClose={handleCloseSignupPopup} onOpenLogin={handleLoginClickFromChild} />}
+            {isForgotPasswordPopupOpen && <ForgetPasswordPopup onClose={handleCloseForgotPasswordPopup} onOpenLogin={handleLoginClickFromChild} />}
+
         </header>
     );
 };

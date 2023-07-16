@@ -1,4 +1,4 @@
-const BASE_URL = 'https://sawaniapi.azurewebsites.net/';
+const BASE_URL = 'https://sawaniapi.azurewebsites.net';
 
 export async function fetchData(endpoint) {
     try {

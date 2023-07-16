@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Toaster.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const Toaster = ({ type, message, duration, onClose }) => {
     const [isVisible, setIsVisible] = useState(true);
@@ -23,7 +25,7 @@ const Toaster = ({ type, message, duration, onClose }) => {
             <div className="toaster-content">
                 <div className="toaster-message">{message}</div>
                 <button className="toaster-close" onClick={handleClose}>
-                    X
+                    <FontAwesomeIcon icon={faTimes} />
                 </button>
             </div>
         </div>

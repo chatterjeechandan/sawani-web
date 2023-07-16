@@ -9,7 +9,7 @@ import l3 from "../../../assets/images/l3.png";
 import { AuthContext } from '../../../utils/AuthContext';
 import { Link } from 'react-router-dom';
 
-const LoginPopup = ({ onClose, onOpenSignup }) => {
+const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
     const [mobile, setMobile] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -81,6 +81,14 @@ const LoginPopup = ({ onClose, onOpenSignup }) => {
         onOpenSignup();
     };
 
+
+    const handleOpenForgotPassword = (e) => {
+        e.preventDefault();
+        onClose();
+        onOpenForgotPassword();
+    };
+
+
     return (
         <div className="popup-overlay" onClick={handleOverlayClick}>
             {toaster && (
@@ -127,7 +135,7 @@ const LoginPopup = ({ onClose, onOpenSignup }) => {
                                 />
                             </span>
                             {passwordError && <span className="errorText">{passwordError}</span>}
-                            <p className='forgotPassword'>Forgot your password?</p>
+                            <p className='forgotPassword'><Link to="/forgot-password" onClick={(e) => handleOpenForgotPassword(e)}>Forgot your password?</Link></p>
                             <button className='submitpopup' type="submit">
                                 {isLoading ? <Loader size={24} color="#ffffff" /> : 'Log in'}
                             </button>
