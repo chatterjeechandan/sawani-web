@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css'; // Import CSS file for header styles
-import LoginPopup from '../../../templates/LoginPopup/LoginPopup';
-import SignUpPopup from '../../../templates/SignupPopup/SignupPopup';
-import ForgetPasswordPopup from '../../../templates/ForgetPasswordPopup/ForgetPasswordPopup';
+import LoginPopup from '../../../templates/LoginPopup';
+import SignUpPopup from '../../../templates/SignupPopup';
+import ForgetPasswordPopup from '../../../templates/ForgetPasswordPopup';
 import logo from "../../../../assets/images/logo.png";
 import translate from "../../../../assets/images/translate.png";
 import { AuthContext } from '../../../../utils/AuthContext';

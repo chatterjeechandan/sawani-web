@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './ForgetPasswordPopup.css';
-import { forgotpassword, resetPassword } from '../../../api/auth';
-import Loader from '../../common/Loader/Loader';
-import Toaster from '../../common/Toaster/Toaster';
+import '../../assets/css/forms.css';
+import { forgotpassword, resetPassword } from '../../api/auth';
+import Loader from '../common/Loader/Loader';
+import Toaster from '../common/Toaster/Toaster';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';

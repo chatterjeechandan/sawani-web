@@ -698,3 +698,8 @@ li.borderMenu {
     float: left;
     margin-bottom: 10px;
   }
+
+  .product-container {
+    display: flex;
+    justify-content: space-evenly;
+  }

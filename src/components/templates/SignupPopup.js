@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import './SignupPopup.css';
-import { register } from '../../../api/auth';
-import Loader from '../../common/Loader/Loader';
-import Toaster from '../../common/Toaster/Toaster';
+import '../../assets/css/forms.css';
+import { register } from '../../api/auth';
+import Loader from '../common/Loader/Loader';
+import Toaster from '../common/Toaster/Toaster';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const SignUpPopup = ({ onClose, onOpenLogin }) => {
     const [name, setName] = useState('');
@@ -88,7 +90,7 @@ const SignUpPopup = ({ onClose, onOpenLogin }) => {
             <div className="popup-content">
                 <h2>Sign Up</h2>
                 <button className='closeBtn' type="button" onClick={onClose}>
-                    X
+                    <FontAwesomeIcon icon={faTimes} />
                 </button>
                 <div className='loginFormWraper'>
                     <form onSubmit={handleSignup}>

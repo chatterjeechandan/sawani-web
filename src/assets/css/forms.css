@@ -19,6 +19,7 @@
     width: 460px;
     position: relative;
   }
+  
   .closeBtn {
     background: transparent;
     cursor: pointer;
@@ -78,6 +79,7 @@
   .form-actions button[type="button"] {
     background-color: #ccc;
   }
+  
   .inputBox {
     width: 100%;
     float: left;
@@ -87,9 +89,11 @@
     border-radius: 6px;
     padding: 10px;
   }
+  
   .inputBox:last-child {
     margin-bottom: 0;
   }
+  
   p.forgotPassword {
     width: 100%;
     float: left;
@@ -97,65 +101,70 @@
     color: #404040;
     text-decoration: underline;
     margin: 15px 0;
-}
-
-button.submitpopup {
-  background: #B7864C;
-  border: none;
-  padding: 12px;
-  color: #fff;
-  width: 100%;
-  border-radius: 10px;
-  margin-bottom: 22px;
-}
-.loginFormWraper {
-  width: 100%;
-  float: left;
-  margin-top: 22px;
-}
-p.joinNow {
-  text-align: center;
-  width: 100%;
-  float: left;
-}
-.passwordWraper {
-  position: relative;
-  width: 100%;
-  float: left;
-}
-
-.individualLoginOptions {
-  width: 100%;
-  float: left;
-  text-align: center;
-  background: #fff;
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 5px;
-  display: flex; 
-  align-items: center;
-  cursor: pointer;
-}
-span.loginInfoDetails {
-  margin-right: auto;
-  font-weight: 600;
-  margin-left: 15px;
-
-}
-span.iconsLogin {
-  margin-left: auto;
-}
-
-.submitpopup .loader{
-  padding: 8px;
-}
-
-.submitpopup .loader span{
-  margin-left: 10px;
-}
-
-.editBtn {
-margin-left:10px;
-background: transparent;
-border:0;
-}
+  }
+  
+  button.submitpopup {
+    background: #B7864C;
+    border: none;
+    padding: 12px;
+    color: #fff;
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 22px;
+  }
+  
+  .loginFormWraper {
+    width: 100%;
+    float: left;
+    margin-top: 22px;
+  }
+  
+  p.joinNow {
+    text-align: center;
+    width: 100%;
+    float: left;
+  }
+  
+  .passwordWraper {
+    position: relative;
+    width: 100%;
+    float: left;
+  }
+  
+  .individualLoginOptions {
+    width: 100%;
+    float: left;
+    text-align: center;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 5px;
+    display: flex; 
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  span.loginInfoDetails {
+    margin-right: auto;
+    font-weight: 600;
+    margin-left: 15px;
+  }
+  
+  span.iconsLogin {
+    margin-left: auto;
+  }
+  
+  .submitpopup .loader {
+    padding: 8px;
+  }
+  
+  .submitpopup .loader span {
+    margin-left: 10px;
+  }
+  
+  .editBtn {
+    margin-left: 10px;
+    background: transparent;
+    border: 0;
+  }
+  

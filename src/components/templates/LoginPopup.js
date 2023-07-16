@@ -1,13 +1,15 @@
 import React, { useState, useContext } from 'react';
-import './LoginPopup.css';
-import { login } from '../../../api/auth';
-import Loader from '../../common/Loader/Loader';
-import Toaster from '../../../components/common/Toaster/Toaster';
-import l1 from "../../../assets/images/l1.png";
-import l2 from "../../../assets/images/l2.png";
-import l3 from "../../../assets/images/l3.png";
-import { AuthContext } from '../../../utils/AuthContext';
+import '../../assets/css/forms.css';
+import { login } from '../../api/auth';
+import Loader from '../common/Loader/Loader';
+import Toaster from '../common/Toaster/Toaster';
+import l1 from "../../assets/images/l1.png";
+import l2 from "../../assets/images/l2.png";
+import l3 from "../../assets/images/l3.png";
+import { AuthContext } from '../../utils/AuthContext';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
     const [mobile, setMobile] = useState('');
@@ -53,7 +55,7 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
                 }, 500);
             } else {
                 setIsLoading(false);
-                setToaster({ type: 'error', message: 'Login failed', duration: 3000 });
+                setToaster({ type: 'error', message: response.Message, duration: 3000 });
             }
         } catch (error) {
             setIsLoading(false);
@@ -106,7 +108,7 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
                     <h2>Please sign in or up to continue</h2>
                 )}
                 <button className='closeBtn' type="button" onClick={onClose}>
-                    X
+                    <FontAwesomeIcon icon={faTimes} />
                 </button>
                 {loginFormState ? (
                     <div className='loginFormWraper'>

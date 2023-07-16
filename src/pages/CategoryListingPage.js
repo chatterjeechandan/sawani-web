@@ -22,7 +22,6 @@ const CategoryListingPage = () => {
         const fetchData = async () => {
             try {
                 const response = await fetchCategories();
-                console.log(response);
                 setCategories(response);
             } catch (error) {
                 console.error('Error fetching categories:', error);
