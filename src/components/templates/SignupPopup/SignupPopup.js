@@ -54,12 +54,14 @@ const SignUpPopup = ({ onClose }) => {
             )}
             <div className="popup-content">
                 <h2>Sign Up</h2>
-                <button type="button" onClick={onClose}>
-                    Close
+                <button className='closeBtn' type="button" onClick={onClose}>
+                X
                 </button>
+                <div className='loginFormWraper'>
                 <form onSubmit={handleSignup}>
                     <input
                         type="text"
+                        className='inputBox'
                         placeholder="Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -67,17 +69,23 @@ const SignUpPopup = ({ onClose }) => {
                     <input
                         type="text"
                         placeholder="Mobile Number"
+                        className='inputBox'
                         value={mobile}
                         onChange={(e) => setMobile(e.target.value)}
                     />
+                    <span className='passwordWraper signupPasswordWraper'>
                     <input
                         type="password"
                         placeholder="Password"
+                        className='inputBox'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button type="submit">Login</button>
+                    </span>
+                    <button className='submitpopup' type="submit">Sign up</button>
+                    <p className='joinNow'>You already have an account? <b>Login now</b></p>
                 </form>
+                </div>
             </div>
             {isLoading ? <Loader showOverlay={isLoading} /> : ''}
         </div>

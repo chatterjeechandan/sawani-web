@@ -12,16 +12,28 @@
   }
   
   .popup-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 4px;
+    background-color: #E0DBD0;
+    padding: 25px 25px;
+    border-radius: 13px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    width: 300px;
+    width: 460px;
+    position: relative;
+  }
+  .closeBtn {
+    background: transparent;
+    cursor: pointer;
+    border: none;
+    position: absolute;
+    right: 25px;
+    top: 20px;
   }
   
   .popup-content h2 {
     margin-top: 0;
     text-align: center;
+    font-size: 17px;
+    color: #0D1D29;
+    font-weight: 500;
   }
   
   .login-form {
@@ -65,4 +77,70 @@
   .form-actions button[type="button"] {
     background-color: #ccc;
   }
-  
+  .inputBox {
+    width: 100%;
+    float: left;
+    margin-bottom: 10px;
+    height: 42px;
+    background: #fff;
+    border-radius: 6px;
+    padding: 10px;
+  }
+  .inputBox:last-child {
+    margin-bottom: 0;
+  }
+  p.forgotPassword {
+    width: 100%;
+    float: left;
+    text-align: center;
+    color: #404040;
+    text-decoration: underline;
+    margin: 15px 0;
+}
+
+button.submitpopup {
+  background: #B7864C;
+  border: none;
+  padding: 12px;
+  color: #fff;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 22px;
+}
+.loginFormWraper {
+  width: 100%;
+  float: left;
+  margin-top: 22px;
+}
+p.joinNow {
+  text-align: center;
+  width: 100%;
+  float: left;
+}
+.passwordWraper {
+  position: relative;
+  width: 100%;
+  float: left;
+}
+
+.individualLoginOptions {
+  width: 100%;
+  float: left;
+  text-align: center;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 5px;
+  display: flex; 
+  align-items: center;
+  cursor: pointer;
+}
+span.loginInfoDetails {
+  margin-right: auto;
+  font-weight: 600;
+  margin-left: 15px;
+
+}
+span.iconsLogin {
+  margin-left: auto;
+}

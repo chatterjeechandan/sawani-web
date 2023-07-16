@@ -3,12 +3,16 @@ import './LoginPopup.css';
 import { login } from '../../../api/auth';
 import Loader from '../../common/Loader/Loader';
 import Toaster from '../../../components/common/Toaster/Toaster';
+import l1 from "../../../assets/images/l1.png";
+import l2 from "../../../assets/images/l2.png";
+import l3 from "../../../assets/images/l3.png";
 import { AuthContext } from '../../../utils/AuthContext';
 
 const LoginPopup = ({ onClose }) => {
     const [mobile, setMobile] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [loginFormState, setLoginFormState] = useState(false);
     const [toaster, setToaster] = useState(null);
 
     const { login: setLoginResponse } = useContext(AuthContext);
@@ -36,6 +40,10 @@ const LoginPopup = ({ onClose }) => {
         }
     };
 
+    const toggleLoginFormFn = () => {
+        setLoginFormState(!loginFormState);
+    };
+
     const handleOverlayClick = (e) => {
         if (e.target === e.currentTarget) {
             onClose();
@@ -57,25 +65,61 @@ const LoginPopup = ({ onClose }) => {
                 />
             )}
             <div className="popup-content">
+            {loginFormState ? (
                 <h2>Login</h2>
-                <button type="button" onClick={onClose}>
-                    Close
+            ) : (
+                <h2>Please sign in or up to continue</h2>
+            )}
+                <button className='closeBtn' type="button" onClick={onClose}>
+                    X
                 </button>
-                <form onSubmit={handleLogin}>
-                    <input
-                        type="text"
-                        placeholder="Mobile Number"
-                        value={mobile}
-                        onChange={(e) => setMobile(e.target.value)}
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <button type="submit">Login</button>
-                </form>
+                {loginFormState ? (
+                    <div className='loginFormWraper'>
+                        <form onSubmit={handleLogin}>
+                            <input
+                                type="text"
+                                className='inputBox'
+                                placeholder="Mobile Number"
+                                value={mobile}
+                                onChange={(e) => setMobile(e.target.value)}
+                            />
+                            <span className='passwordWraper'>
+                            <input
+                                type="password"
+                                className='inputBox'
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            </span>
+                            <p className='forgotPassword'>Forgot your password?</p>
+                            <button className='submitpopup' type="submit">Log in</button>
+                            <p className='joinNow'>You don’t have an account? <b>Join now</b></p>
+                        </form>
+                    </div>
+                ) : (
+                    <div className='loginFormWraper'>
+                        <div className='individualLoginOptions'>
+                            <span className='iconsLogin'>
+                                <img src={l1} alt='' />
+                            </span>
+                            <span className='loginInfoDetails'>CONTINUE WITH GOOGLE</span>
+                        </div>
+                        <div className='individualLoginOptions'>
+                            <span className='iconsLogin'>
+                                <img src={l2} alt='' />
+                            </span>
+                            <span className='loginInfoDetails'>CONTINUE WITH APPLE</span>
+                        </div>
+                        <div className='individualLoginOptions' onClick={toggleLoginFormFn}>
+                            <span className='iconsLogin'>
+                                <img src={l3} alt='' />
+                            </span>
+                            <span className='loginInfoDetails'>CONTINUE WITH PHONE NUMBER</span>
+                        </div>
+                    </div>
+                )}
+                
             </div>
             {isLoading ? <Loader showOverlay={isLoading} /> : ''}
         </div>
