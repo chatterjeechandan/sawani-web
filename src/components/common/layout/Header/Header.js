@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css'; // Import CSS file for header styles
 import LoginPopup from '../../../templates/LoginPopup/LoginPopup';
+import SignUpPopup from '../../../templates/SignupPopup/SignupPopup';
 import logo from "../../../../assets/images/logo.png";
 import translate from "../../../../assets/images/translate.png";
-import menu from "../../../../assets/images/menu.png";
+import { AuthContext } from '../../../../utils/AuthContext';
+import Toaster from '../../../../components/common/Toaster/Toaster';
 
 const Header = () => {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
+    const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
+    const { loginResponse, logout } = useContext(AuthContext);
+    const [toaster, setToaster] = useState(null);
+
 
     const toggleMenu = () => {
         setMenuOpen(!isMenuOpen);
@@ -24,25 +30,53 @@ const Header = () => {
         setLoginPopupOpen(false);
     };
 
+    const handleSignupClick = (e) => {
+        e.preventDefault();
+        setSignupPopupOpen(true);
+        setMenuOpen(false);
+    };
+
+    const handleCloseSignupPopup = () => {
+        setSignupPopupOpen(false);
+    };
+
+    const handleLogOutClick = (e) => {
+        e.preventDefault();
+        setToaster({ type: 'success', message: 'Logout successful', duration: 3000 });
+        setTimeout(() => {
+            logout();
+            setMenuOpen(false);
+        }, 500);
+    };
+
+    const handleToasterClose = () => {
+        setToaster(null);
+    };
+
     return (
-
-
-        
         <header className="header headerWrapers">
+            {toaster && (
+                <Toaster
+                    type={toaster.type}
+                    message={toaster.message}
+                    duration={toaster.duration}
+                    onClose={handleToasterClose}
+                />
+            )}
             <div className="header-left translateWraper">
                 {/* Language change icon */}
                 <span className="translateNow">
-                <img src={translate} alt="" />
+                    <img src={translate} alt="" />
                 </span>
             </div>
             <div className="header-center logoWrapers">
                 {/* Logo */}
                 <Link to="/" className="logo">
-                <span className="logoHere">
-                    <img src={logo} alt="" />
-                 </span>
+                    <span className="logoHere">
+                        <img src={logo} alt="" />
+                    </span>
                 </Link>
-                
+
             </div>
             <div className="header-right menuWraper">
                 {/* Hamburger menu */}
@@ -78,12 +112,20 @@ const Header = () => {
                             <Link to="/">Contact Us</Link>
                         </li>
                         <li className='borderMenu'></li>
-                        <li>
-                            <Link to="/login" onClick={(e) => handleLoginClick(e)}>Login</Link>
-                        </li>
-                        <li>
-                            <Link to="/registration">Registration</Link>
-                        </li>
+                        {loginResponse ? (
+                            <li>
+                                <Link to="/logout" onClick={(e) => handleLogOutClick(e)}>Logout</Link>
+                            </li>
+                        ) : (
+                            <>
+                                <li>
+                                    <Link to="/login" onClick={(e) => handleLoginClick(e)}>Login</Link>
+                                </li>
+                                <li>
+                                    <Link to="/signup" onClick={(e) => handleSignupClick(e)}>Sign Up</Link>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </div>
                 {/* Cart icon */}
@@ -93,6 +135,7 @@ const Header = () => {
                 </Link>
             </div>
             {isLoginPopupOpen && <LoginPopup onClose={handleCloseLoginPopup} />}
+            {isSignupPopupOpen && <SignUpPopup onClose={handleCloseSignupPopup} />}
         </header>
     );
 };

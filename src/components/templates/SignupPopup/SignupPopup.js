@@ -1,38 +1,34 @@
-import React, { useState, useContext } from 'react';
-import './LoginPopup.css';
-import { login } from '../../../api/auth';
+import React, { useState } from 'react';
+import './SignupPopup.css';
+import { register } from '../../../api/auth';
 import Loader from '../../common/Loader/Loader';
-import Toaster from '../../../components/common/Toaster/Toaster';
-import { AuthContext } from '../../../utils/AuthContext';
+import Toaster from '../../common/Toaster/Toaster';
 
-const LoginPopup = ({ onClose }) => {
+const SignUpPopup = ({ onClose }) => {
+    const [name, setName] = useState('');
     const [mobile, setMobile] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [toaster, setToaster] = useState(null);
 
-    const { login: setLoginResponse } = useContext(AuthContext);
-
-    const handleLogin = async (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
         try {
             setIsLoading(true);
-            const response = await login({ mobile, password });
-            console.log('Login response:', response);
+            const response = await register({ name, mobile, password });
+            console.log('Signup response:', response);
             if (response.id) {
-                localStorage.setItem('loginInfo', JSON.stringify(response));
-                setLoginResponse(response);
-                setToaster({ type: 'success', message: 'Login successful', duration: 3000 });
+                setToaster({ type: 'success', message: 'Signup successful', duration: 3000 });
                 setTimeout(() => {
                     onClose();
                 }, 500);
             } else {
                 setIsLoading(false);
-                setToaster({ type: 'error', message: 'Login failed', duration: 3000 });
+                setToaster({ type: 'error', message: 'Signup failed', duration: 3000 });
             }
         } catch (error) {
             setIsLoading(false);
-            setToaster({ type: 'error', message: 'Login failed', duration: 3000 });
+            setToaster({ type: 'error', message: 'Signup failed', duration: 3000 });
         }
     };
 
@@ -57,11 +53,17 @@ const LoginPopup = ({ onClose }) => {
                 />
             )}
             <div className="popup-content">
-                <h2>Login</h2>
+                <h2>Sign Up</h2>
                 <button type="button" onClick={onClose}>
                     Close
                 </button>
-                <form onSubmit={handleLogin}>
+                <form onSubmit={handleSignup}>
+                    <input
+                        type="text"
+                        placeholder="Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
                     <input
                         type="text"
                         placeholder="Mobile Number"
@@ -82,4 +84,4 @@ const LoginPopup = ({ onClose }) => {
     );
 };
 
-export default LoginPopup;
+export default SignUpPopup;

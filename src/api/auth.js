@@ -5,5 +5,5 @@ export function login(credentials) {
 }
 
 export function register(userData) {
-    return postData('/register', userData);
+    return postData('/customer', userData);
 }
