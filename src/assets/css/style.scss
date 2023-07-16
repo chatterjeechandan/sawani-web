@@ -1,0 +1,220 @@
+// .loginForm {
+//   margin-top: 80px;
+//   .formRow.fieldRow {
+//     margin-top: 20px;
+//     margin-bottom: 25px;
+//     label {
+//       background: #509fff;
+//       color: #fff;
+//       font-weight: 700;
+//       font-size: 12px;
+//       padding: 3px 10px;
+//       border-radius: 3px;
+//       float: left;
+//       margin: 0 0 -10px 10px;
+//       position: relative;
+//       z-index: 10;
+//     }
+//   }
+//   .formControl {
+//     display: block;
+//     width: 100%;
+//     height: 50px;
+//     -webkit-box-sizing: border-box;
+//     box-sizing: border-box;
+//     border: 1px solid #509fff;
+//     border-radius: 5px;
+//     outline: none;
+//     background: #e8f0fe;
+//     color: #586677;
+//     font-size: 16px;
+//     padding: 13px 10px 7px;
+//     font-weight: 700;
+//   }
+//   .blueBtn {
+//     width: 100%;
+//     height: 50px;
+//     font-size: 16px;
+//     background: #2a71fa;
+//     margin-top: 20px;
+//     box-shadow: none;
+//     color: #fff;
+//     border: none;
+//     text-align: center;
+//     display: grid;
+//   }
+//   .blueBtn:disabled {
+//     opacity: 0.5;
+//   }
+  
+// }
+// .loginGraphicArea {
+//   width: 50%;
+//   height: 772px;
+//   float: right;
+//   background: url(../images/login_graphic.png)  no-repeat;
+//   box-sizing: border-box;
+//   padding: 40px 0 0 50px;
+// }
+
+
+// .loginContainer {
+//   max-width: 1364px;
+//   margin: 70px auto;
+//   box-shadow: 0 0 60px rgba(0,0,0,0.16);
+//   background: #fff;
+//   position: relative;
+//   display: table;
+//   .loginFormArea {
+//     width: 50%;
+//     float: left;
+//     -webkit-box-sizing: border-box;
+//     box-sizing: border-box;
+//     padding: 80px;
+//     position: relative;
+//     h1 {
+//       font-size: 26px;
+//       color: #333;
+//     }
+    
+//   }
+// }
+
+
+// // Header portion css
+
+// .header {
+//   width: 100%;
+//   display: flex;
+//   align-items: center;
+//   padding: 15px 40px;
+//   -webkit-box-shadow: 0px 2px 2px 0px #e7e7e7;
+//   -moz-box-shadow: 0px 2px 2px 0px #e7e7e7;
+//   box-shadow: 0px 2px 2px 0px #e7e7e7;
+//   .rightSec {
+//     margin-left: auto;
+//     display: flex;
+//     align-items: center;
+//     .navbarUl {
+//       margin: 0 45px 0 0;
+//       li {
+//         display: inline-block;
+//         margin: 0 15px;
+//       }
+//     }
+//   }
+// }
+
+// // Dashboard Portion Css
+// .dashboardContentWraper {
+//   width: 100%;
+//   padding:15px;
+//   height: 85vh;
+//   overflow-y: auto;
+// }
+
+// // Footer Portion Css
+
+// .footer {
+//   width: 100%;
+//   padding:10px 15px;
+//   -webkit-box-shadow: 2px -1px 2px 0px #e7e7e7;
+//   -moz-box-shadow: 2px -1px 2px 0px #e7e7e7;
+//   box-shadow: 2px -1px 2px 0px #e7e7e7;
+//   p {
+//     text-align: center;
+//   }
+// }
+
+// table, th, td {
+//   border:1px solid black;
+// }
+
+// td {
+//   vertical-align: middle;
+//   word-break: break-all;
+//   font-size: 11px;
+//   text-align: center;
+// }
+
+// .true {
+//   color: green ;
+// }
+
+// .false {
+//   color: red;
+// }
+
+// .loader {
+//   width: 100%;
+//   text-align: center;
+//   margin:50px 0;
+// }
+
+// .inactive {
+//   opacity: 0.5;
+//   pointer-events: none;
+//   cursor: none;
+// }
+
+// .contentWraper {
+//   width: 100%;
+//   padding: 15px 20px;
+//   display: block;
+//   h2 {
+//     margin-bottom: 15px;
+//   }
+//   h3 {
+//     font-size: 16px;
+//     margin-bottom: 5px;
+//   }
+//   p {
+//     font-size: 14px;
+//     font-weight: 400;
+//     margin: 0 0 5px 0;
+//   }
+// }
+
+// .leftSecContact {
+//   width: 26%;
+//   float: left;
+//   background: #f6f8fa;
+//   padding: 25px 45px;
+
+//   h4 {
+//     font-size: 18px;
+//   }
+//   p {
+//     font-size: 16px;
+//     margin-bottom: 10px;;
+//   }
+// }
+
+// .rightSecContact {
+//   width: 68%;
+//   float: right;
+//   padding: 25px 65px;
+//   h4 {
+//     font-size: 18px;
+//   }
+//   p {
+//     font-size: 16px;
+//     margin-bottom: 15px;
+//   }
+// }
+
+// .wraperClass {
+// width: 100%;
+// float: left;
+// .rightSecDash {
+//   width: 25%;
+//   float: right;
+//   margin: 20px 0;
+//   .searchBars {
+//     width: 100%;
+//     height: 40px;
+//     padding: 10px 20px;
+//     font-size: 16px;
+//   }
+// }
+// }
