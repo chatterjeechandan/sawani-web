@@ -8,6 +8,7 @@ import { fetchProductsbyCat } from '../api/product';
 import Loader from '../components/common/Loader/Loader';
 import ProductCard from '../components/product/ProductCard';
 
+
 const ProductList = () => {
     const [dropDownOpen, setDropDownOpen] = useState(false);
     const [products, setProducts] = useState([]);
@@ -116,19 +117,21 @@ const ProductList = () => {
                         </span>
                     </div>
                 </div>
-                {isLoading ? (
-                    <Loader showOverlay={false} />
-                ) : (
-                    (products.length === 0 ? (
-                        <p>No products found.</p>
+                <div className='productsRow'>
+                    {isLoading ? (
+                        <Loader showOverlay={false} />
                     ) : (
-                        <div className="product-container">
-                            {products.map((product) => (
-                                <ProductCard key={product.id} product={product} />
-                            ))}
-                        </div>
-                    ))
-                )}
+                        (products.length === 0 ? (
+                            <p>No products found.</p>
+                        ) : (
+                            <div className="product-container">
+                                {products.map((product) => (
+                                    <ProductCard key={product.id} product={product} />
+                                ))}
+                            </div>
+                        ))
+                    )}
+                </div>
             </div>
             <Footer />
         </div>

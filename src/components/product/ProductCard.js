@@ -2,23 +2,30 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './Product.css';
+import add from "../../assets/images/addCounter.png";
 
 const ProductCard = ({ product }) => {
     const { id, name, image, price } = product;
 
     return (
-        <Link to={`/product/${id}`} className="product-link" style={{ display: 'inline' }}>
-            <div className="product-card">
-                <img src={`data:image/png;base64,${image}`} alt={name} className="product-image" />
-                <h3 className="product-name">{name}</h3>
-                <p className="product-price">SAR {price}</p>
-                <div className="quantity-control">
-                    <button className="quantity-btn">-</button>
-                    <span className="quantity-counter">0</span>
-                    <button className="quantity-btn">+</button>
-                </div>
-            </div>
-        </Link>
+
+        <div className='indProduct'>
+            <Link to={`/product/${id}`} className="product-link" style={{ display: 'inline' }}>
+                <span className='produtImage'>
+                    <img src={`data:image/png;base64,${image}`} alt={name} className="product-image" />
+                    <span className='addDelWraper'>
+                        <span className='addSec'>
+                            <img src={add} alt='' />
+                        </span>
+                    </span>
+                </span>
+                <span className='productInfoDetails'>
+                    <h5>{name}</h5>
+                    <p>{price} SAR</p>
+                </span>
+            </Link>
+        </div >
+
     );
 };
 
