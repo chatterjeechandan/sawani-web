@@ -703,6 +703,7 @@ li.borderMenu {
   .product-container {
     padding: 50px 0 20px;
   }
+  
 .dashboardMidContentDelhivery {
     width: 100%;
     float: left;
@@ -782,6 +783,7 @@ h2.brownHeading {
     display: flex;
     flex-direction: column;
 }
+
 .customizeFilterDisplay {
     width: 211px;
     height: 52px;
