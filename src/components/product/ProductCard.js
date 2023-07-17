@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './Product.css';
 import add from "../../assets/images/addCounter.png";
+import placeholderImage from "../../assets/images/no-image.png";
 
 const ProductCard = ({ product }) => {
     const { id, name, image, price } = product;
 
-    return (
+    const productImage = image ? `data:image/png;base64,${image}` : placeholderImage;
 
+    return (
         <div className='indProduct'>
             <Link to={`/product/${id}`} className="product-link" style={{ display: 'inline' }}>
                 <span className='produtImage'>
-                    <img src={`data:image/png;base64,${image}`} alt={name} className="product-image" />
+                    <img src={productImage} alt={name} className="product-image" />
                     <span className='addDelWraper'>
                         <span className='addSec'>
                             <img src={add} alt='' />
@@ -24,8 +26,7 @@ const ProductCard = ({ product }) => {
                     <p>{price} SAR</p>
                 </span>
             </Link>
-        </div >
-
+        </div>
     );
 };
 
@@ -33,7 +34,7 @@ ProductCard.propTypes = {
     product: PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
-        image: PropTypes.string.isRequired,
+        image: PropTypes.string,
         price: PropTypes.number.isRequired
     }).isRequired
 };

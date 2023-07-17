@@ -31,9 +31,12 @@ const ProductList = () => {
 
         fetchProducts();
     }, [scat]);
+
+
     const setDropDownOpenFn = () => {
         setDropDownOpen(!dropDownOpen);
     };
+
     return (
         <div className="dashboardPageMaimWraper">
             <Header />
