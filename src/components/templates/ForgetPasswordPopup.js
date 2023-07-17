@@ -39,7 +39,9 @@ const ForgetPasswordPopup = ({ onClose, onOpenLogin }) => {
             setIsLoading(true);
             const response = await forgotpassword({ mobile });
             console.log('Forgot Password response:', response);
-            if (response.StatusCode === 200) {
+            if (response.message) {
+                setIsLoading(false);
+                setToaster({ type: 'success', message: response.message, duration: 3000 });
                 setShowResetForm(true);
             }
             else {
@@ -80,8 +82,9 @@ const ForgetPasswordPopup = ({ onClose, onOpenLogin }) => {
             setIsLoading(true);
             const response = await resetPassword({ mobile, otp, password });
             console.log('Reset Password response:', response);
-            if (response.StatusCode === 200) {
-                setToaster({ type: 'success', message: 'Password reset successful', duration: 3000 });
+            if (response.message) {
+                setIsLoading(false);
+                setToaster({ type: 'success', message: response.message, duration: 3000 });
                 setTimeout(() => {
                     onClose();
                 }, 500);
