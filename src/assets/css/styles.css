@@ -779,14 +779,14 @@ h2.brownHeading {
 .productPageWraper {
     width: 100%;
     float: left;
-    padding: 80px 75px;
+    padding: 25px 75px;
     display: flex;
     flex-direction: column;
 }
 
 .customizeFilterDisplay {
     width: 211px;
-    height: 52px;
+    height: 48px;
     background: #E0DBD0;
     padding: 8px 18px;
     display: flex;
@@ -796,13 +796,13 @@ h2.brownHeading {
     cursor: pointer;
 }
 span.selectText {
-    font-size: 18px;
+    font-size: 16px;
     color: #1A1818;
     font-weight: 500;
 }
 span.selectIcons {
-    height: 33px;
-    width: 32px;
+    height: 30px;
+    width: 30px;
     margin-right: 15px;
 }
 
@@ -926,7 +926,7 @@ span.dropArrows {
 }
 
 .indProduct {
-    width: 25%;
+    width: 20%;
     float: left;
     padding: 0 15px;
     margin: 5px 0;
@@ -971,4 +971,169 @@ span.addDelWraper {
 .addSec img {
     border: 1px solid #ccc;
     cursor: pointer;
+}
+
+/* Product Details Css */
+
+.productDetailsWraper {
+    width: 100%;
+    float: left;
+    padding: 60px 75px;
+    background: #fff;
+}
+.detailsWraper {
+    width: 100%;
+    float: left;
+    display: flex;
+    padding-bottom: 35px;
+    border-bottom: 1px solid #ccc;
+}
+.productimg {
+    width: 373px;
+    min-height: 350px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.productimg img {
+    width: 100%;
+    height: 100%;
+}
+.productDetailsInfo {
+    width: calc(100% - 559px);
+    padding: 15px 56px 15px 56px;
+    position: relative;
+}
+h2.productName {
+    color: #1A1818;
+    font-size: 20px;
+    font-weight: 700;
+}
+p.productPrice {
+    color: #B7864C;
+    font-weight: 800;
+    font-size: 16px;
+    margin: 5px 0px 15px 0;
+}
+p.productDescription {
+    height: auto;
+    color: #000000;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    margin-bottom: 50px;
+    padding-right: 50px;
+    letter-spacing: 0.5px;
+}
+.bookMark {
+    width: 44px;
+    position: absolute;
+    top: 15px;
+    right: 65px;
+    cursor:pointer;
+}
+.bookMark img {
+    width: 100%;
+}
+
+.productOtherInfo {
+    width: 100%;
+    float: left;
+    margin-bottom: 25px;
+}
+
+.productOtherInfo:last-child {
+    margin-bottom: 0px;
+}
+
+p.infoHeading {
+    color: #0D1D29;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.infodetails {
+    width: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2px;
+}
+span.infoValues {
+    margin-left: auto;
+    font-weight: 500;
+    color: #0D1D29;
+    font-size: 14px;
+    width: 8%;
+    text-align: center;
+}
+span.infoName {
+    font-weight: 500;
+    color: #0D1D29;
+    font-size: 14px;
+    margin-right: auto;
+    width: 12%;
+}
+.dottedLines {
+    width: 80%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+.dottedLines::after {
+    position: absolute;
+    content: "";
+    z-index: 1;
+    pointer-events: none;
+    background-image: url("../images/detailDots.png");
+    width: 100%;
+    height: 1.2px;
+    bottom: -7px;
+    left: 0;
+}
+
+.productOperationWrapers {
+    width: 186px;
+}
+.availableinfo {
+    width: 33.3%;
+    padding: 0 2px;
+}
+.availableinfo img {
+    width: 100%;
+}
+.productOtherInfo.rewardQntyWraper {
+    position: relative;
+    margin-top: 25px;
+    margin-bottom: 45px;
+}
+span.infoIconWraper {
+    position: absolute;
+    left: 120px;
+    top: 2px;
+    width: 20px;
+}
+span.infoIconWraper img {
+    width: 100%;
+}
+.rewardSec {
+    width: 140px;
+    background: #F5F2EA 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    width: 140px;
+    display: flex;
+    align-items: center;
+    padding: 5px 15px;
+}
+.rewardIcon img {
+    width: 24px;
+}
+span.rewardIcon {
+    height: 24px;
+    width: 24px;
+    margin-right: 8px;
+}
+span.rewardPointsInfo {
+    font-size: 13px;
+    color: #1A1818;
+    font-weight: 700;
 }
