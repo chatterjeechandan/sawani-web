@@ -8,9 +8,16 @@ import logo from "../../../../assets/images/logo.png";
 import translate from "../../../../assets/images/translate.png";
 import { AuthContext } from '../../../../utils/AuthContext';
 import Toaster from '../../../../components/common/Toaster/Toaster';
+import minus from "../../../../assets/images/minusWhite.png";
+import productInd from "../../../../assets/images/pr1.png";
+import counterPlus from "../../../../assets/images/smallPlus.png";
+import rewards from "../../../../assets/images/rewardPoint.png";
+import dropimg from "../../../../assets/images/drop.png";
+import deletes from "../../../../assets/images/delete.png";
 
 const Header = () => {
     const [isMenuOpen, setMenuOpen] = useState(false);
+    const [isCheckoutOpen, setCheckoutOpen] = useState(false);
     const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
     const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
     const [isForgotPasswordPopupOpen, setForgotPasswordPopupOpen] = useState(false);
@@ -20,6 +27,9 @@ const Header = () => {
 
     const toggleMenu = () => {
         setMenuOpen(!isMenuOpen);
+    };
+    const setCheckoutOpenFn = () => {
+        setCheckoutOpen(!isCheckoutOpen);
     };
 
     const handleLoginClick = (e) => {
@@ -148,10 +158,69 @@ const Header = () => {
                     </ul>
                 </div>
                 {/* Cart icon */}
-                <Link to="/checkout" className="cart-icon">
+                <div onClick={setCheckoutOpenFn} className="cart-icon">
                     <span className="cart-count">0</span>
                     <i className="fas fa-shopping-cart"></i>
-                </Link>
+                    {isCheckoutOpen && (
+                        <div className='menu-items cartPopup'>
+<div className="rightCheckoutWraper">
+                   <h2 className="checkoutProductHeading">Shopping Cart</h2>
+                   <div className="cartProductListings">
+                        <div className="individualCartProducts">
+                            <span className="productCartImage">
+                                <img src={productInd} alt="" />
+                            </span>
+                            <span className="midCartDetailsEdit">
+                                <h5 className="indCartProductName">Vanila Milk</h5>
+                                <p className="productPriceInd"><span>250</span> SAR</p>
+                                <span className="counterWraper checkoutcounters">
+                                    <span className="plusCounter">
+                                        <img src={counterPlus} alt="" />
+                                    </span>
+                                    <span className="counterInput">
+                                        <input type="number" className="inputCounter" value={1} />
+                                    </span>
+                                    <span className="minusCounter">
+                                        <img src={minus} alt="" />
+                                    </span>
+                                </span>
+                            </span>
+                            <span className="deleteSpan">
+                                <img src={deletes} alt="" />
+                            </span>
+                        </div>
+                   </div>
+                   
+                    <div className="finalCartBills">
+                        <div className="subTotal">
+                            <span className="totalHeading">Subtotal</span>
+                            <span className="totalPrice">250.00 SAR</span>
+                        </div>
+                        <div className="rewardSectionsWrapers">
+                            <span className="totalHeading points">POINTS  <span className="subPoints">Sign in to earn</span></span>
+                            <span className="totalPrice points">
+                                <span className="rewardsIconImg">
+                                    <img src={rewards} alt="" />
+                                </span>
+                                +50 points</span>
+                        </div>
+                    </div>
+                    <div className="grandTotalWraper rewardSectionsWrapers">
+                        <span className="grandHeading">
+                            TOTAL
+                        </span>
+                        <span className="grandHeading grandPrice">
+                            250.00 SAR
+                        </span>
+                    </div>
+                    <div className="cartBtnWraper">
+                        <button className='pinkBtn'>CONTINUE SHOPPING</button>
+                        <button className='checkBtn'><Link to="/checkout">CHECKOUT</Link></button>
+                    </div>
+                </div>
+                        </div>
+                    )}
+                </div>
             </div>
             {isLoginPopupOpen && <LoginPopup onClose={handleCloseLoginPopup} onOpenSignup={handleSignupClickFromChild} onOpenForgotPassword={handleForgotPasswordClickFromChild} />}
             {isSignupPopupOpen && <SignUpPopup onClose={handleCloseSignupPopup} onOpenLogin={handleLoginClickFromChild} />}
