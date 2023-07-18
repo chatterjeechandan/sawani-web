@@ -245,9 +245,9 @@ const Product = () => {
                                             {isCounterOpen && (
                                                 <>
                                                 <span className="counterInput">
-                                                 <input type="number" className="inputCounter" value={1} />
-                                                    </span>
-                                                    <span className="minusCounter">
+                                                    <input type="number" className="inputCounter" value={1} />
+                                                </span>
+                                                <span className="minusCounter">
                                                         <img src={counterMinus} alt="" />
                                                     </span>
                                                 </>

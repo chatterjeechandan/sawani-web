@@ -1290,5 +1290,82 @@ span.counterInput input {
     background: #c0843e;
     font-weight: 600;
     color: #fff;
+}
 
+/* Checkout Page css */
+
+.checkoutWraper {
+    width: 100%;
+    float: left;
+    display: flex;
+}
+.dashboardPageMaimWraper.checkoutsPages {
+    position: relative;
+}
+.dashboardPageMaimWraper.checkoutsPages header.header.headerWrapers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.camelWraper {
+    width: 400px;
+}
+.rightCheckoutWraper {
+    width: 377px;
+    margin-left: auto;
+    display: block;
+    padding: 158px 35px;
+    background: #E0DBD0;
+}
+
+.midCheckoutWraper {
+    width: calc(100% - 777px);
+    padding: 158px 75px;
+}
+.checkoutProductHeading {
+    font-size: 25px;
+    color: #1A1818;
+    font-weight: 600;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #ccc;
+}
+.cartProductListings {
+    width: 100%;
+    float: left;
+}
+.midCartDetailsEdit {
+    width: 95px;
+}
+span.counterWraper.checkoutcounters {
+    position: relative;
+    top: unset;
+    right: unset;
+    flex-direction: row;
+    width: 100%;
+}
+
+.individualCartProducts {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+span.productCartImage {
+    width: 100px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+span.productCartImage img {
+    width: 100px;
+}
+
+span.deleteSpan {
+    margin-left: auto;
+    padding: 15px;
+    width: 40px;
+}
+span.deleteSpan img {
+    cursor: pointer;
 }

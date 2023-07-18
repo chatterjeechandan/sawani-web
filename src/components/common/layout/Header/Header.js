@@ -148,7 +148,7 @@ const Header = () => {
                     </ul>
                 </div>
                 {/* Cart icon */}
-                <Link to="/cart" className="cart-icon">
+                <Link to="/checkout" className="cart-icon">
                     <span className="cart-count">0</span>
                     <i className="fas fa-shopping-cart"></i>
                 </Link>
