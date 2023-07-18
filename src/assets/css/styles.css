@@ -985,7 +985,7 @@ span.addDelWraper {
     width: 100%;
     float: left;
     display: flex;
-    padding-bottom: 35px;
+    padding-bottom: 45px;
     border-bottom: 1px solid #ccc;
 }
 .productimg {
@@ -1216,4 +1216,79 @@ span.addBtnWraper {
 span.addBtnWraper img {
     width: 100%;
     height: 100%;
+}
+.relatedProductWraper {
+    width: 100%;
+    float: left;
+    padding: 45px 0;
+}
+.relativeProductHeading {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+span.headingIconImg {
+    width: 32px;
+    margin-right: 10px;
+}
+.relativeProductHeading h4 {
+    font-size: 22px;
+    color: #1A1818;
+    font-weight: 700;
+}
+.productsDisplayWraper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column-gap: 28px;
+    -webkit-column-gap: 28px;
+    column-gap: 28px;
+}
+
+.indrelatesProduct {
+    flex: 1 1 16.6%;
+    height: 180px;
+    position: relative;
+    text-align: center;
+}
+.imageWraper {
+    position: relative;
+}
+span.counterWraper {
+    width: 40px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    position: absolute;
+    padding: 2px;
+    border-radius: 5px;
+    top: -14px;
+    right: 0;
+}
+span.plusCounter, .minusCounter {
+    cursor: pointer;
+    width: 100%;
+    height: 37px;
+}
+span.plusCounter img, .minusCounter img {
+    width: 100%;
+    height: 100%;
+}
+span.counterInput {
+    width: 100%;
+    height: 37px;
+    background: #fff;
+    padding: 1px;
+}
+span.counterInput input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    text-align: center;
+    font-size: 16px;
+    background: #c0843e;
+    font-weight: 600;
+    color: #fff;
+
 }

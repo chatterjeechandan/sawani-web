@@ -13,6 +13,10 @@ import rewards from "../assets/images/reward.png";
 import info from "../assets/images/info.png";
 import plus from "../assets/images/addDetail.png";
 import minus from "../assets/images/delDetail.png";
+import productInd from "../assets/images/pr1.png";
+import counterPlus from "../assets/images/smallPlus.png";
+import counterMinus from "../assets/images/smallMinus.png";
+import camel from "../assets/images/camelWhite.png";
 import dropimg from "../assets/images/drop.png";
 
 const Product = () => {
@@ -20,6 +24,11 @@ const Product = () => {
     const [product, setProduct] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [dropDownOpen, setDropDownOpen] = useState(false);
+    const [isCounterOpen, setCounterOpen] = useState(false);
+
+    const counteroptionFm = () => {
+        setCounterOpen(!isCounterOpen);
+    };
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -217,7 +226,119 @@ const Product = () => {
                                 </div>
                             </div>
                         </div>
-                    
+                        <div className="relatedProductWraper">
+                            <div className="relativeProductHeading">
+                                <span className="headingIconImg">
+                                    <img src={camel} alt="" />
+                                </span>
+                                <h4>You might also like</h4>
+                            </div>
+                            <div className="productsDisplayWraper">
+
+                                <div className="indrelatesProduct">
+                                    <div className="imageWraper">
+                                        <img src={productInd} alt="" />
+                                        <span className="counterWraper">
+                                            <span className="plusCounter" onClick={counteroptionFm}>
+                                                <img src={counterPlus} alt="" />
+                                            </span>
+                                            {isCounterOpen && (
+                                                <>
+                                                <span className="counterInput">
+                                                 <input type="number" className="inputCounter" value={1} />
+                                                    </span>
+                                                    <span className="minusCounter">
+                                                        <img src={counterMinus} alt="" />
+                                                    </span>
+                                                </>
+                                            )}
+                                            
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="indrelatesProduct">
+                                    <div className="imageWraper">
+                                        <img src={productInd} alt="" />
+                                        <span className="counterWraper">
+                                            <span className="plusCounter">
+                                                <img src={counterPlus} alt="" />
+                                            </span>
+                                            {/* <span className="counterInput">
+                                                <input type="number" className="inputCounter" value={1} />
+                                            </span>
+                                            <span className="minusCounter">
+                                                <img src={counterMinus} alt="" />
+                                            </span> */}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="indrelatesProduct">
+                                    <div className="imageWraper">
+                                        <img src={productInd} alt="" />
+                                        <span className="counterWraper">
+                                            <span className="plusCounter">
+                                                <img src={counterPlus} alt="" />
+                                            </span>
+                                            {/* <span className="counterInput">
+                                                <input type="number" className="inputCounter" value={1} />
+                                            </span>
+                                            <span className="minusCounter">
+                                                <img src={counterMinus} alt="" />
+                                            </span> */}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="indrelatesProduct">
+                                    <div className="imageWraper">
+                                        <img src={productInd} alt="" />
+                                        <span className="counterWraper">
+                                            <span className="plusCounter">
+                                                <img src={counterPlus} alt="" />
+                                            </span>
+                                            {/* <span className="counterInput">
+                                                <input type="number" className="inputCounter" value={1} />
+                                            </span>
+                                            <span className="minusCounter">
+                                                <img src={counterMinus} alt="" />
+                                            </span> */}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="indrelatesProduct">
+                                    <div className="imageWraper">
+                                        <img src={productInd} alt="" />
+                                        <span className="counterWraper">
+                                            <span className="plusCounter">
+                                                <img src={counterPlus} alt="" />
+                                            </span>
+                                            {/* <span className="counterInput">
+                                                <input type="number" className="inputCounter" value={1} />
+                                            </span>
+                                            <span className="minusCounter">
+                                                <img src={counterMinus} alt="" />
+                                            </span> */}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="indrelatesProduct">
+                                    <div className="imageWraper">
+                                        <img src={productInd} alt="" />
+                                        <span className="counterWraper">
+                                             <span className="plusCounter">
+                                                <img src={counterPlus} alt="" />
+                                            </span>
+                                            {/*<span className="counterInput">
+                                                <input type="number" className="inputCounter" value={1} />
+                                            </span>
+                                            <span className="minusCounter">
+                                                <img src={counterMinus} alt="" />
+                                            </span> */}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
                        
                         
