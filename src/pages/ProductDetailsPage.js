@@ -255,21 +255,9 @@ const Product = () => {
                                             
                                         </span>
                                     </div>
-                                </div>
-                                <div className="indrelatesProduct">
-                                    <div className="imageWraper">
-                                        <img src={productInd} alt="" />
-                                        <span className="counterWraper">
-                                            <span className="plusCounter">
-                                                <img src={counterPlus} alt="" />
-                                            </span>
-                                            {/* <span className="counterInput">
-                                                <input type="number" className="inputCounter" value={1} />
-                                            </span>
-                                            <span className="minusCounter">
-                                                <img src={counterMinus} alt="" />
-                                            </span> */}
-                                        </span>
+                                    <div className="productNamePrice">
+                                        <h5>Date Milk</h5>
+                                        <p>250.00 SAR</p>
                                     </div>
                                 </div>
                                 <div className="indrelatesProduct">
@@ -287,21 +275,9 @@ const Product = () => {
                                             </span> */}
                                         </span>
                                     </div>
-                                </div>
-                                <div className="indrelatesProduct">
-                                    <div className="imageWraper">
-                                        <img src={productInd} alt="" />
-                                        <span className="counterWraper">
-                                            <span className="plusCounter">
-                                                <img src={counterPlus} alt="" />
-                                            </span>
-                                            {/* <span className="counterInput">
-                                                <input type="number" className="inputCounter" value={1} />
-                                            </span>
-                                            <span className="minusCounter">
-                                                <img src={counterMinus} alt="" />
-                                            </span> */}
-                                        </span>
+                                    <div className="productNamePrice">
+                                        <h5>Date Milk</h5>
+                                        <p>250.00 SAR</p>
                                     </div>
                                 </div>
                                 <div className="indrelatesProduct">
@@ -318,6 +294,50 @@ const Product = () => {
                                                 <img src={counterMinus} alt="" />
                                             </span> */}
                                         </span>
+                                    </div>
+                                    <div className="productNamePrice">
+                                        <h5>Date Milk</h5>
+                                        <p>250.00 SAR</p>
+                                    </div>
+                                </div>
+                                <div className="indrelatesProduct">
+                                    <div className="imageWraper">
+                                        <img src={productInd} alt="" />
+                                        <span className="counterWraper">
+                                            <span className="plusCounter">
+                                                <img src={counterPlus} alt="" />
+                                            </span>
+                                            {/* <span className="counterInput">
+                                                <input type="number" className="inputCounter" value={1} />
+                                            </span>
+                                            <span className="minusCounter">
+                                                <img src={counterMinus} alt="" />
+                                            </span> */}
+                                        </span>
+                                    </div>
+                                    <div className="productNamePrice">
+                                        <h5>Date Milk</h5>
+                                        <p>250.00 SAR</p>
+                                    </div>
+                                </div>
+                                <div className="indrelatesProduct">
+                                    <div className="imageWraper">
+                                        <img src={productInd} alt="" />
+                                        <span className="counterWraper">
+                                            <span className="plusCounter">
+                                                <img src={counterPlus} alt="" />
+                                            </span>
+                                            {/* <span className="counterInput">
+                                                <input type="number" className="inputCounter" value={1} />
+                                            </span>
+                                            <span className="minusCounter">
+                                                <img src={counterMinus} alt="" />
+                                            </span> */}
+                                        </span>
+                                    </div>
+                                    <div className="productNamePrice">
+                                        <h5>Date Milk</h5>
+                                        <p>250.00 SAR</p>
                                     </div>
                                 </div>
 
@@ -335,6 +355,10 @@ const Product = () => {
                                                 <img src={counterMinus} alt="" />
                                             </span> */}
                                         </span>
+                                    </div>
+                                    <div className="productNamePrice">
+                                        <h5>Date Milk</h5>
+                                        <p>250.00 SAR</p>
                                     </div>
                                 </div>
                             </div>

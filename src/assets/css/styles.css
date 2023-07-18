@@ -1291,6 +1291,23 @@ span.counterInput input {
     font-weight: 600;
     color: #fff;
 }
+.productNamePrice {
+    width: 100%;
+    float: left;
+    text-align: left;
+}
+.productNamePrice h5 {
+    font-size: 14px;
+    color: #000000;
+    font-weight: 500;
+}
+.productNamePrice p {
+    font-size: 12px;
+    color: #000000;
+    font-weight: 700;
+    line-height: 14px;
+}
+
 
 /* Checkout Page css */
 
@@ -1322,21 +1339,25 @@ span.counterInput input {
 .midCheckoutWraper {
     width: calc(100% - 777px);
     padding: 158px 75px;
+    background: #fff;
 }
 .checkoutProductHeading {
-    font-size: 25px;
+    font-size: 22px;
     color: #1A1818;
     font-weight: 600;
-    margin-bottom: 30px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid #ccc;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #aaaaaa;
 }
 .cartProductListings {
     width: 100%;
     float: left;
+    max-height: 50%;
+    overflow-y: auto;
 }
 .midCartDetailsEdit {
-    width: 95px;
+    width: calc(100% - 150px);
+    padding: 0px 25px;
 }
 span.counterWraper.checkoutcounters {
     position: relative;
@@ -1344,6 +1365,9 @@ span.counterWraper.checkoutcounters {
     right: unset;
     flex-direction: row;
     width: 100%;
+    background:  #F5F2EA;
+    padding: 5px 4px;
+    margin-bottom: 15px;
 }
 
 .individualCartProducts {
@@ -1353,19 +1377,264 @@ span.counterWraper.checkoutcounters {
 }
 
 span.productCartImage {
-    width: 100px;
+    width: 110px;
     border-radius: 10px;
     overflow: hidden;
 }
 span.productCartImage img {
-    width: 100px;
+    width: 100%;
 }
 
 span.deleteSpan {
     margin-left: auto;
-    padding: 15px;
-    width: 40px;
+    padding: 1px;
+    width: 30px;
 }
 span.deleteSpan img {
     cursor: pointer;
+}
+
+h5.indCartProductName {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+p.productPriceInd {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+p.productPriceInd span {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+span.counterWraper.checkoutcounters span.plusCounter {
+    width: 32%;
+    height: 30px;
+    cursor: pointer;
+}
+span.counterWraper.checkoutcounters span.minusCounter {
+    width: 32%;
+    height: 30px;
+    padding-left: 2px;
+    cursor: pointer;
+}
+span.counterWraper.checkoutcounters span.counterInput {
+    width: 36%;
+    height: 30px;
+    background: transparent;
+}
+
+span.counterWraper.checkoutcounters span.counterInput input {
+ background: transparent;
+ color: #000;   
+}
+.customizeFilter.checkoutPage  {
+    width: 100%;
+    float: left;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #979797;
+}
+
+.customizeFilter.checkoutPage .customizeFilterDisplay {
+    width: 100%;
+    padding: 10px;
+    background: #F5F2EA;
+    color: #2F1F15;
+    font-size: 14px;
+    font-weight: 500;
+    height: 42px;
+
+}
+.customizeFilter.checkoutPage ul.customDropdown {
+    background: #F5F2EA;
+    width: 100%;
+    top: 44px;
+}
+.customizeFilter.checkoutPage ul.customDropdown li {
+    padding: 2px 15px;
+}
+.customizeFilter.checkoutPage ul.customDropdown li span.selectText {
+    font-size: 12px;
+    width: 100%;
+}
+.customizeFilter.checkoutPage ul.customDropdown li:hover {
+    background-color: transparent;
+}
+.customizeFilter.checkoutPage ul.customDropdown li:hover span.selectText {
+    color: #B7864C;
+    font-weight: 600;
+}
+
+.customizeFilter.checkoutPage .customizeFilterDisplay span.selectText {
+    font-size: 13px;
+    font-weight: 500;
+    width: 95%;
+}
+
+.finalCartBills {
+    margin: 0 0 25px 0;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #979797;
+    width: 100%;
+    float: left;
+}
+
+span.totalHeading, span.totalPrice {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1A1818;
+}
+span.totalPrice {
+    margin-left: auto;
+}
+.subTotal,.rewardSectionsWrapers {
+    width: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+}
+
+.subTotal {
+    margin-bottom: 5px;
+}
+
+span.rewardsIconImg {
+    width: 18px;
+    height: 18px;
+    display: block;
+    margin-right: 3px;
+}
+span.rewardsIconImg img {
+    width: 100%;
+    height: 100%;
+}
+
+span.totalHeading.points {
+    color: #B7864C;
+}
+span.subPoints {
+    color: #2F1F15;
+    font-size: 12px;
+    text-decoration: underline;
+    margin-left: 2px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+span.totalPrice.points {
+    display: flex;
+    align-items: center;
+    color: #B7864C;
+}
+
+.grandTotalWraper.rewardSectionsWrapers span.grandHeading {
+    font-weight: 700;
+    font-size: 16px;
+    color: #1A1818;
+}
+.grandTotalWraper.rewardSectionsWrapers span.grandHeading.grandPrice {
+    margin-left: auto;
+}
+
+.guestLoginWraper {
+    width: 100%;
+    float: left;
+}
+
+.guestLoginWraper h3 {
+   font-size: 22px;
+   font-weight: 700;
+   color: #1A1818;
+   margin-bottom: 25px;
+   text-align: center;
+}
+
+span.subHeading {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1A1818;
+}
+
+input.inputGuest {
+    width: 100%;
+    background: #DEC8AE72;
+    height: 42px;
+    margin-bottom: 12px;
+    border-radius: 5px;
+    padding: 10px;
+    border: none;
+}
+.loginGuest {
+    width: 100%;
+    float: left;
+    margin-bottom: 40px;
+}
+input.inputGuest {
+    width: 100%;
+    background: #f6f2ea;
+    height: 42px;
+    margin-bottom: 13px;
+    border-radius: 5px;
+    padding: 10px;
+    border: none;
+}
+.paymentWraper {
+    width: 100%;
+    float: left;
+    margin-bottom: 40px;
+}
+.paymentWraper h3 {
+    font-size: 22px;
+   font-weight: 700;
+   color: #1A1818;
+   margin-bottom: 18px;
+}
+.paymentLinkWraper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 16px 15px;
+    background: #f6f2ea;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 40px;
+}
+span.paymentIcons {
+    margin-right: 20px;
+    height: 21px;
+}
+span.paymentname {
+    color: #000000;
+    font-weight: 500;
+    font-size: 14px;
+}
+span.arrowRight {
+    margin-left: auto;
+    width: 12px;
+}
+.paymentInfoLogo {
+    width: 100%;
+    float: left;
+}
+.paymentInfoLogo img {
+    width: 275px;
+    margin-bottom: 20px;
+}
+.payCheckOutBtn {
+    background: #A592B5;
+    padding: 12px 0;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    float: left;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 25px;
+    border: none;
+    height: 40px;
 }
