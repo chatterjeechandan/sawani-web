@@ -1281,7 +1281,7 @@ span.counterInput {
     background: #fff;
     padding: 1px;
 }
-span.counterInput input {
+span.counterInput input { 
     width: 100%;
     height: 100%;
     border: none;
