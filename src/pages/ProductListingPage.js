@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from "react";
 import Header from '../components/common/layout/Header/Header';
-import iconSelect from "../assets/images/iconSelect.png";
-import dropimg from "../assets/images/drop.png";
 import Footer from '../components/common/layout/Footer';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchProductsbyCat } from '../api/product';
 import Loader from '../components/common/Loader/Loader';
 import ProductCard from '../components/product/ProductCard';
-
+import { fetchCategories } from '../api/category';
+import { ProductFilter } from '../components/product/ProductFilter';
 
 const ProductList = () => {
-    const [dropDownOpen, setDropDownOpen] = useState(false);
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState(null);
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
+    const pcat = searchParams.get('pcat');
     const scat = searchParams.get('scat');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProducts = async () => {
+            setIsLoading(true);
             try {
                 const response = await fetchProductsbyCat(1, scat);
                 setProducts(response);
@@ -32,100 +35,46 @@ const ProductList = () => {
         fetchProducts();
     }, [scat]);
 
+    useEffect(() => {
+        const fetchNestedCategories = async () => {
+            try {
+                const response = await fetchCategories();
+                setCategories(response);
+                const selectedCategory = response.find(category => Number(category.id) === Number(pcat))
+                setSelectedCategory(selectedCategory);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
-    const setDropDownOpenFn = () => {
-        setDropDownOpen(!dropDownOpen);
+        fetchNestedCategories();
+    }, [pcat]);
+
+    const handleCategorySelect = (category) => {
+        const url = category.childCategories.length > 0 ? `/products/?pcat=${category.id}&scat=${category.childCategories[0].id}` : `/products/?pcat=${category.id}`;
+        navigate(url);
+        setSelectedCategory(category);
     };
 
     return (
         <div className="dashboardPageMaimWraper">
             <Header />
             <div className='productPageWraper'>
-                <div className='productFilterWraper'>
-                    <div className='customizeFilter'>
-                        <div className='customizeFilterDisplay' onClick={setDropDownOpenFn}>
-                            <span className="selectIcons">
-                                <img src={iconSelect} alt='' />
-                            </span>
-                            <span className='selectText'>
-                                Gourmet
-                            </span>
-                            <span className='dropImages'>
-                                <img src={dropimg} alt='' />
-                            </span>
-                        </div>
-                        {dropDownOpen && (
-                            <ul className='customDropdown'>
-                                <li>
-                                    <span className="selectIcons">
-                                        <img src={iconSelect} alt='' />
-                                    </span>
-                                    <span className='selectText'>
-                                        Gourmet One
-                                    </span>
-                                </li>
-                                <li>
-                                    <span className="selectIcons">
-                                        <img src={iconSelect} alt='' />
-                                    </span>
-                                    <span className='selectText'>
-                                        Gourmet Two
-                                    </span>
-                                </li>
-                                <li>
-                                    <span className="selectIcons">
-                                        <img src={iconSelect} alt='' />
-                                    </span>
-                                    <span className='selectText'>
-                                        Gourmet Three
-                                    </span>
-                                </li>
-                                <li>
-                                    <span className="selectIcons">
-                                        <img src={iconSelect} alt='' />
-                                    </span>
-                                    <span className='selectText'>
-                                        Gourmet Four
-                                    </span>
-                                </li>
-                            </ul>
-                        )}
-                    </div>
-                    <div className='productOptions'>
-                        <ul className='productSubLists'>
-                            <li className='active'>Milk</li>
-                            <li>Cream</li>
-                            <li>Cheese</li>
-                            <li>Yogurt</li>
-                            <li>Butter</li>
-                            <li>Sour Cream</li>
-                        </ul>
-                    </div>
-                    <div className='filterSections'>
-                        <span className='filterDrop first'>
-                            <select>
-                                <option>Filter</option>
-                            </select>
-                            <span className='dropArrows'>
-                                <img src={dropimg} alt='' />
-                            </span>
-                        </span>
-                        <span className='filterDrop laste'>
-                            <select>
-                                <option>Sort</option>
-                            </select>
-                            <span className='dropArrows'>
-                                <img src={dropimg} alt='' />
-                            </span>
-                        </span>
-                    </div>
-                </div>
+                <ProductFilter
+                    categories={categories}
+                    selectedCategory={selectedCategory}
+                    scat={scat}
+                    handleCategorySelect={handleCategorySelect}
+                    setSelectedCategory={setSelectedCategory}
+                />
                 <div className='productsRow'>
                     {isLoading ? (
                         <Loader showOverlay={false} />
                     ) : (
                         (products.length === 0 ? (
-                            <p>No products found.</p>
+                            <p style={{ 'textAlign': 'center' }}>No products found.</p>
                         ) : (
                             <div className="product-container">
                                 {products.map((product) => (
@@ -142,4 +91,3 @@ const ProductList = () => {
 };
 
 export default ProductList;
-
