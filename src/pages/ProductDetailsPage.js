@@ -11,6 +11,8 @@ import r2 from "../assets/images/r2.png";
 import r3 from "../assets/images/r3.png";
 import rewards from "../assets/images/reward.png";
 import info from "../assets/images/info.png";
+import plus from "../assets/images/addDetail.png";
+import minus from "../assets/images/delDetail.png";
 import dropimg from "../assets/images/drop.png";
 
 const Product = () => {
@@ -194,6 +196,22 @@ const Product = () => {
                                         </span>
                                         <span className="rewardPointsInfo">
                                         +30 Points
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="productOtherInfo rewardQntyWraper">
+                                    <div className="qntyWrapers">
+                                        <span className="mainQtyWraper">
+                                            <input type="number" value={1} className="productPieceQty" />
+                                        </span>
+                                        <span className="qtyText">Qnt.</span>
+                                    </div>
+                                    <div className="addDelBtn">
+                                        <span className="delBtnWraper">
+                                            <img src={minus} alt="" />
+                                        </span>
+                                        <span className="addBtnWraper">
+                                            <img src={plus} alt="" />
                                         </span>
                                     </div>
                                 </div>

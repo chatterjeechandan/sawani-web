@@ -1105,6 +1105,11 @@ span.infoName {
     position: relative;
     margin-top: 25px;
     margin-bottom: 45px;
+    width: 140px;
+    float: left;
+}
+.productOtherInfo.rewardQntyWraper:last-child {
+    margin-bottom: 0;
 }
 span.infoIconWraper {
     position: absolute;
@@ -1136,4 +1141,79 @@ span.rewardPointsInfo {
     font-size: 13px;
     color: #1A1818;
     font-weight: 700;
+}
+
+.qntyWrapers {
+    width: 100%;
+    float: left;
+    background: #E0DBD0;
+    border-radius: 10px;
+    height: 48px;
+    padding: 10px 10px 10px 20px;
+    display: flex;
+    align-items: center;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.mainQtyWraper {
+    width: 70px;
+    height: 100%;
+    margin-right: 10px;
+}
+.mainQtyWraper input {
+    border: none;
+    height: 100%;
+    color: #1A1818;
+    font-size: 18px;
+    width: 100%;
+    font-weight: 700;
+}
+
+span.qtyText {
+    color: #0D1D29;
+    font-size: 12px;
+    font-weight: 500;
+    padding-top: 5px;
+    margin-left: auto;
+}
+.addDelBtn {
+    width: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+}
+span.delBtnWraper {
+    width: 47px;
+    margin-right: auto;
+   cursor: pointer;
+   height: 43px;
+}
+span.delBtnWraper img {
+   width: 100%;
+   height: 100%;
+}
+span.addBtnWraper {
+    width: 89px;
+    margin-left: auto;
+    cursor: pointer;
+}
+span.addBtnWraper {
+    width: 88px;
+    margin-left: auto;
+    cursor: pointer;
+    height: 43px
+}
+span.addBtnWraper img {
+    width: 100%;
+    height: 100%;
 }
