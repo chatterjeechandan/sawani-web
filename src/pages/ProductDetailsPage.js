@@ -40,7 +40,7 @@ const Product = () => {
                 console.log(response);
                 setProduct(response);
                 setIsLoading(false);
-                fetchNestedCategories();
+                fetchNestedCategories(response);
             } catch (error) {
                 console.error('Error fetching product:', error);
                 setIsLoading(false);
@@ -56,12 +56,17 @@ const Product = () => {
         setSelectedCategory(category);
     };
 
-    const fetchNestedCategories = async () => {
+    const fetchNestedCategories = async (productRes) => {
         try {
             const response = await fetchCategories();
             setCategories(response);
-            //const selectedCategory = response.find(category => Number(category.id) === Number(pcat))
-            //setSelectedCategory(selectedCategory);
+            response.find(category => {
+                category.childCategories.find(subCategory => {
+                    if (Number(subCategory.id) === Number(productRes.categoryId)) {
+                        setSelectedCategory(category);
+                    }
+                })
+            })
         } catch (error) {
             console.error('Error fetching categories:', error);
         } finally {
@@ -79,6 +84,7 @@ const Product = () => {
                     <ProductFilter
                         categories={categories}
                         selectedCategory={selectedCategory}
+                        scat={product?.categoryId}
                         handleCategorySelect={handleCategorySelect}
                         setSelectedCategory={setSelectedCategory}
                     />
