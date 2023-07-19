@@ -89,231 +89,229 @@ const Product = () => {
                 {isLoading ? (
                     <Loader showOverlay={false} />
                 ) : (
-                    <>
-                        <div className="detailsWraper">
-                            <div className="productimg">
-                                <img src={`${productImage}`} alt={product.name} />
+                    <div className="detailsWraper">
+                        <div className="productimg">
+                            <img src={`${productImage}`} alt={product.name} />
+                        </div>
+                        <div className="productDetailsInfo">
+                            <div className="bookMark">
+                                <img src={love} alt="" />
                             </div>
-                            <div className="productDetailsInfo">
-                                <div className="bookMark">
-                                    <img src={love} alt="" />
-                                </div>
-                                <h2 className="productName">{product.name}</h2>
-                                <p className="productPrice">SAR {product.price}</p>
-                                <p className="productDescription">{product.description}</p>
-                                <div className="productOtherInfo">
-                                    <p className="infoHeading">Size</p>
-                                    <div className="infodetails">
-                                        <span className="infoName">Content</span>
-                                        <span className="dottedLines"></span>
-                                        <span className="infoValues">1L</span>
-                                    </div>
-                                </div>
-                                <div className="productOtherInfo">
-                                    <p className="infoHeading">Ingredients</p>
-                                    <div className="infodetails">
-                                        <span className="infoName">Sugar</span>
-                                        <span className="dottedLines"></span>
-                                        <span className="infoValues">6g</span>
-                                    </div>
-                                    <div className="infodetails">
-                                        <span className="infoName">Salt</span>
-                                        <span className="dottedLines"></span>
-                                        <span className="infoValues">3g</span>
-                                    </div>
-                                    <div className="infodetails">
-                                        <span className="infoName">Minerals</span>
-                                        <span className="dottedLines"></span>
-                                        <span className="infoValues">0.3g</span>
-                                    </div>
+                            <h2 className="productName">{product.name}</h2>
+                            <p className="productPrice">SAR {product.price}</p>
+                            <p className="productDescription">{product.description}</p>
+                            <div className="productOtherInfo">
+                                <p className="infoHeading">Size</p>
+                                <div className="infodetails">
+                                    <span className="infoName">Content</span>
+                                    <span className="dottedLines"></span>
+                                    <span className="infoValues">1L</span>
                                 </div>
                             </div>
-                            <div className="productOperationWrapers">
-                                <div className="productOtherInfo">
-                                    <p className="infoHeading">Available via</p>
-                                    <div className="infodetails">
-                                        <span className="availableinfo">
-                                            <img src={r1} alt="" />
-                                        </span>
-                                        <span className="availableinfo">
-                                            <img src={r2} alt="" />
-                                        </span>
-                                        <span className="availableinfo">
-                                            <img src={r3} alt="" />
-                                        </span>
-                                    </div>
+                            <div className="productOtherInfo">
+                                <p className="infoHeading">Ingredients</p>
+                                <div className="infodetails">
+                                    <span className="infoName">Sugar</span>
+                                    <span className="dottedLines"></span>
+                                    <span className="infoValues">6g</span>
                                 </div>
-                                <div className="productOtherInfo rewardQntyWraper">
-                                    <p className="infoHeading">Rewards</p>
-                                    <span className="infoIconWraper">
-                                        <img src={info} alt="" />
+                                <div className="infodetails">
+                                    <span className="infoName">Salt</span>
+                                    <span className="dottedLines"></span>
+                                    <span className="infoValues">3g</span>
+                                </div>
+                                <div className="infodetails">
+                                    <span className="infoName">Minerals</span>
+                                    <span className="dottedLines"></span>
+                                    <span className="infoValues">0.3g</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="productOperationWrapers">
+                            <div className="productOtherInfo">
+                                <p className="infoHeading">Available via</p>
+                                <div className="infodetails">
+                                    <span className="availableinfo">
+                                        <img src={r1} alt="" />
                                     </span>
-                                    <div className="rewardSec">
-                                        <span className="rewardIcon">
-                                            <img src={rewards} alt="" />
-                                        </span>
-                                        <span className="rewardPointsInfo">
-                                            +30 Points
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className="productOtherInfo rewardQntyWraper">
-                                    <div className="qntyWrapers">
-                                        <span className="mainQtyWraper">
-                                            <input type="number" value={1} className="productPieceQty" />
-                                        </span>
-                                        <span className="qtyText">Qnt.</span>
-                                    </div>
-                                    <div className="addDelBtn">
-                                        <span className="delBtnWraper">
-                                            <img src={minus} alt="" />
-                                        </span>
-                                        <span className="addBtnWraper">
-                                            <img src={plus} alt="" />
-                                        </span>
-                                    </div>
+                                    <span className="availableinfo">
+                                        <img src={r2} alt="" />
+                                    </span>
+                                    <span className="availableinfo">
+                                        <img src={r3} alt="" />
+                                    </span>
                                 </div>
                             </div>
-                        </div>
-                        <div className="relatedProductWraper">
-                            <div className="relativeProductHeading">
-                                <span className="headingIconImg">
-                                    <img src={camel} alt="" />
+                            <div className="productOtherInfo rewardQntyWraper">
+                                <p className="infoHeading">Rewards</p>
+                                <span className="infoIconWraper">
+                                    <img src={info} alt="" />
                                 </span>
-                                <h4>You might also like</h4>
+                                <div className="rewardSec">
+                                    <span className="rewardIcon">
+                                        <img src={rewards} alt="" />
+                                    </span>
+                                    <span className="rewardPointsInfo">
+                                        +30 Points
+                                    </span>
+                                </div>
                             </div>
-                            <div className="productsDisplayWraper">
-
-                                <div className="indrelatesProduct">
-                                    <div className="imageWraper">
-                                        <img src={productInd} alt="" />
-                                        <span className="counterWraper">
-                                            <span className="plusCounter" onClick={counteroptionFm}>
-                                                <img src={counterPlus} alt="" />
-                                            </span>
-                                            {isCounterOpen && (
-                                                <>
-                                                    <span className="counterInput">
-                                                        <input type="number" className="inputCounter" value={1} />
-                                                    </span>
-                                                    <span className="minusCounter">
-                                                        <img src={counterMinus} alt="" />
-                                                    </span>
-                                                </>
-                                            )}
-
-                                        </span>
-                                    </div>
-                                    <div className="productNamePrice">
-                                        <h5>Date Milk</h5>
-                                        <p>250.00 SAR</p>
-                                    </div>
+                            <div className="productOtherInfo rewardQntyWraper">
+                                <div className="qntyWrapers">
+                                    <span className="mainQtyWraper">
+                                        <input type="number" value={1} className="productPieceQty" />
+                                    </span>
+                                    <span className="qtyText">Qnt.</span>
                                 </div>
-                                <div className="indrelatesProduct">
-                                    <div className="imageWraper">
-                                        <img src={productInd} alt="" />
-                                        <span className="counterWraper">
-                                            <span className="plusCounter">
-                                                <img src={counterPlus} alt="" />
-                                            </span>
-                                            {/* <span className="counterInput">
-                                                <input type="number" className="inputCounter" value={1} />
-                                            </span>
-                                            <span className="minusCounter">
-                                                <img src={counterMinus} alt="" />
-                                            </span> */}
-                                        </span>
-                                    </div>
-                                    <div className="productNamePrice">
-                                        <h5>Date Milk</h5>
-                                        <p>250.00 SAR</p>
-                                    </div>
-                                </div>
-                                <div className="indrelatesProduct">
-                                    <div className="imageWraper">
-                                        <img src={productInd} alt="" />
-                                        <span className="counterWraper">
-                                            <span className="plusCounter">
-                                                <img src={counterPlus} alt="" />
-                                            </span>
-                                            {/* <span className="counterInput">
-                                                <input type="number" className="inputCounter" value={1} />
-                                            </span>
-                                            <span className="minusCounter">
-                                                <img src={counterMinus} alt="" />
-                                            </span> */}
-                                        </span>
-                                    </div>
-                                    <div className="productNamePrice">
-                                        <h5>Date Milk</h5>
-                                        <p>250.00 SAR</p>
-                                    </div>
-                                </div>
-                                <div className="indrelatesProduct">
-                                    <div className="imageWraper">
-                                        <img src={productInd} alt="" />
-                                        <span className="counterWraper">
-                                            <span className="plusCounter">
-                                                <img src={counterPlus} alt="" />
-                                            </span>
-                                            {/* <span className="counterInput">
-                                                <input type="number" className="inputCounter" value={1} />
-                                            </span>
-                                            <span className="minusCounter">
-                                                <img src={counterMinus} alt="" />
-                                            </span> */}
-                                        </span>
-                                    </div>
-                                    <div className="productNamePrice">
-                                        <h5>Date Milk</h5>
-                                        <p>250.00 SAR</p>
-                                    </div>
-                                </div>
-                                <div className="indrelatesProduct">
-                                    <div className="imageWraper">
-                                        <img src={productInd} alt="" />
-                                        <span className="counterWraper">
-                                            <span className="plusCounter">
-                                                <img src={counterPlus} alt="" />
-                                            </span>
-                                            {/* <span className="counterInput">
-                                                <input type="number" className="inputCounter" value={1} />
-                                            </span>
-                                            <span className="minusCounter">
-                                                <img src={counterMinus} alt="" />
-                                            </span> */}
-                                        </span>
-                                    </div>
-                                    <div className="productNamePrice">
-                                        <h5>Date Milk</h5>
-                                        <p>250.00 SAR</p>
-                                    </div>
-                                </div>
-
-                                <div className="indrelatesProduct">
-                                    <div className="imageWraper">
-                                        <img src={productInd} alt="" />
-                                        <span className="counterWraper">
-                                            <span className="plusCounter">
-                                                <img src={counterPlus} alt="" />
-                                            </span>
-                                            {/*<span className="counterInput">
-                                                <input type="number" className="inputCounter" value={1} />
-                                            </span>
-                                            <span className="minusCounter">
-                                                <img src={counterMinus} alt="" />
-                                            </span> */}
-                                        </span>
-                                    </div>
-                                    <div className="productNamePrice">
-                                        <h5>Date Milk</h5>
-                                        <p>250.00 SAR</p>
-                                    </div>
+                                <div className="addDelBtn">
+                                    <span className="delBtnWraper">
+                                        <img src={minus} alt="" />
+                                    </span>
+                                    <span className="addBtnWraper">
+                                        <img src={plus} alt="" />
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                    </>
+                    </div>
                 )}
+                <div className="relatedProductWraper">
+                    <div className="relativeProductHeading">
+                        <span className="headingIconImg">
+                            <img src={camel} alt="" />
+                        </span>
+                        <h4>You might also like</h4>
+                    </div>
+                    <div className="productsDisplayWraper">
+
+                        <div className="indrelatesProduct">
+                            <div className="imageWraper">
+                                <img src={productInd} alt="" />
+                                <span className="counterWraper">
+                                    <span className="plusCounter" onClick={counteroptionFm}>
+                                        <img src={counterPlus} alt="" />
+                                    </span>
+                                    {isCounterOpen && (
+                                        <>
+                                            <span className="counterInput">
+                                                <input type="number" className="inputCounter" value={1} />
+                                            </span>
+                                            <span className="minusCounter">
+                                                <img src={counterMinus} alt="" />
+                                            </span>
+                                        </>
+                                    )}
+
+                                </span>
+                            </div>
+                            <div className="productNamePrice">
+                                <h5>Date Milk</h5>
+                                <p>250.00 SAR</p>
+                            </div>
+                        </div>
+                        <div className="indrelatesProduct">
+                            <div className="imageWraper">
+                                <img src={productInd} alt="" />
+                                <span className="counterWraper">
+                                    <span className="plusCounter">
+                                        <img src={counterPlus} alt="" />
+                                    </span>
+                                    {/* <span className="counterInput">
+                                                <input type="number" className="inputCounter" value={1} />
+                                            </span>
+                                            <span className="minusCounter">
+                                                <img src={counterMinus} alt="" />
+                                            </span> */}
+                                </span>
+                            </div>
+                            <div className="productNamePrice">
+                                <h5>Date Milk</h5>
+                                <p>250.00 SAR</p>
+                            </div>
+                        </div>
+                        <div className="indrelatesProduct">
+                            <div className="imageWraper">
+                                <img src={productInd} alt="" />
+                                <span className="counterWraper">
+                                    <span className="plusCounter">
+                                        <img src={counterPlus} alt="" />
+                                    </span>
+                                    {/* <span className="counterInput">
+                                                <input type="number" className="inputCounter" value={1} />
+                                            </span>
+                                            <span className="minusCounter">
+                                                <img src={counterMinus} alt="" />
+                                            </span> */}
+                                </span>
+                            </div>
+                            <div className="productNamePrice">
+                                <h5>Date Milk</h5>
+                                <p>250.00 SAR</p>
+                            </div>
+                        </div>
+                        <div className="indrelatesProduct">
+                            <div className="imageWraper">
+                                <img src={productInd} alt="" />
+                                <span className="counterWraper">
+                                    <span className="plusCounter">
+                                        <img src={counterPlus} alt="" />
+                                    </span>
+                                    {/* <span className="counterInput">
+                                                <input type="number" className="inputCounter" value={1} />
+                                            </span>
+                                            <span className="minusCounter">
+                                                <img src={counterMinus} alt="" />
+                                            </span> */}
+                                </span>
+                            </div>
+                            <div className="productNamePrice">
+                                <h5>Date Milk</h5>
+                                <p>250.00 SAR</p>
+                            </div>
+                        </div>
+                        <div className="indrelatesProduct">
+                            <div className="imageWraper">
+                                <img src={productInd} alt="" />
+                                <span className="counterWraper">
+                                    <span className="plusCounter">
+                                        <img src={counterPlus} alt="" />
+                                    </span>
+                                    {/* <span className="counterInput">
+                                                <input type="number" className="inputCounter" value={1} />
+                                            </span>
+                                            <span className="minusCounter">
+                                                <img src={counterMinus} alt="" />
+                                            </span> */}
+                                </span>
+                            </div>
+                            <div className="productNamePrice">
+                                <h5>Date Milk</h5>
+                                <p>250.00 SAR</p>
+                            </div>
+                        </div>
+
+                        <div className="indrelatesProduct">
+                            <div className="imageWraper">
+                                <img src={productInd} alt="" />
+                                <span className="counterWraper">
+                                    <span className="plusCounter">
+                                        <img src={counterPlus} alt="" />
+                                    </span>
+                                    {/*<span className="counterInput">
+                                                <input type="number" className="inputCounter" value={1} />
+                                            </span>
+                                            <span className="minusCounter">
+                                                <img src={counterMinus} alt="" />
+                                            </span> */}
+                                </span>
+                            </div>
+                            <div className="productNamePrice">
+                                <h5>Date Milk</h5>
+                                <p>250.00 SAR</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <Footer />
         </div>
