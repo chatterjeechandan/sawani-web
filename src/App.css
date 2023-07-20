@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.productPageWraper.detailsPages {
+  padding-top: 0;
+}
+
+.prdtImgs {
+  height: 180px;
+}
+
+
+
+

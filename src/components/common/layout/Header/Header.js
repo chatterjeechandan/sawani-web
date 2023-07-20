@@ -12,7 +12,8 @@ import minus from "../../../../assets/images/minusWhite.png";
 import productInd from "../../../../assets/images/pr1.png";
 import counterPlus from "../../../../assets/images/smallPlus.png";
 import rewards from "../../../../assets/images/rewardPoint.png";
-import dropimg from "../../../../assets/images/drop.png";
+import cartIcon from "../../../../assets/images/cartIcon.png";
+import menuArrow from "../../../../assets/images/checkoutArrow.png";
 import deletes from "../../../../assets/images/delete.png";
 
 const Header = () => {
@@ -122,7 +123,8 @@ const Header = () => {
                         <span></span>
                         <span></span>
                     </label>
-                    <ul className="menu-items">
+                    <ul className="menu-items menuDrop">
+                        
                         <li>
                             <Link to="/category">Order Now</Link>
                         </li>
@@ -159,8 +161,9 @@ const Header = () => {
                 </div>
                 {/* Cart icon */}
                 <div onClick={setCheckoutOpenFn} className="cart-icon">
+                <img src={cartIcon} className='carticon' alt='' />
                     <span className="cart-count">0</span>
-                    <i className="fas fa-shopping-cart"></i>
+                    
                     {isCheckoutOpen && (
                         <div className='menu-items cartPopup'>
 <div className="rightCheckoutWraper">

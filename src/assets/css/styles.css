@@ -225,7 +225,7 @@ body {
     align-items: center;
     background: transparent linear-gradient(180deg, rgba(183, 134, 76, 1) 0%, rgba(222, 200, 174, 0.45) 71%, rgba(253, 253, 253, 0) 100%) 0% 0% no-repeat padding-box;
     opacity: 1;
-    padding: 55px;
+    padding: 35px 55px;
 }
 .translateWraper {
     width: 30%;
@@ -702,6 +702,8 @@ li.borderMenu {
 
   .product-container {
     padding: 50px 0 20px;
+    float: left;
+    width: 100%;
   }
   
 .dashboardMidContentDelhivery {
@@ -1248,7 +1250,6 @@ span.headingIconImg {
 
 .indrelatesProduct {
     flex: 1 1 16.6%;
-    height: 180px;
     position: relative;
     text-align: center;
 }
@@ -1637,4 +1638,61 @@ span.arrowRight {
     border-radius: 25px;
     border: none;
     height: 40px;
+}
+.productPageWraper.detailsPages {
+    padding-top: 0;
+}
+
+.camelWraper img {
+    height: 100%;
+  }
+
+  .paginationWrapers {
+    width: 100%;
+    float: left;
+    text-align: right;
+  }
+  
+  .paginationWrapers p {
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 11px;
+    padding-right: 5px;
+}
+.paginationUl li {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    cursor: pointer;
+    line-height: 33px;
+    text-align: center;
+}
+.paginationUl li.midPages {
+    border: none;
+    
+}
+.paginationUl li.current-page {
+    color: #B7864C;
+    font-weight: 600;
+    border: none;
+}
+.paginationUl li:hover {
+    border: none;
+    color: #B7864C;
+}
+.paginationUl li:last-child {
+    margin: 0;
+}
+
+.productsRow.listingPages .product-container .indProduct {
+    margin-bottom: 20px;
+}
+.productsRow.listingPages {
+    margin-bottom: 20px;
 }

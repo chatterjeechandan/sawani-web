@@ -74,7 +74,7 @@ const Product = () => {
     return (
         <div className="dashboardPageMaimWraper">
             <Header />
-            <div className='productPageWraper'>
+            <div className='productPageWraper detailsPages'>
                 <div className='productFilterWraper'>
                     <ProductFilter
                         categories={categories}
@@ -85,7 +85,7 @@ const Product = () => {
                 </div>
                 {/* Other sections */}
             </div>
-            <div className="productDetailsWraper">
+            <div className="productDetailsWraper extraProductsWraper">
                 {isLoading ? (
                     <Loader showOverlay={false} />
                 ) : (
@@ -182,11 +182,11 @@ const Product = () => {
                         </span>
                         <h4>You might also like</h4>
                     </div>
-                    <div className="productsDisplayWraper">
+                    <div className="productsDisplayWraper extraProducts">
 
                         <div className="indrelatesProduct">
                             <div className="imageWraper">
-                                <img src={productInd} alt="" />
+                                <img src={productInd} className="prdtImgs" alt="" />
                                 <span className="counterWraper">
                                     <span className="plusCounter" onClick={counteroptionFm}>
                                         <img src={counterPlus} alt="" />
@@ -211,7 +211,7 @@ const Product = () => {
                         </div>
                         <div className="indrelatesProduct">
                             <div className="imageWraper">
-                                <img src={productInd} alt="" />
+                                <img src={productInd} className="prdtImgs" alt="" />
                                 <span className="counterWraper">
                                     <span className="plusCounter">
                                         <img src={counterPlus} alt="" />
@@ -231,7 +231,7 @@ const Product = () => {
                         </div>
                         <div className="indrelatesProduct">
                             <div className="imageWraper">
-                                <img src={productInd} alt="" />
+                                <img src={productInd} className="prdtImgs" alt="" />
                                 <span className="counterWraper">
                                     <span className="plusCounter">
                                         <img src={counterPlus} alt="" />
@@ -251,7 +251,7 @@ const Product = () => {
                         </div>
                         <div className="indrelatesProduct">
                             <div className="imageWraper">
-                                <img src={productInd} alt="" />
+                                <img src={productInd} className="prdtImgs" alt="" />
                                 <span className="counterWraper">
                                     <span className="plusCounter">
                                         <img src={counterPlus} alt="" />
@@ -271,7 +271,7 @@ const Product = () => {
                         </div>
                         <div className="indrelatesProduct">
                             <div className="imageWraper">
-                                <img src={productInd} alt="" />
+                                <img src={productInd} className="prdtImgs" alt="" />
                                 <span className="counterWraper">
                                     <span className="plusCounter">
                                         <img src={counterPlus} alt="" />
@@ -292,7 +292,7 @@ const Product = () => {
 
                         <div className="indrelatesProduct">
                             <div className="imageWraper">
-                                <img src={productInd} alt="" />
+                                <img src={productInd} className="prdtImgs" alt="" />
                                 <span className="counterWraper">
                                     <span className="plusCounter">
                                         <img src={counterPlus} alt="" />

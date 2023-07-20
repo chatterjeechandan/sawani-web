@@ -69,7 +69,7 @@ const ProductList = () => {
                     handleCategorySelect={handleCategorySelect}
                     setSelectedCategory={setSelectedCategory}
                 />
-                <div className='productsRow'>
+                <div className='productsRow listingPages'>
                     {isLoading ? (
                         <Loader showOverlay={false} />
                     ) : (
@@ -83,6 +83,17 @@ const ProductList = () => {
                             </div>
                         ))
                     )}
+                </div>
+                <div className="paginationWrapers">
+                    <p>Total products  77</p>
+                    <div className="pagNumbers">
+                    <ul className="paginationUl">
+                        <li className="current-page">1</li>
+                        <li>2</li>
+                        <li className="midPages">------</li>
+                        <li>4</li>
+                    </ul>
+                    </div>
                 </div>
             </div>
             <Footer />
