@@ -237,3 +237,13 @@ span.cart-count {
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.menu-items.cartPopup .rightCheckoutWraper {
+  float: left;
+}
+
+.menu-items.cartPopup .rightCheckoutWraper .cartProductListings {
+  max-height: 180px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
