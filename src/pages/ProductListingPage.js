@@ -74,7 +74,7 @@ const ProductList = () => {
                         <Loader showOverlay={false} />
                     ) : (
                         (products.length === 0 ? (
-                            <p style={{ 'textAlign': 'center' }}>No products found.</p>
+                            <p className="noProduct" style={{ 'textAlign': 'center' }}>No products found.</p>
                         ) : (
                             <div className="product-container">
                                 {products.map((product) => (
@@ -84,6 +84,7 @@ const ProductList = () => {
                         ))
                     )}
                 </div>
+                {products.length > 0 && (
                 <div className="paginationWrapers">
                     <p>Total products  77</p>
                     <div className="pagNumbers">
@@ -95,6 +96,7 @@ const ProductList = () => {
                     </ul>
                     </div>
                 </div>
+                )}
             </div>
             <Footer />
         </div>

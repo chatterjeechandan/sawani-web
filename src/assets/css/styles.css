@@ -1696,3 +1696,22 @@ span.arrowRight {
 .productsRow.listingPages {
     margin-bottom: 20px;
 }
+.noProduct {
+    padding: 125px 0 0 0;
+    height: calc(100vh - 505px);
+    width: 100%;
+    float: left;
+}
+.loader {
+    width: 100%;
+    float: left;
+    text-align: center;
+    height: calc(100vh - 520px);
+    padding-top: 125px;
+}
+.loader-content {
+    position: relative;
+    transform: unset;
+    left: unset;
+    top: unset;
+}
