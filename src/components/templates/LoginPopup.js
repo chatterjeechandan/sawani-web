@@ -6,6 +6,9 @@ import Toaster from '../common/Toaster/Toaster';
 import l1 from "../../assets/images/l1.png";
 import l2 from "../../assets/images/l2.png";
 import l3 from "../../assets/images/l3.png";
+import login1 from "../../assets/images/loginG.png";
+import login2 from "../../assets/images/loginApple.png";
+import login3 from "../../assets/images/loginPhone.png";
 import { AuthContext } from '../../utils/AuthContext';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -147,23 +150,27 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
                 ) : (
                     <div className='loginFormWraper'>
                         <div className='individualLoginOptions'>
-                            <span className='iconsLogin'>
+                            {/* <span className='iconsLogin'>
                                 <img src={l1} alt='' />
                             </span>
-                            <span className='loginInfoDetails'>CONTINUE WITH GOOGLE</span>
+                            <span className='loginInfoDetails'>CONTINUE WITH GOOGLE</span> */}
+                            <img src={login1} className='loginImgs' alt='' />
                         </div>
                         <div className='individualLoginOptions'>
-                            <span className='iconsLogin'>
+                            {/* <span className='iconsLogin'>
                                 <img src={l2} alt='' />
                             </span>
-                            <span className='loginInfoDetails'>CONTINUE WITH APPLE</span>
+                            <span className='loginInfoDetails'>CONTINUE WITH APPLE</span> */}
+                            <img src={login2} className='loginImgs' alt='' />
                         </div>
                         <div className='individualLoginOptions' onClick={toggleLoginFormFn}>
-                            <span className='iconsLogin'>
+                            {/* <span className='iconsLogin'>
                                 <img src={l3} alt='' />
                             </span>
-                            <span className='loginInfoDetails'>CONTINUE WITH PHONE NUMBER</span>
+                            <span className='loginInfoDetails'>CONTINUE WITH PHONE NUMBER</span> */}
+                            <img src={login3} className='loginImgs' alt='' />
                         </div>
+                        <p style={{marginTop: "18px"}}className='joinNow'>You don’t have an account? <Link to="/signup" onClick={(e) => handleOpenSignup(e)}><b>Join now</b></Link></p>
                     </div>
                 )}
             </div>
