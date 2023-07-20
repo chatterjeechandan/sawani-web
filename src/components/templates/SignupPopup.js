@@ -130,7 +130,7 @@ const SignUpPopup = ({ onClose, onOpenLogin }) => {
                         </span>
                         {passwordError && <span className="errorText">{passwordError}</span>}
                         <button className='submitpopup' type="submit">
-                            {isLoading ? <Loader size={24} color="#ffffff" /> : 'Sign up'}
+                            {isLoading ? <Loader showOverlay={false} size={12} color="#ffffff" isLoading={true} /> : 'Sign up'}
                         </button>
                         <p className='joinNow'>You already have an account? <Link to="/login" onClick={(e) => handleOpenSignin(e)}><b>Login now</b></Link></p>
                     </form>

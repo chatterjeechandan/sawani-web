@@ -19,6 +19,11 @@ import counterMinus from "../assets/images/smallMinus.png";
 import camel from "../assets/images/camelWhite.png";
 import placeholderImage from "../assets/images/no-image.png";
 import { fetchCategories } from '../api/category';
+import Tooltip from '@mui/material/Tooltip';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const Product = () => {
     const { id } = useParams();
@@ -28,6 +33,8 @@ const Product = () => {
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const navigate = useNavigate();
+    const [attributes, setAttributes] = useState([]);
+    const [provariant, setProvariant] = useState(null);
 
     const counteroptionFm = () => {
         setCounterOpen(!isCounterOpen);
@@ -37,10 +44,9 @@ const Product = () => {
         const fetchProduct = async () => {
             try {
                 const response = await getProductById(id);
-                console.log(response);
                 setProduct(response);
                 setIsLoading(false);
-                fetchNestedCategories();
+                fetchNestedCategories(response);
             } catch (error) {
                 console.error('Error fetching product:', error);
                 setIsLoading(false);
@@ -56,12 +62,17 @@ const Product = () => {
         setSelectedCategory(category);
     };
 
-    const fetchNestedCategories = async () => {
+    const fetchNestedCategories = async (productRes) => {
         try {
             const response = await fetchCategories();
             setCategories(response);
-            //const selectedCategory = response.find(category => Number(category.id) === Number(pcat))
-            //setSelectedCategory(selectedCategory);
+            response.find(category => {
+                category.childCategories.find(subcategory => {
+                    if (Number(subcategory.id) === Number(productRes.categoryId)) {
+                        setSelectedCategory(category);
+                    }
+                })
+            })
         } catch (error) {
             console.error('Error fetching categories:', error);
         } finally {
@@ -69,7 +80,37 @@ const Product = () => {
         }
     };
 
+    useEffect(() => {
+        if (attributes.length > 0 && attributes.every((attr) => attr !== null && attr !== "")) {
+            const variantRes = product.variants.find((variant) => {
+                return variant.selectedValueIds.every((attrValue) => attributes.includes(Number(attrValue)));
+            });
+            setProvariant(variantRes);
+        }
+    }, [attributes, product?.variants]);
+
+    const handleAttributeChange = (event, attributeId) => {
+        const { value } = event.target;
+        setAttributes((prevAttributes) => {
+            const attributeIndexMap = product.attributes.reduce(
+                (map, attribute, index) => {
+                    map[attribute.id] = index;
+                    return map;
+                },
+                {}
+            );
+            const updatedAttributes = [...prevAttributes];
+            updatedAttributes[attributeIndexMap[attributeId]] = Number(value);
+            return updatedAttributes.filter((item) => item !== "");
+        });
+    };
+
     const productImage = product?.image ? `data:image/png;base64,${product.image}` : placeholderImage;
+
+    const handleShortSelectChange = (selectedValue) => {
+        const url = selectedCategory.childCategories.length > 0 ? `/products/?pcat=${selectedCategory.id}&scat=${selectedCategory.childCategories[0].id}&sort=${selectedValue}` : `/products/?pcat=${selectedCategory.id}&sort=${selectedValue}`;
+        navigate(url);
+    };
 
     return (
         <div className="dashboardPageMaimWraper">
@@ -78,16 +119,18 @@ const Product = () => {
                 <div className='productFilterWraper'>
                     <ProductFilter
                         categories={categories}
+                        scat={product?.categoryId}
                         selectedCategory={selectedCategory}
                         handleCategorySelect={handleCategorySelect}
                         setSelectedCategory={setSelectedCategory}
+                        onShortSelectChange={handleShortSelectChange}
                     />
                 </div>
                 {/* Other sections */}
             </div>
             <div className="productDetailsWraper extraProductsWraper">
                 {isLoading ? (
-                    <Loader showOverlay={false} />
+                    <Loader showOverlay={false} size={30} color="#B7854C" isLoading={false} />
                 ) : (
                     <div className="detailsWraper">
                         <div className="productimg">
@@ -97,15 +140,40 @@ const Product = () => {
                             <div className="bookMark">
                                 <img src={love} alt="" />
                             </div>
-                            <h2 className="productName">{product.name}</h2>
-                            <p className="productPrice">SAR {product.price}</p>
+                            <h2 className="productName">{!provariant?.displayName ? product.name : provariant?.displayName}</h2>
+                            <p className="productPrice">SAR {!provariant?.price ? product.price : provariant?.price}</p>
                             <p className="productDescription">{product.description}</p>
                             <div className="productOtherInfo">
-                                <p className="infoHeading">Size</p>
-                                <div className="infodetails">
-                                    <span className="infoName">Content</span>
-                                    <span className="dottedLines"></span>
-                                    <span className="infoValues">1L</span>
+                                {product.attributes.length > 0 && (
+                                    <p className="infoHeading">Product Option</p>
+                                )}
+                                <div className="config-option">
+                                    {product.attributes.map((attribute) => (
+                                        <div className="productOtherInfo" key={attribute.id}>
+                                            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                                                <InputLabel id={`attribute-select-label-${attribute.id}`}>
+                                                    {attribute.name}
+                                                </InputLabel>
+                                                <Select
+                                                    labelId={`attribute-select-label-${attribute.id}`}
+                                                    id={`attribute-select-${attribute.id}`}
+                                                    value={attribute.isSelected}
+                                                    label={attribute.name}
+                                                    onChange={(event) => handleAttributeChange(event, attribute.id)}
+                                                >
+                                                    <MenuItem value="">
+                                                        <em>None</em>
+                                                    </MenuItem>
+                                                    {attribute.values.map((value) => (
+                                                        <MenuItem key={value.id} value={value.id}>
+                                                            {value.name}
+                                                        </MenuItem>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                            {/* ... */}
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                             <div className="productOtherInfo">
@@ -131,35 +199,43 @@ const Product = () => {
                             <div className="productOtherInfo">
                                 <p className="infoHeading">Available via</p>
                                 <div className="infodetails">
-                                    <span className="availableinfo">
-                                        <img src={r1} alt="" />
-                                    </span>
-                                    <span className="availableinfo">
-                                        <img src={r2} alt="" />
-                                    </span>
-                                    <span className="availableinfo">
-                                        <img src={r3} alt="" />
-                                    </span>
+                                    {product.availableVia.includes("In-store") && (
+                                        <span className="availableinfo">
+                                            <img src={r1} alt="" />
+                                        </span>
+                                    )}
+                                    {product.availableVia.includes("Pick-up") && (
+                                        <span className="availableinfo">
+                                            <img src={r2} alt="" />
+                                        </span>
+                                    )}
+                                    {product.availableVia.includes("Delivery") && (
+                                        <span className="availableinfo">
+                                            <img src={r3} alt="" />
+                                        </span>
+                                    )}
                                 </div>
                             </div>
                             <div className="productOtherInfo rewardQntyWraper">
                                 <p className="infoHeading">Rewards</p>
                                 <span className="infoIconWraper">
-                                    <img src={info} alt="" />
+                                    <Tooltip title="This is the rewards point" arrow>
+                                        <img src={info} alt="" />
+                                    </Tooltip>
                                 </span>
                                 <div className="rewardSec">
                                     <span className="rewardIcon">
                                         <img src={rewards} alt="" />
                                     </span>
                                     <span className="rewardPointsInfo">
-                                        +30 Points
+                                        +{product.rewards} Points
                                     </span>
                                 </div>
                             </div>
                             <div className="productOtherInfo rewardQntyWraper">
                                 <div className="qntyWrapers">
                                     <span className="mainQtyWraper">
-                                        <input type="number" value={1} className="productPieceQty" />
+                                        <input type="number" value={0} className="productPieceQty" />
                                     </span>
                                     <span className="qtyText">Qnt.</span>
                                 </div>

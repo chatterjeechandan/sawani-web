@@ -159,7 +159,7 @@
   }
   
   .submitpopup .loader {
-    padding: 8px;
+    height: auto;
   }
   
   .submitpopup .loader span {

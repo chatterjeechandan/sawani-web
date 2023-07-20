@@ -95,7 +95,7 @@ const CategoryListingPage = () => {
                     </div>
                     <div className='productlistingsStore'>
                         {isLoading ? (
-                            <Loader showOverlay={false} />
+                            <Loader showOverlay={false} size={30} color="#B7854C" isLoading={false} />
                         ) : (
                             categories.map((category) => (
                                 <CategoryCard key={category.id} category={category} />

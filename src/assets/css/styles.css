@@ -453,7 +453,7 @@ body {
 .rowWraper.firstRow {
     width: 100%;
     float: left;
-    padding: 10px 50px;
+    padding: 50px 50px 10px;
     margin-bottom: 25px;
     padding-bottom: 0;
 }
@@ -824,6 +824,7 @@ ul.customDropdown {
     left: 0;
     top: 108%;
     overflow: hidden;
+    z-index:999;
 }
 ul.customDropdown li {
     width: 100%;
@@ -893,22 +894,19 @@ ul.customDropdown li span.selectIcons {
     align-items: center;
 
 }
-.filterDrop {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
 
 .filterDrop {
     position: relative;
-    width: 70px;
-    display: block;
     margin-right: 15px;
     border: none;
+    display: flex;
+    align-items: center;
 }
 .filterDrop select {
     border: none;
     font-size: 16px;
+    font-size: 14px;
+    padding: 10px;
 }
 span.filterDrop.first {
     width: 70px;
@@ -916,8 +914,8 @@ span.filterDrop.first {
 }
 span.dropArrows {
     position: absolute;
-    right: 0px;
-    top: 3px;
+    right: -5px;
+    top: 8px;
 }
 
 
@@ -1118,6 +1116,7 @@ span.infoIconWraper {
     left: 120px;
     top: 2px;
     width: 20px;
+    cursor:pointer;
 }
 span.infoIconWraper img {
     width: 100%;
@@ -1707,7 +1706,6 @@ span.arrowRight {
     float: left;
     text-align: center;
     height: calc(100vh - 520px);
-    padding-top: 125px;
 }
 .loader-content {
     position: relative;
@@ -1715,3 +1713,25 @@ span.arrowRight {
     left: unset;
     top: unset;
 }
+
+/* tooltipStyles.css */
+.custom-tooltip {
+    background: #f0f0f0;
+    color: #333;
+    font-size: 14px;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .config-option {
+    display: flex;
+  }
+
+  .config-option .productOtherInfo{
+    width:auto !important;
+  }
+
+  .config-option .MuiFormControl-root {
+    margin-left:0px;
+  }

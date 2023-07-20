@@ -8,6 +8,11 @@ import placeholderImage from "../../assets/images/no-image.png";
 const ProductCard = ({ product }) => {
     const { id, name, image, price } = product;
 
+    const handleAddClick = (event, product) => {
+        event.preventDefault();
+        console.log(product);
+    };
+
     const productImage = image ? `data:image/png;base64,${image}` : placeholderImage;
 
     return (
@@ -16,7 +21,7 @@ const ProductCard = ({ product }) => {
                 <span className='produtImage'>
                     <img src={productImage} alt={name} className="product-image" />
                     <span className='addDelWraper'>
-                        <span className='addSec'>
+                        <span className='addSec' onClick={(e) => handleAddClick(e, product)}>
                             <img src={add} alt='' />
                         </span>
                     </span>

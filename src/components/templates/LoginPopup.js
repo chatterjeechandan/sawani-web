@@ -142,7 +142,7 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
                             {passwordError && <span className="errorText">{passwordError}</span>}
                             <p className='forgotPassword'><Link to="/forgot-password" onClick={(e) => handleOpenForgotPassword(e)}>Forgot your password?</Link></p>
                             <button className='submitpopup' type="submit">
-                                {isLoading ? <Loader size={24} color="#ffffff" /> : 'Log in'}
+                                {isLoading ? <Loader showOverlay={false} size={12} color="#ffffff" isLoading={true} /> : 'Log in'}
                             </button>
                             <p className='joinNow'>You don’t have an account? <Link to="/signup" onClick={(e) => handleOpenSignup(e)}><b>Join now</b></Link></p>
                         </form>
@@ -170,7 +170,7 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
                             <span className='loginInfoDetails'>CONTINUE WITH PHONE NUMBER</span> */}
                             <img src={login3} className='loginImgs' alt='' />
                         </div>
-                        <p style={{marginTop: "18px"}}className='joinNow'>You don’t have an account? <Link to="/signup" onClick={(e) => handleOpenSignup(e)}><b>Join now</b></Link></p>
+                        <p style={{ marginTop: "18px" }} className='joinNow'>You don’t have an account? <Link to="/signup" onClick={(e) => handleOpenSignup(e)}><b>Join now</b></Link></p>
                     </div>
                 )}
             </div>

@@ -3,7 +3,7 @@ import iconSelect from "../../assets/images/iconSelect.png";
 import dropimg from "../../assets/images/drop.png";
 import { Link } from 'react-router-dom';
 
-const ProductFilter = ({ categories, selectedCategory, scat, handleCategorySelect }) => {
+const ProductFilter = ({ categories, selectedCategory, scat, handleCategorySelect, onShortSelectChange }) => {
     const dropdownRef = useRef();
     const [dropDownOpen, setDropDownOpen] = useState(false);
 
@@ -29,6 +29,11 @@ const ProductFilter = ({ categories, selectedCategory, scat, handleCategorySelec
         setDropDownOpen(false);
     };
 
+    const handleShortSelectChange = (event) => {
+        const selectedValue = event.target?.value;
+        onShortSelectChange(selectedValue);
+    };
+
     return (
         <div className='productFilterWraper'>
             <div className='customizeFilter'>
@@ -47,7 +52,7 @@ const ProductFilter = ({ categories, selectedCategory, scat, handleCategorySelec
                     {dropDownOpen && (
                         <ul className='customDropdown'>
                             {categories.map((category) => {
-                                if (category.id === scat) {
+                                if (Number(category.id) === Number(selectedCategory.id)) {
                                     return null;
                                 }
                                 return (
@@ -79,17 +84,20 @@ const ProductFilter = ({ categories, selectedCategory, scat, handleCategorySelec
                 </ul>
             </div>
             <div className='filterSections'>
-                <span className='filterDrop first'>
+                {/* <span className='filterDrop first'>
                     <select>
                         <option>Filter</option>
                     </select>
                     <span className='dropArrows'>
                         <img src={dropimg} alt='' />
                     </span>
-                </span>
+                </span> */}
                 <span className='filterDrop laste'>
-                    <select>
-                        <option>Sort</option>
+                    <p>Sort By:</p>
+                    <select onChange={(e) => handleShortSelectChange(e)}>
+                        <option value="new">New Arrival</option>
+                        <option value="price_high">Price High to Low</option>
+                        <option value="price_low">Price Low to High</option>
                     </select>
                     <span className='dropArrows'>
                         <img src={dropimg} alt='' />

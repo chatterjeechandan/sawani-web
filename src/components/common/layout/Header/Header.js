@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css'; // Import CSS file for header styles
 import LoginPopup from '../../../templates/LoginPopup';
@@ -24,7 +24,8 @@ const Header = () => {
     const [isForgotPasswordPopupOpen, setForgotPasswordPopupOpen] = useState(false);
     const [toaster, setToaster] = useState(null);
     const { loginResponse, logout } = useContext(AuthContext);
-
+    const menuRef = useRef(null);
+    const cartRef = useRef(null);
 
     const toggleMenu = () => {
         setMenuOpen(!isMenuOpen);
@@ -82,6 +83,22 @@ const Header = () => {
         setForgotPasswordPopupOpen(false);
     };
 
+    const handleOutsideClick = (event) => {
+        if (menuRef.current && !menuRef.current.contains(event.target)) {
+            setMenuOpen(false);
+        }
+        if (cartRef.current && !cartRef.current.contains(event.target)) {
+            setCheckoutOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', handleOutsideClick);
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    }, []);
+
 
     return (
         <header className="header headerWrapers">
@@ -110,13 +127,14 @@ const Header = () => {
             </div>
             <div className="header-right menuWraper">
                 {/* Hamburger menu */}
-                <div className={`menu ${isMenuOpen ? 'open' : ''}`}>
+                <div className={`menu ${isMenuOpen ? 'open' : ''}`} ref={menuRef}>
                     <input
                         type="checkbox"
                         id="menu-toggle"
                         className="menu-toggle"
                         checked={isMenuOpen}
                         onChange={toggleMenu}
+
                     />
                     <label htmlFor="menu-toggle" className="menu-icon">
                         <span></span>
@@ -124,7 +142,6 @@ const Header = () => {
                         <span></span>
                     </label>
                     <ul className="menu-items menuDrop">
-                        
                         <li>
                             <Link to="/category">Order Now</Link>
                         </li>
@@ -160,67 +177,66 @@ const Header = () => {
                     </ul>
                 </div>
                 {/* Cart icon */}
-                <div onClick={setCheckoutOpenFn} className="cart-icon">
-                <img src={cartIcon} className='carticon' alt='' />
+                <div onClick={setCheckoutOpenFn} className="cart-icon" ref={cartRef}>
+                    <img src={cartIcon} className='carticon' alt='' />
                     <span className="cart-count">0</span>
-                    
                     {isCheckoutOpen && (
                         <div className='menu-items cartPopup'>
-<div className="rightCheckoutWraper">
-                   <h2 className="checkoutProductHeading">Shopping Cart</h2>
-                   <div className="cartProductListings">
-                        <div className="individualCartProducts">
-                            <span className="productCartImage">
-                                <img src={productInd} alt="" />
-                            </span>
-                            <span className="midCartDetailsEdit">
-                                <h5 className="indCartProductName">Vanila Milk</h5>
-                                <p className="productPriceInd"><span>250</span> SAR</p>
-                                <span className="counterWraper checkoutcounters">
-                                    <span className="plusCounter">
-                                        <img src={counterPlus} alt="" />
+                            <div className="rightCheckoutWraper">
+                                <h2 className="checkoutProductHeading">Shopping Cart</h2>
+                                <div className="cartProductListings">
+                                    <div className="individualCartProducts">
+                                        <span className="productCartImage">
+                                            <img src={productInd} alt="" />
+                                        </span>
+                                        <span className="midCartDetailsEdit">
+                                            <h5 className="indCartProductName">Vanila Milk</h5>
+                                            <p className="productPriceInd"><span>250</span> SAR</p>
+                                            <span className="counterWraper checkoutcounters">
+                                                <span className="plusCounter">
+                                                    <img src={counterPlus} alt="" />
+                                                </span>
+                                                <span className="counterInput">
+                                                    <input type="number" className="inputCounter" value={1} />
+                                                </span>
+                                                <span className="minusCounter">
+                                                    <img src={minus} alt="" />
+                                                </span>
+                                            </span>
+                                        </span>
+                                        <span className="deleteSpan">
+                                            <img src={deletes} alt="" />
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="finalCartBills">
+                                    <div className="subTotal">
+                                        <span className="totalHeading">Subtotal</span>
+                                        <span className="totalPrice">250.00 SAR</span>
+                                    </div>
+                                    <div className="rewardSectionsWrapers">
+                                        <span className="totalHeading points">POINTS  <span className="subPoints">Sign in to earn</span></span>
+                                        <span className="totalPrice points">
+                                            <span className="rewardsIconImg">
+                                                <img src={rewards} alt="" />
+                                            </span>
+                                            +50 points</span>
+                                    </div>
+                                </div>
+                                <div className="grandTotalWraper rewardSectionsWrapers">
+                                    <span className="grandHeading">
+                                        TOTAL
                                     </span>
-                                    <span className="counterInput">
-                                        <input type="number" className="inputCounter" value={1} />
+                                    <span className="grandHeading grandPrice">
+                                        250.00 SAR
                                     </span>
-                                    <span className="minusCounter">
-                                        <img src={minus} alt="" />
-                                    </span>
-                                </span>
-                            </span>
-                            <span className="deleteSpan">
-                                <img src={deletes} alt="" />
-                            </span>
-                        </div>
-                   </div>
-                   
-                    <div className="finalCartBills">
-                        <div className="subTotal">
-                            <span className="totalHeading">Subtotal</span>
-                            <span className="totalPrice">250.00 SAR</span>
-                        </div>
-                        <div className="rewardSectionsWrapers">
-                            <span className="totalHeading points">POINTS  <span className="subPoints">Sign in to earn</span></span>
-                            <span className="totalPrice points">
-                                <span className="rewardsIconImg">
-                                    <img src={rewards} alt="" />
-                                </span>
-                                +50 points</span>
-                        </div>
-                    </div>
-                    <div className="grandTotalWraper rewardSectionsWrapers">
-                        <span className="grandHeading">
-                            TOTAL
-                        </span>
-                        <span className="grandHeading grandPrice">
-                            250.00 SAR
-                        </span>
-                    </div>
-                    <div className="cartBtnWraper">
-                        <button className='pinkBtn'>CONTINUE SHOPPING</button>
-                        <button className='checkBtn'><Link to="/checkout">CHECKOUT</Link></button>
-                    </div>
-                </div>
+                                </div>
+                                <div className="cartBtnWraper">
+                                    <button className='pinkBtn'>CONTINUE SHOPPING</button>
+                                    <button className='checkBtn'><Link to="/checkout">CHECKOUT</Link></button>
+                                </div>
+                            </div>
                         </div>
                     )}
                 </div>

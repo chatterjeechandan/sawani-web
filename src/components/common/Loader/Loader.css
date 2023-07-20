@@ -1,5 +1,8 @@
 .loader {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .loader.overlay {

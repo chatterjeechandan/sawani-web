@@ -17,13 +17,16 @@ const ProductList = () => {
     const searchParams = new URLSearchParams(location.search);
     const pcat = searchParams.get('pcat');
     const scat = searchParams.get('scat');
+    const sort = searchParams.get('sort');
     const navigate = useNavigate();
+    const [currentPage, setCurrentPage] = useState(1);
+    const productsPerPage = 10; // Show 5 products per page
 
     useEffect(() => {
         const fetchProducts = async () => {
             setIsLoading(true);
             try {
-                const response = await fetchProductsbyCat(1, scat);
+                const response = await fetchProductsbyCat(1, scat, sort);
                 setProducts(response);
                 setIsLoading(false);
             } catch (error) {
@@ -33,7 +36,7 @@ const ProductList = () => {
         };
 
         fetchProducts();
-    }, [scat]);
+    }, [scat, sort]);
 
     useEffect(() => {
         const fetchNestedCategories = async () => {
@@ -58,6 +61,15 @@ const ProductList = () => {
         setSelectedCategory(category);
     };
 
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const handleShortSelectChange = (selectedValue) => {
+        const url = scat ? `/products/?pcat=${pcat}&scat=${scat}&sort=${selectedValue}` : `/products/?pcat=${pcat}&sort=${selectedValue}`;
+        navigate(url);
+    };
+
     return (
         <div className="dashboardPageMaimWraper">
             <Header />
@@ -68,10 +80,11 @@ const ProductList = () => {
                     scat={scat}
                     handleCategorySelect={handleCategorySelect}
                     setSelectedCategory={setSelectedCategory}
+                    onShortSelectChange={handleShortSelectChange}
                 />
                 <div className='productsRow listingPages'>
                     {isLoading ? (
-                        <Loader showOverlay={false} />
+                        <Loader showOverlay={false} size={30} color="#B7854C" isLoading={false} />
                     ) : (
                         (products.length === 0 ? (
                             <p className="noProduct" style={{ 'textAlign': 'center' }}>No products found.</p>
@@ -85,17 +98,22 @@ const ProductList = () => {
                     )}
                 </div>
                 {products.length > 0 && (
-                <div className="paginationWrapers">
-                    <p>Total products  77</p>
-                    <div className="pagNumbers">
-                    <ul className="paginationUl">
-                        <li className="current-page">1</li>
-                        <li>2</li>
-                        <li className="midPages">------</li>
-                        <li>4</li>
-                    </ul>
+                    <div className="paginationWrapers">
+                        <p>Total products: {products.length}</p>
+                        <div className="pagNumbers">
+                            <ul className="paginationUl">
+                                {Array.from({ length: Math.ceil(products.length / productsPerPage) }).map((_, index) => (
+                                    <li
+                                        key={index + 1}
+                                        className={currentPage === index + 1 ? "current-page" : ""}
+                                        onClick={() => handlePageChange(index + 1)}
+                                    >
+                                        {index + 1}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
-                </div>
                 )}
             </div>
             <Footer />

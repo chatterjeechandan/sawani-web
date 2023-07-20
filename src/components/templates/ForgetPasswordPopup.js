@@ -150,7 +150,7 @@ const ForgetPasswordPopup = ({ onClose, onOpenLogin }) => {
                             />
                             {mobileError && <span className="errorText">{mobileError}</span>}
                             <button className="submitpopup" type="submit">
-                                {isLoading ? <Loader size={24} color="#ffffff" /> : 'Forgot Password'}
+                                {isLoading ? <Loader showOverlay={false} size={12} color="#ffffff" isLoading={true} /> : 'Forgot Password'}
                             </button>
                             <p className="joinNow">
                                 You already have an account?{' '}
@@ -219,7 +219,7 @@ const ForgetPasswordPopup = ({ onClose, onOpenLogin }) => {
                         />
                         {confirmpassError && <span className="errorText">{confirmpassError}</span>}
                         <button className="submitpopup" type="submit">
-                            {isLoading ? <Loader size={24} color="#ffffff" /> : 'Reset Password'}
+                            {isLoading ? <Loader showOverlay={false} size={12} color="#ffffff" isLoading={true} /> : 'Reset Password'}
                         </button>
                         <p className="joinNow">
                             You already have an account?{' '}
