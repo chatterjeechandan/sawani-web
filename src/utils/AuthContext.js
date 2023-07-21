@@ -20,6 +20,7 @@ const AuthProvider = ({ children }) => {
     const logout = (response) => {
         setLoginResponse(null);
         localStorage.removeItem('loginInfo');
+        localStorage.removeItem('cartInfo');
     };
 
     return (

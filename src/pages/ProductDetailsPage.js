@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProductById } from '../api/product';
 import Loader from '../components/common/Loader/Loader';
@@ -24,17 +24,28 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Toaster from '../components/common/Toaster/Toaster';
+import { AuthContext } from '../utils/AuthContext';
+import { createCartAPI, updateCartAPI, addCartAPI, deleteCartAPI } from '../api/cart';
+import { CartContext } from '../utils/CartContext';
+
 
 const Product = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [incrementButtonLoading, setIncrementButtonLoading] = useState(false);
+    const [decrementButtonLoading, setDecrementButtonLoading] = useState(false);
     const [isCounterOpen, setCounterOpen] = useState(false);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const navigate = useNavigate();
     const [attributes, setAttributes] = useState([]);
     const [provariant, setProvariant] = useState(null);
+    const [count, setCount] = useState(0);
+    const [toaster, setToaster] = useState(null);
+    const { loginResponse } = useContext(AuthContext);
+    const { updateCartItems } = useContext(CartContext);
+    const navigate = useNavigate();
 
     const counteroptionFm = () => {
         setCounterOpen(!isCounterOpen);
@@ -105,12 +116,210 @@ const Product = () => {
         });
     };
 
-    const productImage = product?.image ? `data:image/png;base64,${product.image}` : placeholderImage;
-
     const handleShortSelectChange = (selectedValue) => {
         const url = selectedCategory.childCategories.length > 0 ? `/products/?pcat=${selectedCategory.id}&scat=${selectedCategory.childCategories[0].id}&sort=${selectedValue}` : `/products/?pcat=${selectedCategory.id}&sort=${selectedValue}`;
         navigate(url);
     };
+
+    const handleCountChange = (amount, state) => {
+        if (!provariant) {
+            setToaster({ type: 'error', message: 'Please select Product option', duration: 3000 });
+            return;
+        }
+        if (count === 0 && amount < 0) {
+            return;
+        }
+
+        if (state === 'decrement') {
+            setDecrementButtonLoading(true);
+        }
+        else {
+            setIncrementButtonLoading(true);
+        }
+
+        setCount((prevCount) => prevCount + amount);
+    };
+
+    useEffect(() => {
+        if (provariant) {
+            if (!localStorage.getItem('cartInfo')) {
+                let cartPayload = {
+                    storeId: 1,
+                    items: [
+                        {
+                            productVariantId: provariant?.id,
+                            quantity: count,
+                            price: Number(count * provariant?.price),
+                            name: provariant?.displayName,
+                            image: product?.image,
+                        },
+                    ],
+                };
+                if (loginResponse) {
+                    cartPayload['customerId'] = loginResponse.id;
+                }
+                createCart(cartPayload);
+            } else {
+                const existingCartItems = JSON.parse(localStorage.getItem('cartInfo')) || { items: [] };
+                const existingCartItemIndex = existingCartItems.items.findIndex(
+                    (item) => item.productVariantId === provariant?.id
+                );
+                if (existingCartItemIndex !== -1) {
+                    if (existingCartItems.items[existingCartItemIndex].quantity !== count) {
+                        const updatedCartItems = { ...existingCartItems };
+                        const updatedItem = {
+                            ...updatedCartItems.items[existingCartItemIndex],
+                            quantity: count,
+                            price: Number(provariant?.price) * count,
+                            name: provariant?.displayName,
+                            image: product?.image
+                        };
+                        if (updatedItem.quantity === 0) {
+                            updatedCartItems.items.splice(existingCartItemIndex, 1);
+                            deleteItemCart(updatedCartItems, updatedItem);
+                        } else {
+                            updatedCartItems.items[existingCartItemIndex] = updatedItem;
+                            updateCartItem(updatedCartItems, updatedItem);
+                        }
+                    }
+
+                } else {
+                    if (count > 0) {
+                        const newCartItem = {
+                            productVariantId: provariant?.id,
+                            quantity: count,
+                            price: Number(count * provariant?.price),
+                            name: provariant?.displayName,
+                            image: product?.image,
+                        };
+                        existingCartItems.items.push(newCartItem);
+                        addCartItem(existingCartItems, newCartItem);
+                    }
+                }
+            }
+        }
+    }, [count]);
+
+    useEffect(() => {
+        let cartCount = 0;
+        if (localStorage.getItem('cartInfo')) {
+            const existingCartItems = JSON.parse(localStorage.getItem('cartInfo')) || { items: [] };
+            const existingCartItemIndex = existingCartItems.items.findIndex(
+                (item) => item.productVariantId === provariant?.id
+            );
+            if (existingCartItemIndex !== -1) {
+                cartCount = existingCartItems.items[existingCartItemIndex]?.quantity;
+            }
+        }
+        setCount(cartCount);
+    }, [provariant]);
+
+
+    const createCart = async (cartPayload) => {
+        try {
+            const response = await createCartAPI(cartPayload);
+            console.log('cart response:', response);
+            if (response.succeeded) {
+                setIncrementButtonLoading(false);
+                setDecrementButtonLoading(false);
+                localStorage.setItem('cartInfo', JSON.stringify(response.data));
+                updateCartItems(response.data);
+                setToaster({ type: 'success', message: 'Product added into cart successfully', duration: 3000 });
+            } else {
+                setIncrementButtonLoading(false);
+                setDecrementButtonLoading(false);
+                setToaster({ type: 'error', message: response.Message, duration: 3000 });
+            }
+        } catch (error) {
+            setIncrementButtonLoading(false);
+            setDecrementButtonLoading(false);
+            setToaster({ type: 'error', message: 'Cart add failed', duration: 3000 });
+        }
+    };
+
+    const addCartItem = async (cartPayload, newCartItem) => {
+        try {
+            const response = await addCartAPI(cartPayload, newCartItem);
+            console.log('cart update response:', response);
+            if (response.succeeded) {
+                setIncrementButtonLoading(false);
+                setDecrementButtonLoading(false);
+                const existingCartItems = JSON.parse(localStorage.getItem('cartInfo')) || { items: [] };
+                existingCartItems.items.push(response.data);
+                localStorage.setItem('cartInfo', JSON.stringify(existingCartItems));
+                updateCartItems(existingCartItems);
+                setToaster({ type: 'success', message: 'Product added into cart successfully', duration: 3000 });
+            } else {
+                setIncrementButtonLoading(false);
+                setDecrementButtonLoading(false);
+                setToaster({ type: 'error', message: response.Message, duration: 3000 });
+            }
+        } catch (error) {
+            setIncrementButtonLoading(false);
+            setDecrementButtonLoading(false);
+            setToaster({ type: 'error', message: 'Cart add failed', duration: 3000 });
+        }
+    };
+
+    const updateCartItem = async (cartPayload, updatedItem) => {
+        try {
+            const response = await updateCartAPI(cartPayload, updatedItem);
+            console.log('cart update response:', response);
+            if (response.succeeded) {
+                setIncrementButtonLoading(false);
+                setDecrementButtonLoading(false);
+                const existingCartItems = JSON.parse(localStorage.getItem('cartInfo')) || { items: [] };
+                const existingCartItemIndex = existingCartItems.items.findIndex(
+                    (item) => item.productVariantId === provariant?.id
+                );
+                existingCartItems.items[existingCartItemIndex] = response.data;
+                localStorage.setItem('cartInfo', JSON.stringify(existingCartItems));
+                updateCartItems(existingCartItems);
+                setToaster({ type: 'success', message: 'Product updated into cart successfully', duration: 3000 });
+            } else {
+                setIncrementButtonLoading(false);
+                setDecrementButtonLoading(false);
+                setToaster({ type: 'error', message: response.Message, duration: 3000 });
+            }
+        } catch (error) {
+            setIncrementButtonLoading(false);
+            setDecrementButtonLoading(false);
+            setToaster({ type: 'error', message: 'Cart update failed', duration: 3000 });
+        }
+    };
+
+    const deleteItemCart = async (cartPayload, deletedItem) => {
+        try {
+            const response = await deleteCartAPI(cartPayload, deletedItem);
+            console.log('cart delete response:', response);
+            if (response.succeeded) {
+                setIncrementButtonLoading(false);
+                setDecrementButtonLoading(false);
+                const existingCartItems = JSON.parse(localStorage.getItem('cartInfo')) || { items: [] };
+                const existingCartItemIndex = existingCartItems.items.findIndex(
+                    (item) => item.productVariantId === provariant?.id
+                );
+                existingCartItems.items.splice(existingCartItemIndex, 1);
+                localStorage.setItem('cartInfo', JSON.stringify(existingCartItems));
+                updateCartItems(existingCartItems);
+                setToaster({ type: 'success', message: 'Product deleted from cart successfully', duration: 3000 });
+            } else {
+                setIncrementButtonLoading(false);
+                setDecrementButtonLoading(false);
+                setToaster({ type: 'error', message: response.Message, duration: 3000 });
+            }
+        } catch (error) {
+            setIncrementButtonLoading(false);
+            setDecrementButtonLoading(false);
+            setToaster({ type: 'error', message: 'Cart delete failed', duration: 3000 });
+        }
+    };
+
+    const handleToasterClose = () => {
+        setToaster(null);
+    };
+
+    const productImage = product?.image ? `data:image/png;base64,${product.image}` : placeholderImage;
 
     return (
         <div className="dashboardPageMaimWraper">
@@ -126,7 +335,6 @@ const Product = () => {
                         onShortSelectChange={handleShortSelectChange}
                     />
                 </div>
-                {/* Other sections */}
             </div>
             <div className="productDetailsWraper extraProductsWraper">
                 {isLoading ? (
@@ -171,7 +379,6 @@ const Product = () => {
                                                     ))}
                                                 </Select>
                                             </FormControl>
-                                            {/* ... */}
                                         </div>
                                     ))}
                                 </div>
@@ -235,16 +442,16 @@ const Product = () => {
                             <div className="productOtherInfo rewardQntyWraper">
                                 <div className="qntyWrapers">
                                     <span className="mainQtyWraper">
-                                        <input type="number" value={0} className="productPieceQty" />
+                                        <input type="number" value={count} onChange={(e) => setCount(Number(e.target.value))} className="productPieceQty" />
                                     </span>
                                     <span className="qtyText">Qnt.</span>
                                 </div>
                                 <div className="addDelBtn">
-                                    <span className="delBtnWraper">
-                                        <img src={minus} alt="" />
+                                    <span className="delBtnWraper" onClick={() => handleCountChange(-1, 'decrement')}>
+                                        {decrementButtonLoading ? <Loader showOverlay={false} size={12} color="#000" isLoading={false} /> : <img src={minus} alt="" />}
                                     </span>
-                                    <span className="addBtnWraper">
-                                        <img src={plus} alt="" />
+                                    <span className="addBtnWraper" onClick={() => handleCountChange(1, 'increment')}>
+                                        {incrementButtonLoading ? <Loader showOverlay={false} size={12} color="#000" isLoading={false} /> : <img src={plus} alt="" />}
                                     </span>
                                 </div>
                             </div>
@@ -390,6 +597,14 @@ const Product = () => {
                 </div>
             </div>
             <Footer />
+            {toaster && (
+                <Toaster
+                    type={toaster.type}
+                    message={toaster.message}
+                    duration={toaster.duration}
+                    onClose={handleToasterClose}
+                />
+            )}
         </div>
     );
 };

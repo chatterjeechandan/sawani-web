@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css'; // Import CSS file for header styles
 import LoginPopup from '../../../templates/LoginPopup';
@@ -15,6 +15,7 @@ import rewards from "../../../../assets/images/rewardPoint.png";
 import cartIcon from "../../../../assets/images/cartIcon.png";
 import menuArrow from "../../../../assets/images/checkoutArrow.png";
 import deletes from "../../../../assets/images/delete.png";
+import { CartContext } from '../../../../utils/CartContext';
 
 const Header = () => {
     const [isMenuOpen, setMenuOpen] = useState(false);
@@ -24,6 +25,7 @@ const Header = () => {
     const [isForgotPasswordPopupOpen, setForgotPasswordPopupOpen] = useState(false);
     const [toaster, setToaster] = useState(null);
     const { loginResponse, logout } = useContext(AuthContext);
+    const { cartItems } = useContext(CartContext);
     const menuRef = useRef(null);
     const cartRef = useRef(null);
 
@@ -98,6 +100,22 @@ const Header = () => {
             document.removeEventListener('click', handleOutsideClick);
         };
     }, []);
+
+
+    const getCartCount = () => {
+        if (cartItems && cartItems.items) {
+            return cartItems.items.reduce((total, item) => total + item.quantity, 0);
+        }
+        return 0;
+    };
+
+    const calculateSubtotal = () => {
+        if (!cartItems || !cartItems.items) return 0;
+
+        return cartItems.items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    };
+
+    const subtotalPrice = useMemo(() => calculateSubtotal(), [cartItems]);
 
 
     return (
@@ -176,44 +194,45 @@ const Header = () => {
                         )}
                     </ul>
                 </div>
-                {/* Cart icon */}
                 <div onClick={setCheckoutOpenFn} className="cart-icon" ref={cartRef}>
                     <img src={cartIcon} className='carticon' alt='' />
-                    <span className="cart-count">0</span>
+                    <span className="cart-count">{getCartCount()}</span>
                     {isCheckoutOpen && (
                         <div className='menu-items cartPopup'>
                             <div className="rightCheckoutWraper">
                                 <h2 className="checkoutProductHeading">Shopping Cart</h2>
                                 <div className="cartProductListings">
-                                    <div className="individualCartProducts">
-                                        <span className="productCartImage">
-                                            <img src={productInd} alt="" />
-                                        </span>
-                                        <span className="midCartDetailsEdit">
-                                            <h5 className="indCartProductName">Vanila Milk</h5>
-                                            <p className="productPriceInd"><span>250</span> SAR</p>
-                                            <span className="counterWraper checkoutcounters">
-                                                <span className="plusCounter">
-                                                    <img src={counterPlus} alt="" />
-                                                </span>
-                                                <span className="counterInput">
-                                                    <input type="number" className="inputCounter" value={1} />
-                                                </span>
-                                                <span className="minusCounter">
-                                                    <img src={minus} alt="" />
+                                    {cartItems && cartItems.items && cartItems.items.map((item, index) => (
+                                        <div className="individualCartProducts" key={index}>
+                                            <span className="productCartImage">
+                                                <img src={item.image || productInd} alt="" />
+                                            </span>
+                                            <span className="midCartDetailsEdit">
+                                                <h5 className="indCartProductName">{item.name || 'Vanila Milk'}</h5>
+                                                <p className="productPriceInd"><span>{item.price}</span> SAR</p>
+                                                <span className="counterWraper checkoutcounters">
+                                                    <span className="plusCounter">
+                                                        <img src={counterPlus} alt="" />
+                                                    </span>
+                                                    <span className="counterInput">
+                                                        <input type="number" className="inputCounter" value={item.quantity} />
+                                                    </span>
+                                                    <span className="minusCounter">
+                                                        <img src={minus} alt="" />
+                                                    </span>
                                                 </span>
                                             </span>
-                                        </span>
-                                        <span className="deleteSpan">
-                                            <img src={deletes} alt="" />
-                                        </span>
-                                    </div>
+                                            <span className="deleteSpan">
+                                                <img src={deletes} alt="" />
+                                            </span>
+                                        </div>
+                                    ))}
                                 </div>
 
                                 <div className="finalCartBills">
                                     <div className="subTotal">
                                         <span className="totalHeading">Subtotal</span>
-                                        <span className="totalPrice">250.00 SAR</span>
+                                        <span className="totalPrice">{subtotalPrice.toFixed(2)} SAR</span>
                                     </div>
                                     <div className="rewardSectionsWrapers">
                                         <span className="totalHeading points">POINTS  <span className="subPoints">Sign in to earn</span></span>
@@ -229,7 +248,7 @@ const Header = () => {
                                         TOTAL
                                     </span>
                                     <span className="grandHeading grandPrice">
-                                        250.00 SAR
+                                        {subtotalPrice.toFixed(2)} SAR
                                     </span>
                                 </div>
                                 <div className="cartBtnWraper">
