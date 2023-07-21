@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { CartContext } from './CartContext';
 
 const AuthContext = createContext();
 
