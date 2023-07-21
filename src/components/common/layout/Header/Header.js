@@ -25,7 +25,7 @@ const Header = () => {
     const [isForgotPasswordPopupOpen, setForgotPasswordPopupOpen] = useState(false);
     const [toaster, setToaster] = useState(null);
     const { loginResponse, logout } = useContext(AuthContext);
-    const { cartItems } = useContext(CartContext);
+    const { cartItems, updateCartItems } = useContext(CartContext);
     const menuRef = useRef(null);
     const cartRef = useRef(null);
 
@@ -61,6 +61,7 @@ const Header = () => {
         setToaster({ type: 'success', message: 'Logout successful', duration: 3000 });
         setTimeout(() => {
             logout();
+            updateCartItems(null);
             setMenuOpen(false);
         }, 500);
     };
