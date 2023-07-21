@@ -198,7 +198,7 @@ const Header = () => {
                 <div onClick={setCheckoutOpenFn} className="cart-icon" ref={cartRef}>
                     <img src={cartIcon} className='carticon' alt='' />
                     <span className="cart-count">{getCartCount()}</span>
-                    {isCheckoutOpen && (
+                    {isCheckoutOpen && getCartCount() > 0 && (
                         <div className='menu-items cartPopup'>
                             <div className="rightCheckoutWraper">
                                 <h2 className="checkoutProductHeading">Shopping Cart</h2>

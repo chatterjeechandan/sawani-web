@@ -222,7 +222,6 @@ const Product = () => {
             if (response.succeeded) {
                 setIncrementButtonLoading(false);
                 setDecrementButtonLoading(false);
-                localStorage.setItem('cartInfo', JSON.stringify(response.data));
                 updateCartItems(response.data);
                 setToaster({ type: 'success', message: 'Product added into cart successfully', duration: 3000 });
             } else {
@@ -246,7 +245,6 @@ const Product = () => {
                 setDecrementButtonLoading(false);
                 const existingCartItems = JSON.parse(localStorage.getItem('cartInfo')) || { items: [] };
                 existingCartItems.items.push(response.data);
-                localStorage.setItem('cartInfo', JSON.stringify(existingCartItems));
                 updateCartItems(existingCartItems);
                 setToaster({ type: 'success', message: 'Product added into cart successfully', duration: 3000 });
             } else {
@@ -273,7 +271,6 @@ const Product = () => {
                     (item) => item.productVariantId === provariant?.id
                 );
                 existingCartItems.items[existingCartItemIndex] = response.data;
-                localStorage.setItem('cartInfo', JSON.stringify(existingCartItems));
                 updateCartItems(existingCartItems);
                 setToaster({ type: 'success', message: 'Product updated into cart successfully', duration: 3000 });
             } else {
@@ -300,7 +297,6 @@ const Product = () => {
                     (item) => item.productVariantId === provariant?.id
                 );
                 existingCartItems.items.splice(existingCartItemIndex, 1);
-                localStorage.setItem('cartInfo', JSON.stringify(existingCartItems));
                 updateCartItems(existingCartItems);
                 setToaster({ type: 'success', message: 'Product deleted from cart successfully', duration: 3000 });
             } else {

@@ -14,7 +14,12 @@ const CartProvider = ({ children }) => {
 
     const updateCartItems = (newCartItems) => {
         setCartItems(newCartItems);
-        localStorage.setItem('cartInfo', JSON.stringify(newCartItems));
+        if (newCartItems) {
+            localStorage.setItem('cartInfo', JSON.stringify(newCartItems));
+        }
+        else {
+            localStorage.removeItem('cartInfo');
+        }
     };
 
     return (
