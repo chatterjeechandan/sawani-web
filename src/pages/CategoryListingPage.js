@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import Header from '../components/common/layout/Header/Header';
 import Footer from '../components/common/layout/Footer';
 import CategoryCard from "../components/category/CategoryCard";
@@ -10,22 +10,28 @@ import pots from "../assets/images/pots.png";
 import Loader from '../components/common/Loader/Loader';
 import { fetchCategories } from '../api/category';
 import { useNavigate } from 'react-router-dom';
+import { CategoryContext } from '../utils/CategoryContext';
 
 const CategoryListingPage = () => {
     document.title = "SAWANI CATEGORY";
-    const [categories, setCategories] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('inStore');
+    const { categories, updateCategoryItems } = useContext(CategoryContext);
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const response = await fetchCategories();
-                setCategories(response);
-            } catch (error) {
-                console.error('Error fetching categories:', error);
-            } finally {
+            if (!categories) {
+                try {
+                    const response = await fetchCategories();
+                    updateCategoryItems(response);
+                } catch (error) {
+                    console.error('Error fetching categories:', error);
+                } finally {
+                    setIsLoading(false);
+                }
+            }
+            else {
                 setIsLoading(false);
             }
         };
@@ -97,7 +103,7 @@ const CategoryListingPage = () => {
                         {isLoading ? (
                             <Loader showOverlay={false} size={30} color="#B7854C" isLoading={false} />
                         ) : (
-                            categories.map((category) => (
+                            categories?.map((category) => (
                                 <CategoryCard key={category.id} category={category} />
                             ))
                         )}

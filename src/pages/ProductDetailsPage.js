@@ -18,7 +18,6 @@ import counterPlus from "../assets/images/smallPlus.png";
 import counterMinus from "../assets/images/smallMinus.png";
 import camel from "../assets/images/camelWhite.png";
 import placeholderImage from "../assets/images/no-image.png";
-import { fetchCategories } from '../api/category';
 import Tooltip from '@mui/material/Tooltip';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -26,8 +25,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Toaster from '../components/common/Toaster/Toaster';
 import { AuthContext } from '../utils/AuthContext';
-import { createCartAPI, updateCartAPI, addCartAPI, deleteCartAPI } from '../api/cart';
+import { createCartAPI, updateCartAPI, addCartAPI, deleteCartAPI, getCartAPI } from '../api/cart';
 import { CartContext } from '../utils/CartContext';
+import { CategoryContext } from '../utils/CategoryContext';
 
 
 const Product = () => {
@@ -37,14 +37,14 @@ const Product = () => {
     const [incrementButtonLoading, setIncrementButtonLoading] = useState(false);
     const [decrementButtonLoading, setDecrementButtonLoading] = useState(false);
     const [isCounterOpen, setCounterOpen] = useState(false);
-    const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [attributes, setAttributes] = useState([]);
     const [provariant, setProvariant] = useState(null);
     const [count, setCount] = useState(0);
     const [toaster, setToaster] = useState(null);
     const { loginResponse } = useContext(AuthContext);
-    const { updateCartItems } = useContext(CartContext);
+    const { cartItems, updateCartItems } = useContext(CartContext);
+    const { categories } = useContext(CategoryContext);
     const navigate = useNavigate();
 
     const counteroptionFm = () => {
@@ -57,7 +57,14 @@ const Product = () => {
                 const response = await getProductById(id);
                 setProduct(response);
                 setIsLoading(false);
-                fetchNestedCategories(response);
+                categories.forEach(category => {
+                    category.childCategories.some(subcategory => {
+                        if (Number(subcategory.id) === Number(response.categoryId)) {
+                            setSelectedCategory(category);
+                            return true;
+                        }
+                    });
+                });
             } catch (error) {
                 console.error('Error fetching product:', error);
                 setIsLoading(false);
@@ -71,24 +78,6 @@ const Product = () => {
         const url = category.childCategories.length > 0 ? `/products/?pcat=${category.id}&scat=${category.childCategories[0].id}` : `/products/?pcat=${category.id}`;
         navigate(url);
         setSelectedCategory(category);
-    };
-
-    const fetchNestedCategories = async (productRes) => {
-        try {
-            const response = await fetchCategories();
-            setCategories(response);
-            response.find(category => {
-                category.childCategories.find(subcategory => {
-                    if (Number(subcategory.id) === Number(productRes.categoryId)) {
-                        setSelectedCategory(category);
-                    }
-                })
-            })
-        } catch (error) {
-            console.error('Error fetching categories:', error);
-        } finally {
-            setIsLoading(false);
-        }
     };
 
     useEffect(() => {
@@ -140,70 +129,75 @@ const Product = () => {
         setCount((prevCount) => prevCount + amount);
     };
 
-    useEffect(() => {
-        if (provariant) {
-            if (!localStorage.getItem('cartInfo')) {
-                let cartPayload = {
-                    storeId: 1,
-                    items: [
-                        {
-                            productVariantId: provariant?.id,
-                            quantity: count,
-                            price: Number(count * provariant?.price),
-                            name: provariant?.displayName,
-                            image: product?.image,
-                        },
-                    ],
+    const handleCartItemUpdate = (existingCartItems, provariant, count) => {
+        const existingCartItemIndex = existingCartItems.items.findIndex(
+            (item) => item.productVariantId === provariant?.id
+        );
+
+        if (existingCartItemIndex !== -1) {
+            const updatedCartItems = { ...existingCartItems };
+            const updatedItem = {
+                ...updatedCartItems.items[existingCartItemIndex],
+                quantity: count,
+                price: Number(provariant?.price) * count,
+                name: provariant?.displayName,
+                image: product?.image
+            };
+
+            if (updatedItem.quantity === 0) {
+                updatedCartItems.items.splice(existingCartItemIndex, 1);
+                updatedItem.quantity = 1;
+                updatedItem.price = 1;
+                deleteItemCart(updatedCartItems.id, updatedItem, existingCartItemIndex);
+            } else {
+                updatedCartItems.items[existingCartItemIndex] = updatedItem;
+                updateCartItem(updatedCartItems.id, updatedItem, existingCartItemIndex);
+            }
+        } else {
+            if (count > 0) {
+                const newCartItem = {
+                    productVariantId: provariant?.id,
+                    quantity: count,
+                    price: Number(count * provariant?.price),
+                    name: provariant?.displayName,
+                    image: product?.image,
                 };
-                if (loginResponse) {
-                    cartPayload['customerId'] = loginResponse.id;
-                }
+                existingCartItems.items.push(newCartItem);
+                addCartItem(existingCartItems.id, existingCartItems, newCartItem);
+            }
+        }
+    };
+
+    useEffect(() => {
+        if (provariant && count > 0) {
+            let cartPayload = {
+                storeId: 1,
+                items: [
+                    {
+                        productVariantId: provariant?.id,
+                        quantity: count,
+                        price: Number(count * provariant?.price),
+                        name: provariant?.displayName,
+                        image: product?.image,
+                    },
+                ],
+            };
+            if (loginResponse) {
+                cartPayload['customerId'] = loginResponse.id;
+            }
+
+            if (!cartItems) {
                 createCart(cartPayload);
             } else {
-                const existingCartItems = JSON.parse(localStorage.getItem('cartInfo')) || { items: [] };
-                const existingCartItemIndex = existingCartItems.items.findIndex(
-                    (item) => item.productVariantId === provariant?.id
-                );
-                if (existingCartItemIndex !== -1) {
-                    if (existingCartItems.items[existingCartItemIndex].quantity !== count) {
-                        const updatedCartItems = { ...existingCartItems };
-                        const updatedItem = {
-                            ...updatedCartItems.items[existingCartItemIndex],
-                            quantity: count,
-                            price: Number(provariant?.price) * count,
-                            name: provariant?.displayName,
-                            image: product?.image
-                        };
-                        if (updatedItem.quantity === 0) {
-                            updatedCartItems.items.splice(existingCartItemIndex, 1);
-                            deleteItemCart(updatedCartItems, updatedItem);
-                        } else {
-                            updatedCartItems.items[existingCartItemIndex] = updatedItem;
-                            updateCartItem(updatedCartItems, updatedItem);
-                        }
-                    }
-
-                } else {
-                    if (count > 0) {
-                        const newCartItem = {
-                            productVariantId: provariant?.id,
-                            quantity: count,
-                            price: Number(count * provariant?.price),
-                            name: provariant?.displayName,
-                            image: product?.image,
-                        };
-                        existingCartItems.items.push(newCartItem);
-                        addCartItem(existingCartItems, newCartItem);
-                    }
-                }
+                handleCartItemUpdate(cartItems, provariant, count);
             }
         }
     }, [count]);
 
     useEffect(() => {
         let cartCount = 0;
-        if (localStorage.getItem('cartInfo')) {
-            const existingCartItems = JSON.parse(localStorage.getItem('cartInfo')) || { items: [] };
+        if (cartItems) {
+            const existingCartItems = cartItems;
             const existingCartItemIndex = existingCartItems.items.findIndex(
                 (item) => item.productVariantId === provariant?.id
             );
@@ -215,107 +209,99 @@ const Product = () => {
     }, [provariant]);
 
 
+    const handleSuccess = (successMessage) => {
+        setIncrementButtonLoading(false);
+        setDecrementButtonLoading(false);
+        setToaster({ type: 'success', message: successMessage, duration: 3000 });
+    };
+
+    const handleError = (errorMessage) => {
+        setIncrementButtonLoading(false);
+        setDecrementButtonLoading(false);
+        setToaster({ type: 'error', message: errorMessage, duration: 3000 });
+    };
+
     const createCart = async (cartPayload) => {
         try {
             const response = await createCartAPI(cartPayload);
             console.log('cart response:', response);
             if (response.succeeded) {
-                setIncrementButtonLoading(false);
-                setDecrementButtonLoading(false);
+                getCart(response.data);
+            } else {
+                handleError(response.Message || 'Cart add failed');
+            }
+        } catch (error) {
+            handleError('Cart add failed');
+        }
+    };
+
+    const getCart = async (cart) => {
+        try {
+            const response = await getCartAPI(cart.id);
+            console.log('cart response:', response);
+            if (response.succeeded) {
+                handleSuccess('Product added into cart successfully');
                 updateCartItems(response.data);
-                setToaster({ type: 'success', message: 'Product added into cart successfully', duration: 3000 });
             } else {
-                setIncrementButtonLoading(false);
-                setDecrementButtonLoading(false);
-                setToaster({ type: 'error', message: response.Message, duration: 3000 });
+                handleError(response.Message || 'Cart add failed');
             }
         } catch (error) {
-            setIncrementButtonLoading(false);
-            setDecrementButtonLoading(false);
-            setToaster({ type: 'error', message: 'Cart add failed', duration: 3000 });
+            handleError('Cart add failed');
         }
     };
 
-    const addCartItem = async (cartPayload, newCartItem) => {
+    const addCartItem = async (cartId, existingCartItems, newCartItem) => {
         try {
-            const response = await addCartAPI(cartPayload, newCartItem);
+            const response = await addCartAPI(cartId, newCartItem);
             console.log('cart update response:', response);
             if (response.succeeded) {
-                setIncrementButtonLoading(false);
-                setDecrementButtonLoading(false);
-                const existingCartItems = JSON.parse(localStorage.getItem('cartInfo')) || { items: [] };
-                existingCartItems.items.push(response.data);
+                handleSuccess('Product added into cart successfully');
                 updateCartItems(existingCartItems);
-                setToaster({ type: 'success', message: 'Product added into cart successfully', duration: 3000 });
             } else {
-                setIncrementButtonLoading(false);
-                setDecrementButtonLoading(false);
-                setToaster({ type: 'error', message: response.Message, duration: 3000 });
+                handleError(response.Message || 'Cart add failed');
             }
         } catch (error) {
-            setIncrementButtonLoading(false);
-            setDecrementButtonLoading(false);
-            setToaster({ type: 'error', message: 'Cart add failed', duration: 3000 });
+            handleError('Cart add failed');
         }
     };
 
-    const updateCartItem = async (cartPayload, updatedItem) => {
+    const updateCartItem = async (cartId, updatedItem, index) => {
         try {
-            const response = await updateCartAPI(cartPayload, updatedItem);
+            const response = await updateCartAPI(cartId, updatedItem);
             console.log('cart update response:', response);
             if (response.succeeded) {
-                setIncrementButtonLoading(false);
-                setDecrementButtonLoading(false);
-                const existingCartItems = JSON.parse(localStorage.getItem('cartInfo')) || { items: [] };
-                const existingCartItemIndex = existingCartItems.items.findIndex(
-                    (item) => item.productVariantId === provariant?.id
-                );
-                existingCartItems.items[existingCartItemIndex] = response.data;
-                updateCartItems(existingCartItems);
-                setToaster({ type: 'success', message: 'Product updated into cart successfully', duration: 3000 });
+                handleSuccess('Product updated into cart successfully');
+                console.log(cartItems);
+                cartItems.items[index] = updatedItem;
+                updateCartItems(cartItems);
             } else {
-                setIncrementButtonLoading(false);
-                setDecrementButtonLoading(false);
-                setToaster({ type: 'error', message: response.Message, duration: 3000 });
+                handleError(response.Message || 'Cart update failed');
             }
         } catch (error) {
-            setIncrementButtonLoading(false);
-            setDecrementButtonLoading(false);
-            setToaster({ type: 'error', message: 'Cart update failed', duration: 3000 });
+            handleError('Cart update failed');
         }
     };
 
-    const deleteItemCart = async (cartPayload, deletedItem) => {
+    const deleteItemCart = async (cartId, deletedItem, index) => {
         try {
-            const response = await deleteCartAPI(cartPayload, deletedItem);
+            const response = await deleteCartAPI(cartId, deletedItem);
             console.log('cart delete response:', response);
             if (response.succeeded) {
-                setIncrementButtonLoading(false);
-                setDecrementButtonLoading(false);
-                const existingCartItems = JSON.parse(localStorage.getItem('cartInfo')) || { items: [] };
-                const existingCartItemIndex = existingCartItems.items.findIndex(
-                    (item) => item.productVariantId === provariant?.id
-                );
-                existingCartItems.items.splice(existingCartItemIndex, 1);
-                updateCartItems(existingCartItems);
-                setToaster({ type: 'success', message: 'Product deleted from cart successfully', duration: 3000 });
+                handleSuccess('Product deleted from cart successfully');
+                cartItems.items.splice(index, 1);
+                updateCartItems(cartItems);
             } else {
-                setIncrementButtonLoading(false);
-                setDecrementButtonLoading(false);
-                setToaster({ type: 'error', message: response.Message, duration: 3000 });
+                handleError(response.Message || 'Cart delete failed');
             }
         } catch (error) {
-            setIncrementButtonLoading(false);
-            setDecrementButtonLoading(false);
-            setToaster({ type: 'error', message: 'Cart delete failed', duration: 3000 });
+            handleError('Cart delete failed');
         }
     };
+
 
     const handleToasterClose = () => {
         setToaster(null);
     };
-
-    const productImage = product?.image ? `data:image/png;base64,${product.image}` : placeholderImage;
 
     return (
         <div className="dashboardPageMaimWraper">
@@ -338,7 +324,7 @@ const Product = () => {
                 ) : (
                     <div className="detailsWraper">
                         <div className="productimg">
-                            <img src={`${productImage}`} alt={product.name} />
+                            <img src={`${product?.image ? `data:image/png;base64,${product.image}` : placeholderImage}`} alt={product.name} />
                         </div>
                         <div className="productDetailsInfo">
                             <div className="bookMark">
