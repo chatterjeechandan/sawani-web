@@ -116,6 +116,11 @@ const Header = () => {
         return cartItems.items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
     };
 
+
+    const cartPopupClickHandler = (e) => {
+        e.stopPropagation();
+    };
+
     const subtotalPrice = useMemo(() => calculateSubtotal(), [cartItems]);
 
 
@@ -199,7 +204,7 @@ const Header = () => {
                     <img src={cartIcon} className='carticon' alt='' />
                     <span className="cart-count">{getCartCount()}</span>
                     {isCheckoutOpen && getCartCount() > 0 && (
-                        <div className='menu-items cartPopup'>
+                        <div className='menu-items cartPopup' onClick={cartPopupClickHandler}>
                             <div className="rightCheckoutWraper">
                                 <h2 className="checkoutProductHeading">Shopping Cart</h2>
                                 <div className="cartProductListings">
