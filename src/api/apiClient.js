@@ -12,49 +12,34 @@ export async function fetchData(endpoint) {
 }
 
 export async function postData(endpoint, body) {
-    try {
-        const response = await fetch(`${BASE_URL}/${endpoint}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body),
-        });
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('An error occurred while making the API request.');
-    }
+    return makeRequest('POST', endpoint, body);
 }
 
 export async function updateData(endpoint, body) {
-    try {
-        const response = await fetch(`${BASE_URL}/${endpoint}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body),
-        });
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('An error occurred while making the API request.');
-    }
+    return makeRequest('PUT', endpoint, body);
 }
 
-
 export async function deleteData(endpoint, body) {
+    return makeRequest('DELETE', endpoint, body);
+}
+
+export async function makeRequest(method, endpoint, body) {
     try {
+        const headers = {
+            'Content-Type': 'application/json',
+        };
+
+        const userData = JSON.parse(localStorage.getItem('loginInfo'));
+        if (userData) {
+            headers['Authorization'] = `Bearer ${userData.token}`;
+        }
+
         const response = await fetch(`${BASE_URL}/${endpoint}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            method,
+            headers,
             body: JSON.stringify(body),
         });
+
         const data = await response.json();
         return data;
     } catch (error) {

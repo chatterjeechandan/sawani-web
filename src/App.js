@@ -4,13 +4,16 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import './assets/css/styles.css';
 import { AuthProvider } from './utils/AuthContext';
 import { CartProvider } from './utils/CartContext';
+import { CategoryProvider } from './utils/CategoryContext';
 
 const App = () => {
   return (
     <AuthProvider>
-      <CartProvider>
-        <Routes />
-      </CartProvider>
+      <CategoryProvider>
+        <CartProvider>
+          <Routes />
+        </CartProvider>
+      </CategoryProvider>
     </AuthProvider>
   );
 };

@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Header from '../components/common/layout/Header/Header';
 import Footer from '../components/common/layout/Footer';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchProductsbyCat } from '../api/product';
 import Loader from '../components/common/Loader/Loader';
 import ProductCard from '../components/product/ProductCard';
-import { fetchCategories } from '../api/category';
 import { ProductFilter } from '../components/product/ProductFilter';
+import { CategoryContext } from '../utils/CategoryContext';
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
+    const { categories } = useContext(CategoryContext);
     const pcat = searchParams.get('pcat');
     const scat = searchParams.get('scat');
     const sort = searchParams.get('sort');
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
-    const productsPerPage = 10; // Show 5 products per page
+    const productsPerPage = 10;
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -39,20 +39,8 @@ const ProductList = () => {
     }, [scat, sort]);
 
     useEffect(() => {
-        const fetchNestedCategories = async () => {
-            try {
-                const response = await fetchCategories();
-                setCategories(response);
-                const selectedCategory = response.find(category => Number(category.id) === Number(pcat))
-                setSelectedCategory(selectedCategory);
-            } catch (error) {
-                console.error('Error fetching categories:', error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchNestedCategories();
+        const selectedCategory = categories.find(category => Number(category.id) === Number(pcat))
+        setSelectedCategory(selectedCategory);
     }, [pcat]);
 
     const handleCategorySelect = (category) => {

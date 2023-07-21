@@ -9,13 +9,13 @@ import translate from "../../../../assets/images/translate.png";
 import { AuthContext } from '../../../../utils/AuthContext';
 import Toaster from '../../../../components/common/Toaster/Toaster';
 import minus from "../../../../assets/images/minusWhite.png";
-import productInd from "../../../../assets/images/pr1.png";
 import counterPlus from "../../../../assets/images/smallPlus.png";
 import rewards from "../../../../assets/images/rewardPoint.png";
 import cartIcon from "../../../../assets/images/cartIcon.png";
-import menuArrow from "../../../../assets/images/checkoutArrow.png";
 import deletes from "../../../../assets/images/delete.png";
 import { CartContext } from '../../../../utils/CartContext';
+import placeholderImage from "../../../../assets/images/no-image.png";
+import { updateCartAPI, deleteCartAPI } from '../../../../api/cart';
 
 const Header = () => {
     const [isMenuOpen, setMenuOpen] = useState(false);
@@ -121,8 +121,45 @@ const Header = () => {
         e.stopPropagation();
     };
 
-    const subtotalPrice = useMemo(() => calculateSubtotal(), [cartItems]);
+    const handleCountChange = (index, count) => {
+        const updatedCartItems = { ...cartItems };
+        updatedCartItems.items[index].quantity += count;
+        if (updatedCartItems.items[index].quantity >= 0) {
+            if (updatedCartItems.items[index].quantity === 0) {
+                updatedCartItems.items[index].quantity = 1;
+                updatedCartItems.items[index].price = 1;
+                deleteCartItem(updatedCartItems, updatedCartItems.items[index], index);
+            } else {
+                updateCartItem(updatedCartItems, index);
+            }
+        }
+    };
 
+    const deleteCartItemRow = (index) => {
+        const updatedCartItems = { ...cartItems };
+        updatedCartItems.items[index].quantity = 1;
+        updatedCartItems.items[index].price = 1;
+        deleteCartItem(updatedCartItems, updatedCartItems.items[index], index);
+    }
+
+    const deleteCartItem = async (cartItems, updatedCartItems, index) => {
+        cartItems.items.splice(index, 1);
+        updateCartItems(cartItems);
+        const response = await deleteCartAPI(cartItems.id, updatedCartItems);
+        if (response.succeeded) {
+            updateCartItems(cartItems);
+        }
+    };
+
+    const updateCartItem = async (cartItems, index) => {
+        updateCartItems(cartItems);
+        const response = await updateCartAPI(cartItems.id, cartItems.items[index]);
+        if (response.succeeded) {
+            updateCartItems(cartItems);
+        }
+    };
+
+    const subtotalPrice = useMemo(() => calculateSubtotal(), [cartItems]);
 
     return (
         <header className="header headerWrapers">
@@ -211,24 +248,24 @@ const Header = () => {
                                     {cartItems && cartItems.items && cartItems.items.map((item, index) => (
                                         <div className="individualCartProducts" key={index}>
                                             <span className="productCartImage">
-                                                <img src={item.image || productInd} alt="" />
+                                                <img src={item?.image ? `data:image/png;base64,${item.image}` : placeholderImage} alt="" />
                                             </span>
                                             <span className="midCartDetailsEdit">
-                                                <h5 className="indCartProductName">{item.name || 'Vanila Milk'}</h5>
+                                                <h5 className="indCartProductName">{item.name}</h5>
                                                 <p className="productPriceInd"><span>{item.price}</span> SAR</p>
                                                 <span className="counterWraper checkoutcounters">
-                                                    <span className="plusCounter">
+                                                    <span className="plusCounter" onClick={() => handleCountChange(index, 1)}>
                                                         <img src={counterPlus} alt="" />
                                                     </span>
-                                                    <span className="counterInput">
+                                                    <span className="counterInput" >
                                                         <input type="number" className="inputCounter" value={item.quantity} />
                                                     </span>
-                                                    <span className="minusCounter">
+                                                    <span className="minusCounter" onClick={() => handleCountChange(index, -1)}>
                                                         <img src={minus} alt="" />
                                                     </span>
                                                 </span>
                                             </span>
-                                            <span className="deleteSpan">
+                                            <span className="deleteSpan" onClick={() => deleteCartItemRow(index)}>
                                                 <img src={deletes} alt="" />
                                             </span>
                                         </div>
