@@ -1,5 +1,9 @@
 import { fetchData, postData, updateData, deleteData } from './apiClient';
 
+export function getActiveCart() {
+    return fetchData(`cart/active_user`);
+}
+
 export function getCartAPI(cartId) {
     return fetchData(`cart/${cartId}`);
 }
