@@ -1735,3 +1735,230 @@ span.arrowRight {
   .config-option .MuiFormControl-root {
     margin-left:0px;
   }
+
+  /* Responsive css */
+@media only screen and (max-width: 1024px) {
+    .headerWrapers {
+        padding: 35px 10px;
+    }
+    .menuWraper {
+        padding-left: 0;
+    }
+    .menu {
+        margin-right: 25px;
+    }
+    .bannertextWraper p {
+    font-size: 24px;
+    }
+    .bannertextWraper h4 {
+        font-size: 28px;
+    }
+    .afterBanner.left .afterBannerTextWraper, .afterBanner.right .afterBannerTextWraper {
+        width: 100%;
+        padding: 20px;
+    }
+    .afterBanner.center {
+        height: auto;
+    }
+    
+
+
+    .afterBanner.center .afterBannerCenterTextWraper {
+        padding: 25px 15px;
+        width: 90%;
+        margin: 0 auto;
+    }
+    .leftSection, .rightSection {
+        width: 100%;
+        padding: 10px;
+    }
+    .rowWraper.firstRow {
+        padding: 25px 25px 10px;;
+    }
+
+    .logoSec, .footerMenu {
+        width: 100%;
+        float: left;
+        text-align: center;
+        padding: 0
+    }
+    .logoSec img {
+        padding: 0;
+    }
+    .footerMenu ul li {
+        display: block;
+        width: 100%;
+        float: left;
+    }
+    .menu-items {
+        width: 185px;
+        left: -95px;
+    }
+    .menu-items.menuDrop::before {
+        left: 50%;
+    }
+/* 
+    DASHBOARD CSS */
+    .dashboardMidContent {
+        padding: 25px;
+    }
+    .dashboardMidContent::before, .dashboardMidContent:after, .dashboardMidContentDelhivery::after {
+        display: none;
+    }
+    .dashboardMidContentDelhivery {
+        padding: 20px;
+    }
+    .tabContentWraper.delhiveryTabContent {
+        flex-direction: column;
+    }
+    .leftInfoContent {
+        width: 100%;
+    }
+    .leftInfoContent p {
+        font-size: 18px;
+        margin-bottom: 20px;
+        padding: 0 0px;
+    }
+    .appBtn.Wrapers {
+        display: flex;
+        align-items: center;
+        margin: 15px 0;
+    }
+    .rightDivwraper {
+        width: 100%;
+        text-align: center;
+    }
+    .tabSearchWraper {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0px;
+        padding-bottom: 40px;
+        flex-direction: column-reverse;
+    }
+    .searchWraper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .searchArea {
+        width: 100%;
+        margin: 0 0 15px 0;
+    }
+    button.searchBtn {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    .tabWraper {
+        width: 100%;
+        margin: 0;
+    }
+    /* Category page  */
+    .productlistingsStore {
+    padding: 35px 0;
+    }
+    .individualProduct {
+        width: 100%;
+        margin-bottom: 20px
+    }
+    .tabContentWraper {
+        padding: 0;
+    }
+    /* Listing Page */
+    .productPageWraper {
+        padding: 20px;
+    }
+    .productFilterWraper {
+        flex-direction: column;
+    }
+    .customizeFilter, .customizeFilterDisplay {
+        width: 100%;
+    }
+    .productOptions {
+        width: 100%;
+        padding: 0;
+        margin: 15px 0;
+    }
+    .productSubLists {
+        width: 100%;
+        overflow-y: auto;
+    }
+    .productSubLists li {
+        margin: 0 20px 0 0;
+    }
+    .productSubLists li:last-child {
+        margin: 0;
+    }
+    .filterSections {
+        margin-left: auto;
+    }
+    .filterDrop {
+        margin-right: 0;
+    }
+    .productsRow.listingPages .product-container .indProduct {
+        width: 100%;
+    }
+    .productsDisplayWraper {
+        flex-direction: column;
+    }
+    .indrelatesProduct {
+        margin-bottom: 25px;
+    }
+    .productDetailsWraper {
+        padding: 20px;
+    }
+    .detailsWraper {
+        flex-direction: column;
+    }
+    .productimg{
+        width: 100%;
+        min-height: auto;
+        margin-bottom: 25px;
+    }
+    .productDetailsInfo {
+        width: 100%;
+        padding: 0;
+        margin-bottom: 25px;
+    }
+    .productOperationWrapers, .productOtherInfo.rewardQntyWraper,.rewardSec {
+        width: 100%;
+    }
+    .productOtherInfo.rewardQntyWraper {
+        margin-bottom: 0;
+    }
+    span.infoIconWraper {
+        left: unset;
+        right: 0;
+    }
+    .bookMark {
+        top: 45px;
+    right: 0;
+    }
+    .menu-items.cartPopup {
+        width: 345px;
+        padding: 8px 10px; 
+        left: -300px;
+    }
+    .menu-items.cartPopup .rightCheckoutWraper::before {
+        top: -27.5px;
+        left: 85%;
+    }
+    .checkoutWraper {
+        flex-direction: column-reverse;
+    }
+    .camelWraper {
+        display: none;
+    }
+    .midCheckoutWraper {
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+    .rightCheckoutWraper {
+        margin-left: 0;
+        width: 100%;
+        padding: 140px 20px 40px 20px;
+    }
+}
