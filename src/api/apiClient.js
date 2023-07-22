@@ -2,7 +2,10 @@ const BASE_URL = 'https://sawaniapi.azurewebsites.net';
 
 export async function fetchData(endpoint) {
     try {
-        const response = await fetch(`${BASE_URL}/${endpoint}`);
+        const headers = createHeaders();
+        const response = await fetch(`${BASE_URL}/${endpoint}`, {
+            headers,
+        });
         const data = await response.json();
         return data;
     } catch (error) {
@@ -23,16 +26,23 @@ export async function deleteData(endpoint, body) {
     return makeRequest('DELETE', endpoint, body);
 }
 
+
+function createHeaders() {
+    const headers = {
+        'Content-Type': 'application/json',
+    };
+
+    const userData = JSON.parse(localStorage.getItem('loginInfo'));
+    if (userData) {
+        headers['Authorization'] = `Bearer ${userData.token}`;
+    }
+
+    return headers;
+}
+
 export async function makeRequest(method, endpoint, body) {
     try {
-        const headers = {
-            'Content-Type': 'application/json',
-        };
-
-        const userData = JSON.parse(localStorage.getItem('loginInfo'));
-        if (userData) {
-            headers['Authorization'] = `Bearer ${userData.token}`;
-        }
+        const headers = createHeaders();
 
         const response = await fetch(`${BASE_URL}/${endpoint}`, {
             method,

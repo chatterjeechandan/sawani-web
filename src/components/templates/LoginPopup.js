@@ -10,6 +10,8 @@ import { AuthContext } from '../../utils/AuthContext';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { CartContext } from '../../utils/CartContext';
+import { getActiveCart } from '../../api/cart';
 
 const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
     const [mobile, setMobile] = useState('');
@@ -21,6 +23,7 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
     const [passwordError, setPasswordError] = useState('');
 
     const { login: setLoginResponse } = useContext(AuthContext);
+    const { updateCartItems } = useContext(CartContext);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -49,6 +52,7 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
             if (response.id) {
                 localStorage.setItem('loginInfo', JSON.stringify(response));
                 setLoginResponse(response);
+                updateCart();
                 setToaster({ type: 'success', message: 'Login successful', duration: 3000 });
                 setTimeout(() => {
                     onClose();
@@ -60,6 +64,13 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
         } catch (error) {
             setIsLoading(false);
             setToaster({ type: 'error', message: 'Login failed', duration: 3000 });
+        }
+    };
+
+    const updateCart = async () => {
+        const response = await getActiveCart();
+        if (response.succeeded) {
+            updateCartItems(response.data);
         }
     };
 
