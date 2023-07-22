@@ -1962,3 +1962,7 @@ span.arrowRight {
         padding: 140px 20px 40px 20px;
     }
 }
+
+.addBtnWraper .loader, .delBtnWraper .loader {
+    height: 43px;
+}
