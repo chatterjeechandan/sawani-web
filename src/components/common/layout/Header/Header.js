@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useContext, useEffect, useRef, useMemo, forwardRef, useImperativeHandle } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css'; // Import CSS file for header styles
 import LoginPopup from '../../../templates/LoginPopup';
@@ -17,7 +17,7 @@ import { CartContext } from '../../../../utils/CartContext';
 import placeholderImage from "../../../../assets/images/no-image.png";
 import { updateCartAPI, deleteCartAPI } from '../../../../api/cart';
 
-const Header = () => {
+const Header = forwardRef((props, ref) => {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [isCheckoutOpen, setCheckoutOpen] = useState(false);
     const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
@@ -61,7 +61,6 @@ const Header = () => {
         setToaster({ type: 'success', message: 'Logout successful', duration: 3000 });
         setTimeout(() => {
             logout();
-            updateCartItems(null);
             setMenuOpen(false);
         }, 500);
     };
@@ -158,6 +157,12 @@ const Header = () => {
             updateCartItems(cartItems);
         }
     };
+
+    useImperativeHandle(ref, () => ({
+        loginClickedCheckout(e) {
+            handleLoginClick(e);
+        }
+    }));
 
     const subtotalPrice = useMemo(() => calculateSubtotal(), [cartItems]);
 
@@ -278,7 +283,11 @@ const Header = () => {
                                         <span className="totalPrice">{subtotalPrice.toFixed(2)} SAR</span>
                                     </div>
                                     <div className="rewardSectionsWrapers">
-                                        <span className="totalHeading points">POINTS  <span className="subPoints">Sign in to earn</span></span>
+                                        <span className="totalHeading points">POINTS
+                                            {!loginResponse ? (
+                                                <span className="subPoints" onClick={(e) => handleLoginClick(e)}>Sign in to earn</span>
+                                            ) : ''}
+                                        </span>
                                         <span className="totalPrice points">
                                             <span className="rewardsIconImg">
                                                 <img src={rewards} alt="" />
@@ -295,7 +304,7 @@ const Header = () => {
                                     </span>
                                 </div>
                                 <div className="cartBtnWraper">
-                                    <button className='pinkBtn'>CONTINUE SHOPPING</button>
+                                    <button className='pinkBtn'><Link to="/category">CONTINUE SHOPPING</Link></button>
                                     <button className='checkBtn'><Link to="/checkout">CHECKOUT</Link></button>
                                 </div>
                             </div>
@@ -309,6 +318,6 @@ const Header = () => {
 
         </header>
     );
-};
+});
 
 export default Header;

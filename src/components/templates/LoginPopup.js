@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CartContext } from '../../utils/CartContext';
-import { getActiveCart } from '../../api/cart';
+import { getActiveCart, updateCartOwnerToCartAPI } from '../../api/cart';
 
 const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
     const [mobile, setMobile] = useState('');
@@ -21,9 +21,8 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
     const [toaster, setToaster] = useState(null);
     const [mobileError, setMobileError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-
     const { login: setLoginResponse } = useContext(AuthContext);
-    const { updateCartItems } = useContext(CartContext);
+    const { cartItems, updateCartItems } = useContext(CartContext);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -53,10 +52,6 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
                 localStorage.setItem('loginInfo', JSON.stringify(response));
                 setLoginResponse(response);
                 updateCart();
-                setToaster({ type: 'success', message: 'Login successful', duration: 3000 });
-                setTimeout(() => {
-                    onClose();
-                }, 500);
             } else {
                 setIsLoading(false);
                 setToaster({ type: 'error', message: response.Message, duration: 3000 });
@@ -68,11 +63,45 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
     };
 
     const updateCart = async () => {
-        const response = await getActiveCart();
-        if (response.succeeded) {
-            updateCartItems(response.data);
+        try {
+            const response = await getActiveCart();
+            if (response.succeeded) {
+                const loggedInCartItems = response.data.items;
+                const guestCartItems = cartItems.items;
+                const mergedItems = [];
+                loggedInCartItems.forEach((loggedInItem) => {
+                    const guestItemIndex = guestCartItems.findIndex(
+                        (guestItem) => guestItem.productVariantId === loggedInItem.productVariantId
+                    );
+                    if (guestItemIndex !== -1) {
+                        loggedInItem.quantity += guestCartItems[guestItemIndex].quantity;
+                        mergedItems.push(loggedInItem);
+                        guestCartItems.splice(guestItemIndex, 1);
+                    } else {
+                        mergedItems.push(loggedInItem);
+                    }
+                });
+                mergedItems.push(...guestCartItems);
+                const mergedCart = { ...response.data, items: mergedItems };
+                updateCartItems(mergedCart);
+                try {
+                    const response = await updateCartOwnerToCartAPI(mergedCart.id);
+                    if (response.succeeded) {
+                        setIsLoading(false);
+                        setToaster({ type: 'success', message: 'Login successful', duration: 3000 });
+                        setTimeout(() => {
+                            onClose();
+                        }, 500);
+                    }
+                } catch (error) {
+                    console.error('Error updating cart:', error);
+                }
+            }
+        } catch (error) {
+            console.error('Error updating cart:', error);
         }
     };
+
 
     const toggleLoginFormFn = () => {
         setLoginFormState(!loginFormState);

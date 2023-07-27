@@ -52,7 +52,7 @@ const DeliveryPage = () => {
                                 <span>
                                     <img src={tab3} alt='' />
                                 </span>
-                                Delhivery
+                                Delivery
                             </li>
                         </ul>
                     </div>
@@ -67,22 +67,22 @@ const DeliveryPage = () => {
                     </div>
                 </div>
                 <div className='tabContentWraper delhiveryTabContent'>
-                   <div className="leftInfoContent">
-                    <h3 className="blackHeading">WANT IT DELIVERED?</h3>
-                    <h2 className="brownHeading">Download the APP</h2>
-                    <p>Earn points and redeem rewards. Order ahead <br />and pay. And get it delivered!</p>
-                    <div className="appBtn Wrapers">
-                        <span className="appleWraper">
-                            <img src={apple} alt="" />
-                        </span>
-                        <span className="androidWraper">
-                            <img src={android} alt="" />
-                        </span>
+                    <div className="leftInfoContent">
+                        <h3 className="blackHeading">WANT IT DELIVERED?</h3>
+                        <h2 className="brownHeading">Download the APP</h2>
+                        <p>Earn points and redeem rewards. Order ahead <br />and pay. And get it delivered!</p>
+                        <div className="appBtn Wrapers">
+                            <span className="appleWraper">
+                                <img src={apple} alt="" />
+                            </span>
+                            <span className="androidWraper">
+                                <img src={android} alt="" />
+                            </span>
+                        </div>
                     </div>
-                   </div>
-                   <div className="rightDivwraper">
-                    <img src={camel} alt="" />
-                   </div>
+                    <div className="rightDivwraper">
+                        <img src={camel} alt="" />
+                    </div>
                 </div>
             </div>
             <Footer />

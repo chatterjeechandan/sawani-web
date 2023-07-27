@@ -24,3 +24,6 @@ export function deleteCartAPI(cartId, newCartItem) {
     return deleteData(`cart/${cartId}/delete_item`, newCartItem);
 }
 
+export function updateCartOwnerToCartAPI(cartId) {
+    return fetchData(`cart/${cartId}/update_owner`);
+}
