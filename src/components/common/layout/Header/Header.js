@@ -16,6 +16,7 @@ import deletes from "../../../../assets/images/delete.png";
 import { CartContext } from '../../../../utils/CartContext';
 import placeholderImage from "../../../../assets/images/no-image.png";
 import { updateCartAPI, deleteCartAPI } from '../../../../api/cart';
+import { updateCartOwnerToCartAPI } from '../../../../api/cart';
 
 const Header = forwardRef((props, ref) => {
     const [isMenuOpen, setMenuOpen] = useState(false);
@@ -56,13 +57,30 @@ const Header = forwardRef((props, ref) => {
         setSignupPopupOpen(false);
     };
 
-    const handleLogOutClick = (e) => {
+    const handleLogOutClick = async (e) => {
         e.preventDefault();
-        setToaster({ type: 'success', message: 'Logout successful', duration: 3000 });
-        setTimeout(() => {
-            logout();
-            setMenuOpen(false);
-        }, 500);
+        if (cartItems.items.length > 0) {
+            try {
+                const response_new = await updateCartOwnerToCartAPI(cartItems.id);
+                if (response_new.succeeded) {
+                    setToaster({ type: 'success', message: 'Logout successful', duration: 3000 });
+                    updateCartItems(null);
+                    setTimeout(() => {
+                        logout();
+                        setMenuOpen(false);
+                    }, 500);
+                }
+            } catch (error) {
+                console.error('Error updating cart owner:', error);
+            }
+        }
+        else {
+            setToaster({ type: 'success', message: 'Logout successful', duration: 3000 });
+            setTimeout(() => {
+                logout();
+                setMenuOpen(false);
+            }, 500);
+        }
     };
 
     const handleToasterClose = () => {
@@ -164,8 +182,6 @@ const Header = forwardRef((props, ref) => {
         }
     }));
 
-    const subtotalPrice = useMemo(() => calculateSubtotal(), [cartItems]);
-
     return (
         <header className="header headerWrapers">
             {toaster && (
@@ -177,10 +193,9 @@ const Header = forwardRef((props, ref) => {
                 />
             )}
             <div className="header-left translateWraper">
-                {/* Language change icon */}
-                <span className="translateNow">
+                {/* <span className="translateNow">
                     <img src={translate} alt="" />
-                </span>
+                </span> */}
             </div>
             <div className="header-center logoWrapers">
                 {/* Logo */}
@@ -280,7 +295,7 @@ const Header = forwardRef((props, ref) => {
                                 <div className="finalCartBills">
                                     <div className="subTotal">
                                         <span className="totalHeading">Subtotal</span>
-                                        <span className="totalPrice">{subtotalPrice.toFixed(2)} SAR</span>
+                                        <span className="totalPrice">{calculateSubtotal()} SAR</span>
                                     </div>
                                     <div className="rewardSectionsWrapers">
                                         <span className="totalHeading points">POINTS
@@ -300,7 +315,7 @@ const Header = forwardRef((props, ref) => {
                                         TOTAL
                                     </span>
                                     <span className="grandHeading grandPrice">
-                                        {subtotalPrice.toFixed(2)} SAR
+                                        {calculateSubtotal()} SAR
                                     </span>
                                 </div>
                                 <div className="cartBtnWraper">

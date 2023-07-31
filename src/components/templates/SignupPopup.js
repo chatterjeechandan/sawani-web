@@ -21,6 +21,7 @@ const SignUpPopup = ({ onClose, onOpenLogin }) => {
         e.preventDefault();
 
         const mobileFormat = /^[0-9]{10}$/;
+        const passwordFormat = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
         if (!name) {
             setNameError('Please enter your name');
@@ -42,6 +43,11 @@ const SignUpPopup = ({ onClose, onOpenLogin }) => {
             return;
         }
 
+        if (!password.match(passwordFormat)) {
+            setPasswordError('Password must contain at least 8 characters, including lowercase and uppercase letters, numbers, and special characters.');
+            return;
+        }
+
         try {
             setIsLoading(true);
             const response = await register({ name, mobile, password });
@@ -53,13 +59,22 @@ const SignUpPopup = ({ onClose, onOpenLogin }) => {
                 }, 500);
             } else {
                 setIsLoading(false);
-                setToaster({ type: 'error', message: response.Message, duration: 3000 });
+                if (response.errors) {
+                    Object.values(response.errors).forEach((errorArray) => {
+                        errorArray.forEach((errorMessage) => {
+                            setToaster({ type: 'error', message: errorMessage, duration: 3000 });
+                        });
+                    });
+                } else {
+                    setToaster({ type: 'error', message: 'Signup failed. Please try again.', duration: 3000 });
+                }
             }
         } catch (error) {
             setIsLoading(false);
             setToaster({ type: 'error', message: 'Signup failed', duration: 3000 });
         }
     };
+
 
     const handleOverlayClick = (e) => {
         if (e.target === e.currentTarget) {

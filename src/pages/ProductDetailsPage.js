@@ -92,6 +92,7 @@ const Product = () => {
     const handleAttributeChange = (event, attributeId) => {
         const { value } = event.target;
         setAttributes((prevAttributes) => {
+            console.log(prevAttributes);
             const attributeIndexMap = product.attributes.reduce(
                 (map, attribute, index) => {
                     map[attribute.id] = index;
@@ -101,7 +102,7 @@ const Product = () => {
             );
             const updatedAttributes = [...prevAttributes];
             updatedAttributes[attributeIndexMap[attributeId]] = Number(value);
-            return updatedAttributes.filter((item) => item !== "");
+            return updatedAttributes;
         });
     };
 
@@ -452,7 +453,7 @@ const Product = () => {
                         <div className="indrelatesProduct">
                             <div className="imageWraper">
                                 <img src={productInd} className="prdtImgs" alt="" />
-                                <span className="counterWraper">
+                                {/* <span className="counterWraper">
                                     <span className="plusCounter" onClick={counteroptionFm}>
                                         <img src={counterPlus} alt="" />
                                     </span>
@@ -467,7 +468,7 @@ const Product = () => {
                                         </>
                                     )}
 
-                                </span>
+                                </span> */}
                             </div>
                             <div className="productNamePrice">
                                 <h5>Date Milk</h5>
@@ -477,17 +478,6 @@ const Product = () => {
                         <div className="indrelatesProduct">
                             <div className="imageWraper">
                                 <img src={productInd} className="prdtImgs" alt="" />
-                                <span className="counterWraper">
-                                    <span className="plusCounter">
-                                        <img src={counterPlus} alt="" />
-                                    </span>
-                                    {/* <span className="counterInput">
-                                                <input type="number" className="inputCounter" value={1} />
-                                            </span>
-                                            <span className="minusCounter">
-                                                <img src={counterMinus} alt="" />
-                                            </span> */}
-                                </span>
                             </div>
                             <div className="productNamePrice">
                                 <h5>Date Milk</h5>
@@ -497,17 +487,6 @@ const Product = () => {
                         <div className="indrelatesProduct">
                             <div className="imageWraper">
                                 <img src={productInd} className="prdtImgs" alt="" />
-                                <span className="counterWraper">
-                                    <span className="plusCounter">
-                                        <img src={counterPlus} alt="" />
-                                    </span>
-                                    {/* <span className="counterInput">
-                                                <input type="number" className="inputCounter" value={1} />
-                                            </span>
-                                            <span className="minusCounter">
-                                                <img src={counterMinus} alt="" />
-                                            </span> */}
-                                </span>
                             </div>
                             <div className="productNamePrice">
                                 <h5>Date Milk</h5>
@@ -517,17 +496,6 @@ const Product = () => {
                         <div className="indrelatesProduct">
                             <div className="imageWraper">
                                 <img src={productInd} className="prdtImgs" alt="" />
-                                <span className="counterWraper">
-                                    <span className="plusCounter">
-                                        <img src={counterPlus} alt="" />
-                                    </span>
-                                    {/* <span className="counterInput">
-                                                <input type="number" className="inputCounter" value={1} />
-                                            </span>
-                                            <span className="minusCounter">
-                                                <img src={counterMinus} alt="" />
-                                            </span> */}
-                                </span>
                             </div>
                             <div className="productNamePrice">
                                 <h5>Date Milk</h5>
@@ -537,17 +505,6 @@ const Product = () => {
                         <div className="indrelatesProduct">
                             <div className="imageWraper">
                                 <img src={productInd} className="prdtImgs" alt="" />
-                                <span className="counterWraper">
-                                    <span className="plusCounter">
-                                        <img src={counterPlus} alt="" />
-                                    </span>
-                                    {/* <span className="counterInput">
-                                                <input type="number" className="inputCounter" value={1} />
-                                            </span>
-                                            <span className="minusCounter">
-                                                <img src={counterMinus} alt="" />
-                                            </span> */}
-                                </span>
                             </div>
                             <div className="productNamePrice">
                                 <h5>Date Milk</h5>
@@ -558,17 +515,6 @@ const Product = () => {
                         <div className="indrelatesProduct">
                             <div className="imageWraper">
                                 <img src={productInd} className="prdtImgs" alt="" />
-                                <span className="counterWraper">
-                                    <span className="plusCounter">
-                                        <img src={counterPlus} alt="" />
-                                    </span>
-                                    {/*<span className="counterInput">
-                                                <input type="number" className="inputCounter" value={1} />
-                                            </span>
-                                            <span className="minusCounter">
-                                                <img src={counterMinus} alt="" />
-                                            </span> */}
-                                </span>
                             </div>
                             <div className="productNamePrice">
                                 <h5>Date Milk</h5>

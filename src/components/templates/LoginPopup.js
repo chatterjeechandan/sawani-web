@@ -67,26 +67,31 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
             const response = await getActiveCart();
             if (response.succeeded) {
                 const loggedInCartItems = response.data.items;
-                const guestCartItems = cartItems.items;
-                const mergedItems = [];
-                loggedInCartItems.forEach((loggedInItem) => {
-                    const guestItemIndex = guestCartItems.findIndex(
-                        (guestItem) => guestItem.productVariantId === loggedInItem.productVariantId
-                    );
-                    if (guestItemIndex !== -1) {
-                        loggedInItem.quantity += guestCartItems[guestItemIndex].quantity;
-                        mergedItems.push(loggedInItem);
-                        guestCartItems.splice(guestItemIndex, 1);
-                    } else {
-                        mergedItems.push(loggedInItem);
-                    }
-                });
-                mergedItems.push(...guestCartItems);
-                const mergedCart = { ...response.data, items: mergedItems };
-                updateCartItems(mergedCart);
+                if (cartItems) {
+                    const guestCartItems = cartItems.items;
+                    const mergedItems = [];
+                    loggedInCartItems.forEach((loggedInItem) => {
+                        const guestItemIndex = guestCartItems.findIndex(
+                            (guestItem) => guestItem.productVariantId === loggedInItem.productVariantId
+                        );
+                        if (guestItemIndex !== -1) {
+                            loggedInItem.quantity += guestCartItems[guestItemIndex].quantity;
+                            mergedItems.push(loggedInItem);
+                            guestCartItems.splice(guestItemIndex, 1);
+                        } else {
+                            mergedItems.push(loggedInItem);
+                        }
+                    });
+                    mergedItems.push(...guestCartItems);
+                    const mergedCart = { ...response.data, items: mergedItems };
+                    updateCartItems(mergedCart);
+                } else {
+                    updateCartItems(response.data);
+                }
+
                 try {
-                    const response = await updateCartOwnerToCartAPI(mergedCart.id);
-                    if (response.succeeded) {
+                    const response_new = await updateCartOwnerToCartAPI(response.data.id);
+                    if (response_new.succeeded) {
                         setIsLoading(false);
                         setToaster({ type: 'success', message: 'Login successful', duration: 3000 });
                         setTimeout(() => {
@@ -94,13 +99,35 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
                         }, 500);
                     }
                 } catch (error) {
-                    console.error('Error updating cart:', error);
+                    console.error('Error updating cart owner:', error);
+                }
+            } else {
+                if (cartItems) {
+                    try {
+                        const response = await updateCartOwnerToCartAPI(cartItems.id);
+                        if (response.succeeded) {
+                            setIsLoading(false);
+                            setToaster({ type: 'success', message: 'Login successful', duration: 3000 });
+                            setTimeout(() => {
+                                onClose();
+                            }, 500);
+                        }
+                    } catch (error) {
+                        console.error('Error updating cart owner:', error);
+                    }
+                } else {
+                    setIsLoading(false);
+                    setToaster({ type: 'success', message: 'Login successful', duration: 3000 });
+                    setTimeout(() => {
+                        onClose();
+                    }, 500);
                 }
             }
         } catch (error) {
-            console.error('Error updating cart:', error);
+            console.error('Error login into account:', error);
         }
     };
+
 
 
     const toggleLoginFormFn = () => {

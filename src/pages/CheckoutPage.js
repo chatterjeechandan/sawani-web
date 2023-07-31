@@ -25,6 +25,14 @@ import { getDeliveryMethodAPI, getPaymentMethodAPI, getOnePayMethodAPI } from ".
 import Toaster from '../components/common/Toaster/Toaster';
 import { cartToOrder, updatedeliveryMethod, updatePaymentMethod } from "../api/order";
 import { useNavigate } from 'react-router-dom';
+import { PaymentPopup } from '../components/templates/PaymentPopup';
+
+import { makePayment } from '../api/payment';
+
+
+
+
+
 
 const Checkout = () => {
     const [dropDownOpen, setDropDownOpen] = useState(false);
@@ -42,6 +50,7 @@ const Checkout = () => {
     const [allOnePaymMethod, setAllOnePaymMethod] = useState(null);
     const [issubmitLoading, setSubmitLoading] = useState(false);
     const [toaster, setToaster] = useState(null);
+    const [isPaymentPopupOpen, setIsPaymentPopupOpen] = useState(false);
     const headerRef = useRef();
     const navigate = useNavigate();
 
@@ -171,41 +180,87 @@ const Checkout = () => {
 
         if (!selectedDeliveryOption) {
             setToaster({ type: 'error', message: 'Please select delivery option!', duration: 3000 });
+            return false;
         }
 
         if (!selectedPaymentMethod) {
             setToaster({ type: 'error', message: 'Please select payment method!', duration: 3000 });
+            return false;
         }
         else if (selectedPaymentMethod.name === 'Online Checkout' && !selectedOnePayMethod) {
             setToaster({ type: 'error', message: 'Please select one pay method!', duration: 3000 });
+            return false;
         }
 
-        setSubmitLoading(true);
-        try {
-            const response = await cartToOrder(cartItems.id);
-            if (response.succeeded) {
-                const orderId = response.data.id;
-                const delMethodPayload = { 'id': selectedDeliveryOption };
-                const responseUpdateDelMethod = await updatedeliveryMethod(orderId, delMethodPayload);
-                if (responseUpdateDelMethod) {
-                    const payMethodPayload = { 'id': selectedPaymentMethod.id }
-                    const responseUpdatePaymentlMethod = await updatePaymentMethod(orderId, payMethodPayload);
-                    if (responseUpdatePaymentlMethod) {
-                        setSubmitLoading(false);
-                        updateCartItems(null);
-                        setToaster({ type: 'success', message: 'Order has been succesfully placed!', duration: 3000 });
-                        setTimeout(() => {
-                            navigate('/');
-                        }, 1000);
-                    }
+        if (selectedOnePayMethod.name === 'Credit/Debit Card') {
+            setSubmitLoading(true);
+            const paymentData = {
+                amount: Number(subtotalPrice),
+                currency: 'SAR',
+                description: 'Order #123',
+                reference: '123456',
+                statement_descriptor: 'SAWANI',
+                customer: {
+                    first_name: 'John',
+                    last_name: 'Doe',
+                    email: 'john.doe@example.com',
+                    phone: '+1234567890'
+                },
+                source: {
+                    "id": "src_card"
+                },
+                redirect: {
+                    url: 'https://sawaniwep.azurewebsites.net/checkout',
+                    method: 'GET',
+                    params: { 'succ': true },
                 }
+            };
 
+            try {
+                const paymentResponse = await makePayment(paymentData);
+                if (paymentResponse.transaction) {
+                    window.location.href = paymentResponse.transaction.url;
+                }
+            } catch (error) {
+                console.error('Payment error:', error.message);
             }
-        } catch (error) {
-            console.error('Error creating cart to order:', error);
+
+        }
+        else {
+            setSubmitLoading(true);
+            try {
+                const response = await cartToOrder(cartItems.id);
+                if (response.succeeded) {
+                    const orderId = response.data.id;
+                    const delMethodPayload = { 'id': selectedDeliveryOption };
+                    const responseUpdateDelMethod = await updatedeliveryMethod(orderId, delMethodPayload);
+                    if (responseUpdateDelMethod) {
+                        const payMethodPayload = { 'id': selectedPaymentMethod.id }
+                        const responseUpdatePaymentlMethod = await updatePaymentMethod(orderId, payMethodPayload);
+                        if (responseUpdatePaymentlMethod) {
+                            setSubmitLoading(false);
+                            updateCartItems(null);
+                            setToaster({ type: 'success', message: 'Order has been succesfully placed!', duration: 3000 });
+                            setTimeout(() => {
+                                navigate('/');
+                            }, 1000);
+                        }
+                    }
+
+                }
+            } catch (error) {
+                console.error('Error creating cart to order:', error);
+            }
         }
     };
 
+    const handleClosePaymentPopup = () => {
+        setIsPaymentPopupOpen(false);
+    };
+
+    const handlePayNowClick = () => {
+        setIsPaymentPopupOpen(true);
+    };
 
     return (
         <div className="dashboardPageMaimWraper checkoutsPages">
@@ -236,7 +291,7 @@ const Checkout = () => {
                         </div>
                     ) : ''}
                     <div className="paymentWraper">
-                        <h3>Delivery Method</h3>
+                        <h3 onClick={handlePayNowClick}>Delivery Method</h3>
                         <div className="infodetails margin-20">
                             {isinlineLoadingDelivery ? (
                                 <Loader showOverlay={false} size={20} color="#B7854C" isLoading={false} />
@@ -375,6 +430,7 @@ const Checkout = () => {
                 </div>
             </div>
             <Footer />
+            {isPaymentPopupOpen && <PaymentPopup onClose={handleClosePaymentPopup} />}
         </div>
     );
 };

@@ -20,11 +20,11 @@ const ProductCard = ({ product }) => {
             <Link to={`/product/${id}`} className="product-link" style={{ display: 'inline' }}>
                 <span className='produtImage'>
                     <img src={productImage} alt={name} className="product-image" />
-                    <span className='addDelWraper'>
+                    {/* <span className='addDelWraper'>
                         <span className='addSec' onClick={(e) => handleAddClick(e, product)}>
                             <img src={add} alt='' />
                         </span>
-                    </span>
+                    </span> */}
                 </span>
                 <span className='productInfoDetails'>
                     <h5>{name}</h5>
