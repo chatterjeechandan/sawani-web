@@ -58,6 +58,8 @@ const ForgetPasswordPopup = ({ onClose, onOpenLogin }) => {
     const handleResetPassword = async (e) => {
         e.preventDefault();
 
+        const strongPasswordFormat = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
         if (!otp) {
             setOtpError('Please enter otp');
             return;
@@ -65,6 +67,11 @@ const ForgetPasswordPopup = ({ onClose, onOpenLogin }) => {
 
         if (!password) {
             setPasswordError('Please enter password');
+            return;
+        }
+
+        if (!strongPasswordFormat.test(password)) {
+            setPasswordError('Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character');
             return;
         }
 

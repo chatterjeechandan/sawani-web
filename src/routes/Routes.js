@@ -5,7 +5,9 @@ import CategoryListingPage from "../pages/CategoryListingPage";
 import DeliveryPage from "../pages/DeliveryPage";
 import ProductList from "../pages/ProductListingPage";
 import Product from "../pages/ProductDetailsPage";
-import Checkout from "../pages/CheckoutPage.js";
+import Checkout from "../pages/CheckoutPage";
+import ContactUs from "../pages/ContactUs";
+import ProfileRoutes from "../pages/Profile/ProfileRoutes";
 
 const Routes = () => {
     return (
@@ -17,6 +19,8 @@ const Routes = () => {
                 <Route path="/products" element={<ProductList />} />
                 <Route path="/product/:id" element={<Product />} />
                 <Route path="/checkout" element={<Checkout />} />
+                <Route path="/contact-us" element={<ContactUs />} />
+                <Route path="/profile/*" element={<ProfileRoutes />} />
             </AppRoutes>
         </Router>
     );

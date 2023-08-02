@@ -93,7 +93,7 @@ const ProductFilter = ({ categories, selectedCategory, scat, handleCategorySelec
                     </span>
                 </span> */}
                 <span className='filterDrop laste'>
-                    <p>Sort By:</p>
+                    <p>Filter- Sort By:</p>
                     <select onChange={(e) => handleShortSelectChange(e)}>
                         <option value="new">New Arrival</option>
                         <option value="price_high">Price High to Low</option>

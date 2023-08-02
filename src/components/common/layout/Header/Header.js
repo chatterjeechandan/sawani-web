@@ -238,7 +238,7 @@ const Header = forwardRef((props, ref) => {
                             <Link to="/">Media Coverage</Link>
                         </li>
                         <li>
-                            <Link to="/">Contact Us</Link>
+                            <Link to="/contact-us">Contact Us</Link>
                         </li>
                         <li className='borderMenu'></li>
                         {loginResponse ? (
