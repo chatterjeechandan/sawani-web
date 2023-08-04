@@ -1,0 +1,62 @@
+<html>
+<head>
+    <title>goSell Demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="shortcut icon" href="https://goSellJSLib.b-cdn.net/v2.0.0/imgs/tap-favicon.ico" />
+    <link href="https://goSellJSLib.b-cdn.net/v2.0.0/css/gosell.css" rel="stylesheet" />
+</head>
+<body>
+    <script type="text/javascript" src="https://goSellJSLib.b-cdn.net/v2.0.0/js/gosell.js"></script>
+    <div id="root"></div>
+    <div class="loader"></div>
+    <div class="message">Please wait, loading...</div>
+
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            let queryString = window.location.search; 
+            let objectString = queryString.split('=')[1]; 
+            let decodedObject = JSON.parse(decodeURIComponent(objectString));
+            goSell.config(decodedObject);
+            setTimeout(() => {
+                goSell.openPaymentPage()
+            }, 2000);
+        });
+    </script>
+
+</body>
+</html>
+
+<style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 2s linear infinite;
+      margin-right: 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .message {
+      font-size: 18px;
+      color: #333;
+    }
+  </style>

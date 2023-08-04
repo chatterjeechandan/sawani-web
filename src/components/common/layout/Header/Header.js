@@ -31,6 +31,7 @@ const Header = forwardRef((props, ref) => {
     const menuRef = useRef(null);
     const cartRef = useRef(null);
     const [cartinlineloader, setCartinlineloader] = useState(false);
+    const [isShowWholePageLoader, setIsShowWholePageLoader] = useState(false);
 
 
     const toggleMenu = () => {
@@ -65,12 +66,14 @@ const Header = forwardRef((props, ref) => {
         e.preventDefault();
         if (cartItems.items.length > 0) {
             try {
+                setIsShowWholePageLoader(true);
                 const response_new = await updateCartOwnerToCartAPI(cartItems.id);
                 if (response_new.succeeded) {
                     setToaster({ type: 'success', message: 'Logout successful', duration: 3000 });
                     updateCartItems(null);
                     setTimeout(() => {
                         logout();
+                        setIsShowWholePageLoader(false);
                         setMenuOpen(false);
                     }, 500);
                 }
@@ -353,7 +356,7 @@ const Header = forwardRef((props, ref) => {
             {isLoginPopupOpen && <LoginPopup onClose={handleCloseLoginPopup} onOpenSignup={handleSignupClickFromChild} onOpenForgotPassword={handleForgotPasswordClickFromChild} />}
             {isSignupPopupOpen && <SignUpPopup onClose={handleCloseSignupPopup} onOpenLogin={handleLoginClickFromChild} />}
             {isForgotPasswordPopupOpen && <ForgetPasswordPopup onClose={handleCloseForgotPasswordPopup} onOpenLogin={handleLoginClickFromChild} />}
-
+            {isShowWholePageLoader && <Loader showOverlay={true} size={30} color="#fff" isLoading={false} />}
         </header>
     );
 });
