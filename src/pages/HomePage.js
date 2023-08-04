@@ -5,7 +5,6 @@ import slideDown from "../assets/images/scroll.png";
 import icon1 from "../assets/images/icon1.png";
 import icon2 from "../assets/images/icon2.png";
 
-
 const HomePage = () => {
 
   const scrollToBottom = () => {

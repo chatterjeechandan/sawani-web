@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
 import iconSelect from "../../assets/images/iconSelect.png";
 import dropimg from "../../assets/images/drop.png";
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 const ProductFilter = ({ categories, selectedCategory, scat, handleCategorySelect, onShortSelectChange }) => {
     const dropdownRef = useRef();
     const [dropDownOpen, setDropDownOpen] = useState(false);
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const sort = searchParams.get('sort');
 
     const setDropDownOpenFn = () => {
         setDropDownOpen(!dropDownOpen);
@@ -95,9 +98,9 @@ const ProductFilter = ({ categories, selectedCategory, scat, handleCategorySelec
                 <span className='filterDrop laste'>
                     <p>Filter- Sort By:</p>
                     <select onChange={(e) => handleShortSelectChange(e)}>
-                        <option value="new">New Arrival</option>
-                        <option value="price_high">Price High to Low</option>
-                        <option value="price_low">Price Low to High</option>
+                        <option value="new" selected={sort === 'new' || !sort }>New Arrival</option>
+                        <option value="price_high" selected={sort === 'price_high'}>Price High to Low</option>
+                        <option value="price_low" selected={sort === 'price_low'}>Price Low to High</option>
                     </select>
                     <span className='dropArrows'>
                         <img src={dropimg} alt='' />
