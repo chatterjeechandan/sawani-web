@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import Header from '../components/common/layout/Header/Header';
 import Footer from '../components/common/layout/Footer';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -23,25 +23,36 @@ const ProductList = () => {
     const productsPerPage = 10;
 
     useEffect(() => {
-        const fetchProducts = async () => {
-            setIsLoading(true);
-            try {
-                const response = await fetchProductsbyCat(1, scat, sort);
-                setProducts(response);
-                setIsLoading(false);
-            } catch (error) {
-                console.error('Error fetching products:', error);
-                setIsLoading(false);
-            }
-        };
-
         fetchProducts();
-    }, [scat, sort]);
+    }, [pcat, scat, sort]);
 
     useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    useEffect(() => {
+        selectCategory();
+    }, [categories]);
+
+    const selectCategory = () => {
+        if (!categories) {
+            return;
+        }
         const selectedCategory = categories.find(category => Number(category.id) === Number(pcat))
         setSelectedCategory(selectedCategory);
-    }, [pcat]);
+    };
+
+    const fetchProducts = async () => {
+        setIsLoading(true);
+        try {
+            const response = await fetchProductsbyCat(1, pcat, sort);
+            setProducts(response);
+            setIsLoading(false);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+            setIsLoading(false);
+        }
+    };
 
     const handleCategorySelect = (category) => {
         const url = category.childCategories.length > 0 ? `/products/?pcat=${category.id}&scat=${category.childCategories[0].id}` : `/products/?pcat=${category.id}`;
@@ -58,9 +69,17 @@ const ProductList = () => {
         navigate(url);
     };
 
+    const headerRef = useRef(null);
+
+    const openCartPopup = () => {
+        if (headerRef.current && headerRef.current.openCartPopup) {
+            headerRef.current.openCartPopup();
+        }
+    };
+
     return (
         <div className="dashboardPageMaimWraper">
-            <Header />
+            <Header ref={headerRef} />
             <div className='productPageWraper'>
                 <ProductFilter
                     categories={categories}
@@ -79,7 +98,7 @@ const ProductList = () => {
                         ) : (
                             <div className="product-container">
                                 {products.map((product) => (
-                                    <ProductCard key={product.id} product={product} />
+                                    <ProductCard key={product.id} product={product} openCartPopup={openCartPopup} />
                                 ))}
                             </div>
                         ))

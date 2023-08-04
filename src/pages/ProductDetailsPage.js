@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProductById } from '../api/product';
 import Loader from '../components/common/Loader/Loader';
@@ -46,33 +46,40 @@ const Product = () => {
     const { cartItems, updateCartItems } = useContext(CartContext);
     const { categories } = useContext(CategoryContext);
     const navigate = useNavigate();
+    const cartcountRef = useRef();
 
     const counteroptionFm = () => {
         setCounterOpen(!isCounterOpen);
     };
 
     useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const response = await getProductById(id);
-                setProduct(response);
-                setIsLoading(false);
-                categories.forEach(category => {
-                    category.childCategories.some(subcategory => {
-                        if (Number(subcategory.id) === Number(response.categoryId)) {
-                            setSelectedCategory(category);
-                            return true;
-                        }
-                    });
-                });
-            } catch (error) {
-                console.error('Error fetching product:', error);
-                setIsLoading(false);
-            }
-        };
-
         fetchProduct();
-    }, [id]);
+    }, [id, categories]);
+
+    useEffect(() => {
+        fetchProduct();
+    }, []);
+
+    const fetchProduct = async () => {
+        try {
+            const response = await getProductById(id);
+            setProduct(response);
+            setIsLoading(false);
+            selectCategory(response.categoryId);
+            setProvariant(response.variants[0]);
+        } catch (error) {
+            console.error('Error fetching product:', error);
+            setIsLoading(false);
+        }
+    };
+
+    const selectCategory = (productCat) => {
+        if (!categories) {
+            return;
+        }
+        const selectedCategory = categories.find(category => Number(category.id) === Number(productCat))
+        setSelectedCategory(selectedCategory);
+    };
 
     const handleCategorySelect = (category) => {
         const url = category.childCategories.length > 0 ? `/products/?pcat=${category.id}&scat=${category.childCategories[0].id}` : `/products/?pcat=${category.id}`;
@@ -80,14 +87,14 @@ const Product = () => {
         setSelectedCategory(category);
     };
 
-    useEffect(() => {
-        if (attributes.length > 0 && attributes.every((attr) => attr !== null && attr !== "")) {
-            const variantRes = product.variants.find((variant) => {
-                return variant.selectedValueIds.every((attrValue) => attributes.includes(Number(attrValue)));
-            });
-            setProvariant(variantRes);
-        }
-    }, [attributes, product?.variants]);
+    // useEffect(() => {
+    //     if (attributes.length > 0 && attributes.every((attr) => attr !== null && attr !== "")) {
+    //         const variantRes = product.variants.find((variant) => {
+    //             return variant.selectedValueIds.every((attrValue) => attributes.includes(Number(attrValue)));
+    //         });
+    //         setProvariant(variantRes);
+    //     }
+    // }, [attributes, product?.variants]);
 
     const handleAttributeChange = (event, attributeId) => {
         const { value } = event.target;
@@ -117,6 +124,8 @@ const Product = () => {
             return;
         }
         if (count === 0 && amount < 0) {
+            setIncrementButtonLoading(false);
+            setDecrementButtonLoading(false);
             return;
         }
 
@@ -125,6 +134,30 @@ const Product = () => {
         }
         else {
             setIncrementButtonLoading(true);
+        }
+
+        const newCount = count + amount;
+
+        let cartPayload = {
+            storeId: 1,
+            items: [
+                {
+                    productVariantId: provariant?.id,
+                    quantity: newCount,
+                    price: Number(newCount * provariant?.price),
+                    name: provariant?.name,
+                    image: product?.image,
+                },
+            ],
+        };
+        if (loginResponse) {
+            cartPayload['customerId'] = loginResponse.id;
+        }
+
+        if (!cartItems) {
+            createCart(cartPayload);
+        } else {
+            handleCartItemUpdate(cartItems, provariant, newCount);
         }
 
         setCount((prevCount) => prevCount + amount);
@@ -141,7 +174,7 @@ const Product = () => {
                 ...updatedCartItems.items[existingCartItemIndex],
                 quantity: count,
                 price: Number(provariant?.price) * count,
-                name: provariant?.displayName,
+                name: provariant?.name,
                 image: product?.image
             };
 
@@ -160,7 +193,7 @@ const Product = () => {
                     productVariantId: provariant?.id,
                     quantity: count,
                     price: Number(count * provariant?.price),
-                    name: provariant?.displayName,
+                    name: provariant?.name,
                     image: product?.image,
                 };
                 existingCartItems.items.push(newCartItem);
@@ -168,32 +201,6 @@ const Product = () => {
             }
         }
     };
-
-    useEffect(() => {
-        if (provariant && count > 0) {
-            let cartPayload = {
-                storeId: 1,
-                items: [
-                    {
-                        productVariantId: provariant?.id,
-                        quantity: count,
-                        price: Number(count * provariant?.price),
-                        name: provariant?.displayName,
-                        image: product?.image,
-                    },
-                ],
-            };
-            if (loginResponse) {
-                cartPayload['customerId'] = loginResponse.id;
-            }
-
-            if (!cartItems) {
-                createCart(cartPayload);
-            } else {
-                handleCartItemUpdate(cartItems, provariant, count);
-            }
-        }
-    }, [count]);
 
     useEffect(() => {
         let cartCount = 0;
@@ -207,7 +214,7 @@ const Product = () => {
             }
         }
         setCount(cartCount);
-    }, [provariant]);
+    }, [provariant, cartItems]);
 
 
     const handleSuccess = (successMessage) => {
@@ -331,9 +338,9 @@ const Product = () => {
                             <div className="bookMark">
                                 <img src={love} alt="" />
                             </div>
-                            <h2 className="productName">{!provariant?.displayName ? product.name : provariant?.displayName}</h2>
+                            <h2 className="productName">{!provariant?.displayName ? product.name : provariant?.name}</h2>
                             <p className="productPrice">SAR {!provariant?.price ? product.price : provariant?.price}</p>
-                            <p className="productDescription">{product.description}</p>
+                            <p className="productDescription" dangerouslySetInnerHTML={{ __html: product.description }}></p>
                             <div className="productOtherInfo">
                                 {product.attributes.length > 0 && (
                                     <p className="infoHeading">Product Option</p>
@@ -425,7 +432,7 @@ const Product = () => {
                             <div className="productOtherInfo rewardQntyWraper">
                                 <div className="qntyWrapers">
                                     <span className="mainQtyWraper">
-                                        <input type="number" value={count} onChange={(e) => setCount(Number(e.target.value))} className="productPieceQty" />
+                                        <input type="number" value={count} onChange={(e) => setCount(Number(e.target.value))} className="productPieceQty" ref={cartcountRef} />
                                     </span>
                                     <span className="qtyText">Qnt.</span>
                                 </div>

@@ -15,8 +15,9 @@ import cartIcon from "../../../../assets/images/cartIcon.png";
 import deletes from "../../../../assets/images/delete.png";
 import { CartContext } from '../../../../utils/CartContext';
 import placeholderImage from "../../../../assets/images/no-image.png";
-import { updateCartAPI, deleteCartAPI } from '../../../../api/cart';
+import { updateCartAPI, deleteCartAPI, getCartAPI } from '../../../../api/cart';
 import { updateCartOwnerToCartAPI } from '../../../../api/cart';
+import Loader from '../../../../components/common/Loader/Loader';
 
 const Header = forwardRef((props, ref) => {
     const [isMenuOpen, setMenuOpen] = useState(false);
@@ -29,6 +30,8 @@ const Header = forwardRef((props, ref) => {
     const { cartItems, updateCartItems } = useContext(CartContext);
     const menuRef = useRef(null);
     const cartRef = useRef(null);
+    const [cartinlineloader, setCartinlineloader] = useState(false);
+
 
     const toggleMenu = () => {
         setMenuOpen(!isMenuOpen);
@@ -36,6 +39,7 @@ const Header = forwardRef((props, ref) => {
     const setCheckoutOpenFn = () => {
         setCheckoutOpen(!isCheckoutOpen);
     };
+
 
     const handleLoginClick = (e) => {
         e.preventDefault();
@@ -179,8 +183,27 @@ const Header = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
         loginClickedCheckout(e) {
             handleLoginClick(e);
+        },
+        async openCartPopup(e) {
+            setCartinlineloader(true);
+            try {
+                const response = await getCartAPI(cartItems.id);
+                console.log('cart response:', response);
+                if (response.succeeded) {
+                    setCartinlineloader(false);
+                    updateCartItems(response.data);
+                } else {
+                    handleError(response.Message || 'Cart add failed');
+                }
+            } catch (error) {
+                handleError('Cart add failed');
+            }
         }
     }));
+
+    const handleError = (errorMessage) => {
+        setToaster({ type: 'error', message: errorMessage, duration: 3000 });
+    };
 
     return (
         <header className="header headerWrapers">
@@ -260,7 +283,7 @@ const Header = forwardRef((props, ref) => {
                 </div>
                 <div onClick={setCheckoutOpenFn} className="cart-icon" ref={cartRef}>
                     <img src={cartIcon} className='carticon' alt='' />
-                    <span className="cart-count">{getCartCount()}</span>
+                    <span className="cart-count">{cartinlineloader ? <Loader showOverlay={false} size={12} color="#000" isLoading={false} /> : getCartCount()}</span>
                     {isCheckoutOpen && getCartCount() > 0 && (
                         <div className='menu-items cartPopup' onClick={cartPopupClickHandler}>
                             <div className="rightCheckoutWraper">
@@ -279,7 +302,7 @@ const Header = forwardRef((props, ref) => {
                                                         <img src={counterPlus} alt="" />
                                                     </span>
                                                     <span className="counterInput" >
-                                                        <input type="number" className="inputCounter" value={item.quantity} />
+                                                        <input type="number" className="inputCounter" value={item.quantity} readOnly />
                                                     </span>
                                                     <span className="minusCounter" onClick={() => handleCountChange(index, -1)}>
                                                         <img src={minus} alt="" />

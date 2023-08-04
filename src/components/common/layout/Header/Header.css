@@ -249,3 +249,7 @@ span.cart-count {
   overflow-y: auto;
   padding-right: 5px;
 }
+
+.cart-count .loader{
+  height:auto;
+}
