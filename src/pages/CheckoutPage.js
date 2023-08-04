@@ -25,7 +25,7 @@ import { getDeliveryMethodAPI, getPaymentMethodAPI, getOnePayMethodAPI } from ".
 import Toaster from '../components/common/Toaster/Toaster';
 import { cartToOrder, updatedeliveryMethod, updatePaymentMethod } from "../api/order";
 import { useNavigate } from 'react-router-dom';
-import { PaymentPopup } from '../components/templates/PaymentPopup';
+import { PaymentPopup } from '../components/templates/PaymentPopup/PaymentPopup';
 
 import { makePayment } from '../api/payment';
 
@@ -194,36 +194,98 @@ const Checkout = () => {
 
         if (selectedOnePayMethod.name === 'Credit/Debit Card') {
             setSubmitLoading(true);
-            const paymentData = {
-                amount: Number(subtotalPrice),
-                currency: 'SAR',
-                description: 'Order #123',
-                reference: '123456',
-                statement_descriptor: 'SAWANI',
-                customer: {
-                    first_name: 'John',
-                    last_name: 'Doe',
-                    email: 'john.doe@example.com',
-                    phone: '+1234567890'
+            const paymentPayload= {
+                containerID:"root",
+                gateway:{
+                    publicKey:"pk_test_Vlk842B1EA7tDN5QbrfGjYzh",
+                    supportedCurrencies:"SAR",
+                    supportedPaymentMethods: "all",
+                    labels:{
+                        cardNumber:"Card Number",
+                        expirationDate:"MM/YY",
+                        cvv:"CVV",
+                        cardHolder:"Name on Card",
+                        actionButton:"Pay"
+                    },
+                    style: {
+                        base: {
+                            color: '#535353',
+                            lineHeight: '18px',
+                            fontFamily: 'sans-serif',
+                            fontSmoothing: 'antialiased',
+                            fontSize: '16px',
+                            '::placeholder': {
+                                color: 'rgba(0, 0, 0, 0.26)',
+                                fontSize:'15px'
+                            }
+                        },
+                        invalid: {
+                            color: 'red',
+                            iconColor: '#fa755a'
+                        }
+                    }
                 },
-                source: {
-                    "id": "src_card"
+                customer:{
+                    id:"cus_m1QB0320181401l1LD1812485",
+                    first_name: "First Name",
+                    phone: {
+                        country_code: "965",
+                        number: "99999999"
+                    }
                 },
-                redirect: {
-                    url: 'https://sawaniwep.azurewebsites.net/checkout',
-                    method: 'GET',
-                    params: { 'succ': true },
+                order:{
+                    amount: 100,
+                    currency:"SAR",
+                    items:[
+                        {
+                            id:1,
+                            name:'item1',
+                            description: 'item1 desc',
+                            quantity:'5',
+                            amount_per_unit:'20',
+                        }
+                    ]
+                },
+                transaction:{
+                    mode: 'charge',
+                    charge:{
+                        redirect: window.location.origin + "/redirect.html"
                 }
-            };
-
-            try {
-                const paymentResponse = await makePayment(paymentData);
-                if (paymentResponse.transaction) {
-                    window.location.href = paymentResponse.transaction.url;
-                }
-            } catch (error) {
-                console.error('Payment error:', error.message);
             }
+            };
+            let encodedObject = encodeURIComponent(JSON.stringify(paymentPayload));
+            window.location.href = '/payment.html?payload=' + encodedObject;
+            //setIsPaymentPopupOpen(true);
+            // const paymentData = {
+            //     amount: Number(subtotalPrice),
+            //     currency: 'SAR',
+            //     description: 'Order #123',
+            //     reference: '123456',
+            //     statement_descriptor: 'SAWANI',
+            //     customer: {
+            //         first_name: 'John',
+            //         last_name: 'Doe',
+            //         email: 'john.doe@example.com',
+            //         phone: '+1234567890'
+            //     },
+            //     source: {
+            //         "id": "src_card"
+            //     },
+            //     redirect: {
+            //         url: 'https://sawaniwep.azurewebsites.net/checkout',
+            //         method: 'GET',
+            //         params: { 'succ': true },
+            //     }
+            // };
+
+            // try {
+            //     const paymentResponse = await makePayment(paymentData);
+            //     if (paymentResponse.transaction) {
+            //         window.location.href = paymentResponse.transaction.url;
+            //     }
+            // } catch (error) {
+            //     console.error('Payment error:', error.message);
+            // }
 
         }
         else {
@@ -359,7 +421,7 @@ const Checkout = () => {
                                             <img src={counterPlus} alt="" />
                                         </span>
                                         <span className="counterInput" >
-                                            <input type="number" className="inputCounter" value={item.quantity} />
+                                            <input type="number" className="inputCounter" value={item.quantity} readOnly/>
                                         </span>
                                         <span className="minusCounter" onClick={() => handleCountChange(index, -1)}>
                                             <img src={minus} alt="" />
