@@ -38,7 +38,73 @@ const FavouriteProducts = () => {
                                         <span className='pointsDetails'><b>+50 Points</b></span>
                                     </div>
                                 </div>
+                                <div className='indProductsWraper'>
+                                    <div className='imagePrd'>
+                                        <img src={products} alt='' />
+                                        <span className='likeProducts'>
+                                            <img src={heart} alt='' />
+                                        </span>
+                                    </div>
+                                    <h4 className='prodFavName'>Cookie & Cream</h4>
+                                    <div className='pointsWraperInd'>
+                                        <img src={rewards} className='rewardStars' />
+                                        <span className='pointsDetails'><b>+50 Points</b></span>
+                                    </div>
+                                </div>
+                                <div className='indProductsWraper'>
+                                    <div className='imagePrd'>
+                                        <img src={products} alt='' />
+                                        <span className='likeProducts'>
+                                            <img src={heart} alt='' />
+                                        </span>
+                                    </div>
+                                    <h4 className='prodFavName'>Cookie & Cream</h4>
+                                    <div className='pointsWraperInd'>
+                                        <img src={rewards} className='rewardStars' />
+                                        <span className='pointsDetails'><b>+50 Points</b></span>
+                                    </div>
+                                </div>
+                                <div className='indProductsWraper'>
+                                    <div className='imagePrd'>
+                                        <img src={products} alt='' />
+                                        <span className='likeProducts'>
+                                            <img src={heart} alt='' />
+                                        </span>
+                                    </div>
+                                    <h4 className='prodFavName'>Cookie & Cream</h4>
+                                    <div className='pointsWraperInd'>
+                                        <img src={rewards} className='rewardStars' />
+                                        <span className='pointsDetails'><b>+50 Points</b></span>
+                                    </div>
+                                </div>
+                                <div className='indProductsWraper'>
+                                    <div className='imagePrd'>
+                                        <img src={products} alt='' />
+                                        <span className='likeProducts'>
+                                            <img src={heart} alt='' />
+                                        </span>
+                                    </div>
+                                    <h4 className='prodFavName'>Cookie & Cream</h4>
+                                    <div className='pointsWraperInd'>
+                                        <img src={rewards} className='rewardStars' />
+                                        <span className='pointsDetails'><b>+50 Points</b></span>
+                                    </div>
+                                </div>
+                                <div className='indProductsWraper'>
+                                    <div className='imagePrd'>
+                                        <img src={products} alt='' />
+                                        <span className='likeProducts'>
+                                            <img src={heart} alt='' />
+                                        </span>
+                                    </div>
+                                    <h4 className='prodFavName'>Cookie & Cream</h4>
+                                    <div className='pointsWraperInd'>
+                                        <img src={rewards} className='rewardStars' />
+                                        <span className='pointsDetails'><b>+50 Points</b></span>
+                                    </div>
+                                </div>
                            </div>
+                           
                         </div>
 
                         <div className='questionsWrapers'>

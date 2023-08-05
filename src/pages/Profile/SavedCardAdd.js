@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 import Header from '../../components/common/layout/Header/Header';
 import Footer from '../../components/common/layout/Footer';
 import ProfileSidebar from './ProfileSidebar';
-import editIcon from "../../assets/images/edit-circle.png";
-import deleteIcon from "../../assets/images/delete-circle.png";
-import saudi from "../../assets/images/saudi-arabia-2.png";
 
 const SavedCardAdd = () => {
     return (
@@ -15,79 +12,28 @@ const SavedCardAdd = () => {
              <ProfileSidebar />
                 <div className='profileRightWraper'>
                     <div className='pointAnalysisWraper'>
-                        <div className='pointTabWraper'>
-                           <h4 className='addressHeading'>Address Book</h4>
-                           <div className='addressListings'>
-                            <p className='addAddress'><Link to="/address-add" className="profileLinksTag">+ Add New Address</Link></p>
-                            
-                            <div className='indAddressList'>
-                                <h5 className='addName'>Aisha Fahd</h5>
-                                <p className='addpara'>Abdullah Bukhari, Aziziyah, Jeddah</p>
-                                <p className='saudiWraper'>
-                                    <img src={saudi} className='sausiIcon' alt=''/><span className='phoneNumbers'>
-                                        <b>+966</b> 12 1234 345
-                                    </span>
-                                </p>
-                                <span className='editAddress'>
-                                    <span className='editAdd'>
-                                        <img src={editIcon} alt='' />
-                                    </span>
-                                    <span className='deleteAdd'>
-                                        <img src={deleteIcon} alt='' />
-                                    </span>
-                                </span>
+                        <div className='pointTabWraper inputWrapers'>
+                           <h4 className='addressHeading'>Add/Edit Card</h4>
+                           <div className='addressListings gapTop'>
+                             <div className='indFields'>
+                                <label className='fieldLabel'>Card Number</label>
+                                <input className='foeldInputs' type='text' placeholder='Enter Card Number' />
                             </div>
-                            <div className='indAddressList'>
-                                <h5 className='addName'>Aisha Fahd</h5>
-                                <p className='addpara'>Abdullah Bukhari, Aziziyah, Jeddah</p>
-                                <p className='saudiWraper'>
-                                    <img src={saudi} className='sausiIcon' alt=''/><span className='phoneNumbers'>
-                                        <b>+966</b> 12 1234 345
-                                    </span>
-                                </p>
-                                <span className='editAddress'>
-                                    <span className='editAdd'>
-                                        <img src={editIcon} alt='' />
-                                    </span>
-                                    <span className='deleteAdd'>
-                                        <img src={deleteIcon} alt='' />
-                                    </span>
-                                </span>
+                            <div className='indFields'>
+                                <label className='fieldLabel'>Card Name</label>
+                                <input className='foeldInputs' type='text'  placeholder='Enter Card Name'/>
+                            </div>  
+                            <div className='sortFieldInput'>
+                                <div className='indFields exp'>
+                                    <label className='fieldLabel'>Exp Date</label>
+                                    <input className='foeldInputs' type='text'  placeholder='Enter Exp Date' />
+                                </div>
+                                <div className='indFields cvv'>
+                                <label className='fieldLabel'>CVV</label>
+                                <input className='foeldInputs' type='number'  placeholder='Enter Card CVV' />
                             </div>
-                            <div className='indAddressList'>
-                                <h5 className='addName'>Aisha Fahd</h5>
-                                <p className='addpara'>Abdullah Bukhari, Aziziyah, Jeddah</p>
-                                <p className='saudiWraper'>
-                                    <img src={saudi} className='sausiIcon' alt=''/><span className='phoneNumbers'>
-                                        <b>+966</b> 12 1234 345
-                                    </span>
-                                </p>
-                                <span className='editAddress'>
-                                    <span className='editAdd'>
-                                        <img src={editIcon} alt='' />
-                                    </span>
-                                    <span className='deleteAdd'>
-                                        <img src={deleteIcon} alt='' />
-                                    </span>
-                                </span>
                             </div>
-                            <div className='indAddressList'>
-                                <h5 className='addName'>Aisha Fahd</h5>
-                                <p className='addpara'>Abdullah Bukhari, Aziziyah, Jeddah</p>
-                                <p className='saudiWraper'>
-                                    <img src={saudi} className='sausiIcon' alt=''/><span className='phoneNumbers'>
-                                        <b>+966</b> 12 1234 345
-                                    </span>
-                                </p>
-                                <span className='editAddress'>
-                                    <span className='editAdd'>
-                                        <img src={editIcon} alt='' />
-                                    </span>
-                                    <span className='deleteAdd'>
-                                        <img src={deleteIcon} alt='' />
-                                    </span>
-                                </span>
-                            </div>
+                            <button className='submitInfo'>Submit</button>   
                            </div>
                         </div>
 
