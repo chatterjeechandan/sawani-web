@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext, useEffect, useRef, useMemo, forwardRef, useImperativeHandle } from 'react';
 import { Link } from 'react-router-dom';
 import profile from "../../assets/images/profile.png";
 import profileIcon from "../../assets/images/camelIcon.png";
@@ -9,8 +9,13 @@ import routIcon1 from "../../assets/images/crypto.png";
 import routIcon2 from "../../assets/images/loveIcon.png";
 import routIcon3 from "../../assets/images/credit-card-4.png";
 import routIcon4 from "../../assets/images/location@2x.png";
+import barCode from "../../assets/images/barCode.png";
 
 const ProfileSidebar = () => {
+    const [isQrOpen, setIsQrOpen] = useState(false);
+    const setIsQrOpenFn = () => {
+        setIsQrOpen(!isQrOpen);
+    };
     return (
         <div className='profileSidebarWraper'>
             <div className='sideProfileTop'>
@@ -31,7 +36,7 @@ const ProfileSidebar = () => {
                     </div>
                     <p className='converstionRate'>Equals to <span>3.00 SAR</span></p>
                     <p className='numberInfo'>Your Sawani Rewards Number</p>
-                    <div className='codeQr'>
+                    <div className='codeQr' onClick={setIsQrOpenFn} >
                         <img src={qr} className='codeScan' />E01N-98OL-3D5U
                     </div>
                 </div>
@@ -84,7 +89,20 @@ const ProfileSidebar = () => {
                 <button className='refferBtn'>Refer a friend</button>
             </div>
 
+            {isQrOpen && (
+                    <div className="popup-overlay" >
+                
+                    <div className="popup-content barCodesPopup" onClick={setIsQrOpenFn}>
+                        <p className='barCodeHeadingP'>Scan to earn<br /> <span>SAWANI©</span> Points</p>
+                        <img src={barCode} className='barCodeImg' />
+                        <p className='idBar'>E01N-98OL-3D5U</p>
+                    </div>
+                </div>
+            )}
         </div>
+
+
+
     );
 };
 

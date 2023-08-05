@@ -29,9 +29,9 @@ const SavedCardAdd = () => {
                                     <input className='foeldInputs' type='text'  placeholder='Enter Exp Date' />
                                 </div>
                                 <div className='indFields cvv'>
-                                <label className='fieldLabel'>CVV</label>
-                                <input className='foeldInputs' type='number'  placeholder='Enter Card CVV' />
-                            </div>
+                                    <label className='fieldLabel'>CVV</label>
+                                    <input className='foeldInputs' type='number'  placeholder='Enter Card CVV' />
+                                </div>
                             </div>
                             <button className='submitInfo'>Submit</button>   
                            </div>
