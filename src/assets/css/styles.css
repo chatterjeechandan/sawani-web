@@ -233,7 +233,7 @@ body {
 }
 .translateWraper span {
     cursor: pointer;
-    margin: 0 auto;
+    margin-left: 25px; cursor: pointer;
 }
 .menuWraper {
     width: 30%;
@@ -2162,7 +2162,7 @@ p.numberInfo {
     float: left;
     background: #A592B5 0% 0% no-repeat padding-box;
     border-radius: 6px;
-    padding: 7px 30px;
+    padding: 7px 15px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -2244,6 +2244,7 @@ button.refferBtn {
     opacity: 1;
     padding: 25px 50px;
     margin-bottom: 15px;
+    min-height: 456.5px;
 }
 
 .questionsWrapers {
@@ -2409,4 +2410,216 @@ span.pointsName, span.pointsPercent {
 }
 span.pointsPercent {
     margin-left: auto;
+}
+img.profile {
+    width: 40px;
+    margin-right: 10px;
+}
+p.profileNameHeader {
+    letter-spacing: 0.35px;
+    color: #FFFFFF;
+    opacity: 1;
+    margin-right: auto;
+    font-size: 15px;
+    font-weight: 500;
+}
+.orderNowBtns {
+    background: #7a619d;
+    position: fixed;
+    left: 40px;
+    bottom: 50px;
+    font-size: 15px;
+    padding: 8px 25px;
+    border-radius: 10px;
+    color: #fff;
+}
+.orderNowBtns {
+    background: #7a619d;
+    position: fixed;
+    left: 40px;
+    bottom: 50px;
+    font-size: 15px;
+    padding: 8px 25px;
+    border-radius: 10px;
+    color: #fff;
+    z-index: 9;
+    cursor: pointer;
+}
+.addAddress {
+    letter-spacing: 0.28px;
+    color: #000000;
+    opacity: 1;
+    text-align: right;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    width: 100%;
+    float: right;
+}
+.addAddress a {
+    float: right;
+    cursor: pointer;
+}
+h4.addressHeading {
+    letter-spacing: 0.31px;
+    color: #000000;
+    opacity: 1;
+    font-size: 14px;
+    font-weight: 600;
+}
+.indAddressList {
+    width: 100%;
+    float: left;
+    padding: 11px 23px;
+    background: #EEECE6 0% 0% no-repeat padding-box;
+    border-radius: 11px;
+    opacity: 1;
+    margin: 10px 0 0 0;
+    position: relative;
+}
+span.editAdd {
+    margin-right: 10px;
+    cursor: pointer;
+}
+span.deleteAdd {
+    cursor: pointer;
+}
+span.editAddress {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+h5.addName {
+    letter-spacing: 0.35px;
+    color: #1A1818;
+    opacity: 1;
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+h5.addName {
+    letter-spacing: 0.35px;
+    color: #1A1818;
+    opacity: 1;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+p.saudiWraper {
+    display: flex;
+    align-items: flex-end;
+}
+p.saudiWraper img {
+    margin-right: 5px;
+}
+.phoneNumbers {
+    color: #3E4A59;
+    font-size: 11px;
+}
+.phoneNumbers b {
+    margin-right: 3px;
+}
+
+.addressListings {
+    width: 100%;
+    float: left;
+    max-height: 355px;
+    overflow-y: auto;
+    padding-right: 15px;
+}
+.notBold {
+    font-weight: 500;
+}
+.indCard {
+    width: 100%;
+    float: left;
+    background: #E0DBD0 0% 0% no-repeat padding-box;
+    border-radius: 15px;
+    opacity: 1;
+    padding: 25px 38px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    opacity: 0.55;
+    cursor: pointer;
+}
+.cardLogo {
+    margin-left: auto;
+}
+.indCard:hover {
+    opacity: 1;
+}
+.indCard.activated {
+    background: #B7864C 0% 0% no-repeat padding-box;
+    opacity: 1;
+    color: #fff;
+}
+p.cardNumber {
+    font-size: 15px;
+    font-weight: 500;
+} 
+p.cardname {
+    font-size: 14px;
+    font-weight: 600;
+    display:none;
+}
+.indCard.activated p.cardname { 
+    display: block;
+}
+.favouriteTabs {
+    width: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+.favouritetabWraper {
+    width: 50%;
+    text-align: center;
+}
+.favouritetabWraper span {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.28px;
+    color: #0D1D29;
+    opacity: 1;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+}
+.favouritetabWraper span.activates {
+    font-weight: 600;
+    border-bottom: 2px solid #B7864C;
+}
+.tabContents {
+    width: 100%;
+    float: left;
+    height: calc(100% - 45px);
+}
+p.noRecords {
+    text-align: center;
+    letter-spacing: 0.33px;
+    color: #0D1D29;
+    opacity: 1;
+    font-size: 14px;
+    font-weight: 700;
+    padding-top: 15%;
+}
+
+.indProductsWraper {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 12px;
+    opacity: 1;
+    margin: 7px;
+    width: 33%;
+    float: left;
+    overflow: hidden;
+}
+.imagePrd {
+    width: 100%;
+    height: 77px;
+    overflow: hidden;
+    position: relative;
+}
+.imagePrd img {
+    width: 100%;
+    float: left;
 }

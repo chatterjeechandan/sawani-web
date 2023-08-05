@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext, useEffect, useRef, useMemo, forwardRef, useImperativeHandle } from 'react';
 import Header from '../components/common/layout/Header/Header';
 import Footer from '../components/common/layout/Footer';
 import slideDown from "../assets/images/scroll.png";
@@ -14,11 +14,33 @@ const HomePage = () => {
       bottomElement.scrollIntoView({ behavior: 'smooth' });
     }
   };
+  const [scrolled, setScrolled] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY >= 480) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  
   return (
     <div className="dashboardWraper" style={{ textAlign: "right" }}>
       <div className="bannerWrapers">
         <Header />
+        {scrolled && (
+          <span className='orderNowBtns'>Order Now</span>
+        )}
+        
         <div className="bannertextWraper">
           <p>Dummy test here</p>
           <h4>This is Dummy Text</h4>

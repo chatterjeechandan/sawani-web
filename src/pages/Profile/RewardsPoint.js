@@ -7,7 +7,6 @@ import smallLogo from "../../assets/images/smLogo.png";
 import icon1 from "../../assets/images/icons1.png";
 import icon2 from "../../assets/images/icons2.png";
 import icon3 from "../../assets/images/icons3.png";
-import question from "../../assets/images/questionBack.png";
 
 const RewardsPointPage = () => {
     return (

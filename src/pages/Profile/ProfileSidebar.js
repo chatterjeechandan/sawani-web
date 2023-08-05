@@ -40,32 +40,40 @@ const ProfileSidebar = () => {
             <div className='sideProfileMid'>
                 <ul className='profileRouts'>
                     <li className="activated">
+                    <Link to="/profile" className="profileLinksTag">
                         <span className='iconName'>
                             <img src={routIcon1} className='routIcon' />
                         </span>
                         <span className='nameLink'>Points Analysis</span>
                         <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </Link>
                     </li>
                     <li className="">
+                    <Link to="/favourite-store" className="profileLinksTag">
                         <span className='iconName'>
                             <img src={routIcon2} className='routIcon' />
                         </span>
                         <span className='nameLink'>Favorites</span>
                         <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </Link>
                     </li>
                     <li className="">
+                    <Link to="/saved-card" className="profileLinksTag">
                         <span className='iconName'>
                             <img src={routIcon3} className='routIcon' />
                         </span>
                         <span className='nameLink'>My Cards</span>
                         <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </Link>
                     </li>
                     <li className="">
+                    <Link to="/saved-address" className="profileLinksTag">
                         <span className='iconName'>
                             <img src={routIcon4} className='routIcon' />
                         </span>
                         <span className='nameLink'>My Addresses</span>
                         <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </Link>
                     </li>
                 </ul>
             </div>

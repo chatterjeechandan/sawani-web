@@ -5,7 +5,7 @@ import LoginPopup from '../../../templates/LoginPopup';
 import SignUpPopup from '../../../templates/SignupPopup';
 import ForgetPasswordPopup from '../../../templates/ForgetPasswordPopup';
 import logo from "../../../../assets/images/logo.png";
-import translate from "../../../../assets/images/translate.png";
+import profile from "../../../../assets/images/profile.png";
 import { AuthContext } from '../../../../utils/AuthContext';
 import Toaster from '../../../../components/common/Toaster/Toaster';
 import minus from "../../../../assets/images/minusWhite.png";
@@ -192,10 +192,11 @@ const Header = forwardRef((props, ref) => {
                     onClose={handleToasterClose}
                 />
             )}
-            <div className="header-left translateWraper">
-                {/* <span className="translateNow">
-                    <img src={translate} alt="" />
-                </span> */}
+            <div className="header-left translateWraper userProfile">
+            <Link to="/profile" className="profileLink"> <span className="translateNow">
+                    <img src={profile} className='profile' alt="" />
+                </span>
+                <p className='profileNameHeader'>Aisha</p></Link>
             </div>
             <div className="header-center logoWrapers">
                 {/* Logo */}
