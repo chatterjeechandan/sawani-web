@@ -19,6 +19,7 @@ const ProductCard = ({ product, openCartPopup }) => {
     const [decrementButtonLoading, setDecrementButtonLoading] = useState(false);
     const { loginResponse } = useContext(AuthContext);
     const [toaster, setToaster] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         setCounter()
@@ -75,13 +76,12 @@ const ProductCard = ({ product, openCartPopup }) => {
         const existingCartItemIndex = existingCartItems.items.findIndex(
             (item) => item.productVariantId === provariantId
         );
-
         if (existingCartItemIndex !== -1) {
             const updatedCartItems = { ...existingCartItems };
             const updatedItem = {
                 ...updatedCartItems.items[existingCartItemIndex],
                 quantity: count,
-                price: Number(product.price) * count,
+                price: Number(product.price),
                 name: product.name,
                 image: product?.image
             };
@@ -100,7 +100,7 @@ const ProductCard = ({ product, openCartPopup }) => {
                 const newCartItem = {
                     productVariantId: provariantId,
                     quantity: count,
-                    price: Number(count * product.price),
+                    price: product.price,
                     name: product.name,
                     image: product?.image,
                 };
@@ -112,6 +112,7 @@ const ProductCard = ({ product, openCartPopup }) => {
 
     const createCart = async (cartPayload) => {
         try {
+            setIsLoading(true);
             const response = await createCartAPI(cartPayload);
             console.log('cart response:', response);
             if (response.succeeded) {
@@ -126,9 +127,12 @@ const ProductCard = ({ product, openCartPopup }) => {
 
     const getCart = async (cart) => {
         try {
+            setIsLoading(true);
             const response = await getCartAPI(cart.id);
             console.log('cart response:', response);
             if (response.succeeded) {
+                setIsLoading(false);
+                openCartPopup();
                 handleSuccess('Product added into cart successfully');
                 updateCartItems(response.data);
             } else {
@@ -141,12 +145,14 @@ const ProductCard = ({ product, openCartPopup }) => {
 
     const addCartItem = async (cartId, existingCartItems, newCartItem) => {
         try {
+            setIsLoading(true);
             const response = await addCartAPI(cartId, newCartItem);
             console.log('cart update response:', response);
             if (response.succeeded) {
                 handleSuccess('Product added into cart successfully');
                 updateCartItems(existingCartItems);
                 openCartPopup();
+                setIsLoading(false);
             } else {
                 handleError(response.Message || 'Cart add failed');
             }
@@ -157,6 +163,7 @@ const ProductCard = ({ product, openCartPopup }) => {
 
     const updateCartItem = async (cartId, updatedItem, index) => {
         try {
+            setIsLoading(true);
             const response = await updateCartAPI(cartId, updatedItem);
             console.log('cart update response:', response);
             if (response.succeeded) {
@@ -164,6 +171,7 @@ const ProductCard = ({ product, openCartPopup }) => {
                 cartItems.items[index] = updatedItem;
                 updateCartItems(cartItems);
                 openCartPopup();
+                setIsLoading(false);
             } else {
                 handleError(response.Message || 'Cart update failed');
             }
@@ -209,6 +217,7 @@ const ProductCard = ({ product, openCartPopup }) => {
 
     return (
         <div className='indProduct'>
+             {isLoading ? <Loader showOverlay={true} size={30} color="#fff" isLoading={false} /> : ''}
             <Link to={`/product/${id}`} className="product-link" style={{ display: 'inline' }}>
                 <span className='produtImage'>
                     <img src={productImage} alt={name} className="product-image" />

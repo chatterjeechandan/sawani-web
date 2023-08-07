@@ -30,14 +30,14 @@
         const token = urlParams.get('token');
         document.addEventListener('DOMContentLoaded', function() {
             if (!token) {
-                window.location.href = '/';
+                window.location.href = '/checkout/?error';
             }
         });    
         goSell.showResult({
             callback: response => {
                 setTimeout(() => {
                     let encodedObject = encodeURIComponent(JSON.stringify(response));
-                    window.location.href = '/?payres=' + encodedObject;
+                    window.location.href = '/checkout/?payres=' + encodedObject;
                 }, 2000);
             }
         });

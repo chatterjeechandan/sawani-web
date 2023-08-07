@@ -64,7 +64,7 @@ const Header = forwardRef((props, ref) => {
 
     const handleLogOutClick = async (e) => {
         e.preventDefault();
-        if (cartItems.items.length > 0) {
+        if (cartItems) {
             try {
                 setIsShowWholePageLoader(true);
                 const response_new = await updateCartOwnerToCartAPI(cartItems.id);
@@ -137,7 +137,9 @@ const Header = forwardRef((props, ref) => {
     const calculateSubtotal = () => {
         if (!cartItems || !cartItems.items) return 0;
 
-        return cartItems.items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+        const toalatPrice = cartItems.items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+
+        return toalatPrice.toFixed(2);
     };
 
 
@@ -188,20 +190,21 @@ const Header = forwardRef((props, ref) => {
             handleLoginClick(e);
         },
         async openCartPopup(e) {
-            setCartinlineloader(true);
-            try {
-                const response = await getCartAPI(cartItems.id);
-                console.log('cart response:', response);
-                if (response.succeeded) {
-                    setCartinlineloader(false);
-                    updateCartItems(response.data);
-                } else {
-                    handleError(response.Message || 'Cart add failed');
-                }
-            } catch (error) {
-                handleError('Cart add failed');
-            }
-        }
+            setCheckoutOpen(true);
+        //     setCartinlineloader(true);
+        //     try {
+        //         const response = await getCartAPI(cartItems.id);
+        //         console.log('cart response:', response);
+        //         if (response.succeeded) {
+        //             setCartinlineloader(false);
+        //             updateCartItems(response.data);
+        //         } else {
+        //             handleError(response.Message || 'Cart add failed');
+        //         }
+        //     } catch (error) {
+        //         handleError('Cart add failed');
+        //     }
+         }
     }));
 
     const handleError = (errorMessage) => {
@@ -219,10 +222,14 @@ const Header = forwardRef((props, ref) => {
                 />
             )}
             <div className="header-left translateWraper userProfile">
-            <Link to="/profile" className="profileLink"> <span className="translateNow">
-                    <img src={profile} className='profile' alt="" />
-                </span>
-                <p className='profileNameHeader'>Aisha</p></Link>
+            {/* {loginResponse && (
+                <Link to="/profile" className="profileLink"> 
+                    <span className="translateNow">
+                        <img src={profile} className='profile' alt="" />
+                    </span>
+                    <p className='profileNameHeader'>Aisha</p>
+                </Link>
+            )}             */}
             </div>
             <div className="header-center logoWrapers">
                 {/* Logo */}
@@ -265,7 +272,7 @@ const Header = forwardRef((props, ref) => {
                             <Link to="/">Media Coverage</Link>
                         </li>
                         <li>
-                            <Link to="/contact-us">Contact Us</Link>
+                            <Link to="/">Contact Us</Link>
                         </li>
                         <li className='borderMenu'></li>
                         {loginResponse ? (

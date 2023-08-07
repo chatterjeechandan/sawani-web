@@ -27,7 +27,7 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        const mobileFormat = /^[0-9]{10}$/;
+        const mobileFormat = /^9665\d{8}$/;
 
         if (!mobile) {
             setMobileError('Please enter mobile number');
@@ -35,7 +35,7 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
         }
 
         if (!mobile.match(mobileFormat)) {
-            setMobileError('Invalid mobile number format');
+            setMobileError('Invalid mobile number format. Expected format: 9665XXXXXXXX where X is a digit.');
             return;
         }
 

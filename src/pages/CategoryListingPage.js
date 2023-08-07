@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react"
+import React, { useState, useEffect, useContext, useRef } from "react"
 import Header from '../components/common/layout/Header/Header';
 import Footer from '../components/common/layout/Footer';
 import CategoryCard from "../components/category/CategoryCard";
@@ -18,8 +18,11 @@ const CategoryListingPage = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('inStore');
     const { categories, updateCategoryItems } = useContext(CategoryContext);
+    const [address, setAddress] = useState('');
+    const [location, setLocation] = useState({ lat: null, lng: null });
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         const fetchData = async () => {
             if (!categories) {
                 try {
@@ -52,6 +55,74 @@ const CategoryListingPage = () => {
         }
     };
 
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+
+        const autocomplete = new window.google.maps.places.Autocomplete(inputRef.current);
+
+        autocomplete.addListener('place_changed', () => {
+            const place = autocomplete.getPlace();
+            if (place.geometry && place.geometry.location) {
+                setLocation({
+                    lat: place.geometry.location.lat(),
+                    lng: place.geometry.location.lng()
+                });
+                setAddress(place.formatted_address);
+            }
+        });
+
+        return () => {
+            window.google.maps.event.clearInstanceListeners(autocomplete);
+        };
+    }, []);
+
+    function getCurrentLocation(callback) {
+        if (!navigator.geolocation) {
+            alert('Geolocation is not supported by your browser.');
+            return;
+        }
+
+        function success(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            callback({ lat: latitude, lng: longitude });
+        }
+
+        function error() {
+            alert('Unable to retrieve your location.');
+        }
+
+        navigator.geolocation.getCurrentPosition(success, error);
+    }
+
+    function reverseGeocode(coords) {
+        const geocoder = new window.google.maps.Geocoder();
+
+        geocoder.geocode({ 'location': coords }, (results, status) => {
+            if (status === 'OK') {
+                if (results[0]) {
+                    setAddress(results[0].formatted_address);
+                    setLocation(coords);  // Set the coordinates in state
+                } else {
+                    alert('No results found');
+                }
+            } else {
+                alert('Geocoder failed due to: ' + status);
+            }
+        });
+    }
+
+    const handleGetCurrentLocation = () => {
+        getCurrentLocation(coords => {
+            reverseGeocode(coords);
+        });
+    }
+
+    function handleInputChange(e) {
+        setAddress(e.target.value);
+    }
+
     return (
         <div className="dashboardPageMaimWraper">
             <Header />
@@ -81,12 +152,12 @@ const CategoryListingPage = () => {
                     </div>
                     <div className='searchWraper'>
                         <div className='searchArea'>
-                            <input type='text' className='searchInput' />
+                            <input type='text' className='searchInput' ref={inputRef} placeholder="Enter a location" value={address} onChange={handleInputChange}/>
                             <span className='searchIcon'>
                                 <img src={search} alt='' />
                             </span>
                         </div>
-                        <button className='searchBtn'>Locate me</button>
+                        <button className='searchBtn' onClick={handleGetCurrentLocation}>Locate me</button>
                     </div>
                 </div>
                 <div className='tabContentWraper'>

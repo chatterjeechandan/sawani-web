@@ -4,6 +4,7 @@ import Footer from '../components/common/layout/Footer';
 import slideDown from "../assets/images/scroll.png";
 import icon1 from "../assets/images/icon1.png";
 import icon2 from "../assets/images/icon2.png";
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
 
@@ -37,7 +38,7 @@ const HomePage = () => {
       <div className="bannerWrapers">
         <Header />
         {scrolled && (
-          <span className='orderNowBtns'>Order Now</span>
+           <Link to="/category"><span className='orderNowBtns'>Order Now</span></Link>          
         )}
         
         <div className="bannertextWraper">

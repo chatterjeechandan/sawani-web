@@ -1,4 +1,4 @@
-import { postData } from './apiClient';
+import { postData, fetchData } from './apiClient';
 
 export function login(credentials) {
     return postData('customer/token', credentials);
@@ -14,4 +14,8 @@ export function forgotpassword(userData) {
 
 export function resetPassword(userData) {
     return postData('customer/reset_password', userData);
+}
+
+export function getCusertomerDetails(Id) {
+    return fetchData(`customer/${Id}`);
 }
