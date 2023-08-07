@@ -621,6 +621,7 @@ button.searchBtn {
     padding: 10px;
     padding-right: 50px;
     border-radius: 20px;
+    padding-left: 30px;
 }
 .tabContentWraper {
     width: 100%;
@@ -1367,6 +1368,9 @@ span.counterInput input {
     float: left;
     max-height: 50%;
     overflow-y: auto;
+}
+.cartProductListings.checkout {
+    max-height: 250px;
 }
 .midCartDetailsEdit {
     width: calc(100% - 150px);

@@ -44,6 +44,9 @@ const Product = () => {
     const [toaster, setToaster] = useState(null);
     const { loginResponse } = useContext(AuthContext);
     const { cartItems, updateCartItems } = useContext(CartContext);
+    const [ isWholePageLoading, setIsWholePageLoading ] = useState(false);
+
+    
     const { categories } = useContext(CategoryContext);
     const navigate = useNavigate();
     const cartcountRef = useRef();
@@ -119,6 +122,7 @@ const Product = () => {
     };
 
     const handleCountChange = (amount, state) => {
+        setIsWholePageLoading(true);
         if (!provariant) {
             setToaster({ type: 'error', message: 'Please select Product option', duration: 3000 });
             return;
@@ -173,7 +177,7 @@ const Product = () => {
             const updatedItem = {
                 ...updatedCartItems.items[existingCartItemIndex],
                 quantity: count,
-                price: Number(provariant?.price) * count,
+                price: provariant?.price,
                 name: provariant?.name,
                 image: product?.image
             };
@@ -192,7 +196,7 @@ const Product = () => {
                 const newCartItem = {
                     productVariantId: provariant?.id,
                     quantity: count,
-                    price: Number(count * provariant?.price),
+                    price: provariant?.price,
                     name: provariant?.name,
                     image: product?.image,
                 };
@@ -250,6 +254,7 @@ const Product = () => {
             if (response.succeeded) {
                 handleSuccess('Product added into cart successfully');
                 updateCartItems(response.data);
+                setIsWholePageLoading(false);
             } else {
                 handleError(response.Message || 'Cart add failed');
             }
@@ -265,6 +270,7 @@ const Product = () => {
             if (response.succeeded) {
                 handleSuccess('Product added into cart successfully');
                 updateCartItems(existingCartItems);
+                setIsWholePageLoading(false);
             } else {
                 handleError(response.Message || 'Cart add failed');
             }
@@ -282,6 +288,7 @@ const Product = () => {
                 console.log(cartItems);
                 cartItems.items[index] = updatedItem;
                 updateCartItems(cartItems);
+                setIsWholePageLoading(false);
             } else {
                 handleError(response.Message || 'Cart update failed');
             }
@@ -298,6 +305,7 @@ const Product = () => {
                 handleSuccess('Product deleted from cart successfully');
                 cartItems.items.splice(index, 1);
                 updateCartItems(cartItems);
+                setIsWholePageLoading(false);
             } else {
                 handleError(response.Message || 'Cart delete failed');
             }
@@ -540,6 +548,7 @@ const Product = () => {
                     onClose={handleToasterClose}
                 />
             )}
+             {isWholePageLoading ? <Loader showOverlay={true} size={30} color="#fff" isLoading={false} /> : ''}
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../assets/css/forms.css';
 import { forgotpassword, resetPassword } from '../../api/auth';
 import Loader from '../common/Loader/Loader';
@@ -23,7 +23,7 @@ const ForgetPasswordPopup = ({ onClose, onOpenLogin }) => {
     const handleForgotPassword = async (e) => {
         e.preventDefault();
 
-        const mobileFormat = /^[0-9]{10}$/;
+        const mobileFormat = /^9665\d{8}$/;
 
         if (!mobile) {
             setMobileError('Please enter mobile number');
@@ -31,7 +31,7 @@ const ForgetPasswordPopup = ({ onClose, onOpenLogin }) => {
         }
 
         if (!mobile.match(mobileFormat)) {
-            setMobileError('Invalid mobile number format');
+            setMobileError('Invalid mobile number format. Expected format: 9665XXXXXXXX where X is a digit.');
             return;
         }
 
@@ -54,6 +54,29 @@ const ForgetPasswordPopup = ({ onClose, onOpenLogin }) => {
             setToaster({ type: 'error', message: 'Forgot Password failed', duration: 3000 });
         }
     };
+
+
+    useEffect(() => {
+
+        const strongPasswordFormat = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+        if (password) {
+            setPasswordError('');
+        }
+
+        if (strongPasswordFormat.test(password)) {
+            setPasswordError('');
+        }
+
+        if (confirmPassword) {
+            setConfirmpassError('');
+        }
+
+        if (password == confirmPassword) {
+            setConfirmpassError('');
+        }
+        
+    }, [password,confirmPassword]);
 
     const handleResetPassword = async (e) => {
         e.preventDefault();
@@ -98,7 +121,15 @@ const ForgetPasswordPopup = ({ onClose, onOpenLogin }) => {
             }
             else {
                 setIsLoading(false);
-                setToaster({ type: 'error', message: response.Message, duration: 3000 });
+                if (response.errors) {
+                    Object.values(response.errors).forEach((errorArray) => {
+                        errorArray.forEach((errorMessage) => {
+                            setToaster({ type: 'error', message: errorMessage, duration: 3000 });
+                        });
+                    });
+                } else {
+                    setToaster({ type: 'error', message: 'Signup failed. Please try again.', duration: 3000 });
+                }
             }
 
         } catch (error) {

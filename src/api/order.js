@@ -1,4 +1,4 @@
-import { fetchData, updateData } from './apiClient';
+import { fetchData, updateData, postData } from './apiClient';
 
 export function cartToOrder(cartId) {
     let apiUrl = `order/cart_to_order`;
@@ -14,4 +14,12 @@ export function updatedeliveryMethod(orderId, updatedItem) {
 
 export function updatePaymentMethod(orderId, updatedItem) {
     return updateData(`order/${orderId}/payment_method`, updatedItem);
+}
+
+export function addPayment(orderId, paymentPayload) {
+    return postData(`order/${orderId}/add_payment`, paymentPayload);
+}
+
+export function checkout(orderId) {
+    return updateData(`order/${orderId}/checkout`,'');
 }

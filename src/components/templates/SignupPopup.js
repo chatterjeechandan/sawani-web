@@ -20,8 +20,8 @@ const SignUpPopup = ({ onClose, onOpenLogin }) => {
     const handleSignup = async (e) => {
         e.preventDefault();
 
-        const mobileFormat = /^[0-9]{10}$/;
-        const passwordFormat = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        const mobileFormat = /^9665\d{8}$/;
+        const passwordFormat = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,}$/;
 
         if (!name) {
             setNameError('Please enter your name');
@@ -34,7 +34,7 @@ const SignUpPopup = ({ onClose, onOpenLogin }) => {
         }
 
         if (!mobile.match(mobileFormat)) {
-            setMobileError('Invalid mobile number format');
+            setMobileError('Invalid mobile number format. Expected format: 9665XXXXXXXX where X is a digit.');
             return;
         }
 
@@ -66,7 +66,7 @@ const SignUpPopup = ({ onClose, onOpenLogin }) => {
                         });
                     });
                 } else {
-                    setToaster({ type: 'error', message: 'Signup failed. Please try again.', duration: 3000 });
+                    setToaster({ type: 'error', message: response.Message, duration: 3000 });
                 }
             }
         } catch (error) {

@@ -20,17 +20,4 @@ const CategoryCard = ({ category }) => {
   );
 };
 
-CategoryCard.propTypes = {
-  category: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    childCategories: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired
-      })
-    )
-  }).isRequired
-};
-
 export default CategoryCard;

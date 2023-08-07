@@ -23,14 +23,10 @@ import r3 from "../assets/images/r3.png";
 import pay1 from "../assets/images/pay1.png";
 import { getDeliveryMethodAPI, getPaymentMethodAPI, getOnePayMethodAPI } from "../api/lookup";
 import Toaster from '../components/common/Toaster/Toaster';
-import { cartToOrder, updatedeliveryMethod, updatePaymentMethod } from "../api/order";
-import { useNavigate } from 'react-router-dom';
+import { cartToOrder, updatedeliveryMethod, updatePaymentMethod, addPayment, checkout } from "../api/order";
+import { useNavigate, useLocation } from 'react-router-dom';
 import { PaymentPopup } from '../components/templates/PaymentPopup/PaymentPopup';
-
-import { makePayment } from '../api/payment';
-
-
-
+import { getCusertomerDetails } from '../api/auth';
 
 
 
@@ -42,9 +38,7 @@ const Checkout = () => {
     const [isinlineLoadingDelivery, setIsinlineLoadingDelivery] = useState(false);
     const [isinlineLoadingPayment, setIsinlineLoadingPayment] = useState(false);
     const [isinlineLoadingOnePay, setIsinlineLoadingOnePay] = useState(false);
-    const [selectedDeliveryOption, setSelectedDeliveryOption] = useState('');
-    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
-    const [selectedOnePayMethod, setSelectedOnePayMethod] = useState('');
+    const [mobileError, setMobileError] = useState('');
     const [allDeliveryOption, setAllDeliveryOption] = useState(null);
     const [allPaymentMethod, setAllPaymentMethod] = useState(null);
     const [allOnePaymMethod, setAllOnePaymMethod] = useState(null);
@@ -53,6 +47,46 @@ const Checkout = () => {
     const [isPaymentPopupOpen, setIsPaymentPopupOpen] = useState(false);
     const headerRef = useRef();
     const navigate = useNavigate();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const payres = searchParams.get('payres');
+
+    const [selectedDeliveryOption, setSelectedDeliveryOption] = useState(() => {
+        const storedCheckoutInfo = localStorage.getItem('checkoutInfo');
+        if (storedCheckoutInfo) {
+            const checkoutFromStorage = JSON.parse(storedCheckoutInfo)
+            return checkoutFromStorage.deliveryoption?checkoutFromStorage.deliveryoption:'';
+        }
+    });
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(() => {
+        const storedCheckoutInfo = localStorage.getItem('checkoutInfo');
+        if (storedCheckoutInfo) {
+            const checkoutFromStorage = JSON.parse(storedCheckoutInfo)
+            return checkoutFromStorage.paymentMethod?checkoutFromStorage.paymentMethod:'';
+        }
+    });
+    const [selectedOnePayMethod, setSelectedOnePayMethod] = useState(() => {
+        const storedCheckoutInfo = localStorage.getItem('checkoutInfo');
+        if (storedCheckoutInfo) {
+            const checkoutFromStorage = JSON.parse(storedCheckoutInfo);
+            return checkoutFromStorage.onepayReferenceMode?checkoutFromStorage.onepayReferenceMode:'';
+        }
+    });
+    const [firstName, setFirstName] = useState(() => {
+        const storedCheckoutInfo = localStorage.getItem('checkoutInfo');
+        if (storedCheckoutInfo) {
+            const checkoutFromStorage = JSON.parse(storedCheckoutInfo);
+            return checkoutFromStorage.firstName?checkoutFromStorage.firstName:'';
+        }
+    });
+    const [phone, setPhone] = useState(() => {
+        const storedCheckoutInfo = localStorage.getItem('checkoutInfo');
+        if (storedCheckoutInfo) {
+            const checkoutFromStorage = JSON.parse(storedCheckoutInfo);
+            return checkoutFromStorage.mobile?checkoutFromStorage.mobile:'';
+        }
+    });
+    
 
     const setDropDownOpenFn = () => {
         setDropDownOpen(!dropDownOpen);
@@ -63,6 +97,84 @@ const Checkout = () => {
         getPaymentMethods();
         getOnePayMethods();
     }, []);
+
+    useEffect(() => {
+        if(loginResponse){
+            getCustomerDetaild(loginResponse.id);       
+        }
+    }, [loginResponse]);
+
+    const getCustomerDetaild = async (id) => {
+        const response = await getCusertomerDetails(id);
+        if (response) {
+            setFirstName(response.name);
+            setPhone(response.mobile);
+        }             
+    };
+
+    useEffect(() => {
+        if(cartItems?.items?.length == 0){
+            navigate('/category');       
+        }
+    }, [cartItems]);
+
+    useEffect(() => {
+        const paymentResponse = JSON.parse(decodeURIComponent(payres));
+        if(paymentResponse){
+            setIsLoading(true);
+            console.log(paymentResponse);
+            if( paymentResponse.callback.response?.code != Number('000')) {
+                setToaster({ type: 'error', message: 'Payment Failed! Please try again', duration: 3000 });
+                setTimeout(() => {
+                    setIsLoading(false);
+                }, 500);
+            }
+            else{
+                const addPaymentPayload = {
+                    "provider": paymentResponse?.callback.source?.payment_method,
+                    "refCode": paymentResponse?.callback.order_id,
+                    "amount": paymentResponse?.callback.amount
+                }
+                processOrder(addPaymentPayload);
+            }
+        }
+    }, [payres]);
+
+
+    const handleInputChange = (e) => {
+        const {name, value} = e.target;
+    
+        switch (name) {
+          case 'firstName':
+            setFirstName(value);
+            break;
+          case 'phone':
+            setPhone(value);
+            const mobileFormat = /^9665\d{8}$/;
+            if (!value.match(mobileFormat)) {
+                setMobileError('Invalid mobile number format. Expected format: 9665XXXXXXXX where X is a digit.');
+                return;
+            }else{
+                setMobileError('');
+            }           
+            break;
+          default:
+            break;
+        }
+      }
+
+
+    useEffect(() => {
+        const checkoutOptionObj = {
+            firstName: firstName,
+            mobile: phone,
+            deliveryoption: selectedDeliveryOption,
+            paymentMethod: selectedPaymentMethod,
+            onepayReferenceMode: selectedOnePayMethod
+        }
+        //setCheckoutOption(JSON.stringify(checkoutOptionObj));
+        localStorage.setItem('checkoutInfo', JSON.stringify(checkoutOptionObj));
+    }, [selectedDeliveryOption,selectedPaymentMethod,selectedOnePayMethod, firstName, phone]);
 
     const getDeliveryMethods = async () => {
         setIsinlineLoadingDelivery(true)
@@ -176,7 +288,23 @@ const Checkout = () => {
     };
 
 
-    const submitOrder = async () => {
+    const submitOrder = () => {
+
+        if (!firstName) {
+            setToaster({ type: 'error', message: 'Please enter customer name!', duration: 3000 });
+            return false;
+        }
+
+        if (!phone) {
+            setToaster({ type: 'error', message: 'Please enter customer mobile!', duration: 3000 });
+            return false;
+        }
+
+        const mobileFormat = /^9665\d{8}$/;
+        if (!phone.match(mobileFormat)) {
+            setMobileError('Invalid mobile number format. Expected format: 9665XXXXXXXX where X is a digit.');
+            return;
+        }
 
         if (!selectedDeliveryOption) {
             setToaster({ type: 'error', message: 'Please select delivery option!', duration: 3000 });
@@ -192,7 +320,7 @@ const Checkout = () => {
             return false;
         }
 
-        if (selectedOnePayMethod.name === 'Credit/Debit Card') {
+        if (selectedPaymentMethod.name !== 'In-Store Checkout') {
             setSubmitLoading(true);
             const paymentPayload= {
                 containerID:"root",
@@ -227,24 +355,16 @@ const Checkout = () => {
                 },
                 customer:{
                     id:"cus_m1QB0320181401l1LD1812485",
-                    first_name: "First Name",
+                    first_name: firstName,
                     phone: {
                         country_code: "965",
-                        number: "99999999"
+                        number: phone
                     }
                 },
                 order:{
-                    amount: 100,
+                    amount: subtotalPrice.toFixed(2),
                     currency:"SAR",
-                    items:[
-                        {
-                            id:1,
-                            name:'item1',
-                            description: 'item1 desc',
-                            quantity:'5',
-                            amount_per_unit:'20',
-                        }
-                    ]
+                    items:[]
                 },
                 transaction:{
                     mode: 'charge',
@@ -253,68 +373,89 @@ const Checkout = () => {
                 }
             }
             };
+
+            cartItems.items.forEach((item) => {
+                paymentPayload.order.items.push({
+                    id:item.productVariantId,
+                    name:item.name,
+                    quantity:item.quantity,
+                    amount_per_unit:item.price
+                })
+            });
+            setSubmitLoading(false);
             let encodedObject = encodeURIComponent(JSON.stringify(paymentPayload));
             window.location.href = '/payment.html?payload=' + encodedObject;
-            //setIsPaymentPopupOpen(true);
-            // const paymentData = {
-            //     amount: Number(subtotalPrice),
-            //     currency: 'SAR',
-            //     description: 'Order #123',
-            //     reference: '123456',
-            //     statement_descriptor: 'SAWANI',
-            //     customer: {
-            //         first_name: 'John',
-            //         last_name: 'Doe',
-            //         email: 'john.doe@example.com',
-            //         phone: '+1234567890'
-            //     },
-            //     source: {
-            //         "id": "src_card"
-            //     },
-            //     redirect: {
-            //         url: 'https://sawaniwep.azurewebsites.net/checkout',
-            //         method: 'GET',
-            //         params: { 'succ': true },
-            //     }
-            // };
-
-            // try {
-            //     const paymentResponse = await makePayment(paymentData);
-            //     if (paymentResponse.transaction) {
-            //         window.location.href = paymentResponse.transaction.url;
-            //     }
-            // } catch (error) {
-            //     console.error('Payment error:', error.message);
-            // }
-
         }
         else {
-            setSubmitLoading(true);
-            try {
-                const response = await cartToOrder(cartItems.id);
-                if (response.succeeded) {
-                    const orderId = response.data.id;
-                    const delMethodPayload = { 'id': selectedDeliveryOption };
-                    const responseUpdateDelMethod = await updatedeliveryMethod(orderId, delMethodPayload);
-                    if (responseUpdateDelMethod) {
-                        const payMethodPayload = { 'id': selectedPaymentMethod.id }
-                        const responseUpdatePaymentlMethod = await updatePaymentMethod(orderId, payMethodPayload);
-                        if (responseUpdatePaymentlMethod) {
-                            setSubmitLoading(false);
-                            updateCartItems(null);
-                            setToaster({ type: 'success', message: 'Order has been succesfully placed!', duration: 3000 });
-                            setTimeout(() => {
-                                navigate('/');
-                            }, 1000);
-                        }
-                    }
-
-                }
-            } catch (error) {
-                console.error('Error creating cart to order:', error);
+            const addPaymentPayload = {
+                "provider": "POS",
+                "refCode": (Math.random() + 1).toString(36).substring(7),
+                "amount": subtotalPrice.toFixed(2)
             }
+            processOrder(addPaymentPayload);
         }
     };
+
+    const handleResponseError = (response) => {
+        setIsLoading(false);
+        if (response.errors) {
+            Object.values(response.errors).forEach((errorArray) => {
+                errorArray.forEach((errorMessage) => {
+                    setToaster({ type: 'error', message: errorMessage, duration: 3000 });
+                });
+            });
+        } else {
+            setToaster({ type: 'error', message: 'Order failed. Please try again.', duration: 3000 });
+        }
+    };
+    
+    const processOrderSuccess = () => {
+        setIsLoading(false);
+        updateCartItems(null);
+        localStorage.removeItem('checkoutInfo');
+        setToaster({ type: 'success', message: 'Order has been succesfully placed!', duration: 3000 });
+        setTimeout(() => {
+            navigate('/');
+        }, 3000);
+    };
+    
+    const processOrder = async (addPaymentPayload) => {
+        setIsLoading(true);
+        try {
+            const storedCartInfo = localStorage.getItem('cartInfo');
+            if (!storedCartInfo) return;
+    
+            const cartObj = JSON.parse(storedCartInfo);
+            
+            cartObj.items.forEach(async (item) => {
+                await updateCartAPI(cartObj.id, item);
+            });
+
+            const initialResponse = await cartToOrder(cartObj.id);
+            if (!initialResponse.succeeded) return handleResponseError(initialResponse);
+    
+            const orderId = initialResponse.data.id;
+    
+            const deliveryMethodResponse = await updatedeliveryMethod(orderId, { 'id': selectedDeliveryOption });
+            if (!deliveryMethodResponse.succeeded) return handleResponseError(deliveryMethodResponse);
+    
+            const paymentMethodResponse = await updatePaymentMethod(orderId, { 'id': selectedPaymentMethod.id });
+            if (!paymentMethodResponse.succeeded) return handleResponseError(paymentMethodResponse);
+    
+            const paymentResponse = await addPayment(orderId, addPaymentPayload);
+            if (!paymentResponse.succeeded) return handleResponseError(paymentResponse);
+    
+            const checkoutResponse = await checkout(orderId);
+            if (!checkoutResponse.succeeded) return handleResponseError(checkoutResponse);
+    
+            processOrderSuccess();
+    
+        } catch (error) {
+            setIsLoading(false);
+            console.error('Error creating cart to order:', error);
+        }
+    };
+    
 
     const handleClosePaymentPopup = () => {
         setIsPaymentPopupOpen(false);
@@ -335,7 +476,7 @@ const Checkout = () => {
                 />
             )}
             <Header ref={headerRef} />
-            {isLoading ? <Loader showOverlay={true} size={20} color="#000" isLoading={false} /> : ''}
+            {isLoading ? <Loader showOverlay={true} size={30} color="#fff" isLoading={false} /> : ''}
             <div className="checkoutWraper">
                 <div className="camelWraper">
                     <img src={camelBack} alt="" />
@@ -346,8 +487,23 @@ const Checkout = () => {
                         <div className="guestLoginWraper">
                             <h3>Please fill in the below <span className="subHeading">(Guest Login)</span></h3>
                             <div className="loginGuest">
-                                <input className="inputGuest" type="text" placeholder="First Name *" />
-                                <input className="inputGuest" type="text" placeholder="Phone *" />
+                                <input 
+                                    type="text" 
+                                    name="firstName"
+                                    value={firstName}
+                                    onChange={handleInputChange} 
+                                    placeholder="First Name *" 
+                                    className="inputGuest" 
+                                />
+                                <input 
+                                    type="text" 
+                                    name="phone"
+                                    value={phone}
+                                    onChange={handleInputChange} 
+                                    placeholder="Phone *" 
+                                    className="inputGuest" 
+                                />
+                                {mobileError && <span className="errorText">{mobileError}</span>}<br/>
                                 <p className="guestLoginP">Already have an account? <b onClick={(e) => handleLoginClick(e)}>Sign in</b></p>
                             </div>
                         </div>
@@ -374,12 +530,12 @@ const Checkout = () => {
                                 options={allPaymentMethod}
                                 selectedOption={selectedPaymentMethod}
                                 onSelect={handleSelectPaymentMethod}
-                                buttonText={selectedPaymentMethod.name}
+                                buttonText={selectedPaymentMethod?.name}
                                 imgSrc={pay1}
                                 fieldTitle="Payment Method"
                             />
                         }
-                        {selectedPaymentMethod.name === 'Online Checkout' ? (
+                        {selectedPaymentMethod?.name === 'Online Checkout' ? (
                             <>
                                 <div className="paymentInfoLogo">
                                     <img src={payLogo} alt="" />
@@ -391,7 +547,7 @@ const Checkout = () => {
                                         options={allOnePaymMethod}
                                         selectedOption={selectedOnePayMethod}
                                         onSelect={handleSelectOnePayMethod}
-                                        buttonText={selectedOnePayMethod.name}
+                                        buttonText={selectedOnePayMethod?.name}
                                         imgSrc={apple}
                                         fieldTitle="1Pay Method"
                                     />
@@ -407,7 +563,7 @@ const Checkout = () => {
 
                 <div className="rightCheckoutWraper">
                     <h2 className="checkoutProductHeading">Shopping Cart</h2>
-                    <div className="cartProductListings">
+                    <div className="cartProductListings checkout">
                         {cartItems && cartItems.items && cartItems.items.map((item, index) => (
                             <div className="individualCartProducts" key={index}>
                                 <span className="productCartImage">
@@ -492,7 +648,6 @@ const Checkout = () => {
                 </div>
             </div>
             <Footer />
-            {isPaymentPopupOpen && <PaymentPopup onClose={handleClosePaymentPopup} />}
         </div>
     );
 };
