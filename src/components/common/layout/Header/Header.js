@@ -6,6 +6,7 @@ import SignUpPopup from '../../../templates/SignupPopup';
 import ForgetPasswordPopup from '../../../templates/ForgetPasswordPopup';
 import logo from "../../../../assets/images/logo.png";
 import profile from "../../../../assets/images/profile.png";
+import translate from "../../../../assets/images/translate.png";
 import { AuthContext } from '../../../../utils/AuthContext';
 import Toaster from '../../../../components/common/Toaster/Toaster';
 import minus from "../../../../assets/images/minusWhite.png";
@@ -18,6 +19,10 @@ import placeholderImage from "../../../../assets/images/no-image.png";
 import { updateCartAPI, deleteCartAPI, getCartAPI } from '../../../../api/cart';
 import { updateCartOwnerToCartAPI } from '../../../../api/cart';
 import Loader from '../../../../components/common/Loader/Loader';
+import i18next from 'i18next';
+import { useTranslation } from 'react-i18next';
+
+
 
 const Header = forwardRef((props, ref) => {
     const [isMenuOpen, setMenuOpen] = useState(false);
@@ -32,11 +37,18 @@ const Header = forwardRef((props, ref) => {
     const cartRef = useRef(null);
     const [cartinlineloader, setCartinlineloader] = useState(false);
     const [isShowWholePageLoader, setIsShowWholePageLoader] = useState(false);
+    const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
+    const { t } = useTranslation();
 
 
     const toggleMenu = () => {
         setMenuOpen(!isMenuOpen);
     };
+
+    const toggleLangMenu = () => {
+        setIsLangMenuOpen(!isLangMenuOpen);
+    };
+
     const setCheckoutOpenFn = () => {
         setCheckoutOpen(!isCheckoutOpen);
     };
@@ -191,25 +203,27 @@ const Header = forwardRef((props, ref) => {
         },
         async openCartPopup(e) {
             setCheckoutOpen(true);
-        //     setCartinlineloader(true);
-        //     try {
-        //         const response = await getCartAPI(cartItems.id);
-        //         console.log('cart response:', response);
-        //         if (response.succeeded) {
-        //             setCartinlineloader(false);
-        //             updateCartItems(response.data);
-        //         } else {
-        //             handleError(response.Message || 'Cart add failed');
-        //         }
-        //     } catch (error) {
-        //         handleError('Cart add failed');
-        //     }
          }
     }));
 
     const handleError = (errorMessage) => {
         setToaster({ type: 'error', message: errorMessage, duration: 3000 });
     };
+
+    const changeLanguage = (lang) => {
+        i18next.changeLanguage(lang);
+        setIsLangMenuOpen(false);
+    };
+
+    useEffect(() => {
+        const currentLang = i18next.language;
+        document.body.classList.remove('lang-en', 'lang-ar');
+        if (currentLang === 'en') {
+          document.body.classList.add('lang-en');
+        } else if (currentLang === 'ar') {
+          document.body.classList.add('lang-ar');
+        }
+    }, [i18next.language]);
 
     return (
         <header className="header headerWrapers">
@@ -222,14 +236,27 @@ const Header = forwardRef((props, ref) => {
                 />
             )}
             <div className="header-left translateWraper userProfile">
-            {/* {loginResponse && (
-                <Link to="/profile" className="profileLink"> 
+                {loginResponse && (
+                    <Link to="/profile" className="profileLink"> 
+                        <span className="translateNow">
+                            <img src={profile} className='profile' alt="" />
+                        </span>
+                        <p className='profileNameHeader'>Aisha</p>
+                    </Link>
+                )}
+                <div className="relative">
                     <span className="translateNow">
-                        <img src={profile} className='profile' alt="" />
+                        <img src={translate} alt="" onClick={toggleLangMenu}/>
                     </span>
-                    <p className='profileNameHeader'>Aisha</p>
-                </Link>
-            )}             */}
+                    <ul className={`menu-items menuDrop ${isLangMenuOpen ? 'open' : ''}`}>
+                        <li onClick={() => changeLanguage('en')}>
+                            {t('English')}
+                        </li>
+                        <li onClick={() => changeLanguage('ar')}>
+                            {t('Arabic')}
+                        </li>
+                    </ul>
+                </div>                
             </div>
             <div className="header-center logoWrapers">
                 {/* Logo */}
@@ -258,22 +285,9 @@ const Header = forwardRef((props, ref) => {
                     </label>
                     <ul className="menu-items menuDrop">
                         <li>
-                            <Link to="/category">Order Now</Link>
+                            <Link to="/category">{t('Order Now')}</Link>
                         </li>
-                        {/* <li>
-                            <Link to="/">Sawani Rewards</Link>
-                        </li>
-                        <li>
-                            <Link to="/">About Us</Link>
-                        </li> */}
-                        <li className='borderMenu'></li>
-                        {/* <li>
-                            <Link to="/">Media Coverage</Link>
-                        </li> */}
-                        {/* <li>
-                            <Link to="/">Contact Us</Link>
-                        </li> */}
-                        {/* <li className='borderMenu'></li> */}
+                        <li className='borderMenu'></li>                        
                         {loginResponse ? (
                             <li>
                                 <Link to="/logout" onClick={(e) => handleLogOutClick(e)}>Logout</Link>

@@ -6,6 +6,7 @@ import { AuthProvider } from './utils/AuthContext';
 import { CartProvider } from './utils/CartContext';
 import { CategoryProvider } from './utils/CategoryContext';
 
+
 const App = () => {
   return (
     <AuthProvider>

@@ -2929,3 +2929,13 @@ img.barCodeImg {
     margin: 0 auto;
     text-align: center;
 }
+
+
+/***************RTL CSS START HERE*****************************/
+
+body.lang-ar {
+    direction:rtl;
+}
+
+
+/***************RTL CSS ENDS HERE*****************************/
