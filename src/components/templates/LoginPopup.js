@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CartContext } from '../../utils/CartContext';
 import { getActiveCart, updateCartOwnerToCartAPI } from '../../api/cart';
+import { createCartAPI, updateCartAPI, addCartAPI, deleteCartAPI, getCartAPI } from '../../api/cart';
 
 const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
     const [mobile, setMobile] = useState('');
@@ -62,6 +63,24 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
         }
     };
 
+    const addCartItem = async (cartId, newCartItem) => {
+        try {
+            const response = await addCartAPI(cartId, newCartItem);
+            console.log(response);
+        } catch (error) {
+            console.log('Cart add failed');
+        }
+    };
+
+    const updateCartItem = async (cartId, updatedItem) => {
+        try {
+            const response = await updateCartAPI(cartId, updatedItem);
+            console.log(response);
+        } catch (error) {
+            console.log('Cart update failed');
+        }
+    };
+
     const updateCart = async () => {
         try {
             const response = await getActiveCart();
@@ -70,19 +89,22 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
                 if (cartItems) {
                     const guestCartItems = cartItems.items;
                     const mergedItems = [];
-                    loggedInCartItems.forEach((loggedInItem) => {
-                        const guestItemIndex = guestCartItems.findIndex(
-                            (guestItem) => guestItem.productVariantId === loggedInItem.productVariantId
+                    guestCartItems.forEach((guestCartItem) => {
+                        const loggedInItemIndex = loggedInCartItems.findIndex(
+                            (loggedInItem) => loggedInItem.productVariantId === guestCartItem.productVariantId
                         );
-                        if (guestItemIndex !== -1) {
-                            loggedInItem.quantity += guestCartItems[guestItemIndex].quantity;
-                            mergedItems.push(loggedInItem);
-                            guestCartItems.splice(guestItemIndex, 1);
+
+                        if (loggedInItemIndex !== -1) {
+                            guestCartItem.quantity += loggedInCartItems[loggedInItemIndex].quantity;
+                            mergedItems.push(guestCartItem);
+                            loggedInCartItems.splice(loggedInItemIndex, 1);
+                            updateCartItem(response.data.id,guestCartItem); 
                         } else {
-                            mergedItems.push(loggedInItem);
+                            mergedItems.push(guestCartItem);
+                            addCartItem(response.data.id,guestCartItem);
                         }
                     });
-                    mergedItems.push(...guestCartItems);
+                    mergedItems.push(...loggedInCartItems);
                     const mergedCart = { ...response.data, items: mergedItems };
                     updateCartItems(mergedCart);
                 } else {

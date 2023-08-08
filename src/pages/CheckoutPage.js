@@ -93,6 +93,9 @@ const Checkout = () => {
     };
 
     useEffect(() => {
+        if(!cartItems || cartItems?.items?.length == 0){
+            navigate('/category');       
+        }
         getDeliveryMethods();
         getPaymentMethods();
         getOnePayMethods();

@@ -260,21 +260,20 @@ const Header = forwardRef((props, ref) => {
                         <li>
                             <Link to="/category">Order Now</Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link to="/">Sawani Rewards</Link>
                         </li>
                         <li>
                             <Link to="/">About Us</Link>
-                        </li>
-                        {/* Login and Registration options */}
+                        </li> */}
                         <li className='borderMenu'></li>
-                        <li>
+                        {/* <li>
                             <Link to="/">Media Coverage</Link>
-                        </li>
-                        <li>
+                        </li> */}
+                        {/* <li>
                             <Link to="/">Contact Us</Link>
-                        </li>
-                        <li className='borderMenu'></li>
+                        </li> */}
+                        {/* <li className='borderMenu'></li> */}
                         {loginResponse ? (
                             <li>
                                 <Link to="/logout" onClick={(e) => handleLogOutClick(e)}>Logout</Link>
@@ -291,75 +290,77 @@ const Header = forwardRef((props, ref) => {
                         )}
                     </ul>
                 </div>
-                <div onClick={setCheckoutOpenFn} className="cart-icon" ref={cartRef}>
-                    <img src={cartIcon} className='carticon' alt='' />
-                    <span className="cart-count">{cartinlineloader ? <Loader showOverlay={false} size={12} color="#000" isLoading={false} /> : getCartCount()}</span>
-                    {isCheckoutOpen && getCartCount() > 0 && (
-                        <div className='menu-items cartPopup' onClick={cartPopupClickHandler}>
-                            <div className="rightCheckoutWraper">
-                                <h2 className="checkoutProductHeading">Shopping Cart</h2>
-                                <div className="cartProductListings">
-                                    {cartItems && cartItems.items && cartItems.items.map((item, index) => (
-                                        <div className="individualCartProducts" key={index}>
-                                            <span className="productCartImage">
-                                                <img src={item?.image ? `data:image/png;base64,${item.image}` : placeholderImage} alt="" />
-                                            </span>
-                                            <span className="midCartDetailsEdit">
-                                                <h5 className="indCartProductName">{item.name}</h5>
-                                                <p className="productPriceInd"><span>{item.price}</span> SAR</p>
-                                                <span className="counterWraper checkoutcounters">
-                                                    <span className="plusCounter" onClick={() => handleCountChange(index, 1)}>
-                                                        <img src={counterPlus} alt="" />
-                                                    </span>
-                                                    <span className="counterInput" >
-                                                        <input type="number" className="inputCounter" value={item.quantity} readOnly />
-                                                    </span>
-                                                    <span className="minusCounter" onClick={() => handleCountChange(index, -1)}>
-                                                        <img src={minus} alt="" />
+                {getCartCount() > 0 && (
+                    <div onClick={setCheckoutOpenFn} className="cart-icon" ref={cartRef}>
+                        <img src={cartIcon} className='carticon' alt='' />
+                        <span className="cart-count">{cartinlineloader ? <Loader showOverlay={false} size={12} color="#000" isLoading={false} /> : getCartCount()}</span>
+                        {isCheckoutOpen  && (
+                            <div className='menu-items cartPopup' onClick={cartPopupClickHandler}>
+                                <div className="rightCheckoutWraper">
+                                    <h2 className="checkoutProductHeading">Shopping Cart</h2>
+                                    <div className="cartProductListings">
+                                        {cartItems && cartItems.items && cartItems.items.map((item, index) => (
+                                            <div className="individualCartProducts" key={index}>
+                                                <span className="productCartImage">
+                                                    <img src={item?.image ? `data:image/png;base64,${item.image}` : placeholderImage} alt="" />
+                                                </span>
+                                                <span className="midCartDetailsEdit">
+                                                    <h5 className="indCartProductName">{item.name}</h5>
+                                                    <p className="productPriceInd"><span>{item.price}</span> SAR</p>
+                                                    <span className="counterWraper checkoutcounters">
+                                                        <span className="plusCounter" onClick={() => handleCountChange(index, 1)}>
+                                                            <img src={counterPlus} alt="" />
+                                                        </span>
+                                                        <span className="counterInput" >
+                                                            <input type="number" className="inputCounter" value={item.quantity} readOnly />
+                                                        </span>
+                                                        <span className="minusCounter" onClick={() => handleCountChange(index, -1)}>
+                                                            <img src={minus} alt="" />
+                                                        </span>
                                                     </span>
                                                 </span>
-                                            </span>
-                                            <span className="deleteSpan" onClick={() => deleteCartItemRow(index)}>
-                                                <img src={deletes} alt="" />
-                                            </span>
-                                        </div>
-                                    ))}
-                                </div>
+                                                <span className="deleteSpan" onClick={() => deleteCartItemRow(index)}>
+                                                    <img src={deletes} alt="" />
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
 
-                                <div className="finalCartBills">
-                                    <div className="subTotal">
-                                        <span className="totalHeading">Subtotal</span>
-                                        <span className="totalPrice">{calculateSubtotal()} SAR</span>
-                                    </div>
-                                    <div className="rewardSectionsWrapers">
-                                        <span className="totalHeading points">POINTS
-                                            {!loginResponse ? (
-                                                <span className="subPoints" onClick={(e) => handleLoginClick(e)}>Sign in to earn</span>
-                                            ) : ''}
-                                        </span>
-                                        <span className="totalPrice points">
-                                            <span className="rewardsIconImg">
-                                                <img src={rewards} alt="" />
+                                    <div className="finalCartBills">
+                                        <div className="subTotal">
+                                            <span className="totalHeading">Subtotal</span>
+                                            <span className="totalPrice">{calculateSubtotal()} SAR</span>
+                                        </div>
+                                        <div className="rewardSectionsWrapers">
+                                            <span className="totalHeading points">POINTS
+                                                {!loginResponse ? (
+                                                    <span className="subPoints" onClick={(e) => handleLoginClick(e)}>Sign in to earn</span>
+                                                ) : ''}
                                             </span>
-                                            +50 points</span>
+                                            <span className="totalPrice points">
+                                                <span className="rewardsIconImg">
+                                                    <img src={rewards} alt="" />
+                                                </span>
+                                                +50 points</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="grandTotalWraper rewardSectionsWrapers">
-                                    <span className="grandHeading">
-                                        TOTAL
-                                    </span>
-                                    <span className="grandHeading grandPrice">
-                                        {calculateSubtotal()} SAR
-                                    </span>
-                                </div>
-                                <div className="cartBtnWraper">
-                                    <button className='pinkBtn'><Link to="/category">CONTINUE SHOPPING</Link></button>
-                                    <button className='checkBtn'><Link to="/checkout">CHECKOUT</Link></button>
+                                    <div className="grandTotalWraper rewardSectionsWrapers">
+                                        <span className="grandHeading">
+                                            TOTAL
+                                        </span>
+                                        <span className="grandHeading grandPrice">
+                                            {calculateSubtotal()} SAR
+                                        </span>
+                                    </div>
+                                    <div className="cartBtnWraper">
+                                        <button className='pinkBtn'><Link to="/category">CONTINUE SHOPPING</Link></button>
+                                        <button className='checkBtn'><Link to="/checkout">CHECKOUT</Link></button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
-                </div>
+                        )}
+                    </div>
+                )}
             </div>
             {isLoginPopupOpen && <LoginPopup onClose={handleCloseLoginPopup} onOpenSignup={handleSignupClickFromChild} onOpenForgotPassword={handleForgotPasswordClickFromChild} />}
             {isSignupPopupOpen && <SignUpPopup onClose={handleCloseSignupPopup} onOpenLogin={handleLoginClickFromChild} />}

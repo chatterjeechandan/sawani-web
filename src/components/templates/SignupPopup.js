@@ -114,6 +114,7 @@ const SignUpPopup = ({ onClose, onOpenLogin }) => {
                             className={`inputBox ${nameError ? 'inputError' : ''}`}
                             placeholder="Name"
                             value={name}
+                            maxLength="20"
                             onChange={(e) => {
                                 setName(e.target.value);
                                 setNameError('');

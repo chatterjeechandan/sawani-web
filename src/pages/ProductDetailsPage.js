@@ -122,7 +122,6 @@ const Product = () => {
     };
 
     const handleCountChange = (amount, state) => {
-        setIsWholePageLoading(true);
         if (!provariant) {
             setToaster({ type: 'error', message: 'Please select Product option', duration: 3000 });
             return;
@@ -131,6 +130,9 @@ const Product = () => {
             setIncrementButtonLoading(false);
             setDecrementButtonLoading(false);
             return;
+        }
+        else{
+            setIsWholePageLoading(true);
         }
 
         if (state === 'decrement') {
@@ -224,7 +226,7 @@ const Product = () => {
     const handleSuccess = (successMessage) => {
         setIncrementButtonLoading(false);
         setDecrementButtonLoading(false);
-        setToaster({ type: 'success', message: successMessage, duration: 3000 });
+        //setToaster({ type: 'success', message: successMessage, duration: 3000 });
     };
 
     const handleError = (errorMessage) => {

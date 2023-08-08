@@ -18,7 +18,10 @@ const HomePage = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY >= 480) {
+      const footerHeight = 300;
+      const offset = 20;
+      const footerStartPoint = document.body.scrollHeight - window.innerHeight - footerHeight + offset;
+      if (window.scrollY >= 480 && window.scrollY < footerStartPoint) {
         setScrolled(true);
       } else {
         setScrolled(false);
