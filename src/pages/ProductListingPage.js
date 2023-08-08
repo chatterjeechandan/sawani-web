@@ -77,6 +77,8 @@ const ProductList = () => {
         }
     };
 
+    const totalPages = Math.ceil(products.length / productsPerPage);
+
     return (
         <div className="dashboardPageMaimWraper">
             <Header ref={headerRef} />
@@ -105,23 +107,25 @@ const ProductList = () => {
                     )}
                 </div>
                 {products.length > 0 && (
-                    <div className="paginationWrapers">
-                        <p>Total products: {products.length}</p>
-                        <div className="pagNumbers">
-                            <ul className="paginationUl">
-                                {Array.from({ length: Math.ceil(products.length / productsPerPage) }).map((_, index) => (
-                                    <li
-                                        key={index + 1}
-                                        className={currentPage === index + 1 ? "current-page" : ""}
-                                        onClick={() => handlePageChange(index + 1)}
-                                    >
-                                        {index + 1}
-                                    </li>
-                                ))}
-                            </ul>
+                        <div className="paginationWrapers">
+                            <p>Total products: {products.length}</p>
+                            {totalPages > 1 && (
+                                <div className="pagNumbers">
+                                    <ul className="paginationUl">
+                                        {Array.from({ length: totalPages }).map((_, index) => (
+                                            <li
+                                                key={index + 1}
+                                                className={currentPage === index + 1 ? "current-page" : ""}
+                                                onClick={() => handlePageChange(index + 1)}
+                                            >
+                                                {index + 1}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
                         </div>
-                    </div>
-                )}
+                    )}
             </div>
             <Footer />
         </div>
