@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext, useRef } from "react"
 import Header from '../components/common/layout/Header/Header';
 import Footer from '../components/common/layout/Footer';
 import CategoryCard from "../components/category/CategoryCard";
-import tab1 from "../assets/images/cart.png";
-import tab2 from "../assets/images/pickup.png";
-import tab3 from "../assets/images/delhivery.png";
+import tab1 from "../assets/images/t1A.png";
+import tab2 from "../assets/images/t2.png";
+import tab3 from "../assets/images/t3.png";
 import search from "../assets/images/search.png";
 import pots from "../assets/images/pots.png";
 import Loader from '../components/common/Loader/Loader';
@@ -134,19 +134,16 @@ const CategoryListingPage = () => {
                                 <span>
                                     <img src={tab1} alt='' />
                                 </span>
-                                In-Store
                             </li>
                             <li>
                                 <span>
                                     <img src={tab2} alt='' />
                                 </span>
-                                Pick up
                             </li>
                             <li className={activeTab === 'delivery' ? 'active' : ''} onClick={() => handleTabClick('delivery')}>
                                 <span>
                                     <img src={tab3} alt='' />
                                 </span>
-                                Delivery
                             </li>
                         </ul>
                     </div>

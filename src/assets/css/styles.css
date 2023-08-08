@@ -532,9 +532,9 @@ span.social img {
     bottom: 50px;
     right: 0;
     pointer-events: none;
-    background-image: url("../images/backfulls.png");
+    background-image: url("../images/backImgs.png");
     width: 100%;
-    height: 198px;
+    height: 45px;
     background-size: cover;
 }
 
@@ -543,7 +543,7 @@ span.social img {
     word-break: break-all;
     float: left;
     background: #F5F2EA;
-    padding: 25px 80px 150px 80px;
+    padding: 25px 80px 50px 80px;
 }
 
 .tabSearchWraper {
@@ -554,7 +554,7 @@ span.social img {
     padding-bottom: 90px;
 }
 .tabWraper {
-    width: 390px;
+    width: 325px;
     float: left;
     margin-right: 10px;
     border-radius: 10px;
@@ -565,28 +565,31 @@ span.social img {
     align-items: center;
 }
 .tabUl li {
-    width: 130px;
-    padding: 15px 10px;
-    background-color: #ccc0cf;
+    /* width: 130px; */
+    /* padding: 15px 10px;
+    background-color: #ccc0cf; */
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    border-right: 1px solid #baadba;
+    /* display: flex;
+    align-items: center; */
+    /* border-right: 1px solid #baadba; */
 }
 .tabUl li span img {
+    height: 58px;
+}
+/* .tabUl li span img {
     width: 22px;
     margin-right: 7px;
 }
 .tabUl li.active {
     background-color: #a592b6 ;
     font-weight: 500;
-}
+} */
 
 .tabUl li:last-child {
     border-right: none;
 }
 .searchWraper {
-    width: calc(100% - 480px);
+    width: calc(100% - 335px);
     margin-left: auto;
     display: flex;
     align-items: center;
@@ -652,15 +655,20 @@ span.headingContents p {
     width: 100%;
     float: left;
     padding-top: 35px;
-    padding-bottom: 200px;
+    padding-bottom: 108px;
 }
 .individualProduct {
     width: 20%;
     float: left;
     text-align: center;
+    padding: 10px;
+    overflow: hidden;
+    max-height: 220px;
 }
 .individualProduct img {
-    width: 85%;
+    max-width: 210px;
+    width: 100%;
+    height: 100%;
     margin: 5px auto;
     cursor: pointer;
 }
@@ -1142,7 +1150,7 @@ span.infoIconWraper img {
     width: 140px;
     display: flex;
     align-items: center;
-    padding: 5px 15px;
+    padding: 5px 12px;
 }
 .rewardIcon img {
     width: 24px;
@@ -1283,7 +1291,7 @@ span.counterWraper {
 span.plusCounter, .minusCounter {
     cursor: pointer;
     width: 100%;
-    height: 37px;
+    height: 34px;
 }
 span.plusCounter img, .minusCounter img {
     width: 100%;
@@ -1291,7 +1299,7 @@ span.plusCounter img, .minusCounter img {
 }
 span.counterInput {
     width: 100%;
-    height: 37px;
+    height: 34px;
     background: #fff;
     padding: 1px;
 }
@@ -2939,3 +2947,50 @@ body.lang-ar {
 
 
 /***************RTL CSS ENDS HERE*****************************/
+@media only screen and (max-width: 1340px) and (min-width: 1025px) {
+    .menu-items.cartPopup {
+        left: -235px;
+    }
+    .menu-items.cartPopup .rightCheckoutWraper::before {
+        left: 60%;
+    }
+    .leftInfoContent p {
+        font-size: 16px;
+        margin-bottom: 35px;
+        padding: 0 15px;
+        font-weight: 500;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+
+.logoWrapers {
+    width: 40%;
+}
+
+.translateWraper {
+    width: 35%;
+    text-align: center;
+}
+.menu {
+    margin-right: 5px;
+}
+.translateWraper span {
+    margin-left: 5px;
+}
+.translateWraper span.translateNow {
+    margin-left: 5px;
+}
+.menuWraper {
+    width: 25%;
+}
+.individualProduct {
+    width: 50%;
+    height: 175px;
+}
+.footerMenu ul li {
+    display: block;
+    width: 44%;
+    float: left;
+}
+}
