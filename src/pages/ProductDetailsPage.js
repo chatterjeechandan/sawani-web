@@ -44,7 +44,7 @@ const Product = () => {
     const [toaster, setToaster] = useState(null);
     const { loginResponse } = useContext(AuthContext);
     const { cartItems, updateCartItems } = useContext(CartContext);
-    const [ isWholePageLoading, setIsWholePageLoading ] = useState(false);
+    //const [ isWholePageLoading, setIsWholePageLoading ] = useState(false);
 
     
     const { categories } = useContext(CategoryContext);
@@ -132,7 +132,7 @@ const Product = () => {
             return;
         }
         else{
-            setIsWholePageLoading(true);
+            //setIsWholePageLoading(true);
         }
 
         if (state === 'decrement') {
@@ -256,7 +256,7 @@ const Product = () => {
             if (response.succeeded) {
                 handleSuccess('Product added into cart successfully');
                 updateCartItems(response.data);
-                setIsWholePageLoading(false);
+                //setIsWholePageLoading(false);
             } else {
                 handleError(response.Message || 'Cart add failed');
             }
@@ -272,7 +272,7 @@ const Product = () => {
             if (response.succeeded) {
                 handleSuccess('Product added into cart successfully');
                 updateCartItems(existingCartItems);
-                setIsWholePageLoading(false);
+                //setIsWholePageLoading(false);
             } else {
                 handleError(response.Message || 'Cart add failed');
             }
@@ -290,7 +290,7 @@ const Product = () => {
                 console.log(cartItems);
                 cartItems.items[index] = updatedItem;
                 updateCartItems(cartItems);
-                setIsWholePageLoading(false);
+                //setIsWholePageLoading(false);
             } else {
                 handleError(response.Message || 'Cart update failed');
             }
@@ -307,7 +307,7 @@ const Product = () => {
                 handleSuccess('Product deleted from cart successfully');
                 cartItems.items.splice(index, 1);
                 updateCartItems(cartItems);
-                setIsWholePageLoading(false);
+                //setIsWholePageLoading(false);
             } else {
                 handleError(response.Message || 'Cart delete failed');
             }
@@ -550,7 +550,7 @@ const Product = () => {
                     onClose={handleToasterClose}
                 />
             )}
-             {isWholePageLoading ? <Loader showOverlay={true} size={30} color="#fff" isLoading={false} /> : ''}
+             {/* {isWholePageLoading ? <Loader showOverlay={true} size={30} color="#fff" isLoading={false} /> : ''} */}
         </div>
     );
 };

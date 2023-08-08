@@ -112,7 +112,7 @@ const ProductCard = ({ product, openCartPopup }) => {
 
     const createCart = async (cartPayload) => {
         try {
-            setIsLoading(true);
+            //setIsLoading(true);
             const response = await createCartAPI(cartPayload);
             console.log('cart response:', response);
             if (response.succeeded) {
@@ -127,7 +127,7 @@ const ProductCard = ({ product, openCartPopup }) => {
 
     const getCart = async (cart) => {
         try {
-            setIsLoading(true);
+            //setIsLoading(true);
             const response = await getCartAPI(cart.id);
             console.log('cart response:', response);
             if (response.succeeded) {
@@ -145,13 +145,15 @@ const ProductCard = ({ product, openCartPopup }) => {
 
     const addCartItem = async (cartId, existingCartItems, newCartItem) => {
         try {
-            setIsLoading(true);
+            updateCartItems(existingCartItems);
+            openCartPopup();
+            //setIsLoading(true);
             const response = await addCartAPI(cartId, newCartItem);
             console.log('cart update response:', response);
             if (response.succeeded) {
                 handleSuccess('Product added into cart successfully');
-                updateCartItems(existingCartItems);
-                openCartPopup();
+                //updateCartItems(existingCartItems);
+                //openCartPopup();
                 setIsLoading(false);
             } else {
                 handleError(response.Message || 'Cart add failed');
@@ -163,14 +165,17 @@ const ProductCard = ({ product, openCartPopup }) => {
 
     const updateCartItem = async (cartId, updatedItem, index) => {
         try {
-            setIsLoading(true);
+            cartItems.items[index] = updatedItem;
+            updateCartItems(cartItems);
+            openCartPopup();
+            //setIsLoading(true);
             const response = await updateCartAPI(cartId, updatedItem);
             console.log('cart update response:', response);
             if (response.succeeded) {
                 handleSuccess('Product updated into cart successfully');
-                cartItems.items[index] = updatedItem;
-                updateCartItems(cartItems);
-                openCartPopup();
+                //cartItems.items[index] = updatedItem;
+                //updateCartItems(cartItems);
+                //openCartPopup();
                 setIsLoading(false);
             } else {
                 handleError(response.Message || 'Cart update failed');

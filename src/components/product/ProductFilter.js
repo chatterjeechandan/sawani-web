@@ -73,7 +73,7 @@ const ProductFilter = ({ categories, selectedCategory, scat, handleCategorySelec
                     )}
                 </div>
             </div>
-            <div className='productOptions'>
+            {/* <div className='productOptions'>
                 <ul className='productSubLists'>
                     {selectedCategory?.childCategories.map((subCategory) => {
                         return (
@@ -85,7 +85,7 @@ const ProductFilter = ({ categories, selectedCategory, scat, handleCategorySelec
                         );
                     })}
                 </ul>
-            </div>
+            </div> */}
             <div className='filterSections'>
                 {/* <span className='filterDrop first'>
                     <select>
@@ -96,7 +96,7 @@ const ProductFilter = ({ categories, selectedCategory, scat, handleCategorySelec
                     </span>
                 </span> */}
                 <span className='filterDrop laste'>
-                    <p>Filter- Sort By:</p>
+                    <p>Sort By:</p>
                     <select onChange={(e) => handleShortSelectChange(e)}>
                         <option value="new" selected={sort === 'new' || !sort }>New Arrival</option>
                         <option value="price_high" selected={sort === 'price_high'}>Price High to Low</option>
