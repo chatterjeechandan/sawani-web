@@ -663,16 +663,28 @@ span.headingContents p {
     width: 20%;
     float: left;
     text-align: center;
-    padding: 10px;
+    padding: 25px;
     overflow: hidden;
-    max-height: 220px;
+    position: relative;
 }
 .individualProduct img {
-    max-width: 210px;
     width: 100%;
     height: 100%;
     margin: 5px auto;
     cursor: pointer;
+}
+
+.individualProduct p{
+    position: absolute;
+    bottom: 15%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 span.dropdownMemu {
@@ -3318,6 +3330,11 @@ body.lang-ar .cus-img-holder {
 .individualProduct {
     width: 50%;
     height: 175px;
+    padding: 6px;
+}
+.individualProduct p{
+    font-size: 19px;
+    bottom: 6%;
 }
 .footerMenu ul li {
     display: block;
@@ -3402,6 +3419,22 @@ body.lang-ar .cus-img-holder {
     }
     .toaster.success {
         width: 90%;
+    }
+
+    .productsDisplayWraper {
+        display: flex;
+        flex-direction: row; /* Changed to row to layout items horizontally */
+        flex-wrap: wrap; /* Allow items to wrap to the next row if needed */
+        align-items: center;
+        justify-content: center;
+        grid-column-gap: 28px;
+        column-gap: 28px;
+    }
+    
+    .indrelatesProduct {
+        flex: 1 1 calc(50% - 28px); /* Adjusted flex-basis to ensure only two items per row, also accounting for the column-gap */
+        position: relative;
+        text-align: center;
     }
 }
 
