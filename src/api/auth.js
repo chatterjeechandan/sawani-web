@@ -15,7 +15,3 @@ export function forgotpassword(userData) {
 export function resetPassword(userData) {
     return postData('customer/reset_password', userData);
 }
-
-export function getCusertomerDetails(Id) {
-    return fetchData(`customer/${Id}`);
-}

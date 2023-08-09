@@ -128,13 +128,13 @@ const ForgetPasswordPopup = ({ onClose, onOpenLogin }) => {
                         });
                     });
                 } else {
-                    setToaster({ type: 'error', message: 'Signup failed. Please try again.', duration: 3000 });
+                    setToaster({ type: 'error', message: 'Password reset failed failed. Please try again.', duration: 3000 });
                 }
             }
 
         } catch (error) {
             setIsLoading(false);
-            setToaster({ type: 'error', message: 'Password reset failed', duration: 3000 });
+            setToaster({ type: 'error', message: 'Password reset failed failed. Please try again', duration: 3000 });
         }
     };
 

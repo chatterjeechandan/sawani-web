@@ -26,7 +26,7 @@ import Toaster from '../components/common/Toaster/Toaster';
 import { cartToOrder, updatedeliveryMethod, updatePaymentMethod, addPayment, checkout } from "../api/order";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { PaymentPopup } from '../components/templates/PaymentPopup/PaymentPopup';
-import { getCusertomerDetails } from '../api/auth';
+import { getCusertomerDetails } from '../api/customer';
 
 
 
@@ -593,7 +593,7 @@ const Checkout = () => {
                             </div>
                         ))}
                     </div>
-                    <div className='customizeFilter checkoutPage'>
+                    {/* <div className='customizeFilter checkoutPage'>
                         <div className='customizeFilterDisplay' onClick={setDropDownOpenFn}>
                             <span className='selectText'>
                                 Subscription Duration
@@ -621,7 +621,7 @@ const Checkout = () => {
                                 </li>
                             </ul>
                         )}
-                    </div>
+                    </div> */}
                     <div className="finalCartBills">
                         <div className="subTotal">
                             <span className="totalHeading">Subtotal</span>

@@ -140,8 +140,9 @@
   width: 377px;
   display: block;
   z-index: 99;
-  left: -150px;
+  left: auto;
   top: 50px;
+  right:0;
 }
 a.cart-icon {
   position: relative;
@@ -217,7 +218,8 @@ img.carticon {
   position: absolute;
     z-index: 1;
     top: -39.5px;
-    left: 39%;
+    left: auto;
+    right: -11px;
     pointer-events: none;
   background-image: url("../../../../assets/images/checkoutArrow.png");
   width: 44px;

@@ -3206,6 +3206,25 @@ body.lang-ar span.editAdd{
     margin-right: 0;
 }
 
+body.lang-ar .menu-items.cartPopup {
+    right: auto !important;
+    left: 0;
+}
+
+body.lang-ar .menu-items.cartPopup .rightCheckoutWraper::before {
+    left: -11px;
+    right: auto;
+}
+
+body.lang-ar .indFields.exp.names{
+    margin-left: 10px;
+}
+
+body.lang-ar .cus-img-holder {
+    margin-left: 10px;
+    margin-right: auto;
+}
+
 @media only screen and (max-width: 991px) {
 
     body.lang-ar .menu, body.lang-ar .icon-wrapper.profile{
@@ -3245,9 +3264,6 @@ body.lang-ar span.editAdd{
     }
     body.lang-ar .addressListings {
         margin-left:  0;
-    }
-    body.lang-ar .indFields.exp.names{
-        margin-left: 10px;
     }
 
 }
@@ -3314,6 +3330,14 @@ body.lang-ar span.editAdd{
  }
 }
 
+.cus-img-holder {
+    border: 2px solid #fff;
+    border-radius: 100%;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
 
 /*******************************Profile Responsive************************************/
 
@@ -3375,5 +3399,15 @@ body.lang-ar span.editAdd{
     }
     .availableinfo {
         width:15%;
+    }
+    .toaster.success {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 360px) { 
+    .menu-items.cartPopup {
+        width: 300px;
+        left: -254px;
     }
 }

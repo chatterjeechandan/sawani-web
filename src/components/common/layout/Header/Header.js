@@ -21,8 +21,7 @@ import { updateCartOwnerToCartAPI } from '../../../../api/cart';
 import Loader from '../../../../components/common/Loader/Loader';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
-
-
+import noUserImage from "../../../../assets/images/no-user.png";
 
 const Header = forwardRef((props, ref) => {
     const [isMenuOpen, setMenuOpen] = useState(false);
@@ -243,11 +242,11 @@ const Header = forwardRef((props, ref) => {
                 <div class="left-icons">
                     <div class="icon-wrapper profile">
                         {loginResponse && (
-                            <Link to="/profile" className="profileLink"> 
-                                <span className="translateNow">
-                                    <img src={profile} className='profile' alt="" />
+                            <Link to="/profile" className="profileLink">
+                                <span className="translateNow cus-img-holder">
+                                    <img src={loginResponse.avatar ? `data:image/png;base64,${loginResponse.avatar}` : noUserImage} className='profile' alt="" />
                                 </span>
-                                <p className='profileNameHeader'>Aisha</p>
+                                <p className='profileNameHeader'>{loginResponse.name}</p>
                             </Link>
                         )}
                     </div>

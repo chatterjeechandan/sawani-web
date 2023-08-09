@@ -58,7 +58,7 @@ const AddressAdd = () => {
                                     <input type="checkbox"/>
                                     <span class="slider round"></span>
                                     </label>
-                                      <label for="Female">text Messages</label>
+                                      <label for="Female">Text Messages</label>
                                 </span>
                                 </div>
                             </div>

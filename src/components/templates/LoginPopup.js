@@ -13,6 +13,8 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CartContext } from '../../utils/CartContext';
 import { getActiveCart, updateCartOwnerToCartAPI } from '../../api/cart';
 import { createCartAPI, updateCartAPI, addCartAPI, deleteCartAPI, getCartAPI } from '../../api/cart';
+import { getCusertomerDetails } from '../../api/customer';
+
 
 const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
     const [mobile, setMobile] = useState('');
@@ -50,8 +52,10 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
             const response = await login({ mobile, password });
             console.log('Login response:', response);
             if (response.id) {
-                localStorage.setItem('loginInfo', JSON.stringify(response));
-                setLoginResponse(response);
+                const cusDetailresponse = await getCusertomerDetails(response.id);
+                cusDetailresponse.token= response.token;
+                localStorage.setItem('loginInfo', JSON.stringify(cusDetailresponse));
+                setLoginResponse(cusDetailresponse);
                 updateCart();
             } else {
                 setIsLoading(false);
@@ -135,7 +139,7 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
                             }, 500);
                         }
                     } catch (error) {
-                        console.error('Error updating cart owner:', error);
+                        console.error('Error login into account:', error);
                     }
                 } else {
                     setIsLoading(false);

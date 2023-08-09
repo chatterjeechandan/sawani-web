@@ -197,7 +197,6 @@ const ProductCard = ({ product, openCartPopup }) => {
     const handleSuccess = (successMessage) => {
         setIncrementButtonLoading(false);
         setDecrementButtonLoading(false);
-        //setToaster({ type: 'success', message: successMessage, duration: 3000 });
     };
 
     const handleError = (errorMessage) => {
