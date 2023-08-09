@@ -15,6 +15,9 @@ const CategoryCard = ({ category }) => {
     <div className='individualProduct'>
       <Link to={url} className="categoryLink" style={{ display: 'inline' }}>
         <img src={categoryImage} alt={name} />
+        { !image && (
+          <p>{name}</p>
+        )}
       </Link>
     </div>
   );
