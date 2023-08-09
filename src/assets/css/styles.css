@@ -466,6 +466,7 @@ body {
 }
 .logoSec img {
     width: 225px;
+    float:left;
 }
 .footerMenu {
     width: 65%;
@@ -563,6 +564,7 @@ span.social img {
 .tabUl {
     display: flex;
     align-items: center;
+    margin-top: 10px;
 }
 .tabUl li {
     /* width: 130px; */
@@ -573,9 +575,9 @@ span.social img {
     align-items: center; */
     /* border-right: 1px solid #baadba; */
 }
-.tabUl li span img {
+/* .tabUl li span img {
     height: 58px;
-}
+} */
 /* .tabUl li span img {
     width: 22px;
     margin-right: 7px;
@@ -2937,7 +2939,9 @@ img.barCodeImg {
     margin: 0 auto;
     text-align: center;
 }
-
+.d-none {
+    display: none;
+}
 
 /***************RTL CSS START HERE*****************************/
 
@@ -2945,8 +2949,319 @@ body.lang-ar {
     direction:rtl;
 }
 
+body.lang-ar .icon-wrapper.profile {
+    margin-left: 40px;
+    margin-right: auto;
+}
+
+body.lang-ar img.profile {
+    margin-right: auto;
+    margin-left: 10px;
+}
+
+body.lang-ar .menu {
+    margin-right: auto;
+    margin-left: 40px;
+}
+
+body.lang-ar .menu-items li {
+    text-align: right;
+}
+
+body.lang-ar .orderNowBtns {
+    left: auto;
+    right: 40px;
+}
+
+body.lang-ar .footerMenu {
+    float: left;
+    text-align: right;
+}
+
+body.lang-ar .logoSec {
+    float: right;
+}
+
+body.lang-ar .checkoutProductHeading {
+    text-align: right;
+}
+
+body.lang-ar .indCartProductName {
+    text-align: right;
+}
+
+body.lang-ar .productPriceInd {
+    text-align: right;
+}
+
+body.lang-ar span.totalPrice{
+    margin-right: auto;
+    margin-left: inherit;
+}
+
+body.lang-ar .grandTotalWraper.rewardSectionsWrapers span.grandHeading.grandPrice {
+    margin-left: inherit;
+    margin-right: auto;
+}
+
+body.lang-ar .cartBtnWraper .checkBtn {
+    margin-right: auto;
+    margin-left: inherit;
+}
+
+body.lang-ar .logoSec img {
+    float:right;
+}
+
+body.lang-ar .searchArea {
+    margin-left: 10px;
+}
+
+body.lang-ar .dashboardMidContent::before {
+    left: 0;
+    right:auto;
+    transform: rotate(180deg);
+}
+
+body.lang-ar span.headingImage {
+    margin-left: 15px;
+}
+
+body.lang-ar .individualProduct{
+ float:right;
+}
+
+body.lang-ar span.selectIcons {
+    margin-right: 0;
+    margin-left: 15px;
+}
+
+body.lang-ar span.dropImages {
+    right: auto;
+    left: 12px;
+}
+
+body.lang-ar ul.customDropdown li span.selectIcons {
+    margin-right: 0;
+    margin-left: 15px;
+}
+
+body.lang-ar .filterSections {
+    margin-right: auto;
+    margin-left: 0;
+}
+
+body.lang-ar span.dropArrows {
+    right: auto;
+    left: -8px;
+}
+
+body.lang-ar span.counterWraper {
+    left: 0;
+    right: auto;
+}
+
+body.lang-ar .paginationWrapers {
+    float: right;
+    text-align: left;
+}
+
+body.lang-ar .bookMark {
+    right: auto;
+    left: 65px;
+}
+
+body.lang-ar p.productDescription {
+    padding-right: 0;
+}
+
+body.lang-ar .productNamePrice {
+    text-align: right;
+}
+
+body.lang-ar .indFields.exp.names {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+body.lang-ar label.fieldLabel {
+    text-align: right;
+    margin-right: 0;
+}
+
+body.lang-ar input.foeldInputs {
+    padding-right: 0;
+}
+
+body.lang-ar .contactPageImg {
+    float: right;
+}
+
+body.lang-ar .contactFieldsWraper{
+    float: left;
+}
+
+body.lang-ar .indFields.cvv.emails {
+    margin-left: 0;
+}
+
+body.lang-ar .profileSidebarWraper {
+    float: right;
+    padding-right: 0;
+    padding-left: 20px;
+}
+body.lang-ar span.iconName{
+    margin-right: 0;
+    margin-left: 15px;
+}
+body.lang-ar ul.profileRouts li i{
+    transform: rotate(180deg);
+    margin-right: 10px;
+}
+body.lang-ar .profileSidebarWraper {
+    float: right;
+    padding-right: 0;
+    padding-left: 20px;
+}
+body.lang-ar .profileRightWraper {
+    float: left;
+    padding-left: 0;
+    padding-right: 20px;
+}
+
+body.lang-ar span.pointListIcons {
+    margin-right: 0;
+    margin-left: 20px;
+}
+
+body.lang-ar span.editPointsSec {
+    left: -10px;
+    right: auto;
+}
+
+body.lang-ar .pointsProfileWrapers h3 {
+    margin-right: auto;
+    margin-left: 10px;
+}
+
+body.lang-ar .pointsProfileWrapers img {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+body.lang-ar .qusBtn{
+    float: left;
+}
+
+body.lang-ar body.lang-ar button.refferBtn {
+    float: left;
+}
+
+body.lang-ar img.codeScan {
+    margin-right: 0;
+    margin-left: 15px;
+}
+
+body.lang-ar span.pointsDetails {
+    margin-left: auto;
+    margin-right: inherit;
+}
+body.lang-ar img.rewardStars{
+    margin-left: inherit;
+    margin-right: auto;
+}
+
+body.lang-ar .addAddress a {
+    float: left;
+}
+
+body.lang-ar .cardLogo{
+    margin-right: auto;
+    margin-left: 0;
+}
+
+body.lang-ar .addressListings{
+    margin-left: 15px;
+    margin-right: 0;
+}
+
+body.lang-ar .indFields.exp {
+    margin-right: 0;
+    margin-left: auto;
+    width: 53%;
+}
+
+body.lang-ar .indFields.cvv {
+    margin-right: auto;
+    margin-left: 0;
+}
+
+body.lang-ar span.editAddress {
+    right: auto;
+    left: 15px;
+}
+
+body.lang-ar span.editAdd{
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+@media only screen and (max-width: 991px) {
+
+    body.lang-ar .menu, body.lang-ar .icon-wrapper.profile{
+        margin-left: 5px !important;
+    }
+
+    .popup-content {
+        width:90%;
+    }
+
+    body.lang-ar .menu-items.translation {
+        left: -72px;
+        z-index: 999;
+    }
+    body.lang-ar .menu-items.translation.menuDrop::before {
+        left: 60px !important;
+    }
+    body.lang-ar .menu-items.cartPopup {
+        left:auto;
+        right: -300px;
+    }
+    body.lang-ar  .menu-items.cartPopup .rightCheckoutWraper::before {
+        right: 85%;
+        left:auto;
+    }
+    body.lang-ar .menu-items.detail {
+        left: 0;
+    }
+    body.lang-ar .menu-items.detail.menuDrop::before {
+        left: 4%;
+    }
+    body.lang-ar .profileSidebarWraper{
+        padding-left: 0;
+    }
+    body.lang-ar .profileRightWraper{
+        padding-right: 0;
+    }
+    body.lang-ar .addressListings {
+        margin-left:  0;
+    }
+    body.lang-ar .indFields.exp.names{
+        margin-left: 10px;
+    }
+
+}
 
 /***************RTL CSS ENDS HERE*****************************/
+
+.footerWraper .rowWraper.firstRow {
+    width: 80%;
+    border: 0px solid red;
+    padding: 30px 0px 10px;
+    margin-bottom: 25px;
+    padding-bottom: 0;
+}
+
 @media only screen and (max-width: 1340px) and (min-width: 1025px) {
     .menu-items.cartPopup {
         left: -235px;
@@ -2990,7 +3305,75 @@ body.lang-ar {
 }
 .footerMenu ul li {
     display: block;
-    width: 44%;
+    width: 40%;
     float: left;
 }
+ footer .logoSec img {
+    margin: 0 auto;
+    float: none;
+ }
+}
+
+
+/*******************************Profile Responsive************************************/
+
+@media only screen and (max-width: 991px) {
+    .dashboardMidContent.profilePages {
+        padding: 0 15px;
+    }
+    .profileSidebarWraper {
+        width: 100%;
+        padding-right: 0;
+        margin-top: 20px;
+    }
+    .profileRightWraper {
+        width: 100%;
+        padding-left: 0;
+        margin-top: 20px;
+    }
+    .pointTabWraper {
+        padding: 20px 15px;
+    }
+    .pointDislayWraper {
+        flex-direction: column;
+    }
+    .circlePoints {
+        width: 100%;
+    }
+    .indProductsWraper {
+        width: 28%;
+    }
+    h4.prodFavName, span.pointsDetails{
+        font-size: 11px;
+    }
+    .addressListings {
+        padding-right: 0;
+    }
+    .contactUsWraper {
+        padding: 20px 15px;
+    }
+    .contactPageImg {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .contactFieldsWraper{
+        width: 100%;
+        padding-bottom: 50px;
+    }
+    .tabUl {
+        justify-content: center;
+    }
+    .productsRow.listingPages .product-container .indProduct {
+        width:50%;
+    }
+
+    .productsRow.listingPages {
+        margin-top: 0;
+    }
+    .filterSections {
+        margin-top: 20px;
+    }
+    .availableinfo {
+        width:15%;
+    }
 }

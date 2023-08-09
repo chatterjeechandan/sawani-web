@@ -27,6 +27,7 @@ const ProductList = () => {
     }, [pcat, scat, sort]);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         fetchProducts();
     }, []);
 
@@ -44,6 +45,7 @@ const ProductList = () => {
 
     const fetchProducts = async () => {
         setIsLoading(true);
+        setProducts([]);
         try {
             const response = await fetchProductsbyCat(1, pcat, sort);
             setProducts(response);

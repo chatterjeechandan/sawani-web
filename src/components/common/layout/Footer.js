@@ -10,35 +10,38 @@ const Footer = () => {
       {/* Your footer content goes here */}
       <div className="footerWraper">
 
-        <div className="rowWraper firstRow">
+        <div className="rowWraper firstRow rowSec">
           <div className="logoSec">
             <img src={footerLogo} alt="" />
           </div>
           <div className="footerMenu">
             <ul>
               <li>
-                <Link to="/">اتصل بنا</Link>
+                <Link to="/">الرئيسية</Link>
               </li>
               <li>
-                <Link to="/">الاعلامي</Link>
+                <Link to="/">قصتنا</Link>
               </li>
               <li>
-                <Link to="/">المركز</Link>
+                <Link to="/">منتجاتنا</Link>
               </li>
               <li>
-                <Link to="/">العمل كلمة الرئيس</Link>
+              <Link to="/">الفرص المستقبلية</Link>
               </li>
               <li>
-                <Link to="/">الشركة فريق</Link>
+              <Link to="/">عن الشركة</Link>
               </li>
               <li>
-                <Link to="/">المستقبلية عن</Link>
+              <Link to="/">فريق العمل</Link>
               </li>
               <li>
-                <Link to="/">الرئيسية قصتنا</Link>
+              <Link to="/">كلمة الرئيس</Link>
               </li>
               <li>
-                <Link to="/"> منتجاتنا الفرص</Link>
+              <Link to="/">المركز الاعلامي</Link>
+              </li>
+              <li>
+              <Link to="/">اتصل بنا</Link>
               </li>
             </ul>
           </div>
@@ -52,7 +55,7 @@ const Footer = () => {
               <Link to="/"><img src={s2} alt="" /></Link>
             </span>
           </div>
-          <p>2023 جميع الحقوق محفوظة لشركة سواني السعودية</p>
+          <p>2023 © All right Reversed. SAWANI</p>
         </div>
       </div>
 

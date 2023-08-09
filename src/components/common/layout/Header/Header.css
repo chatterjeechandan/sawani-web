@@ -260,3 +260,55 @@ span.cart-count {
 .cart-count .loader{
   height:auto;
 }
+
+.container {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 10px;
+}
+
+.left-icons, .right-icons {
+  display: flex;
+  align-items: center;
+}
+
+.icon-wrapper {
+  position: relative; 
+  margin: 0 5px; 
+}
+
+.icon-wrapper.profile{
+  margin-right: 40px;
+}
+
+.logo {
+  width: 100px; 
+  height: auto; 
+}
+
+.translateNow {
+  cursor:pointer;
+}
+
+.menu-items.translation {
+  width: 120px;
+  left: -54px;
+  top: 40px;
+}
+
+@media only screen and (max-width: 991px) {
+  .profileNameHeader {
+    display:none;
+  }
+  .icon-wrapper.profile {
+    margin-right: 5px;
+  }
+  .menu-items.translation{
+    left: -28px;
+  }
+
+  .menu-items.translation.menuDrop::before {
+    left:15px !important;
+  }
+}

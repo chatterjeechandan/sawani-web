@@ -240,7 +240,7 @@ const Checkout = () => {
     }
 
     const deleteCartItem = async (cartItems, updatedCartItems, index) => {
-        setIsLoading(false);
+        //setIsLoading(false);
         cartItems.items.splice(index, 1);
         updateCartItems(cartItems);
         const response = await deleteCartAPI(cartItems.id, updatedCartItems);
@@ -251,7 +251,7 @@ const Checkout = () => {
     };
 
     const updateCartItem = async (cartItems, index) => {
-        setIsLoading(true);
+        //setIsLoading(true);
         updateCartItems(cartItems);
         const response = await updateCartAPI(cartItems.id, cartItems.items[index]);
         if (response.succeeded) {
