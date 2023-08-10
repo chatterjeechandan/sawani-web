@@ -41,7 +41,7 @@ const HomePage = () => {
       <div className="bannerWrapers">
         <Header />
         {scrolled && (
-           <Link to="/category"><span className='orderNowBtns'>Order Now</span></Link>          
+           <Link to="/in-store"><span className='orderNowBtns'>Order Now</span></Link>          
         )}
         
         <div className="bannertextWraper">

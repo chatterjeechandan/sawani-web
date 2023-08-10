@@ -63,6 +63,7 @@ const ProductCard = ({ product, openCartPopup }) => {
           price: Number(newCount * product?.price),
           name: product?.name,
           image: product?.image,
+          rewards: product?.rewards,
         },
       ],
     };
@@ -91,6 +92,7 @@ const ProductCard = ({ product, openCartPopup }) => {
         price: Number(product.price),
         name: product.name,
         image: product?.image,
+        rewards: product?.rewards,
       };
 
       if (updatedItem.quantity === 0) {
@@ -110,6 +112,7 @@ const ProductCard = ({ product, openCartPopup }) => {
           price: product.price,
           name: product.name,
           image: product?.image,
+          rewards: product?.rewards,
         };
         existingCartItems.items.push(newCartItem);
         addCartItem(existingCartItems.id, existingCartItems, newCartItem);
@@ -150,55 +153,20 @@ const ProductCard = ({ product, openCartPopup }) => {
   };
 
   const addCartItem = async (cartId, existingCartItems, newCartItem) => {
-    try {
-      updateCartItems(existingCartItems);
-      openCartPopup();
-      const response = await addCartAPI(cartId, newCartItem);
-      console.log("cart update response:", response);
-      if (response.succeeded) {
-        handleSuccess("Product added into cart successfully");
-        setIsLoading(false);
-      } else {
-        handleError(response.Message || "Cart add failed");
-      }
-    } catch (error) {
-      handleError("Cart add failed");
-    }
+    updateCartItems(existingCartItems);
+    openCartPopup();
   };
 
   const updateCartItem = async (cartId, updatedItem, index) => {
-    try {
-      cartItems.items[index] = updatedItem;
-      updateCartItems(cartItems);
-      openCartPopup();
-      const response = await updateCartAPI(cartId, updatedItem);
-      console.log("cart update response:", response);
-      if (response.succeeded) {
-        handleSuccess("Product updated into cart successfully");
-        setIsLoading(false);
-      } else {
-        handleError(response.Message || "Cart update failed");
-      }
-    } catch (error) {
-      handleError("Cart update failed");
-    }
+    const newCartItems = [...cartItems.items];
+    newCartItems[index] = updatedItem;
+    updateCartItems({...cartItems, items: newCartItems});
   };
 
   const deleteItemCart = async (cartId, deletedItem, index) => {
-    try {
-      cartItems.items.splice(index, 1);
-      updateCartItems(cartItems);
-      openCartPopup();
-      const response = await deleteCartAPI(cartId, deletedItem);
-      console.log("cart delete response:", response);
-      if (response.succeeded) {
-        handleSuccess("Product deleted from cart successfully");
-      } else {
-        handleError(response.Message || "Cart delete failed");
-      }
-    } catch (error) {
-      handleError("Cart delete failed");
-    }
+    const newCartItems = [...cartItems.items];
+    newCartItems.splice(index, 1);
+    updateCartItems({...cartItems, items: newCartItems});
   };
 
   const handleSuccess = (successMessage) => {

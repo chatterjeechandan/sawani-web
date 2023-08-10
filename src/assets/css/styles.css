@@ -2651,19 +2651,23 @@ p.noRecords {
   padding-top: 15%;
 }
 
+.indProductsWraperLink {
+  width:31%;
+}
+
 .indProductsWraper {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 12px;
   opacity: 1;
   margin: 7px;
-  width: 31%;
+  width: 100%;
   float: left;
   overflow: hidden;
 }
 .imagePrd {
   width: 100%;
-  height: 77px;
+  height: 180px;
   overflow: hidden;
   position: relative;
 }
@@ -2693,6 +2697,12 @@ span.likeProducts {
   position: absolute;
   top: 10px;
   right: 5px;
+}
+span.likeProducts .loader{
+  height: auto;
+  position: absolute;
+  top: 0;
+  float: none;
 }
 img.rewardStars {
   width: 16px;
@@ -3039,7 +3049,7 @@ body.lang-ar
 }
 
 body.lang-ar .cartBtnWraper .checkBtn {
-  margin-right: auto;
+  margin-right: 10px;
   margin-left: inherit;
 }
 
@@ -3272,6 +3282,22 @@ body.lang-ar .errorText {
   width: 100%;
 }
 
+body.lang-ar .dropdown.sort-drop .customizeFilterDisplay {
+  padding-right: 10px;
+    padding-left: 25px;
+    margin-left: 0;
+    margin-right: 5px;
+}
+
+body.lang-ar .dropdown.sort-drop span.subPoints {
+  margin-left: 0;
+  margin-right: 6px;
+}
+
+body.lang-ar .indProduct {
+  float:right;
+}
+
 @media only screen and (max-width: 991px) {
   body.lang-ar .menu,
   body.lang-ar .icon-wrapper.profile {
@@ -3400,6 +3426,58 @@ body.lang-ar .errorText {
   margin-top: 9px;
 }
 
+.cartBtnWraper a:last-child {
+  margin-left: 15px;
+}
+
+.cartProductListings {
+  overflow: auto;
+}
+
+.cartProductListings::-webkit-scrollbar {
+  width: 10px;
+}
+
+.cartProductListings::-webkit-scrollbar-track {
+  background-color: #F5F5F5;
+  border-radius: 10px;
+}
+
+.cartProductListings::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 2px solid #F5F5F5;
+}
+
+.cartProductListings::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.cartProductListings {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #F5F5F5;
+}
+
+
+.dropdown.sort-drop .customizeFilterDisplay{
+  width: auto;
+  padding-right: 26px;
+  height: auto;
+  padding: 8px 12px;
+  padding-right: 25px;
+  margin-left:5px;
+}
+
+.dropdown.sort-drop .selectText{
+  font-size: 13px;
+}
+
+.dropdown.sort-drop ul.customDropdown li {
+  padding: 5px 15px;
+}
+
+
+
 /*******************************Profile Responsive************************************/
 
 @media only screen and (max-width: 991px) {
@@ -3425,8 +3503,8 @@ body.lang-ar .errorText {
   .circlePoints {
     width: 100%;
   }
-  .indProductsWraper {
-    width: 28%;
+  .indProductsWraperLink {
+    width:50%;
   }
   h4.prodFavName,
   span.pointsDetails {

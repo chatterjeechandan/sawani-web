@@ -246,7 +246,7 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
                 <input
                   type="password"
                   className={`inputBox ${passwordError ? "inputError" : ""}`}
-                  placeholder="Password"
+                  placeholder={t("Password")}
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);

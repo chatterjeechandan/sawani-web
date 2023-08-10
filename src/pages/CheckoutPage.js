@@ -11,7 +11,7 @@ import arrows from "../assets/images/arrowPoint.png";
 import payLogo from "../assets/images/payLogo.png";
 import { CartContext } from "../utils/CartContext";
 import placeholderImage from "../assets/images/no-image.png";
-import { updateCartAPI, deleteCartAPI } from "../api/cart";
+import { updateCartAPI, deleteCartAPI, addCartAPI, getCartAPI } from "../api/cart";
 import minus from "../assets/images/minusWhite.png";
 import { AuthContext } from "../utils/AuthContext";
 import Loader from "../components/common/Loader/Loader";
@@ -109,7 +109,7 @@ const Checkout = () => {
 
   useEffect(() => {
     if (!cartItems || cartItems?.items?.length == 0) {
-      navigate("/category");
+      navigate("/in-store");
     }
     getDeliveryMethods();
     getPaymentMethods();
@@ -132,7 +132,7 @@ const Checkout = () => {
 
   useEffect(() => {
     if (cartItems?.items?.length == 0) {
-      navigate("/category");
+      navigate("/in-store");
     }
   }, [cartItems]);
 
@@ -269,21 +269,21 @@ const Checkout = () => {
     //setIsLoading(false);
     cartItems.items.splice(index, 1);
     updateCartItems(cartItems);
-    const response = await deleteCartAPI(cartItems.id, updatedCartItems);
-    if (response.succeeded) {
-      setIsLoading(false);
-      updateCartItems(cartItems);
-    }
+    // const response = await deleteCartAPI(cartItems.id, updatedCartItems);
+    // if (response.succeeded) {
+    //   setIsLoading(false);
+    //   updateCartItems(cartItems);
+    // }
   };
 
   const updateCartItem = async (cartItems, index) => {
     //setIsLoading(true);
     updateCartItems(cartItems);
-    const response = await updateCartAPI(cartItems.id, cartItems.items[index]);
-    if (response.succeeded) {
-      updateCartItems(cartItems);
-      setIsLoading(false);
-    }
+    // const response = await updateCartAPI(cartItems.id, cartItems.items[index]);
+    // if (response.succeeded) {
+    //   updateCartItems(cartItems);
+    //   setIsLoading(false);
+    // }
   };
 
   const calculateSubtotal = () => {
@@ -494,12 +494,29 @@ const Checkout = () => {
     try {
       const storedCartInfo = localStorage.getItem("cartInfo");
       if (!storedCartInfo) return;
-
       const cartObj = JSON.parse(storedCartInfo);
+      const getActualCartResponse =  await getCartAPI(cartObj.id);      
+     
+      for (const item of cartObj.items) {
+        const existingCartItemIndex = getActualCartResponse.data.items.findIndex(
+          (innerItem) => innerItem.productVariantId === item.productVariantId
+        );
+        if (existingCartItemIndex !== -1) {
+          await updateCartAPI(cartObj.id, item);
+        } else {
+          await addCartAPI(cartObj.id, item);
+        }
+      }
 
-      cartObj.items.forEach(async (item) => {
-        await updateCartAPI(cartObj.id, item);
-      });
+      for (const item1 of getActualCartResponse.data.items) {
+        const existingCartItemIndex1 = cartObj.items.findIndex(
+          (innerItem) => innerItem.productVariantId === item1.productVariantId
+        );
+        console.log(existingCartItemIndex1);
+        if (existingCartItemIndex1 == -1) {
+          await deleteCartAPI(cartObj.id, item1);
+        }
+      }
 
       const initialResponse = await cartToOrder(cartObj.id);
       if (!initialResponse.succeeded)
@@ -702,11 +719,12 @@ const Checkout = () => {
                       <span>{item.price}</span> {t("SAR")}
                     </p>
                     <span className="counterWraper checkoutcounters">
+                      
                       <span
-                        className="plusCounter"
-                        onClick={() => handleCountChange(index, 1)}
+                        className="minusCounter"
+                        onClick={() => handleCountChange(index, -1)}
                       >
-                        <img src={counterPlus} alt="" />
+                        <img src={minus} alt="" />
                       </span>
                       <span className="counterInput">
                         <input
@@ -717,10 +735,10 @@ const Checkout = () => {
                         />
                       </span>
                       <span
-                        className="minusCounter"
-                        onClick={() => handleCountChange(index, -1)}
+                        className="plusCounter"
+                        onClick={() => handleCountChange(index, 1)}
                       >
-                        <img src={minus} alt="" />
+                        <img src={counterPlus} alt="" />
                       </span>
                     </span>
                   </span>

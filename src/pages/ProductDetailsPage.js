@@ -175,6 +175,7 @@ const Product = () => {
           price: Number(newCount * provariant?.price),
           name: provariant?.name,
           image: product?.image,
+          rewards: product?.rewards,
         },
       ],
     };
@@ -204,6 +205,7 @@ const Product = () => {
         price: provariant?.price,
         name: provariant?.name,
         image: product?.image,
+        rewards: product?.rewards,
       };
 
       if (updatedItem.quantity === 0) {
@@ -223,6 +225,7 @@ const Product = () => {
           price: provariant?.price,
           name: provariant?.name,
           image: product?.image,
+          rewards: product?.rewards,
         };
         existingCartItems.items.push(newCartItem);
         addCartItem(existingCartItems.id, existingCartItems, newCartItem);
@@ -245,8 +248,10 @@ const Product = () => {
   }, [provariant, cartItems]);
 
   useEffect(() => {
-    customerFavourite();
-  }, [product]);
+    if (loginResponse && product) {
+      customerFavourite();
+    }
+  }, [product,loginResponse]);
 
   const customerFavourite = async () => {
     try {
@@ -347,54 +352,59 @@ const Product = () => {
   };
 
   const addCartItem = async (cartId, existingCartItems, newCartItem) => {
-    try {
-      const response = await addCartAPI(cartId, newCartItem);
-      console.log("cart update response:", response);
-      if (response.succeeded) {
-        handleSuccess("Product added into cart successfully");
-        updateCartItems(existingCartItems);
-        //setIsWholePageLoading(false);
-      } else {
-        handleError(response.Message || "Cart add failed");
-      }
-    } catch (error) {
-      handleError("Cart add failed");
-    }
+    // try {
+    //   const response = await addCartAPI(cartId, newCartItem);
+    //   console.log("cart update response:", response);
+    //   if (response.succeeded) {
+    //     handleSuccess("Product added into cart successfully");
+    //     updateCartItems(existingCartItems);
+    //     //setIsWholePageLoading(false);
+    //   } else {
+    //     handleError(response.Message || "Cart add failed");
+    //   }
+    // } catch (error) {
+    //   handleError("Cart add failed");
+    // }
+    updateCartItems(existingCartItems);
   };
 
   const updateCartItem = async (cartId, updatedItem, index) => {
-    try {
-      const response = await updateCartAPI(cartId, updatedItem);
-      console.log("cart update response:", response);
-      if (response.succeeded) {
-        handleSuccess("Product updated into cart successfully");
-        console.log(cartItems);
-        cartItems.items[index] = updatedItem;
-        updateCartItems(cartItems);
-        //setIsWholePageLoading(false);
-      } else {
-        handleError(response.Message || "Cart update failed");
-      }
-    } catch (error) {
-      handleError("Cart update failed");
-    }
+    // try {
+    //   const response = await updateCartAPI(cartId, updatedItem);
+    //   console.log("cart update response:", response);
+    //   if (response.succeeded) {
+    //     handleSuccess("Product updated into cart successfully");
+    //     console.log(cartItems);
+    //     cartItems.items[index] = updatedItem;
+    //     updateCartItems(cartItems);
+    //     //setIsWholePageLoading(false);
+    //   } else {
+    //     handleError(response.Message || "Cart update failed");
+    //   }
+    // } catch (error) {
+    //   handleError("Cart update failed");
+    // }
+    cartItems.items[index] = updatedItem;
+    updateCartItems(cartItems);
   };
 
   const deleteItemCart = async (cartId, deletedItem, index) => {
-    try {
-      const response = await deleteCartAPI(cartId, deletedItem);
-      console.log("cart delete response:", response);
-      if (response.succeeded) {
-        handleSuccess("Product deleted from cart successfully");
-        cartItems.items.splice(index, 1);
+    // try {
+    //   const response = await deleteCartAPI(cartId, deletedItem);
+    //   console.log("cart delete response:", response);
+    //   if (response.succeeded) {
+    //     handleSuccess("Product deleted from cart successfully");
+    //     cartItems.items.splice(index, 1);
+    //     updateCartItems(cartItems);
+    //     //setIsWholePageLoading(false);
+    //   } else {
+    //     handleError(response.Message || "Cart delete failed");
+    //   }
+    // } catch (error) {
+    //   handleError("Cart delete failed");
+    // }
+    cartItems.items.splice(index, 1);
         updateCartItems(cartItems);
-        //setIsWholePageLoading(false);
-      } else {
-        handleError(response.Message || "Cart delete failed");
-      }
-    } catch (error) {
-      handleError("Cart delete failed");
-    }
   };
 
   const handleToasterClose = () => {
