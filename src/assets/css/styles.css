@@ -261,10 +261,10 @@ body {
 .bannerWrapers {
     width: 100%;
     background-image: url("../images/homeBack.png");
-    background-position: top center;
+    background-position: bottom center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 95vh;
+    height: 100vh;
     position: relative;
 }
 
@@ -321,29 +321,32 @@ body {
     background-position: top center;
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 100px 0;
+    padding: 150px 0 15px 0;
     position: relative;
 }
 
 .afterBanner.left .afterBannerTextWraper {
     width: 50%;
     float: left;
-    padding: 20px 20px 20px 25%;
-    background: transparent linear-gradient(180deg, rgba(183, 134, 76, 1) 0%, rgba(222, 200, 174, 0.45) 71%, rgba(253, 253, 253, 0) 100%) 0% 0% no-repeat padding-box;
-    opacity: 1;
+    padding: 30px 35px 30px 15%;
+    /* background: transparent linear-gradient(180deg, rgba(183, 134, 76, 1) 0%, rgba(222, 200, 174, 0.45) 71%, rgba(253, 253, 253, 0) 100%) 0% 0% no-repeat padding-box; */
+    background: var(--unnamed-color-c0823f) 0% 0% no-repeat padding-box;
+background: #C0823F 0% 0% no-repeat padding-box;
+opacity: 0.35;
 }
 .afterBanner.right .afterBannerTextWraper {
     width: 50%;
     float: right;
-    padding: 20px 25% 20px 20px;
-    background: transparent linear-gradient(180deg, rgba(183, 134, 76, 1) 0%, rgba(222, 200, 174, 0.45) 71%, rgba(253, 253, 253, 0) 100%) 0% 0% no-repeat padding-box;
-    opacity: 1;
+    padding: 30px 15% 30px 35px;
+    background: var(--unnamed-color-c0823f) 0% 0% no-repeat padding-box;
+background: #C0823F 0% 0% no-repeat padding-box;
+opacity: 0.35;
 }
 
 .afterBanner.center .afterBannerCenterTextWraper {
     padding: 50px 50px;
-    background: #fff;
-    opacity: 0.4;
+    background: transparent linear-gradient(180deg, #F6F2EC00 0%, #DCD4C9 20%, #DCD4C9 79%, #F6F2EC00 100%) 0% 0% no-repeat padding-box;
+opacity: 0.65;
     width: 60%;
     margin: 50px auto;
     text-align: center;
@@ -459,7 +462,7 @@ body {
 }
 
 .logoSec {
-    width: 35%;
+    width: 30%;
     float: left;
     text-align: right;
     padding-right: 100px;
@@ -469,7 +472,7 @@ body {
     float:left;
 }
 .footerMenu {
-    width: 65%;
+    width: 70%;
     float: right;
     text-align: left;
     padding: 0 10px;
@@ -3410,4 +3413,76 @@ body.lang-ar .cus-img-holder {
         width: 300px;
         left: -254px;
     }
+}
+
+.orderDetailsWraper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    float: left;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+}
+.orderDetailsWraper .orderImg img {
+    width: 55px;
+    height: 52px;
+}
+span.productOrderInfo {
+    margin-left: auto;
+    margin-right: auto;
+    text-align:  center;
+}
+span.counterOrdered {
+    width: 28px;
+    height: 28px;
+    padding: 15px;
+    background: #B7864C;
+    padding: 7px;
+    line-height: 12px;
+    text-align: center;
+    border-radius: 50%;
+    color: #fff;
+}
+span.orderImg {
+    height: 52px;
+}
+.grandTotalWraper.rewardSectionsWrapersBig .grandHeading {
+    color: #B7864C;
+    font-size: 18px;
+    font-weight: 700;;
+}
+.grandTotalWraper.rewardSectionsWrapersBig {
+width: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+.grandTotalWraper.rewardSectionsWrapersBig span.grandHeading.grandPrice {
+    margin-left: auto;
+}
+p.thanksP {
+    letter-spacing: 0.38px;
+    color: #0D1D29;
+    opacity: 1;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+h5.thanksPrder {
+    letter-spacing: 0px;
+    color: #1A1818;
+    opacity: 1;
+    font-size: 20px;
+    margin-bottom: 22px;
+}
+.qrCodeWraper img {
+    width: 163px;
+    height: 163px;
+}
+p.afterBarCode {
+    letter-spacing: 0.33px;
+    color: #071623;
+    opacity: 1;
+    line-height: 20px;
 }
