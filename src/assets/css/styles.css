@@ -3497,3 +3497,77 @@ body.lang-ar .errorText {
     left: -254px;
   }
 }
+/* Thanks Page */
+
+.orderDetailsWraper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  float: left;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+}
+.orderDetailsWraper .orderImg img {
+  width: 55px;
+  height: 52px;
+}
+span.productOrderInfo {
+  margin-left: auto;
+  margin-right: auto;
+  text-align:  center;
+}
+span.counterOrdered {
+  width: 28px;
+  height: 28px;
+  padding: 15px;
+  background: #B7864C;
+  padding: 7px;
+  line-height: 12px;
+  text-align: center;
+  border-radius: 50%;
+  color: #fff;
+}
+span.orderImg {
+  height: 52px;
+}
+.grandTotalWraper.rewardSectionsWrapersBig .grandHeading {
+  color: #B7864C;
+  font-size: 18px;
+  font-weight: 700;;
+}
+.grandTotalWraper.rewardSectionsWrapersBig {
+width: 100%;
+  float: left;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.grandTotalWraper.rewardSectionsWrapersBig span.grandHeading.grandPrice {
+  margin-left: auto;
+}
+p.thanksP {
+  letter-spacing: 0.38px;
+  color: #0D1D29;
+  opacity: 1;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+h5.thanksPrder {
+  letter-spacing: 0px;
+  color: #1A1818;
+  opacity: 1;
+  font-size: 20px;
+  margin-bottom: 22px;
+}
+.qrCodeWraper img {
+  width: 163px;
+  height: 163px;
+}
+p.afterBarCode {
+  letter-spacing: 0.33px;
+  color: #071623;
+  opacity: 1;
+  line-height: 20px;
+}
+/* Thanks Page ends */

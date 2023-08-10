@@ -20,6 +20,7 @@ import FavouriteProducts from "../pages/Profile/FavouriteProducts";
 import SavedCardAdd from "../pages/Profile/SavedCardAdd";
 import SavedCardList from "../pages/Profile/SavedCardList";
 import FavouriteStores from "../pages/Profile/FavouriteStores";
+import ThankYou from "../pages/Thankyou";
 
 const Routes = () => {
   return (
@@ -41,6 +42,7 @@ const Routes = () => {
         <Route path="/favourite-store" element={<FavouriteStores />} />
         <Route path="/favourite-product" element={<FavouriteProducts />} />
         <Route path="/profile/*" element={<ProfileRoutes />} />
+        <Route path="/thankyou" element={<ThankYou />} />
       </AppRoutes>
     </Router>
   );
