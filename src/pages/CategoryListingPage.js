@@ -45,7 +45,7 @@ const CategoryListingPage = () => {
         setActiveTab(tab);
         switch (tab) {
             case 'inStore':
-                navigate('/category');
+                navigate('/in-store');
                 break;
             case 'delivery':
                 navigate('/delivery');

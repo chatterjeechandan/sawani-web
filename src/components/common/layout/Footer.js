@@ -18,7 +18,7 @@ const Footer = () => {
           <div className="footerMenu">
             <ul>
               <li>
-                <Link to="/">الرئيسية</Link>
+                <Link to="/contact-us">الرئيسية</Link>
               </li>
               <li>
                 <Link to="/">قصتنا</Link>

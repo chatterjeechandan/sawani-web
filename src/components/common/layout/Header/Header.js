@@ -165,13 +165,22 @@ const Header = forwardRef((props, ref) => {
   const calculateSubtotal = () => {
     if (!cartItems || !cartItems.items) return 0;
 
-    const toalatPrice = cartItems.items.reduce(
+    return cartItems.items.reduce(
       (acc, item) => acc + item.price * item.quantity,
       0
     );
-
-    return toalatPrice.toFixed(2);
   };
+
+  const subtotalPrice = useMemo(() => calculateSubtotal(), [cartItems]);
+
+
+  const calculateRewardstotal = () => {
+    if (!cartItems || !cartItems.items) return 0;
+
+    return cartItems.items.reduce((acc, item) => acc + item.rewards, 0);
+  };
+
+  const totalRewards = useMemo(() => calculateRewardstotal(), [cartItems]);
 
   const cartPopupClickHandler = (e) => {
     e.stopPropagation();
@@ -243,6 +252,8 @@ const Header = forwardRef((props, ref) => {
     }
   }, [i18next.language]);
 
+  const storedCartInfo = localStorage.getItem("cartInfo");
+
   return (
     <header className="header headerWrapers">
       {toaster && (
@@ -256,7 +267,7 @@ const Header = forwardRef((props, ref) => {
       <div class="container">
         <div class="left-icons">
           <div class="icon-wrapper profile">
-            {loginResponse && (
+            {/* {loginResponse && (
               <Link to="/profile" className="profileLink">
                 <span className="translateNow cus-img-holder">
                   <img
@@ -271,7 +282,7 @@ const Header = forwardRef((props, ref) => {
                 </span>
                 <p className="profileNameHeader">{loginResponse.name}</p>
               </Link>
-            )}
+            )} */}
           </div>
           <div class="icon-wrapper" ref={langmenuRef}>
             <span className="translateNow">
@@ -337,7 +348,7 @@ const Header = forwardRef((props, ref) => {
             </div>
           </div>
           <div class="icon-wrapper">
-            {getCartCount() > 0 && (
+            {cartItems?.items.length > 0 && (
               <div
                 onClick={setCheckoutOpenFn}
                 className="cart-icon"
@@ -388,11 +399,13 @@ const Header = forwardRef((props, ref) => {
                                   <span>{item.price}</span> {t("SAR")}
                                 </p>
                                 <span className="counterWraper checkoutcounters">
+                                  
+
                                   <span
-                                    className="plusCounter"
-                                    onClick={() => handleCountChange(index, 1)}
+                                    className="minusCounter"
+                                    onClick={() => handleCountChange(index, -1)}
                                   >
-                                    <img src={counterPlus} alt="" />
+                                    <img src={minus} alt="" />
                                   </span>
                                   <span className="counterInput">
                                     <input
@@ -403,10 +416,10 @@ const Header = forwardRef((props, ref) => {
                                     />
                                   </span>
                                   <span
-                                    className="minusCounter"
-                                    onClick={() => handleCountChange(index, -1)}
+                                    className="plusCounter"
+                                    onClick={() => handleCountChange(index, 1)}
                                   >
-                                    <img src={minus} alt="" />
+                                    <img src={counterPlus} alt="" />
                                   </span>
                                 </span>
                               </span>
@@ -423,7 +436,7 @@ const Header = forwardRef((props, ref) => {
                         <div className="subTotal">
                           <span className="totalHeading">{t("Subtotal")}</span>
                           <span className="totalPrice">
-                            {calculateSubtotal()} {t("SAR")}
+                            {subtotalPrice.toFixed(2)} {t("SAR")}
                           </span>
                         </div>
                         <div className="rewardSectionsWrapers">
@@ -444,23 +457,19 @@ const Header = forwardRef((props, ref) => {
                             <span className="rewardsIconImg">
                               <img src={rewards} alt="" />
                             </span>
-                            +50 {t("POINTS")}
+                            +{totalRewards} {t("POINTS")}
                           </span>
                         </div>
                       </div>
                       <div className="grandTotalWraper rewardSectionsWrapers">
                         <span className="grandHeading">{t("TOTAL")}</span>
                         <span className="grandHeading grandPrice">
-                          {calculateSubtotal()} {t("SAR")}
+                        {subtotalPrice.toFixed(2)} {t("SAR")}
                         </span>
                       </div>
                       <div className="cartBtnWraper">
-                        <button className="pinkBtn">
-                          <Link to="/category">{t("CONTINUE SHOPPING")}</Link>
-                        </button>
-                        <button className="checkBtn">
-                          <Link to="/checkout">{t("CHECKOUT")}</Link>
-                        </button>
+                          <Link to="/in-store"><button className="pinkBtn">{t("CONTINUE SHOPPING")}</button></Link>
+                          <Link to="/checkout"><button className="checkBtn">{t("CHECKOUT")}</button></Link>
                       </div>
                     </div>
                   </div>

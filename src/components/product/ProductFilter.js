@@ -11,18 +11,33 @@ const ProductFilter = ({
   handleCategorySelect,
   onShortSelectChange,
 }) => {
+  const { t } = useTranslation();
   const dropdownRef = useRef();
+  const shortDropdownRef = useRef();
   const [dropDownOpen, setDropDownOpen] = useState(false);
+  const [sortdropDownOpen, setSortdropDownOpen] = useState(false);
+  const [selectedSort, setSelectedSort] = useState({ value: "new", label: t("New Arrival") });
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const sort = searchParams.get("sort");
-  const { t } = useTranslation();
+  const sortUrl = searchParams.get("sort");
+  
+
+  const sorts = [
+    { value: "new", label: t("New Arrival") },
+    { value: "price_high", label: t("Price High to Low") },
+    { value: "price_low", label: t("Price Low to High") }
+  ];
 
   const setDropDownOpenFn = () => {
     setDropDownOpen(!dropDownOpen);
   };
+  
 
   useEffect(() => {
+    if(sortUrl){
+      const selectedSortObj = sorts.find(sort => sort.value === sortUrl);
+      setSelectedSort(selectedSortObj);
+    }
     document.addEventListener("click", handleOutsideClick);
     return () => {
       document.removeEventListener("click", handleOutsideClick);
@@ -33,6 +48,9 @@ const ProductFilter = ({
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setDropDownOpen(false);
     }
+    if (shortDropdownRef.current && !shortDropdownRef.current.contains(event.target)) {
+      setSortdropDownOpen(false);
+    }
   };
 
   const handleCategoryClick = (category) => {
@@ -40,9 +58,10 @@ const ProductFilter = ({
     setDropDownOpen(false);
   };
 
-  const handleShortSelectChange = (event) => {
-    const selectedValue = event.target?.value;
-    onShortSelectChange(selectedValue);
+  const handleShortSelectChange = (event,short) => {
+    setSelectedSort(short);
+    onShortSelectChange(short.value);
+    setSortdropDownOpen(false);
   };
 
   return (
@@ -105,8 +124,8 @@ const ProductFilter = ({
                     </span>
                 </span> */}
         <span className="filterDrop laste">
-          <p>{t("Sort By:")}</p>
-          <select onChange={(e) => handleShortSelectChange(e)}>
+          <p>{t("Sort By:")} </p>
+          {/* <select onChange={(e) => handleShortSelectChange(e)}>
             <option value="new" selected={sort === "new" || !sort}>
               {t("New Arrival")}
             </option>
@@ -119,7 +138,29 @@ const ProductFilter = ({
           </select>
           <span className="dropArrows">
             <img src={dropimg} alt="" />
-          </span>
+          </span> */}
+           <div className="dropdown sort-drop" ref={shortDropdownRef}>
+      <div className="customizeFilterDisplay" onClick={() => setSortdropDownOpen(!sortdropDownOpen)}>
+        <span className="selectText">
+          {selectedSort ? t(selectedSort.label) : "Select Sorting"}
+        </span>
+        <span className="dropImages">
+          <img src={dropimg} alt="arrow" />
+        </span>
+      </div>
+      {sortdropDownOpen && (
+        <ul className="customDropdown">
+          {sorts.map((sort) => (
+            <li
+              key={sort.value}
+              onClick={(e) => handleShortSelectChange(e,sort)}
+            >
+              <span className="selectText">{sort.label}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
         </span>
       </div>
     </div>
