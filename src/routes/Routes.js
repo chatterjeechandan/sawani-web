@@ -4,7 +4,7 @@ import {
   Route,
   Routes as AppRoutes,
 } from "react-router-dom";
-import HomePage from "../pages/HomePage";
+import HomePage from "../pages/home/HomePage";
 import InStorePage from "../pages/InStorePage";
 import PickupPage from "../pages/PickupPage";
 import DeliveryPage from "../pages/DeliveryPage";
