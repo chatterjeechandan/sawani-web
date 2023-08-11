@@ -57,3 +57,24 @@ export async function makeRequest(method, endpoint, body) {
         throw new Error('An error occurred while making the API request.');
     }
 }
+
+
+export async function fetchSessionData(endpoint, token) {
+    try {  
+        const method ='GET';     
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        };
+        const response = await fetch(`${BASE_URL}/${endpoint}`, {
+            method,
+            headers
+        });
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+        throw new Error('An error occurred while making the API request.');
+    }
+}

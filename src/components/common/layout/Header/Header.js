@@ -7,7 +7,7 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Header.css"; // Import CSS file for header styles
 import LoginPopup from "../../../templates/LoginPopup";
 import SignUpPopup from "../../../templates/SignupPopup";
@@ -24,7 +24,7 @@ import cartIcon from "../../../../assets/images/cartIcon.png";
 import deletes from "../../../../assets/images/delete.png";
 import { CartContext } from "../../../../utils/CartContext";
 import placeholderImage from "../../../../assets/images/no-image.png";
-import { updateCartAPI, deleteCartAPI, getCartAPI } from "../../../../api/cart";
+import { updateCartAPI, deleteCartAPI, getCartAPI, addCartAPI } from "../../../../api/cart";
 import { updateCartOwnerToCartAPI } from "../../../../api/cart";
 import Loader from "../../../../components/common/Loader/Loader";
 import i18next from "i18next";
@@ -36,8 +36,7 @@ const Header = forwardRef((props, ref) => {
   const [isCheckoutOpen, setCheckoutOpen] = useState(false);
   const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
   const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
-  const [isForgotPasswordPopupOpen, setForgotPasswordPopupOpen] =
-    useState(false);
+  const [isForgotPasswordPopupOpen, setForgotPasswordPopupOpen] =useState(false);
   const [toaster, setToaster] = useState(null);
   const { loginResponse, logout } = useContext(AuthContext);
   const { cartItems, updateCartItems } = useContext(CartContext);
@@ -48,6 +47,9 @@ const Header = forwardRef((props, ref) => {
   const [isShowWholePageLoader, setIsShowWholePageLoader] = useState(false);
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -83,38 +85,83 @@ const Header = forwardRef((props, ref) => {
 
   const handleLogOutClick = async (e) => {
     e.preventDefault();
-    if (cartItems) {
-      try {
-        setIsShowWholePageLoader(true);
-        const response_new = await updateCartOwnerToCartAPI(cartItems.id);
-        if (response_new.succeeded) {
-          setToaster({
+
+    const isProfileRoute = () => {
+        const profileRoutes = [
+            '/rewards-point', 
+            '/saved-address', 
+            '/address-add', 
+            '/saved-card', 
+            '/card-add', 
+            '/favourite-store', 
+            '/favourite-product', 
+            '/edit-profile'
+        ];
+        return profileRoutes.includes(pathname);
+    };
+
+    const performLogoutActions = () => {
+        logout();
+        setIsShowWholePageLoader(false);
+        setMenuOpen(false);
+        if (isProfileRoute()) {
+            navigate('/');
+        }
+    };
+
+    const storedCartInfo = localStorage.getItem("cartInfo");
+
+    if (storedCartInfo) {
+        try {
+            setIsShowWholePageLoader(true);           
+            
+            const cartObj = JSON.parse(storedCartInfo);
+            const getActualCartResponse =  await getCartAPI(cartObj.id);      
+          
+            for (const item of cartObj.items) {
+              const existingCartItemIndex = getActualCartResponse.data.items.findIndex(
+                (innerItem) => innerItem.productVariantId === item.productVariantId
+              );
+              if (existingCartItemIndex !== -1) {
+                await updateCartAPI(cartObj.id, item);
+              } else {
+                await addCartAPI(cartObj.id, item);
+              }
+            }
+
+            for (const item1 of getActualCartResponse.data.items) {
+              const existingCartItemIndex1 = cartObj.items.findIndex(
+                (innerItem) => innerItem.productVariantId === item1.productVariantId
+              );
+              console.log(existingCartItemIndex1);
+              if (existingCartItemIndex1 == -1) {
+                await deleteCartAPI(cartObj.id, item1);
+              }
+            }
+
+            const response_new = await updateCartOwnerToCartAPI(cartItems.id);
+            if (response_new.succeeded) {
+                setToaster({
+                    type: "success",
+                    message: t("Logout successful"),
+                    duration: 3000,
+                });
+                updateCartItems(null);
+                setTimeout(performLogoutActions, 500);
+            }
+        } catch (error) {
+            console.error("Error updating cart owner:", error);
+        }
+    } else {
+        setToaster({
             type: "success",
             message: t("Logout successful"),
             duration: 3000,
-          });
-          updateCartItems(null);
-          setTimeout(() => {
-            logout();
-            setIsShowWholePageLoader(false);
-            setMenuOpen(false);
-          }, 500);
-        }
-      } catch (error) {
-        console.error("Error updating cart owner:", error);
-      }
-    } else {
-      setToaster({
-        type: "success",
-        message: t("Logout successful"),
-        duration: 3000,
-      });
-      setTimeout(() => {
-        logout();
-        setMenuOpen(false);
-      }, 500);
+        });
+        setTimeout(performLogoutActions, 500);
     }
-  };
+};
+
 
   const handleToasterClose = () => {
     setToaster(null);
@@ -149,10 +196,14 @@ const Header = forwardRef((props, ref) => {
   };
 
   useEffect(() => {
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) {
+      i18next.changeLanguage(savedLang);
+    }
     document.addEventListener("click", handleOutsideClick);
     return () => {
       document.removeEventListener("click", handleOutsideClick);
-    };
+    };    
   }, []);
 
   const getCartCount = () => {
@@ -201,10 +252,9 @@ const Header = forwardRef((props, ref) => {
   };
 
   const deleteCartItemRow = (index) => {
-    const updatedCartItems = { ...cartItems };
-    updatedCartItems.items[index].quantity = 1;
-    updatedCartItems.items[index].price = 1;
-    deleteCartItem(updatedCartItems, updatedCartItems.items[index], index);
+    const newCartItems = [...cartItems.items];
+    newCartItems.splice(index, 1);
+    updateCartItems({...cartItems, items: newCartItems});
   };
 
   const deleteCartItem = async (cartItems, updatedCartItems, index) => {
@@ -240,6 +290,7 @@ const Header = forwardRef((props, ref) => {
   const changeLanguage = (lang) => {
     i18next.changeLanguage(lang);
     setIsLangMenuOpen(false);
+    localStorage.setItem('lang', lang);
   };
 
   useEffect(() => {
@@ -267,7 +318,7 @@ const Header = forwardRef((props, ref) => {
       <div class="container">
         <div class="left-icons">
           <div class="icon-wrapper profile">
-            {/* {loginResponse && (
+            {loginResponse && (
               <Link to="/profile" className="profileLink">
                 <span className="translateNow cus-img-holder">
                   <img
@@ -280,9 +331,9 @@ const Header = forwardRef((props, ref) => {
                     alt=""
                   />
                 </span>
-                <p className="profileNameHeader">{loginResponse.name}</p>
+                <p className="profileNameHeader">{loginResponse.fullname}</p>
               </Link>
-            )} */}
+            )}
           </div>
           <div class="icon-wrapper" ref={langmenuRef}>
             <span className="translateNow">

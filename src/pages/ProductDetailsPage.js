@@ -159,9 +159,9 @@ const Product = () => {
     }
 
     if (state === "decrement") {
-      setDecrementButtonLoading(true);
+      //setDecrementButtonLoading(true);
     } else {
-      setIncrementButtonLoading(true);
+      //setIncrementButtonLoading(true);
     }
 
     const newCount = count + amount;
@@ -184,6 +184,7 @@ const Product = () => {
     }
 
     if (!cartItems) {
+      setIncrementButtonLoading(true);
       createCart(cartPayload);
     } else {
       handleCartItemUpdate(cartItems, provariant, newCount);
@@ -254,18 +255,26 @@ const Product = () => {
   }, [product,loginResponse]);
 
   const customerFavourite = async () => {
-    try {
-      const response = await getCusertomerFavourite();
-      if (response.length > 0) {
-        response.forEach((item) => {
-          if (item.productVariantId === provariant?.id) {
-            //setFavouriteId(item.id);
-            setIsFavourite(true);
+    if(!isFavourite) {
+      try {
+        setIsFavouriteLoader(true);
+        const response = await getCusertomerFavourite();
+        if (response.length > 0) {
+          let foundMatch = false;
+          response.forEach((item) => {
+            if (item.productVariantId === provariant?.id) {
+              setIsFavouriteLoader(false);
+              setIsFavourite(true);
+              foundMatch = true;
+            }
+          });
+          if (!foundMatch || foundMatch) {
+            setIsFavouriteLoader(false);
           }
-        });
+        }
+      } catch (error) {
+        console.error("Error fetching delivery methods:", error);
       }
-    } catch (error) {
-      console.error("Error fetching delivery methods:", error);
     }
   };
 

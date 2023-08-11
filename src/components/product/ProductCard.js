@@ -114,7 +114,7 @@ const ProductCard = ({ product, openCartPopup }) => {
           image: product?.image,
           rewards: product?.rewards,
         };
-        existingCartItems.items.push(newCartItem);
+        //existingCartItems.items.push(newCartItem);
         addCartItem(existingCartItems.id, existingCartItems, newCartItem);
       }
     }
@@ -153,8 +153,8 @@ const ProductCard = ({ product, openCartPopup }) => {
   };
 
   const addCartItem = async (cartId, existingCartItems, newCartItem) => {
-    updateCartItems(existingCartItems);
-    openCartPopup();
+    const updatedCartItems = [...existingCartItems.items, newCartItem];
+    updateCartItems({...cartItems, items: updatedCartItems});
   };
 
   const updateCartItem = async (cartId, updatedItem, index) => {
