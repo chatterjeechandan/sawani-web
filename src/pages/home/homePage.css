@@ -879,3 +879,77 @@ font-size: 22px;
 width: 100%;
 float: left;
 }
+/* Responsive css */
+@media only screen and (max-width: 1024px) {
+  .cradleSectionMain::before {
+    display: none;
+  }
+  .cradleSectionMain::after {
+    display: none;
+  }
+  .cradleSectionMain {
+    padding-bottom: 20px;
+  }
+  .cradleSectionMain .rowSec .leftSection {
+    width: 100%;
+  }
+  .cradleSectionMain .rowSec .rightSection {
+    width: 100%;
+  }
+  span.profileImgs:first-child, span.profileImgs:nth-child(3) {
+    padding-bottom: 0px;
+}
+span.profileImgs:first-child, span.profileImgs:nth-child(3) {
+  padding-bottom: 0px;
+}
+span.profileImgs:first-child::after {
+  display: none;
+}
+span.profileImgs:nth-child(2)::before {
+  display: none;
+}
+span.profileImgs:nth-child(3)::after {
+  display: none;
+}
+span.profileImgs:nth-child(4)::before {
+  display: none;
+}
+span.profileImgs:nth-child(5)::after {
+  display: none;
+}
+.sliderSection.oneSlider .rowSec .rightSection, .sliderSection.oneSlider .rowSec .leftSection {
+  width: 100%;
+}
+.sliderSection.oneSlider .rowSec .leftSection {
+  padding: 125px 0 0 0;
+}
+.sliderSection.oneSlider .rowSec .rightSection {
+  padding: 50px 0 0 0;
+}
+.midSliderWraper .rowSec .rightContentSec, .midSliderWraper .rowSec .leftContentSec {
+  width: 100%;
+}
+span.rightSideImgWraper {
+  position: relative;
+  left: unset;
+  top: unset;
+}
+.midSliderWraper {
+  padding: 50px 0;
+}
+.midSliderWraper .rowSec .leftContentSec {
+  padding-left: 0;
+}
+.rowSec {
+  width: 90%;
+  margin: 38px auto;
+}
+ul.tabUlWrapers li {
+  font-size: 30px;
+}
+.countactSectionWrapers .rowSec {
+  width: 90%;
+  display: flex;
+  flex-direction: column-reverse;
+}
+}
