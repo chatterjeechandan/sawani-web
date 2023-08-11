@@ -59,8 +59,8 @@ const HomePage = () => {
         )}
         
         <div className="bannertextWraper">
-          <p>Dummy test here</p>
-          <h4>This is Dummy Text</h4>
+          <p>ارثنا منتجات</p>
+          <h4>المستقبــــــل</h4>
         </div>
         <div className="slideDownBtnWraper">
           <p>Slide down</p>
@@ -71,24 +71,27 @@ const HomePage = () => {
       </div>
       <div className="afterBanner left">
         <div className="afterBannerTextWraper">
-          <h4>This is the heeading here</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis mollis nisl. Nullam consectetur pharetra erat eget convallis. Suspendisse posuere elit mi, sit amet finibus justo rutrum vitae. Proin ipsum nisl, efficitur rhoncus elementum sit amet, rhoncus eget mauris. Etiam sed velit quam. Duis ac lobortis sapien. Praesent sodales mauris justo, id ultricies lectus gravida sit amet. Mauris ac odio ipsum. Duis ornare purus non ligula condimentum, ac tristique ante gravida.</p>
-        </div>
+          <h4>تعريف سواني</h4>
+          <h5>جمع السَّانِيَةِ وهي النَّاقَةُ الَّتِي يُسْتَقَى عَلَيْها</h5>
+          <h6>في الماضي</h6>
+          <p>تحتل الإبل مكانة مميزة في تاريخ وتراث العرب، وهي مكانة تعود إلى مايقرب ١٨٠٠ سنة فيعتبر من أقدم الحيوانات التي استأنسها الإنسان، واستطاع أن يسخرها لخدمته في النقل والغذاء وغيرها حيث تعتبر الابل رفيقة البدوي في حياته وحله وترحاله، لما حباه به الله من قدرة على الحياة في الصحراء، والتكيف مع طبيعتها القاسية من حر الشديد وندرة المياه والشمس المحرقة</p>
+         </div>
       </div>
 
       <div className="afterBanner right">
         <div className="afterBannerTextWraper">
-          <h4>This is the heeading here</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis mollis nisl. Nullam consectetur pharetra erat eget convallis. Suspendisse posuere elit mi, sit amet finibus justo rutrum vitae. Proin ipsum nisl, efficitur rhoncus elementum sit amet, rhoncus eget mauris. Etiam sed velit quam. Duis ac lobortis sapien. Praesent sodales mauris justo, id ultricies lectus gravida sit amet. Mauris ac odio ipsum. Duis ornare purus non ligula condimentum, ac tristique ante gravida.</p>
-        </div>
+          <h4>تعريف سواني</h4>
+          <h5>جمع السَّانِيَةِ وهي النَّاقَةُ الَّتِي يُسْتَقَى عَلَيْها</h5>
+          <h6>في الحاضر والمستقبل</h6>
+          <p>تحتل الإبل مكانة مميزة في تاريخ وتراث العرب، وهي مكانة تعود إلى مايقرب ١٨٠٠ سنة فيعتبر من أقدم الحيوانات التي استأنسها الإنسان، واستطاع أن يسخرها لخدمته في النقل والغذاء وغيرها حيث تعتبر الابل رفيقة البدوي في حياته وحله وترحاله، لما حباه به الله من قدرة على الحياة في الصحراء، والتكيف مع طبيعتها القاسية من حر الشديد وندرة المياه والشمس المحرقة</p>
+         </div>
       </div>
 
       <div className="afterBanner center">
         <div className="afterBannerCenterTextWraper">
-          <h4>This is the heeading here</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis mollis nisl. Nullam consectetur pharetra erat eget convallis. Suspendisse posuere elit mi, sit amet finibus justo rutrum vitae. Proin ipsum nisl, efficitur rhoncus elementum sit amet, rhoncus eget mauris. Etiam sed velit quam. Duis ac lobortis sapien. Praesent sodales mauris justo, id ultricies lectus gravida sit amet. Mauris ac odio ipsum. Duis ornare purus non ligula condimentum, ac tristique ante gravida.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis mollis nisl. Nullam consectetur pharetra erat eget convallis. Suspendisse posuere elit mi, sit amet finibus justo rutrum vitae. Proin ipsum nisl, efficitur rhoncus elementum sit amet, rhoncus eget mauris. Etiam sed velit quam. Duis ac lobortis sapien. Praesent sodales mauris justo, id ultricies lectus gravida sit amet. Mauris ac odio ipsum. Duis ornare purus non ligula condimentum, ac tristique ante gravida.</p>
-        </div>
+          <h4>قصتنا</h4>
+          <p>استخدم أجدادنا المكونات الأصلية والثمينة لصنع أكثر حليب الإبل كريمة ولذيذة. مع تقدمنا في العمر، كافحنا للعثور على حليب يقارن بالطعام الفائق الأصلي. لذا فكرنا، لماذا نعيد اختراع العجلة؟ عندما نظرنا بشكل أقرب إلى جميع أنواع الحليب التي تقدمها الصناعة علمنا أن هناك طريقة أفضل. طريقة كاملة وصحية. في إطار سعينا لخلق أفضل حليب جمل، لم يكن علينا البحث بعيداً عن أسلافنا.<br /> تذكرنا المذاق الرائع والفوائد الصحية الهائلة التي اكتسبها أجدادنا من تناول هذا المشروب المغذي، وسعينا لاستعادة هذه الفوائد نفسها إلى عالمنا الحالي محليا وعالميا.</p>
+          </div>
       </div>
 
       <div className="sliderSection oneSlider" >
@@ -101,10 +104,11 @@ const HomePage = () => {
                   <span>
                     <img src={icon2} alt="" />
                   </span>
-                  <h4>This is a dummy heading</h4>
+                  <h4>الفوائد الصحية</h4>
                 </div>
                 <div className="contentWraper">
-                  <p>Lorem ipsum is a dummy test used in the industry to write and read dummy texts where the content is not yet available, where the content is not yet available.</p>
+                  <p className='subHeads'>للقلب</p>
+                <p>حليب الإبل غني بالعديد من العناصر الغذائية المهمة للل الدسم، ومع ذلك، فهو يحتوي على نسبة أقل من الدهون المشبعة ويوفر المزيد من فيفيتامين والحديد والبوتاسيوم، كما أنه مصدر جيد</p>
                 </div>
               </div>
 
@@ -115,10 +119,10 @@ const HomePage = () => {
                 <span>
                   <img src={icon2} alt="" />
                 </span>
-                <h4>This is a dummy heading</h4>
+                <h4>الفوائد الصحية</h4>
               </div>
               <div className="contentWraper">
-                <p>Lorem ipsum is a dummy test used in the industry to write and read dummy texts where the content is not yet available, and read dummy texts where the content.</p>
+                <p>حليب الإبل غني بالعديد من العناصر الغذائية المهمة للصحة العامة، فيتامينC وفيتامين B والكالسيوم والحديد والبوتاسيوم، كما أنه مصدر جيد للدهون الصحية، مثل الأحماض الدهنية وحمض اللينوليك والأحماض الدهنية غير المشبعة، والتي قد تدعم صحة الدماغ والقلب.</p>
               </div>
             </div>
           </div>
@@ -128,10 +132,9 @@ const HomePage = () => {
                 <span>
                   <img src={icon1} alt="" />
                 </span>
-                <h4>This is the heeading here</h4>
+                <h4>منتجاتنا</h4>
               </div>
-
-              <p>حليب الإبل غني بالعديد من العناصر الغذائية المهمة للصحة العامة، عندما يتعلق الأمر بالسعرات الحرارية والبروتينات ومحتوى الكربوهيدرات، فإن حليب الإبل يمكن مقارنته بحليب البقر كامل الدسم، ومع ذلك، فهو يحتوي على نسبة أقل من الدهون المشبعة ويوفر المزيد من فيتامينC وفيتامين B والكالسيوم والحديد والبوتاسيوم، كما أنه مصدر جيد للدهون الصحية، مثل الأحماض الدهنية وحمض اللينوليك والأحماض الدهنية غير المشبعة، والتي قد تدعم صحة الدماغ والقلب.</p>
+              <p>حليب الإبل غني بالعديد من العناصر الغذائية المهمة للصحة العامة، عندما يتعلق الأمر بالسعرات الحرارية والبروتينات ومحتوى الكربوهيدرات، فإن حليب الإبل يمكن مقارنته بحليب البقر كامل الدسم، ومع ذلك، فهو يحتوي على نسبة أقل من الدهون المشبعة ويوفر المزيد من فيتامينC وفيتامين B والكالسيوم والحديد والبوتاسيوم، كما أنه مصدر جيد للدهون الصحية، مثل الأحماض الدهنية وحمض اللينوليك والأحماض الدهنية غير المشبعة، والتي قد تدعم صحة الدماغ والقلب.حليب الإبل غني بالعديد من العناصر الغذائية المهمة للصحة العامة، عندما يتعلق الأمر بالسعرات الحرارية والبروتينات ومحتوى الكرب</p>
               </div>
           </div>
         </div>
@@ -139,7 +142,13 @@ const HomePage = () => {
 
       <div className='midSliderWraper'>
       <div className="rowSec">
-        <div className='leftContentSec'>
+
+      <div className='rightContentSec'>
+          <span className='rightSideImgWraper'>
+            <img src={coconut} alt='' />
+          </span>
+        </div>
+        <div className='leftContentSec '>
           <div className='contentWrapers'>
             <div className='indPointsMini'>
               <h3>رؤيتنا</h3>
@@ -203,11 +212,6 @@ const HomePage = () => {
             </ul>
           </div>
         </div>
-        <div className='rightContentSec'>
-          <span className='rightSideImgWraper'>
-            <img src={coconut} alt='' />
-          </span>
-        </div>
       </div>
       </div>
 
@@ -215,7 +219,7 @@ const HomePage = () => {
         <div className="rowSec">
           <div className='mainTabHeaderWraper'>
             <ul className='tabUlWrapers'>
-              <li>فريق العمل</li>
+              <li className='active'>فريق العمل</li>
               <li>مجلس الإدارة</li>
             </ul>
           </div>
@@ -282,9 +286,9 @@ const HomePage = () => {
                   <textarea className='formFieldsInputTextarea'placeholder='الاسم بالكامل' ></textarea>
                   <i class="fa fa-pencil" aria-hidden="true"></i>
                 </div>
-                <div className='indField'>
+                
                   <button className='submitContctForm'>ارسل</button>
-                </div>
+                
               </div>
               </div>
             </div>
@@ -298,7 +302,7 @@ const HomePage = () => {
                   <div className='blockImgs'>
                     <img src={pots} className='potsImg' />
                   </div>
-                  <p>تم النشر بتاريخ الخميس 2022/2/24</p>
+                  <p className='subParaP'>تم النشر بتاريخ الخميس 2022/2/24</p>
                 </div>
                 <div className='indBloackContent'>
                   <div className='indBlocksMain'>
@@ -307,7 +311,7 @@ const HomePage = () => {
                   <div className='blockImgs'>
                     <img src={pots} className='potsImg' />
                   </div>
-                  <p>تم النشر بتاريخ الخميس 2022/2/24</p>
+                  <p className='subParaP'>تم النشر بتاريخ الخميس 2022/2/24</p>
                 </div>
                 <div className='indBloackContent'>
                   <div className='indBlocksMain'>
@@ -316,7 +320,7 @@ const HomePage = () => {
                   <div className='blockImgs'>
                     <img src={pots} className='potsImg' />
                   </div>
-                  <p>تم النشر بتاريخ الخميس 2022/2/24</p>
+                  <p className='subParaP'>تم النشر بتاريخ الخميس 2022/2/24</p>
                 </div>
               </div>
             </div>
