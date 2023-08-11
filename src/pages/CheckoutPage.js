@@ -475,7 +475,7 @@ const Checkout = () => {
     }
   };
 
-  const processOrderSuccess = () => {
+  const processOrderSuccess = (order) => {
     setIsLoading(false);
     updateCartItems(null);
     localStorage.removeItem("checkoutInfo");
@@ -485,8 +485,8 @@ const Checkout = () => {
       duration: 3000,
     });
     setTimeout(() => {
-      navigate("/");
-    }, 3000);
+      navigate(`/thankyou/${order.data.id}`);
+    }, 1000);
   };
 
   const processOrder = async (addPaymentPayload) => {
@@ -544,7 +544,7 @@ const Checkout = () => {
       if (!checkoutResponse.succeeded)
         return handleResponseError(checkoutResponse);
 
-      processOrderSuccess();
+      processOrderSuccess(checkoutResponse);
     } catch (error) {
       setIsLoading(false);
       console.error("Error creating cart to order:", error);

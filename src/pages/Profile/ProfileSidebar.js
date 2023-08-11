@@ -1,11 +1,6 @@
 import React, {
   useState,
   useContext,
-  useEffect,
-  useRef,
-  useMemo,
-  forwardRef,
-  useImperativeHandle,
 } from "react";
 import { Link } from "react-router-dom";
 import profile from "../../assets/images/profile.png";
@@ -19,9 +14,12 @@ import routIcon3 from "../../assets/images/credit-card-4.png";
 import routIcon4 from "../../assets/images/location@2x.png";
 import barCode from "../../assets/images/barCode.png";
 import { useTranslation } from "react-i18next";
+import { AuthContext } from "../../utils/AuthContext";
+import noUserImage from "../../assets/images/no-user.png";
 
 const ProfileSidebar = () => {
   const [isQrOpen, setIsQrOpen] = useState(false);
+  const { loginResponse } = useContext(AuthContext);
   const setIsQrOpenFn = () => {
     setIsQrOpen(!isQrOpen);
   };
@@ -32,14 +30,18 @@ const ProfileSidebar = () => {
       <div className="sideProfileTop">
         <div className="profileImgWraper">
           <span className="profileImg">
-            <img src={profile} className="profileImages" alt="" />
+            <img src={
+                loginResponse?.avatar
+                  ? `data:image/png;base64,${loginResponse?.avatar}`
+                  : noUserImage
+              } className="profileImages" alt="" />
             <img src={profileIcon} className="profileCamel" alt="" />
           </span>
-          <p className="profileName">Aisha Fahd</p>
+          <p className="profileName">{loginResponse?.fullname}</p>
         </div>
         <div className="profilePointWraper">
           <span className="editPointsSec">
-            <img src={edits} alt="" />
+            <Link to="/profile/edit-profile"><img src={edits} alt="" /></Link>
           </span>
           <div className="pointsProfileWrapers">
             <h3>300</h3>
@@ -77,7 +79,7 @@ const ProfileSidebar = () => {
             </Link>
           </li>
           <li className="">
-            <Link to="/saved-card" className="profileLinksTag">
+            <Link className="profileLinksTag">
               <span className="iconName">
                 <img src={routIcon3} className="routIcon" />
               </span>
@@ -86,7 +88,7 @@ const ProfileSidebar = () => {
             </Link>
           </li>
           <li className="">
-            <Link to="/saved-address" className="profileLinksTag">
+            <Link className="profileLinksTag">
               <span className="iconName">
                 <img src={routIcon4} className="routIcon" />
               </span>

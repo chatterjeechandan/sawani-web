@@ -19,7 +19,7 @@ import {
   deleteCartAPI,
   getCartAPI,
 } from "../../api/cart";
-import { getCusertomerDetails } from "../../api/customer";
+import { getCusertomerDetails , getSessionCusertomerDetails} from "../../api/customer";
 import { useTranslation } from "react-i18next";
 
 const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
@@ -63,17 +63,20 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
       const response = await login({ mobile, password });
       console.log("Login response:", response);
       if (response.id) {
-        const cusDetailresponse = await getCusertomerDetails(response.id);
-        cusDetailresponse.token = response.token;
-        localStorage.setItem("loginInfo", JSON.stringify(cusDetailresponse));
-        setLoginResponse(cusDetailresponse);
+        const cusDetailresponse = await getSessionCusertomerDetails(response.token);
+        const customerobject = {...response, ...cusDetailresponse.data };
+        setLoginResponse(customerobject);
         updateCart();
       } else {
         setIsLoading(false);
-        setToaster({
-          type: "error",
-          message: response.Message,
-          duration: 3000,
+        Object.values(response.errors).forEach((errorArray) => {
+          errorArray.forEach((errorMessage) => {
+            setToaster({
+              type: "error",
+              message: errorMessage,
+              duration: 3000,
+            });
+          });
         });
       }
     } catch (error) {

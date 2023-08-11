@@ -1043,6 +1043,7 @@ h2.productName {
   color: #1a1818;
   font-size: 20px;
   font-weight: 700;
+  width:80%;
 }
 p.productPrice {
   color: #b7864c;
@@ -1103,6 +1104,10 @@ p.infoHeading {
   height: auto;
   justify-content: flex-start;
   margin-bottom: 20px;
+}
+
+.buttonloader .loader {
+  height: auto;
 }
 
 span.infoValues {
@@ -1574,7 +1579,7 @@ span.subPoints {
   color: #2f1f15;
   font-size: 12px;
   text-decoration: underline;
-  margin-left: 2px;
+  margin-left: 5px;
   cursor: pointer;
   font-weight: 500;
 }
@@ -3289,13 +3294,32 @@ body.lang-ar .dropdown.sort-drop .customizeFilterDisplay {
     margin-right: 5px;
 }
 
-body.lang-ar .dropdown.sort-drop span.subPoints {
-  margin-left: 0;
-  margin-right: 6px;
-}
-
 body.lang-ar .indProduct {
   float:right;
+}
+
+body.lang-ar .paymentIcons {
+  margin-right: 0;
+  margin-left: 20px;
+}
+
+body.lang-ar .arrowRight {
+  margin-right: auto;
+  margin-left: 0;
+  transform: rotate(180deg);
+}
+
+body.lang-ar span.subPoints {
+  margin-right:5px;
+}
+
+body.lang-ar span.infoIconWraper{
+  left:auto;
+  right:120px;
+}
+
+body.lang-ar .productOtherInfo.rewardQntyWraper, body.lang-ar  .productOtherInfo.rewardQntyWraper {
+ float:right;
 }
 
 @media only screen and (max-width: 991px) {
@@ -3476,7 +3500,13 @@ body.lang-ar .indProduct {
   padding: 5px 15px;
 }
 
+.MuiDialogContent-root{
+  width:100% !important;
+}
 
+.css-gmnm9-MuiFormControl-root{
+  width:100% !important;
+}
 
 /*******************************Profile Responsive************************************/
 
@@ -3529,6 +3559,7 @@ body.lang-ar .indProduct {
   }
   .productsRow.listingPages .product-container .indProduct {
     width: 50%;
+    min-height: 300px;
   }
 
   .productsRow.listingPages {
@@ -3565,7 +3596,12 @@ body.lang-ar .indProduct {
   }
 
   .produtImage img {
-    height: auto;
+    height: 100%;
+  }
+
+  .cartBtnWraper .pinkBtn {
+    width:auto;
+    padding: 12px 15px;
   }
 }
 
@@ -3574,6 +3610,10 @@ body.lang-ar .indProduct {
     width: 300px;
     left: -254px;
   }
+  body.lang-ar .menu-items.cartPopup {
+    left: auto;
+    right: -254px !important;
+}
 }
 /* Thanks Page */
 
@@ -3649,3 +3689,23 @@ p.afterBarCode {
   line-height: 20px;
 }
 /* Thanks Page ends */
+
+
+/***********profile*************/
+
+.date-picker .MuiTextField-root {
+  width:100%;
+}
+
+.date-picker .MuiTextField-root fieldset {
+  border: 0;
+}
+
+.date-picker .MuiTextField-root input {
+  padding: 0;
+  padding-bottom: 20px;
+}
+
+.date-picker .MuiTextField-root button {
+  margin-top: -22px;
+}

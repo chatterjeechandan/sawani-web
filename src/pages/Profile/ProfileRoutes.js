@@ -7,6 +7,8 @@ import FavouriteProducts from "./FavouriteProducts";
 import SavedCardAdd from "./SavedCardAdd";
 import SavedCardList from "./SavedCardList";
 import FavouriteStores from "./FavouriteStores";
+import EditProfile from "./EditProfile";
+
 
 const ProfileRoutes = () => {
     return (
@@ -19,6 +21,7 @@ const ProfileRoutes = () => {
             <Route path="/card-add" element={<SavedCardAdd />} />
             <Route path="/favourite-store" element={<FavouriteStores />} />
             <Route path="/favourite-product" element={<FavouriteProducts />} />
+            <Route path="/edit-profile" element={<EditProfile />} />
         </Routes>
     );
 };

@@ -138,7 +138,7 @@ const SignUpPopup = ({ onClose, onOpenLogin }) => {
             <input
               type="text"
               className={`inputBox ${nameError ? "inputError" : ""}`}
-              placeholder="Name"
+              placeholder={t("Name")}
               value={name}
               maxLength="20"
               onChange={(e) => {
@@ -160,7 +160,7 @@ const SignUpPopup = ({ onClose, onOpenLogin }) => {
             {mobileError && <span className="errorText">{mobileError}</span>}
             <span className="passwordWraper signupPasswordWraper">
               <input
-                type="password"
+                type={t("password")}
                 className={`inputBox ${passwordError ? "inputError" : ""}`}
                 placeholder="Password"
                 value={password}

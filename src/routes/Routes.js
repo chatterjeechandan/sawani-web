@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   BrowserRouter as Router,
   Route,
-  Routes as AppRoutes,
+  Routes as AppRoutes
 } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import InStorePage from "../pages/InStorePage";
@@ -21,8 +21,17 @@ import SavedCardAdd from "../pages/Profile/SavedCardAdd";
 import SavedCardList from "../pages/Profile/SavedCardList";
 import FavouriteStores from "../pages/Profile/FavouriteStores";
 import ThankYou from "../pages/Thankyou";
+import { AuthContext } from "../utils/AuthContext";
+import { Navigate } from 'react-router-dom';
 
 const Routes = () => {
+  const { loginResponse,  } = useContext(AuthContext);
+  
+  
+  function PrivateRoute({ element }) {
+    return loginResponse ? element : <Navigate to="/" replace />;
+  } 
+
   return (
     <Router>
       <AppRoutes>
@@ -41,8 +50,8 @@ const Routes = () => {
         <Route path="/card-add" element={<SavedCardAdd />} />
         <Route path="/favourite-store" element={<FavouriteStores />} />
         <Route path="/favourite-product" element={<FavouriteProducts />} />
-        <Route path="/profile/*" element={<ProfileRoutes />} />
-        <Route path="/thankyou" element={<ThankYou />} />
+        <Route path="/profile/*" element={<PrivateRoute element={<ProfileRoutes />} />} />
+        <Route path="/thankyou/:id" element={<ThankYou />} />
       </AppRoutes>
     </Router>
   );

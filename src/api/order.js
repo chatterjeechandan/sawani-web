@@ -23,3 +23,7 @@ export function addPayment(orderId, paymentPayload) {
 export function checkout(orderId) {
     return updateData(`order/${orderId}/checkout`,'');
 }
+
+export function getOrder(id) {
+    return fetchData(`order/${id}`);
+}

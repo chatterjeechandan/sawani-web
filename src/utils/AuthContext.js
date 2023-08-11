@@ -15,6 +15,7 @@ const AuthProvider = ({ children }) => {
 
     const login = (response) => {
         setLoginResponse(response);
+        localStorage.setItem('loginInfo', JSON.stringify(response));
     };
 
     const logout = (response) => {

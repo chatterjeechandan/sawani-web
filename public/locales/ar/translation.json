@@ -1,4 +1,9 @@
 {
+  "password": "كلمة المرور",
+  "Name": "الاسم",
+  "OK" : "موافق",
+  "CANCEL" : "إلغاء",
+  "Select": "إختر",  
   "Order Now": "اطلب الآن",
   "Logout successful": "تم تسجيل الخروج بنجاح",
   "Logout": "تسجيل الخروج",
@@ -137,5 +142,10 @@
   "You might also like": "قد تعجبك أيضاً",
   "No products found.": "لم يتم العثور على منتجات.",
   "Total products:": "مجموع المنتجات:",
-  "Contact Us": "اتصل بنا"
+  "Contact Us": "اتصل بنا",
+  "Thank you for your order!": "شكرًا على طلبك!",
+  "Show this code to pick up": "أظهر هذا الرمز لاستلامه",
+  "your order": "طلبك",
+  "Head to": "توجه إلى",
+  "Order Summary": "ملخص الطلب"
 }
