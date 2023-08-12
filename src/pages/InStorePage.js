@@ -71,6 +71,7 @@ const InStorePage = () => {
                 <span>
                   <img src={tab1} alt="" />
                 </span>
+                In-Store
               </li>
               <li
                 className={activeTab === "pickup" ? "active" : ""}
@@ -79,6 +80,7 @@ const InStorePage = () => {
                 <span>
                   <img src={tab2} alt="" />
                 </span>
+                Pick up
               </li>
               <li
                 className={activeTab === "delivery" ? "active" : ""}
@@ -87,6 +89,7 @@ const InStorePage = () => {
                 <span>
                   <img src={tab3} alt="" />
                 </span>
+                Delhivery
               </li>
             </ul>
           </div>
