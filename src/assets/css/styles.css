@@ -322,7 +322,7 @@ span.social img {
   padding-bottom: 90px;
 }
 .tabWraper {
-  width: 325px;
+  width: 405px;
   float: left;
   margin-right: 10px;
   border-radius: 10px;
@@ -332,33 +332,35 @@ span.social img {
   display: flex;
   align-items: center;
   margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 .tabUl li {
-  /* width: 130px; */
-  /* padding: 15px 10px;
-    background-color: #ccc0cf; */
+  width: 135px; 
+   padding: 15px 10px;
+    background-color: #b8a8c2;
   cursor: pointer;
-  /* display: flex;
-    align-items: center; */
-  /* border-right: 1px solid #baadba; */
+  display: flex;
+    align-items: center; 
+  border-right: 1px solid #a592b6;
 }
-/* .tabUl li span img {
-    height: 58px;
-} */
-/* .tabUl li span img {
+.tabUl li span img {
+    /* height: 58px; */
+}
+.tabUl li span img {
     width: 22px;
     margin-right: 7px;
 }
 .tabUl li.active {
     background-color: #a592b6 ;
     font-weight: 500;
-} */
+}
 
 .tabUl li:last-child {
   border-right: none;
 }
 .searchWraper {
-  width: calc(100% - 335px);
+  width: calc(100% - 415px);
   margin-left: auto;
   display: flex;
   align-items: center;
@@ -430,7 +432,7 @@ span.headingContents p {
   width: 20%;
   float: left;
   text-align: center;
-  padding: 25px;
+  padding: 15px;
   overflow: hidden;
   position: relative;
   height: 320px;
