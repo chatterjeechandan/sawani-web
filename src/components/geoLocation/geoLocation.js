@@ -5,29 +5,39 @@ import { useTranslation } from "react-i18next";
 const GeoLocationComponent = () => {
   const [address, setAddress] = useState("");
   const [location, setLocation] = useState({ lat: null, lng: null });
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const inputRef = useRef(null);
+  const autocompleteRef = useRef(null);
 
   useEffect(() => {
-    const autocomplete = new window.google.maps.places.Autocomplete(
-      inputRef.current
-    );
+    const currentLanguage = i18n.language;
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDLooDo7_YuZa_ZW2zUtE7nOUGJsP_8guQ&libraries=places&language=${currentLanguage}`;
+    script.async = true;
+    
+    script.onload = () => {
+      autocompleteRef.current = new window.google.maps.places.Autocomplete(inputRef.current);
+      autocompleteRef.current.addListener("place_changed", () => {
+        const place = autocompleteRef.current.getPlace();
+        if (place.geometry && place.geometry.location) {
+          setLocation({
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng(),
+          });
+          setAddress(place.formatted_address);
+        }
+      });
+    };
 
-    autocomplete.addListener("place_changed", () => {
-      const place = autocomplete.getPlace();
-      if (place.geometry && place.geometry.location) {
-        setLocation({
-          lat: place.geometry.location.lat(),
-          lng: place.geometry.location.lng(),
-        });
-        setAddress(place.formatted_address);
-      }
-    });
+    document.body.appendChild(script);
 
     return () => {
-      window.google.maps.event.clearInstanceListeners(autocomplete);
+      document.body.removeChild(script);
+      if (window.google && autocompleteRef.current) {
+        window.google.maps.event.clearInstanceListeners(autocompleteRef.current);
+      }
     };
-  }, []);
+  }, [i18n.language]);
 
   function getCurrentLocation(callback) {
     if (!navigator.geolocation) {
@@ -82,7 +92,7 @@ const GeoLocationComponent = () => {
           type="text"
           className="searchInput"
           ref={inputRef}
-          placeholder="Enter a location"
+          placeholder={t("Enter a location")}
           value={address}
           onChange={handleInputChange}
         />
