@@ -134,16 +134,19 @@ const CategoryListingPage = () => {
                                 <span>
                                     <img src={tab1} alt='' />
                                 </span>
+                                In-Store
                             </li>
                             <li>
                                 <span>
                                     <img src={tab2} alt='' />
                                 </span>
+                                Pick up
                             </li>
                             <li className={activeTab === 'delivery' ? 'active' : ''} onClick={() => handleTabClick('delivery')}>
                                 <span>
                                     <img src={tab3} alt='' />
                                 </span>
+                                Delhivery
                             </li>
                         </ul>
                     </div>
