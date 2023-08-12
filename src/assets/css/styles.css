@@ -682,6 +682,7 @@ span.headingContents p {
   padding: 25px;
   overflow: hidden;
   position: relative;
+  height: 320px;
 }
 .individualProduct img {
   width: 100%;
@@ -3412,7 +3413,7 @@ body.lang-ar .productOtherInfo.rewardQntyWraper, body.lang-ar  .productOtherInfo
   }
   .individualProduct {
     width: 50%;
-    height: 175px;
+    max-height: 290px;
     padding: 6px;
   }
   .individualProduct p {
@@ -3614,6 +3615,18 @@ body.lang-ar .productOtherInfo.rewardQntyWraper, body.lang-ar  .productOtherInfo
     left: auto;
     right: -254px !important;
 }
+}
+
+@media only screen and (max-width: 767px) {
+  .individualProduct {
+    max-height: 180px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1200px) {
+  .individualProduct {
+    width: 33%;
+  }
 }
 /* Thanks Page */
 

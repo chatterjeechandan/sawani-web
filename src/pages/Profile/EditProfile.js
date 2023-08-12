@@ -237,7 +237,7 @@ const EditProfile = () => {
         <div className="profileRightWraper">
           <div className="pointAnalysisWraper">
             <div className="pointTabWraper inputWrapers newAddressWraper">
-              <h4 className="addressHeading">Edit Profile</h4>
+              <h4 className="addressHeading">{t("Edit Profile")}</h4>
               <div className="addressListings gapTop">
                 <div className="indFields">
                   <label className="fieldLabel">{t("Full Name")} *</label>
@@ -340,7 +340,7 @@ const EditProfile = () => {
                       />
                       <span className="slider round"></span>
                     </label>
-                    <label htmlFor="Male">Email</label>{" "}
+                    <label htmlFor="Male">{t("Email")}</label>{" "}
                     <label className="switch">
                       <input
                         type="checkbox"
@@ -349,7 +349,7 @@ const EditProfile = () => {
                       />
                       <span className="slider round"></span>
                     </label>
-                    <label htmlFor="Female">Text Messages</label>
+                    <label htmlFor="Female">{t("Text Messages")}</label>
                   </span>
                   </div>
                 </div>
