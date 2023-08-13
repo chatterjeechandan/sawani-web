@@ -339,7 +339,7 @@ p.subHeads {
   color: #A08EB7;
   opacity: 1;
   font-size: 37px;
-  font-weight: 600px;
+  font-weight: 600;
 }
 .midSliderWraper {
   width: 100%;
@@ -617,7 +617,7 @@ color: #43361F;
 opacity: 1;
 }
 .countactSectionWrapers .rowSec {
-  width: 70%;
+  width: 75%;
 }
 
 .blocksWraper {
@@ -761,7 +761,7 @@ p.subParaP {
 .countactSectionWrapers {
   width: 100%;
   float: left;
-  padding: 5px 0 75px 0;
+  padding: 25px 0 0px 0;
   background-color: #f5f2ea;
   position: relative;
 }
