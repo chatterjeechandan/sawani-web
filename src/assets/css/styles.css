@@ -1906,6 +1906,9 @@ p.profileName {
   opacity: 1;
   font-size: 14px;
   font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 span.editPointsSec {
   cursor: pointer;
@@ -3474,4 +3477,47 @@ p.afterBarCode {
 
 .date-picker .MuiTextField-root button {
   margin-top: -22px;
+}
+/* Profile Responsive */
+
+@media only screen and (max-width: 1365px) {
+
+  .profileImgWraper {
+    width: 45%;
+    text-align: center;
+}
+.profilePointWraper {
+  width: 55%;
+}
+}
+
+@media only screen and (max-width: 1210px) {
+
+  .profileImgWraper {
+    width: 40%;
+    text-align: center;
+}
+.profilePointWraper {
+  width: 60%;
+}
+}
+
+@media only screen and (max-width: 1130px) and  (min-width: 992px) {
+  .profileRightWraper, .profileSidebarWraper {
+    width: 100%;
+  }
+  .dashboardMidContent.profilePages {
+    padding-top: 90px;
+  }
+}
+@media only screen and (max-width: 420px) {
+.sideProfileTop {
+flex-direction: column;
+}
+.profileImgWraper, .profilePointWraper {
+  width: 100%;
+}
+img.profileCamel {
+  display: none;
+}
 }
