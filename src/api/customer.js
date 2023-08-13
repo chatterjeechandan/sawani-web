@@ -24,6 +24,10 @@ export function updateProfile(payload) {
   return updateData(`customer/edit_profile`, payload);
 }
 
+export function updateAvatar(payload) {
+  return updateData(`customer/avatar_base46`, payload);
+}
+
 export function getAllCustomerAddress() {
   return fetchData(`customer/addresses`);
 }

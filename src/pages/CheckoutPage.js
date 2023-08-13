@@ -35,7 +35,7 @@ import {
   checkout,
 } from "../api/order";
 import { useNavigate, useLocation } from "react-router-dom";
-import { PaymentPopup } from "../components/templates/PaymentPopup/PaymentPopup";
+import CONFIG from '../config/site.config';
 import { getCusertomerDetails } from "../api/customer";
 import { useTranslation } from "react-i18next";
 
@@ -433,6 +433,7 @@ const Checkout = () => {
           mode: "charge",
           charge: {
             redirect: window.location.origin + "/redirect.html",
+            post: `${CONFIG.baseUrl}/payment/tap_webhook`
           },
         },
       };

@@ -1,9 +1,9 @@
-const BASE_URL = 'https://sawaniapi.azurewebsites.net';
+import CONFIG from '../config/site.config';
 
 export async function fetchData(endpoint) {
     try {
         const headers = createHeaders();
-        const response = await fetch(`${BASE_URL}/${endpoint}`, {
+        const response = await fetch(`${CONFIG.baseUrl}/${endpoint}`, {
             headers,
         });
         const data = await response.json();
@@ -44,7 +44,7 @@ export async function makeRequest(method, endpoint, body) {
     try {
         const headers = createHeaders();
 
-        const response = await fetch(`${BASE_URL}/${endpoint}`, {
+        const response = await fetch(`${CONFIG.baseUrl}/${endpoint}`, {
             method,
             headers,
             body: JSON.stringify(body),
@@ -66,7 +66,7 @@ export async function fetchSessionData(endpoint, token) {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         };
-        const response = await fetch(`${BASE_URL}/${endpoint}`, {
+        const response = await fetch(`${CONFIG.baseUrl}/${endpoint}`, {
             method,
             headers
         });

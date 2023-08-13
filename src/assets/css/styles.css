@@ -1892,6 +1892,7 @@ img.profileCamel {
   position: absolute;
   bottom: 0;
   left: 25%;
+  cursor: pointer;
 }
 
 p.profileName {
@@ -2221,6 +2222,7 @@ span.pointsPercent {
 img.profile {
   width: 40px;
   margin-right: 10px;
+  margin-top: 1px;
 }
 p.profileNameHeader {
   letter-spacing: 0.35px;
@@ -3589,5 +3591,12 @@ img.profileCamel {
 select.foeldInputs {
   width: 100%;
   border: 0;
+}
+
+.profileImg .loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
