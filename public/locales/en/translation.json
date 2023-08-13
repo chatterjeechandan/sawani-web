@@ -146,5 +146,18 @@
   "Enter a location": "Enter a location",
   "Edit Profile": "Edit Profile",
   "Enter Confirm Password": "Enter Confirm Password",
-  "Password": "Password"
+  "Password": "Password",
+  "In-Store": "In-Store",
+  "Pick up": "Pick up",
+  "Delivery": "Delivery",
+  "street": "Street",
+  "region": "Region",
+  "building": "Building",
+  "note": "Note",
+  "unit": "Unit",
+  "Enter Street": "Enter Street",
+  "Enter Region": "Enter Region",
+  "Enter Building": "Enter Building",
+  "Enter Note": "Enter Note",
+  "Enter Unit": "Enter Unit"
 }

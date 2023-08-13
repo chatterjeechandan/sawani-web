@@ -252,7 +252,7 @@ const EditProfile = () => {
                 </div>
                 {errors.fullName && (
                     <p className="errorText">{errors.fullName}</p>
-                  )}
+                )}
                 <div className="indFields">
                   <label className="fieldLabel">{t("Phone Number")} *</label>
                   <input
