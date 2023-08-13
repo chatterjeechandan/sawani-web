@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/common/layout/Header/Header";
 import Footer from "../../components/common/layout/Footer";
@@ -7,9 +7,53 @@ import editIcon from "../../assets/images/edit-circle.png";
 import deleteIcon from "../../assets/images/delete-circle.png";
 import saudi from "../../assets/images/saudi-arabia-2.png";
 import { useTranslation } from "react-i18next";
+import { getAllCustomerAddress } from "../../api/customer";
+import Loader from "../../components/common/Loader/Loader";
+import { deleteCustomerAddress } from "../../api/customer";
 
 const AddressList = () => {
   const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(false);
+  const [addresses, setAddresses] = useState([]);
+  const [deletingAddresses, setDeletingAddresses] = useState(new Set());
+
+  useEffect(() => {
+    customerAddresses();
+  }, []);
+
+  const customerAddresses = async () => {
+    setIsLoading(true);
+    try {
+      const response = await getAllCustomerAddress();
+      if (response) {
+        setIsLoading(false);
+        setAddresses(response)
+      }
+    } catch (error) {
+      console.error("Error fetching saved address:", error);
+    }
+  };
+  
+  const handleAddressDelete = async (e,index,address) => {
+    e.preventDefault();
+    setDeletingAddresses(prev => new Set([...prev, address.id]));
+    try {
+      const response = await deleteCustomerAddress(address.id);
+      if (response) {
+        const updatedAddress = [...addresses.slice(0, index), ...addresses.slice(index + 1)];
+        setAddresses(updatedAddress);
+      }
+    } catch (error) {
+      console.error("Error fetching favourite producucts:", error);
+    } finally {
+      setDeletingAddresses(prev => {
+        const newSet = new Set([...prev]);
+        newSet.delete(address.id);
+        return newSet;
+      });
+    }
+  }
+
   return (
     <>
       <Header />
@@ -25,79 +69,49 @@ const AddressList = () => {
                     + {t("Add New Address")}
                   </Link>
                 </p>
-
-                <div className="indAddressList">
-                  <h5 className="addName">Aisha Fahd</h5>
-                  <p className="addpara">Abdullah Bukhari, Aziziyah, Jeddah</p>
-                  <p className="saudiWraper">
-                    <img src={saudi} className="sausiIcon" alt="" />
-                    <span className="phoneNumbers">
-                      <b>+966</b> 12 1234 345
-                    </span>
-                  </p>
-                  <span className="editAddress">
-                    <span className="editAdd">
-                      <img src={editIcon} alt="" />
-                    </span>
-                    <span className="deleteAdd">
-                      <img src={deleteIcon} alt="" />
-                    </span>
-                  </span>
-                </div>
-                <div className="indAddressList">
-                  <h5 className="addName">Aisha Fahd</h5>
-                  <p className="addpara">Abdullah Bukhari, Aziziyah, Jeddah</p>
-                  <p className="saudiWraper">
-                    <img src={saudi} className="sausiIcon" alt="" />
-                    <span className="phoneNumbers">
-                      <b>+966</b> 12 1234 345
-                    </span>
-                  </p>
-                  <span className="editAddress">
-                    <span className="editAdd">
-                      <img src={editIcon} alt="" />
-                    </span>
-                    <span className="deleteAdd">
-                      <img src={deleteIcon} alt="" />
-                    </span>
-                  </span>
-                </div>
-                <div className="indAddressList">
-                  <h5 className="addName">Aisha Fahd</h5>
-                  <p className="addpara">Abdullah Bukhari, Aziziyah, Jeddah</p>
-                  <p className="saudiWraper">
-                    <img src={saudi} className="sausiIcon" alt="" />
-                    <span className="phoneNumbers">
-                      <b>+966</b> 12 1234 345
-                    </span>
-                  </p>
-                  <span className="editAddress">
-                    <span className="editAdd">
-                      <img src={editIcon} alt="" />
-                    </span>
-                    <span className="deleteAdd">
-                      <img src={deleteIcon} alt="" />
-                    </span>
-                  </span>
-                </div>
-                <div className="indAddressList">
-                  <h5 className="addName">Aisha Fahd</h5>
-                  <p className="addpara">Abdullah Bukhari, Aziziyah, Jeddah</p>
-                  <p className="saudiWraper">
-                    <img src={saudi} className="sausiIcon" alt="" />
-                    <span className="phoneNumbers">
-                      <b>+966</b> 12 1234 345
-                    </span>
-                  </p>
-                  <span className="editAddress">
-                    <span className="editAdd">
-                      <img src={editIcon} alt="" />
-                    </span>
-                    <span className="deleteAdd">
-                      <img src={deleteIcon} alt="" />
-                    </span>
-                  </span>
-                </div>
+                {isLoading ? (
+                  <Loader
+                    showOverlay={false}
+                    size={25}
+                    color="#B7854C"
+                    isLoading={false}
+                  />
+                ) : (
+                  addresses.length === 0 ? (
+                    <p className="noRecords">
+                      {t("You don’t have saved address yet")}
+                    </p>
+                  ) : (
+                    addresses.map((address,index) => (  
+                      <div className="indAddressList">
+                        <h5 className="addName">{address.name}</h5>
+                        <p className="addpara">{address.street}, {address.building}, {address.region}, {address.unit}</p>
+                        <p className="saudiWraper">
+                          <img src={saudi} className="sausiIcon" alt="" />
+                          <span className="phoneNumbers">
+                            <b>+</b> {address.phone}
+                          </span>
+                        </p>
+                        <span className="editAddress">
+                          <span className="editAdd">
+                            <Link to={`/edit-address/${address.id}`}><img src={editIcon} alt="" /></Link>
+                          </span>
+                          <span className="deleteAdd" onClick={(e) => handleAddressDelete(e,index,address)}>
+                            <img src={deleteIcon} alt="" />
+                            {deletingAddresses.has(address.id) && (
+                              <Loader
+                                showOverlay={false}
+                                size={10}
+                                color="#000"
+                                isLoading={false}
+                              />
+                            )}
+                          </span>
+                        </span>
+                      </div>
+                    ))
+                  )
+              )}
               </div>
             </div>
 

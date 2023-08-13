@@ -1,5 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+
+@font-face {
+  font-family: 'Bukra';
+  src: url('./fonts/29LTBukraRegular3.otf') format('opentype');
+}
+
+
 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -20,7 +27,7 @@
 
 body,
 html {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Bukra", sans-serif;
   font-size: 14px;
   line-height: 1.78em;
   color: #000;
@@ -64,14 +71,6 @@ select {
   vertical-align: middle;
   background-color: transparent;
   border: 1px solid #ccc;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-select {
-  -webkit-appearance: none;
 }
 
 input::-ms-clear,
@@ -245,9 +244,9 @@ input:-internal-autofill-selected {
 
 .footerMenu ul li {
   display: inline-block;
-  margin: 20px 10px 0 10px;
+  margin: 20px 5px 0 10px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 500;
 }
 .rowWraper.secondRow {
@@ -353,7 +352,7 @@ span.social img {
 }
 .tabUl li.active {
     background-color: #a592b6 ;
-    font-weight: 500;
+    font-weight: 700;
 }
 
 .tabUl li:last-child {
@@ -435,7 +434,6 @@ span.headingContents p {
   padding: 15px;
   overflow: hidden;
   position: relative;
-  height: 320px;
 }
 .individualProduct img {
   width: 100%;
@@ -860,7 +858,7 @@ p.infoHeading {
   margin-bottom: 20px;
 }
 
-.buttonloader .loader {
+.buttonloader .loader, .inlineloader .loader {
   height: auto;
 }
 
@@ -945,7 +943,7 @@ span.rewardIcon {
   margin-right: 8px;
 }
 span.rewardPointsInfo {
-  font-size: 12px;
+  font-size: 11px;
   color: #1a1818;
   font-weight: 700;
 }
@@ -2289,6 +2287,13 @@ span.editAdd {
 }
 span.deleteAdd {
   cursor: pointer;
+  position:relative;
+}
+span.deleteAdd .loader{
+  position: absolute;
+    height: auto;
+    top: -8px;
+    right: 0;
 }
 span.editAddress {
   position: absolute;
@@ -3076,6 +3081,11 @@ body.lang-ar .productOtherInfo.rewardQntyWraper, body.lang-ar  .productOtherInfo
  float:right;
 }
 
+body.lang-ar  .tabUl li span img {
+  margin-right: auto;
+  margin-left: 7px;
+}
+
 @media only screen and (max-width: 991px) {
   body.lang-ar .menu,
   body.lang-ar .icon-wrapper.profile {
@@ -3126,6 +3136,7 @@ body.lang-ar .productOtherInfo.rewardQntyWraper, body.lang-ar  .productOtherInfo
   padding: 30px 0px 10px;
   margin-bottom: 25px;
   padding-bottom: 0;
+
 }
 
 @media only screen and (max-width: 1340px) and (min-width: 1025px) {
@@ -3231,11 +3242,29 @@ body.lang-ar .productOtherInfo.rewardQntyWraper, body.lang-ar  .productOtherInfo
   background-color: #555;
 }
 
+.addressListings::-webkit-scrollbar {
+  width: 10px;
+}
+
+.addressListings::-webkit-scrollbar-track {
+  background-color: #F5F5F5;
+  border-radius: 10px;
+}
+
+.addressListings::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 2px solid #F5F5F5;
+}
+
+.addressListings::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
 .cartProductListings {
   scrollbar-width: thin;
   scrollbar-color: #888 #F5F5F5;
 }
-
 
 .dropdown.sort-drop .customizeFilterDisplay{
   width: auto;
@@ -3367,18 +3396,48 @@ body.lang-ar .productOtherInfo.rewardQntyWraper, body.lang-ar  .productOtherInfo
   body.lang-ar .menu-items.cartPopup {
     left: auto;
     right: -254px !important;
-}
+  }
+  .tabUl li {
+    font-size: 10px;
+  }
 }
 
 @media only screen and (max-width: 767px) {
   .individualProduct {
     max-height: 180px;
   }
+
+  span.translateNow {
+    margin-top: 10px;
+    display: inline-block;
+  }
+
+  .right-icons {
+    margin-top: 15px;
+  }
+
+  .right-icons .menu {
+    margin-top: 5px;
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1200px) {
   .individualProduct {
     width: 33%;
+  }
+
+  span.counterWraper.checkoutcounters {
+    width:120px;
+  }
+
+  .tabUl {
+    width: 370px;
+  }
+}
+
+@media only screen and (min-width: 1601px) {
+  .individualProduct {
+    height: 320px;
   }
 }
 /* Thanks Page */
@@ -3475,3 +3534,14 @@ p.afterBarCode {
 .date-picker .MuiTextField-root button {
   margin-top: -22px;
 }
+
+.foeldInputs.text-area {
+  width:100%;
+  border:0;
+}
+
+select.foeldInputs {
+  width: 100%;
+  border: 0;
+}
+

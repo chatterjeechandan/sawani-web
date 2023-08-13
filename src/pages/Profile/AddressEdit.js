@@ -7,11 +7,12 @@ import Loader from "../../components/common/Loader/Loader";
 import Toaster from "../../components/common/Toaster/Toaster";
 import { addCustomerAddress } from "../../api/customer";
 import { getCitiesAPI } from "../../api/lookup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
-const AddressAdd = () => {
+const AddressEdit = () => {
   const { t } = useTranslation();
+  const { id } = useParams();
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isInlineLoading, setIsInlineLoading] = useState(false);
@@ -244,7 +245,7 @@ const AddressAdd = () => {
         setIsLoading(false);
         setTimeout(() => {
           navigate("/profile/saved-address");
-      }, 500);
+      }, 2000);
       }
       else {
         setIsLoading(false);
@@ -427,4 +428,4 @@ const AddressAdd = () => {
   );
 };
 
-export default AddressAdd;
+export default AddressEdit;

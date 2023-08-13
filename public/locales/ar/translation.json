@@ -151,5 +151,18 @@
   "Enter a location": "أدخل موقعًا",
   "Edit Profile": "تعديل الملف الشخصي",
   "Enter Confirm Password": "أدخل تأكيد كلمة المرور",
-  "Password": "كلمة المرور"
+  "Password": "كلمة المرور",
+  "In-Store": "في المتجر",
+  "Pick up": "استلام",
+  "Delivery": "توصيل",
+  "street": "شارع",
+  "region": "منطقة",
+  "building": "مبنى",
+  "note": "ملاحظة",
+  "unit": "وحدة",
+  "Enter Street": "أدخل الشارع",
+  "Enter Region": "أدخل المنطقة",
+  "Enter Building": "أدخل المبنى",
+  "Enter Note": "أدخل ملاحظة",
+  "Enter Unit": "أدخل الوحدة"
 }

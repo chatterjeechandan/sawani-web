@@ -23,3 +23,15 @@ export function deleteCustomerFavourite(Id) {
 export function updateProfile(payload) {
   return updateData(`customer/edit_profile`, payload);
 }
+
+export function getAllCustomerAddress() {
+  return fetchData(`customer/addresses`);
+}
+
+export function addCustomerAddress(payload) {
+  return postData(`customer/addresses`, payload);
+}
+
+export function deleteCustomerAddress(Id) {
+  return deleteData(`customer/addresses/${Id}`);
+}

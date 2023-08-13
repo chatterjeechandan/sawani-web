@@ -70,6 +70,7 @@
     left: -65px;
     top: 100%;
     text-align: left;
+    z-index: 999;
   }
   
   .relative{
@@ -294,9 +295,10 @@ span.cart-count {
 }
 
 .menu-items.translation {
-  width: 120px;
+  width: 101px;
   left: -54px;
   top: 40px;
+  z-index: 999;
 }
 
 @media only screen and (max-width: 991px) {
