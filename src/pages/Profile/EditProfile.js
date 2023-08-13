@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, {useContext, useState, useEffect, useRef} from "react";
 import Header from "../../components/common/layout/Header/Header";
 import Footer from "../../components/common/layout/Footer";
 import ProfileSidebar from "./ProfileSidebar";
@@ -10,6 +10,9 @@ import {updateProfile } from "../../api/customer";
 import Loader from "../../components/common/Loader/Loader";
 import Toaster from "../../components/common/Toaster/Toaster";
 import { resetPassword } from "../../api/auth";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 
 const EditProfile = () => {
   const { t } = useTranslation();
@@ -221,6 +224,38 @@ const EditProfile = () => {
     setShowPasswordFields(!showPasswordFields);
   };
 
+  function range(start, end, step = 1) {
+    const result = [];
+    for (let i = start; i <= end; i += step) {
+      result.push(i);
+    }
+    return result;
+  }
+
+  function getYear(date) {
+    return date.getFullYear();
+  }
+
+  function getMonth(date) {
+    return date.getMonth();
+  }
+
+  const years = range(1970, getYear(new Date()) + 1, 1);
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
   return (
     <>
       <Header />
@@ -248,21 +283,33 @@ const EditProfile = () => {
                     name="fullName"
                     value={userInfo.fullName}
                     onChange={handleInputChange}
+                    maxLength={20}
                   />
                 </div>
                 {errors.fullName && (
                     <p className="errorText">{errors.fullName}</p>
                 )}
                 <div className="indFields">
-                  <label className="fieldLabel">{t("Phone Number")} *</label>
-                  <input
-                    className="foeldInputs"
-                    type="text"
-                    placeholder={t("Enter Phone Number")}
-                    name="phoneNumber"
-                    value={userInfo.phoneNumber}
-                    onChange={handleInputChange}
-                  />
+                    <label className="fieldLabel">{t("Phone Number")} *</label>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <input
+                            className="foeldInputs"
+                            type="text"
+                            placeholder={t("Enter Phone Number")}
+                            name="phoneNumber"
+                            value={userInfo.phoneNumber}
+                            onChange={handleInputChange}
+                            readOnly
+                        />
+                        <FontAwesomeIcon 
+                            icon={faLock} 
+                            style={{ 
+                                marginLeft: '10px', 
+                                fontSize: '19px', 
+                                marginTop: '-17px' 
+                            }} 
+                        />
+                    </div>
                 </div>
                 {errors.phoneNumber && (
                   <p className="errorText">{errors.phoneNumber}</p>
@@ -282,16 +329,73 @@ const EditProfile = () => {
                     <p className="errorText">{errors.email}</p>
                 )}
                 <div className="indFields date-picker">
-                  <label className="fieldLabel">{t("Date of Birth")}</label>                  
-                  <DatePicker 
+                  <label className="fieldLabel">{t("Date of Birth")}</label> 
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <DatePicker
+                    renderCustomHeader={({
+                      date,
+                      changeYear,
+                      changeMonth,
+                      decreaseMonth,
+                      increaseMonth,
+                      prevMonthButtonDisabled,
+                      nextMonthButtonDisabled,
+                    }) => (
+                      <div
+                        style={{
+                          margin: 10,
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
+                          {"<"}
+                        </button>
+                        <select
+                          value={getYear(date)}
+                          onChange={({ target: { value } }) => changeYear(value)}
+                        >
+                          {years.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+
+                        <select
+                          value={months[getMonth(date)]}
+                          onChange={({ target: { value } }) =>
+                            changeMonth(months.indexOf(value))
+                          }
+                        >
+                          {months.map((option) => (
+                            <option key={option} value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+
+                        <button onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
+                          {">"}
+                        </button>
+                      </div>
+                    )}
                     selected={userInfo.dob ? new Date(userInfo.dob) : null} 
                     onChange={(date) => setDob(date)} 
-                    className="foeldInputs" 
-                    type="number" 
-                    maxDate={new Date()} 
-                    placeholder={t("Select DOB")} 
-                    showYearDropdown                    
+                    className="foeldInputs"
+                    maxDate={new Date()}  
+                  />            
+                
+                  <FontAwesomeIcon 
+                      icon={faCalendar} 
+                      style={{ 
+                          marginLeft: '10px', 
+                          fontSize: '19px', 
+                          marginTop: '-17px' 
+                      }}
                   />
+                </div>
+                
                 </div>
                 {errors.dob && (
                     <p className="errorText">{errors.dob}</p>
