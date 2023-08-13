@@ -60,6 +60,7 @@ const ProfileSidebar = () => {
 
       <div className="sideProfileMid">
         <ul className="profileRouts">
+          {/* Kindly toogle the activated class if any li is clicked  */}
           <li className="activated">
             <Link to="/profile" className="profileLinksTag">
               <span className="iconName">
