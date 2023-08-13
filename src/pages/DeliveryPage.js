@@ -48,7 +48,7 @@ const DeliveryPage = () => {
                 <span>
                   <img src={tab1} alt="" />
                 </span>
-                In-Store
+                {t("In-Store")}
               </li>
               <li
                 className={activeTab === "pickup" ? "active" : ""}
@@ -56,8 +56,8 @@ const DeliveryPage = () => {
               >
                 <span>
                   <img src={tab2} alt="" />
-                </span>
-                Pick up
+                </span>                
+                {t("Pick up")}
               </li>
               <li
                 className={activeTab === "delivery" ? "active" : ""}
@@ -65,8 +65,8 @@ const DeliveryPage = () => {
               >
                 <span>
                   <img src={tab3} alt="" />
-                </span>
-                Delhivery
+                </span>                
+                {t("Delivery")}
               </li>
             </ul>
           </div>

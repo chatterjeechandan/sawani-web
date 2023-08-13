@@ -51,7 +51,7 @@ const HomePage = () => {
 
   
   return (
-    <div className="dashboardWraper" style={{ textAlign: "right" }}>
+    <div className="dashboardWraper" style={{ textAlign: "left" }}>
       <div className="bannerWrapers">
         <Header />
         {scrolled && (

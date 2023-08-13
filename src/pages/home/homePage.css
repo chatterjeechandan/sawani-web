@@ -96,7 +96,7 @@
 color: #4A4848;
 opacity: 1;
 font-size: 45px;
-  margin-bottom: 25px;
+  margin-bottom: 45px;
   font-weight: 500;
   float: left;
   width: 100%;
@@ -336,9 +336,10 @@ p.subHeads {
 }
 .sliderSection.oneSlider .rowSec .rightSection .innerTextWraper .headingsWraper h4 {
   letter-spacing: 0px;
-color: #A08EB7;
-opacity: 1;
-font-size: 37px;
+  color: #A08EB7;
+  opacity: 1;
+  font-size: 37px;
+  font-weight: 600px;
 }
 .midSliderWraper {
   width: 100%;
@@ -773,12 +774,12 @@ font-size: 65px;
 }
 .afterBanner.center .afterBannerCenterTextWraper p {
   letter-spacing: 0px;
-color: #A45F3E;
-opacity: 1;
-line-height: 22px;
-font-size: 22px;
-margin-bottom: 30px;
-font-weight: 600;
+  color: #A45F3E;
+  opacity: 1;
+  line-height: 32px;
+  font-size: 22px;
+  margin-bottom: 30px;
+  font-weight: 600;
 }
 
 .afterBanner.center .afterBannerCenterTextWraper:after {
@@ -800,9 +801,9 @@ font-weight: 600;
   opacity: 1;
   font-size: 35px;
   font-weight: 500;
-  margin-bottom: 30px;
+  margin: 30px 0;
   width: 100%;
-float: left;
+  float: left;
 }
 
 .afterBanner.left .afterBannerTextWraper h5 {
@@ -812,30 +813,34 @@ float: left;
   font-size: 35px;
   font-weight: 600;
   margin-bottom: 30px;
-  line-height: 28px;
+  line-height: 45px;
   width: 100%;
-float: left;
+  float: left;
+  margin-bottom: 20px;
 }
 
 .afterBanner.left .afterBannerTextWraper h6 {
   letter-spacing: 0px;
-color: #4A4848;
-opacity: 1;
-font-size: 35px;
-font-weight: 400;
-max-width: 15px 0;
-width: 100%;
-float: left;
+  color: #4A4848;
+  opacity: 1;
+  font-size: 35px;
+  font-weight: 400;
+  max-width: 15px 0;
+  width: 100%;
+  float: left;
+  line-height: 40px;
+  margin-bottom: 15px;
 }
 .afterBanner.left .afterBannerTextWraper p {
   letter-spacing: 0px;
-color: #F7F2EB;
-opacity: 1;
-font-size: 22px;
-margin: 15px 0;
-font-weight: 500;
-width: 100%;
-float: left;
+  color: #F7F2EB;
+  opacity: 1;
+  margin: 15px 0;
+  width: 100%;
+  float: left;
+  line-height: 30px;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 
@@ -851,6 +856,7 @@ float: left;
   margin-bottom: 30px;
   width: 100%;
   float: left;
+  margin: 30px 0;
 }
 
 .afterBanner.right .afterBannerTextWraper h5 {
@@ -859,8 +865,8 @@ color: #75692E;
 opacity: 1;
 font-size: 35px;
 font-weight: 600;
-margin-bottom: 30px;
-line-height: 28px;
+margin-bottom: 20px;
+line-height: 45px;
 width: 100%;
 float: left;
 }
@@ -871,14 +877,17 @@ float: left;
 font-size: 25px;
 color: #F7F2EB;
 opacity: 1;
+margin-bottom: 25px;
 }
 .afterBanner.right .afterBannerTextWraper p {
   letter-spacing: 0px;
-color: #F7F2EB;
-opacity: 1;
-font-size: 22px;
-width: 100%;
-float: left;
+  color: #F7F2EB;
+  opacity: 1;
+  line-height: 30px;
+  font-size: 20px;
+  font-weight: 700;
+  width: 100%;
+  float: left;
 }
 /* Responsive css */
 @media only screen and (max-width: 1660px) {

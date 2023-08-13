@@ -11,3 +11,7 @@ export function getPaymentMethodAPI() {
 export function getOnePayMethodAPI() {
     return fetchData(`lookups/one_pay_methods`);
 }
+
+export function getCitiesAPI() {
+    return fetchData(`lookups/cities`);
+}

@@ -88,7 +88,7 @@ const ProfileSidebar = () => {
             </Link>
           </li>
           <li className="">
-            <Link className="profileLinksTag">
+            <Link to="/saved-address" className="profileLinksTag">
               <span className="iconName">
                 <img src={routIcon4} className="routIcon" />
               </span>
