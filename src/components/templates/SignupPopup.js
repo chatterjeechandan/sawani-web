@@ -27,7 +27,7 @@ const SignUpPopup = ({ onClose, onOpenLogin }) => {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,}$/;
 
     if (!name) {
-      setNameError(t("Please enter your name"));
+      setNameError(t("Please enter your full name"));
       return;
     }
 
@@ -138,7 +138,7 @@ const SignUpPopup = ({ onClose, onOpenLogin }) => {
             <input
               type="text"
               className={`inputBox ${nameError ? "inputError" : ""}`}
-              placeholder={t("Name")}
+              placeholder={t("Full Name")}
               value={name}
               maxLength="20"
               onChange={(e) => {
