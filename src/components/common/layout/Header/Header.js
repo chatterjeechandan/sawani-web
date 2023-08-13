@@ -18,7 +18,7 @@ import translate from "../../../../assets/images/translate.png";
 import { AuthContext } from "../../../../utils/AuthContext";
 import Toaster from "../../../../components/common/Toaster/Toaster";
 import minus from "../../../../assets/images/minusWhite.png";
-import counterPlus from "../../../../assets/images/smallPlus.png";
+import counterPlus from "../../../../assets/images/addCounter.png";
 import rewards from "../../../../assets/images/rewardPoint.png";
 import cartIcon from "../../../../assets/images/cartIcon.png";
 import deletes from "../../../../assets/images/delete.png";
@@ -471,7 +471,7 @@ const Header = forwardRef((props, ref) => {
                                     className="plusCounter"
                                     onClick={() => handleCountChange(index, 1)}
                                   >
-                                    <img src={counterPlus} alt="" />
+                                    <img src={counterPlus} alt="kolaImg" />
                                   </span>
                                 </span>
                               </span>

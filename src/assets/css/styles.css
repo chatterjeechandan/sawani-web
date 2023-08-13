@@ -226,7 +226,7 @@ input:-internal-autofill-selected {
 }
 
 .logoSec {
-  width: 35%;
+  width: 30%;
   float: left;
   text-align: right;
   padding-right: 100px;
@@ -236,7 +236,7 @@ input:-internal-autofill-selected {
   float: left;
 }
 .footerMenu {
-  width: 65%;
+  width: 70%;
   float: right;
   text-align: left;
   padding: 0 10px;
@@ -1610,7 +1610,7 @@ span.arrowRight {
   /* 
     DASHBOARD CSS */
   .dashboardMidContent {
-    padding: 25px;
+    padding: 18px;
   }
   .dashboardMidContent::before,
   .dashboardMidContent:after,
@@ -1752,7 +1752,7 @@ span.arrowRight {
   .menu-items.cartPopup {
     width: 345px;
     padding: 8px 10px;
-    left: -300px;
+    left: -290px;
   }
   .menu-items.cartPopup .rightCheckoutWraper::before {
     top: -27.5px;
@@ -1968,7 +1968,7 @@ p.numberInfo {
   float: left;
   background: #a592b5 0% 0% no-repeat padding-box;
   border-radius: 6px;
-  padding: 7px 15px;
+  padding: 7px 12px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -2156,7 +2156,7 @@ button.pointDetail {
 }
 span.pointsSmLogo {
   position: absolute;
-  top: 27%;
+  top: 27.5%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -3592,6 +3592,50 @@ select.foeldInputs {
   width: 100%;
   border: 0;
 }
+img.circleBack {
+  width: 202px;
+}
+@media only screen and (max-width: 720px) { 
+  .inlineOptions {
+    font-size: 12px;
+  }
+  .indFields {
+    padding: 5px 8px;
+  }
+  span.optionsInline {
+    width: 100%;
+}
+.inlineOptions {
+  font-size: 12px;
+  flex-direction: column;
+}
+.inlineOptions label.fieldLabel {
+  width: 100%;
+  margin: 0 0 15px 0;
+}
+span.optionsInline {
+  width: 100%!important;
+}
+label {
+  margin-right: 7px;
+}
+.switch {
+  margin-right: 6px;
+}
+.pointTabWraper {
+  padding: 20px 10px;
+}
+.refferWraper {
+padding: 20px 12px; 
+}
+body.lang-ar span.addBtnWraper {
+margin-left: unset;
+}
+body.lang-ar span.delBtnWraper {
+  margin-right: unset;
+  margin-left: auto;
+}
+}
 
 .profileImg .loader {
   position: absolute;
@@ -3600,3 +3644,7 @@ select.foeldInputs {
   transform: translate(-50%, -50%);
 }
 
+ul.profileRouts li.activated a span.nameLink {
+  color: #B7864C;
+  font-weight: 600;
+}
