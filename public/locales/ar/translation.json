@@ -1,8 +1,6 @@
 {
-  "password": "كلمة المرور",
-  "Name": "الاسم",
-  "OK" : "موافق",
-  "CANCEL" : "إلغاء",
+  "OK": "موافق",
+  "CANCEL": "إلغاء",
   "Select": "إختر",  
   "Order Now": "اطلب الآن",
   "Logout successful": "تم تسجيل الخروج بنجاح",
@@ -135,7 +133,7 @@
   "Download the APP": "حمّل التطبيق",
   "Earn points and redeem rewards. Order ahead": "اكسب النقاط واستبدل المكافآت. اطلب مسبقاً",
   "and pay. And get it delivered!": "وادفع. واحصل عليه مسلماً!",
-  "Available via": "مكافآت",
+  "Available via": "متاح عبر",
   "Ingredients": "المكونات",
   "Rewards": "المكافآت",
   "Qnt.": "الكمية",
@@ -154,15 +152,5 @@
   "Password": "كلمة المرور",
   "In-Store": "في المتجر",
   "Pick up": "استلام",
-  "Delivery": "توصيل",
-  "street": "شارع",
-  "region": "منطقة",
-  "building": "مبنى",
-  "note": "ملاحظة",
-  "unit": "وحدة",
-  "Enter Street": "أدخل الشارع",
-  "Enter Region": "أدخل المنطقة",
-  "Enter Building": "أدخل المبنى",
-  "Enter Note": "أدخل ملاحظة",
-  "Enter Unit": "أدخل الوحدة"
+  "Delivery": "توصيل"
 }
