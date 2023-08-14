@@ -20,7 +20,7 @@ const FavouriteStores = () => {
                   <span className="activates">{t("Favorite Stores")}</span>
                 </div>
                 <div className="favouritetabWraper">
-                  <Link to="/favourite-product" className="profileLinksTag">
+                  <Link to="/profile/favourite-product" className="profileLinksTag">
                     {" "}
                     <span className="">{t("Favorite Products")}</span>
                   </Link>

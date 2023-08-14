@@ -35,3 +35,7 @@ export function addCustomerAddress(payload) {
 export function deleteCustomerAddress(Id) {
   return deleteData(`customer/addresses/${Id}`);
 }
+
+export function updateAddress(Id, payload) {
+  return updateData(`customer/addresses/${Id}`, payload);
+}

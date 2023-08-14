@@ -4,13 +4,14 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [loginResponse, setLoginResponse] = useState(null);
-
+    const [isAuthChecking, setIsAuthChecking] = useState(true);
 
     useEffect(() => {
         const storedLoginInfo = localStorage.getItem('loginInfo');
         if (storedLoginInfo) {
             setLoginResponse(JSON.parse(storedLoginInfo));
         }
+        setIsAuthChecking(false);
     }, []);
 
     const login = (response) => {
@@ -24,7 +25,7 @@ const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ loginResponse, login, logout }}>
+        <AuthContext.Provider value={{ loginResponse, login, logout, isAuthChecking }}>
             {children}
         </AuthContext.Provider>
     );

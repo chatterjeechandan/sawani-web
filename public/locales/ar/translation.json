@@ -152,5 +152,16 @@
   "Password": "كلمة المرور",
   "In-Store": "في المتجر",
   "Pick up": "استلام",
-  "Delivery": "توصيل"
+  "Delivery": "توصيل",
+  "street": "الشارع",
+  "region": "المنطقة",
+  "building": "المبنى",
+  "note": "ملاحظة",
+  "unit": "الوحدة",
+  "Enter Street": "أدخل الشارع",
+  "Enter Region": "أدخل المنطقة",
+  "Enter Building": "أدخل المبنى",
+  "Enter Note": "أدخل الملاحظة",
+  "Enter Unit": "أدخل الوحدة",
+  "Choose": "اختر"
 }

@@ -240,7 +240,7 @@ const EditProfile = () => {
     return date.getMonth();
   }
 
-  const years = range(1970, getYear(new Date()) + 1, 1);
+  const years = range(1920, getYear(new Date()) + 1, 1);
   const months = [
     "January",
     "February",

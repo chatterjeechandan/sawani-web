@@ -66,18 +66,33 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
         const cusDetailresponse = await getSessionCusertomerDetails(response.token);
         const customerobject = {...response, ...cusDetailresponse.data };
         setLoginResponse(customerobject);
+        setIsLoading(false);
+        setToaster({
+          type: "success",
+          message: "Login successful",
+          duration: 3000,
+        });
+        setTimeout(() => {
+          onClose();
+        }, 500);
         updateCart();
       } else {
         setIsLoading(false);
-        Object.values(response.errors).forEach((errorArray) => {
-          errorArray.forEach((errorMessage) => {
+        if (Array.isArray(response.errors)) {
+          response.errors.forEach((errorMessage) => {
             setToaster({
               type: "error",
               message: errorMessage,
               duration: 3000,
             });
           });
-        });
+        } else if (response.Message) {
+          setToaster({
+            type: "error",
+            message: response.Message,
+            duration: 3000,
+          });
+        }
       }
     } catch (error) {
       setIsLoading(false);

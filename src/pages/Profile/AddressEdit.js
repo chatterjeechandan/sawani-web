@@ -5,9 +5,10 @@ import ProfileSidebar from "./ProfileSidebar";
 import { useTranslation } from "react-i18next";
 import Loader from "../../components/common/Loader/Loader";
 import Toaster from "../../components/common/Toaster/Toaster";
-import { addCustomerAddress } from "../../api/customer";
+import { addCustomerAddress, updateAddress } from "../../api/customer";
 import { getCitiesAPI } from "../../api/lookup";
 import { useNavigate, useParams } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 
 const AddressEdit = () => {
@@ -19,6 +20,40 @@ const AddressEdit = () => {
   const [toaster, setToaster] = useState(null);
   const [allCities, setAllCities] = useState(null);
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const passedAddress = location.state?.data;
+
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    street: "",
+    building: "",
+    unit: "",
+    region: "",
+    note: "",
+    cityId: "",
+    lat: null,
+    long: null,
+  });
+
+  useEffect(() => {
+    if (passedAddress) {
+      setFormData((prevUserInfo) => ({
+        ...prevUserInfo,
+        name: passedAddress?.name || "",
+        phone: passedAddress?.phone || "",
+        street: passedAddress?.street || "",
+        building: passedAddress?.building || "",
+        unit: passedAddress?.unit || "",
+        region: passedAddress?.region || "",
+        note: passedAddress?.note || "",
+        cityId: passedAddress?.cityId || "",
+        lat: passedAddress?.lat || null,
+        long: passedAddress?.long || null,
+      }));
+    }
+  }, [passedAddress]);
 
   useEffect(() => {
     getAllCities();    
@@ -36,19 +71,6 @@ const AddressEdit = () => {
       console.error("Error fetching delivery methods:", error);
     }
   };
-
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    street: "",
-    building: "",
-    unit: "",
-    region: "",
-    note: "",
-    cityId: "",
-    lat: null,
-    long: null,
-  });
 
   const validatename = (nameValue) => {
     const newErrors = {};
@@ -235,17 +257,15 @@ const AddressEdit = () => {
       const addressPayload= formData;
       addressPayload['lat'] = cord.lat;
       addressPayload['long'] = cord.long;      
-      const response = await addCustomerAddress(addressPayload);
+      addressPayload['id'] = id;      
+      const response = await updateAddress(id, addressPayload);
       if (response.succeeded) {
         setToaster({
           type: "success",
-          message: 'Address saved successfully!',
+          message: 'Address Updated successfully!',
           duration: 3000,
         });
         setIsLoading(false);
-        setTimeout(() => {
-          navigate("/profile/saved-address");
-      }, 2000);
       }
       else {
         setIsLoading(false);
@@ -290,7 +310,7 @@ const AddressEdit = () => {
         <div className="profileRightWraper">
           <div className="pointAnalysisWraper">
             <div className="pointTabWraper inputWrapers newAddressWraper">
-              <h4 className="addressHeading">Add Address</h4>
+              <h4 className="addressHeading">Edit Address</h4>
               <div className="addressListings gapTop">
                 <div className="indFields">
                   <label className="fieldLabel">{t("Full Name")} *</label>
@@ -300,6 +320,7 @@ const AddressEdit = () => {
                     placeholder={t("Enter Full Name")}
                     name="name"
                     onChange={handleInputChange}
+                    value={formData.name}
                   />
                 </div>
                 {errors.name && (
@@ -313,6 +334,7 @@ const AddressEdit = () => {
                     placeholder={t("Enter Phone Number")}
                     name="phone"
                     onChange={handleInputChange}
+                    value={formData.phone}
                   />
                 </div>
                 {errors.phone && (
@@ -326,6 +348,7 @@ const AddressEdit = () => {
                     placeholder={t("Enter Street")}
                     name="street"
                     onChange={handleInputChange}
+                    value={formData.street}
                   />
                 </div>
                 {errors.street && (
@@ -339,6 +362,7 @@ const AddressEdit = () => {
                     placeholder={t("Enter Building")}
                     name="building"
                     onChange={handleInputChange}
+                    value={formData.building}
                   />
                 </div>
                 {errors.building && (
@@ -352,6 +376,7 @@ const AddressEdit = () => {
                     placeholder={t("Enter Unit")}
                     name="unit"
                     onChange={handleInputChange}
+                    value={formData.unit}
                   />
                 </div>
                 {errors.unit && (
@@ -369,7 +394,7 @@ const AddressEdit = () => {
                       />
                      </div> 
                     ) : (
-                    <select className="foeldInputs" name="cityId" onChange={handleInputChange}>
+                    <select className="foeldInputs" name="cityId" onChange={handleInputChange}  value={formData.cityId} >
                        <option>{t("Select City")}</option>
                        {allCities?.map(city => <option key={city.id} value={city.id}>{city.name}</option>)}
                     </select>
@@ -386,6 +411,7 @@ const AddressEdit = () => {
                     placeholder={t("Enter Region")}
                     name="region"
                     onChange={handleInputChange}
+                    value={formData.region}
                   />
                 </div>
                 {errors.region && (
@@ -399,6 +425,7 @@ const AddressEdit = () => {
                     rows="4"
                     name="note"
                     onChange={handleInputChange}
+                    value={formData.note}
                   ></textarea>
                 </div>
                 {errors.note && (

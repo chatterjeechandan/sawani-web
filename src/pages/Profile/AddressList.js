@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import Header from "../../components/common/layout/Header/Header";
 import Footer from "../../components/common/layout/Footer";
 import ProfileSidebar from "./ProfileSidebar";
@@ -16,6 +16,7 @@ const AddressList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [deletingAddresses, setDeletingAddresses] = useState(new Set());
+  const navigate = useNavigate();
 
   useEffect(() => {
     customerAddresses();
@@ -33,6 +34,12 @@ const AddressList = () => {
       console.error("Error fetching saved address:", error);
     }
   };
+
+  const handleAddressEdit = (e, address) => {
+    e.preventDefault();
+    navigate(`/profile/edit-address/${address.id}`, { state: { data: address } });
+  };
+  
   
   const handleAddressDelete = async (e,index,address) => {
     e.preventDefault();
@@ -65,7 +72,7 @@ const AddressList = () => {
               <h4 className="addressHeading">{t("Address Book")}</h4>
               <div className="addressListings">
                 <p className="addAddress">
-                  <Link to="/address-add" className="profileLinksTag">
+                  <Link to="/profile/address-add" className="profileLinksTag">
                     + {t("Add New Address")}
                   </Link>
                 </p>
@@ -94,7 +101,7 @@ const AddressList = () => {
                         </p>
                         <span className="editAddress">
                           <span className="editAdd">
-                            <Link to={`/edit-address/${address.id}`}><img src={editIcon} alt="" /></Link>
+                            <Link onClick={(e) => handleAddressEdit(e,address)}><img src={editIcon} alt="" /></Link>
                           </span>
                           <span className="deleteAdd" onClick={(e) => handleAddressDelete(e,index,address)}>
                             <img src={deleteIcon} alt="" />
