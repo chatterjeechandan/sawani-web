@@ -20,11 +20,14 @@ import noUserImage from "../../assets/images/no-user.png";
 import {updateAvatar } from "../../api/customer";
 import Loader from "../../components/common/Loader/Loader";
 import CONFIG from '../../config/site.config';
+import { useLocation, useParams } from "react-router-dom";
 
 const ProfileSidebar = () => {
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { loginResponse, login: setLoginResponse } = useContext(AuthContext);
+  const location = useLocation();
+  const { id } = useParams();
   const setIsQrOpenFn = () => {
     setIsQrOpen(!isQrOpen);
   };
@@ -113,7 +116,7 @@ const ProfileSidebar = () => {
       <div className="sideProfileMid">
         <ul className="profileRouts">
           {/* Kindly toogle the activated class if any li is clicked  */}
-          <li className="activated">
+          <li className={location.pathname === "/profile" ? "activated" : ""}>
             <Link to="/profile" className="profileLinksTag">
               <span className="iconName">
                 <img src={routIcon1} className="routIcon" />
@@ -122,8 +125,8 @@ const ProfileSidebar = () => {
               <i class="fa fa-chevron-right" aria-hidden="true"></i>
             </Link>
           </li>
-          <li className="">
-            <Link to="/favourite-store" className="profileLinksTag">
+          <li className={location.pathname === "/profile/favourite-store" || location.pathname === "/profile/favourite-product" ? "activated" : ""}>
+            <Link to="/profile/favourite-store" className="profileLinksTag">
               <span className="iconName">
                 <img src={routIcon2} className="routIcon" />
               </span>
@@ -131,7 +134,7 @@ const ProfileSidebar = () => {
               <i class="fa fa-chevron-right" aria-hidden="true"></i>
             </Link>
           </li>
-          <li className="">
+          <li className={location.pathname === "/profile/saved-card" || location.pathname === "/profile/card-add" || location.pathname === `/profile/card-edit/${id}` ? "activated" : ""}>
             <Link className="profileLinksTag">
               <span className="iconName">
                 <img src={routIcon3} className="routIcon" />
@@ -140,8 +143,8 @@ const ProfileSidebar = () => {
               <i class="fa fa-chevron-right" aria-hidden="true"></i>
             </Link>
           </li>
-          <li className="">
-            <Link to="/saved-address" className="profileLinksTag">
+          <li className={location.pathname === "/profile/saved-address" || location.pathname === "/profile/address-add" || location.pathname === `/profile/edit-address/${id}` ? "activated" : ""}>
+            <Link to="/profile/saved-address" className="profileLinksTag">
               <span className="iconName">
                 <img src={routIcon4} className="routIcon" />
               </span>

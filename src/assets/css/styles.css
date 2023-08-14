@@ -3091,6 +3091,10 @@ body.lang-ar  .tabUl li span img {
   margin-left: 7px;
 }
 
+body.lang-ar .footerMenu ul li {
+  float: right;
+}
+
 @media only screen and (max-width: 991px) {
   body.lang-ar .menu,
   body.lang-ar .icon-wrapper.profile {
@@ -3193,6 +3197,8 @@ body.lang-ar  .tabUl li span img {
     display: block;
     width: 40%;
     float: left;
+    text-align: left;
+    width: auto;
   }
   footer .logoSec img {
     margin: 0 auto;
@@ -3404,6 +3410,7 @@ body.lang-ar  .tabUl li span img {
   }
   .tabUl li {
     font-size: 10px;
+    padding: 7px 3px;
   }
 }
 

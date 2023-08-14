@@ -272,6 +272,9 @@ const Product = () => {
             setIsFavouriteLoader(false);
           }
         }
+        else {
+          setIsFavouriteLoader(false);
+        }
       } catch (error) {
         console.error("Error fetching delivery methods:", error);
       }

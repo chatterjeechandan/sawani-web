@@ -11,11 +11,12 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import arrows from "../../../assets/images/arrowPoint.png";
+import { useTranslation } from "react-i18next";
 
 const DialogSelect = ({ options, selectedOption, onSelect, buttonText, imgSrc, fieldTitle }) => {
     const [open, setOpen] = useState(false);
     const [tempSelectedOption, setTempSelectedOption] = useState(selectedOption);
-
+    const { t } = useTranslation();
     const handleChange = (event) => {
         setTempSelectedOption(event.target.value);
     };
@@ -42,13 +43,15 @@ const DialogSelect = ({ options, selectedOption, onSelect, buttonText, imgSrc, f
                 <span className="paymentIcons">
                     <img src={imgSrc} alt="" />
                 </span>
-                <span className="paymentname">{buttonText || `Select ${fieldTitle}`}</span>
+                <span className="paymentname">
+                    {buttonText || `${t("Select")} ${fieldTitle}`}
+                </span>
                 <span className="arrowRight">
                     <img src={arrows} alt="" />
                 </span>
             </div>
             <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
-                <DialogTitle>{`Choose ${fieldTitle}`}</DialogTitle>
+                <DialogTitle>{`${t("Choose")} ${fieldTitle}`}</DialogTitle>
                 <DialogContent sx={{ maxWidth: 'lg', width: '30vw' }}>
                     <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap', marginTop: '20px' }}>
                         <FormControl sx={{ width: '30vw' }}>
@@ -70,8 +73,8 @@ const DialogSelect = ({ options, selectedOption, onSelect, buttonText, imgSrc, f
                     </Box>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleOk}>Ok</Button>
+                    <Button onClick={handleClose}>{t("Cancel")}</Button>
+                    <Button onClick={handleOk}>{t("Ok")}</Button>
                 </DialogActions>
             </Dialog>
         </div>

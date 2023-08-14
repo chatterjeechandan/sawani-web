@@ -20,6 +20,7 @@ const FavouriteProducts = () => {
   const [favourites, setFavourites] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isFavouriteLoader, setIsFavouriteLoader] = useState(false);
+  const [deletingAddresses, setDeletingAddresses] = useState(new Set());
 
   useEffect(() => {
     customerFavourite();
@@ -27,6 +28,7 @@ const FavouriteProducts = () => {
 
   const handleFavouriteDelete = async (e,index,favourite) => {
     e.preventDefault();
+    setDeletingAddresses(prev => new Set([...prev, favourite.id]));
     setIsFavouriteLoader(true);
     try {
       const response = await deleteCustomerFavourite(favourite.id);
@@ -37,6 +39,13 @@ const FavouriteProducts = () => {
       }
     } catch (error) {
       console.error("Error fetching favourite producucts:", error);
+    }
+    finally {
+      setDeletingAddresses(prev => {
+        const newSet = new Set([...prev]);
+        newSet.delete(favourite.id);
+        return newSet;
+      });
     }
   }  
 
@@ -63,12 +72,12 @@ const FavouriteProducts = () => {
             <div className="pointTabWraper">
               <div className="favouriteTabs">
                 <div className="favouritetabWraper">
-                  <Link to="/favourite-store" className="profileLinksTag">
+                  <Link to="/profile/favourite-store" className="profileLinksTag">
                     <span className="">{t("Favorite Stores")}</span>
                   </Link>
                 </div>
                 <div className="favouritetabWraper">
-                  <Link to="/favourite-product" className="profileLinksTag">
+                  <Link to="/profile/favourite-product" className="profileLinksTag">
                     {" "}
                     <span className="activates">{t("Favorite Products")}</span>
                   </Link>
@@ -95,14 +104,14 @@ const FavouriteProducts = () => {
                             <img src={favourite.product.image ? `data:image/png;base64,${favourite.product.image}` : placeholderImage} alt="" />
                             <span className="likeProducts">
                               <img src={heart} alt=""  onClick={(e) => handleFavouriteDelete(e,index,favourite)}/>
-                              {isFavouriteLoader && (
-                                <Loader
-                                  showOverlay={false}
-                                  size={10}
-                                  color="#000"
-                                  isLoading={false}
-                                />
-                              )}
+                              {deletingAddresses.has(favourite.id) && (
+                              <Loader
+                                showOverlay={false}
+                                size={10}
+                                color="#000"
+                                isLoading={false}
+                              />
+                            )}
                             </span>
                           </div>
                           <h4 className="prodFavName">{favourite.product.name }</h4>

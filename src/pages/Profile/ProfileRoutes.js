@@ -8,7 +8,7 @@ import SavedCardAdd from "./SavedCardAdd";
 import SavedCardList from "./SavedCardList";
 import FavouriteStores from "./FavouriteStores";
 import EditProfile from "./EditProfile";
-import AddressEdit from "./EditProfile";
+import AddressEdit from "./AddressEdit";
 
 const ProfileRoutes = () => {
     return (
@@ -17,7 +17,7 @@ const ProfileRoutes = () => {
             <Route path="/rewards-point" element={<RewardsPointPage />} />
             <Route path="/saved-address" element={<AddressList />} />
             <Route path="/address-add" element={<AddressAdd />} />
-            <Route path="/edit-address/:id" component={AddressEdit} />
+            <Route path="/edit-address/:id" element={<AddressEdit />} />
             <Route path="/saved-card" element={<SavedCardList />} />
             <Route path="/card-add" element={<SavedCardAdd />} />
             <Route path="/favourite-store" element={<FavouriteStores />} />
