@@ -1,0 +1,130 @@
+@font-face {
+    font-family: '29LT Bukra Rg';
+    src: url('29LTBukra-Rg.eot');
+    src: url('29LTBukra-Rg.eot?#iefix') format('embedded-opentype'),
+        url('29LTBukra-Rg.woff2') format('woff2'),
+        url('29LTBukra-Rg.woff') format('woff'),
+        url('29LTBukra-Rg.ttf') format('truetype'),
+        url('29LTBukra-Rg.svg#29LTBukra-Rg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: '29LT Bukra Lt';
+    src: url('29LTBukra-Lt.eot');
+    src: url('29LTBukra-Lt.eot?#iefix') format('embedded-opentype'),
+        url('29LTBukra-Lt.woff2') format('woff2'),
+        url('29LTBukra-Lt.woff') format('woff'),
+        url('29LTBukra-Lt.ttf') format('truetype'),
+        url('29LTBukra-Lt.svg#29LTBukra-Lt') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: '29LT Bukra';
+    src: url('29LTBukra-Bold.eot');
+    src: url('29LTBukra-Bold.eot?#iefix') format('embedded-opentype'),
+        url('29LTBukra-Bold.woff2') format('woff2'),
+        url('29LTBukra-Bold.woff') format('woff'),
+        url('29LTBukra-Bold.ttf') format('truetype'),
+        url('29LTBukra-Bold.svg#29LTBukra-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: '29LT Bukra Md';
+    src: url('29LTBukra-Md.eot');
+    src: url('29LTBukra-Md.eot?#iefix') format('embedded-opentype'),
+        url('29LTBukra-Md.woff2') format('woff2'),
+        url('29LTBukra-Md.woff') format('woff'),
+        url('29LTBukra-Md.ttf') format('truetype'),
+        url('29LTBukra-Md.svg#29LTBukra-Md') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: '29LT Bukra SmBd';
+    src: url('29LTBukra-SmBd.eot');
+    src: url('29LTBukra-SmBd.eot?#iefix') format('embedded-opentype'),
+        url('29LTBukra-SmBd.woff2') format('woff2'),
+        url('29LTBukra-SmBd.woff') format('woff'),
+        url('29LTBukra-SmBd.ttf') format('truetype'),
+        url('29LTBukra-SmBd.svg#29LTBukra-SmBd') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: '29LT Bukra Md';
+    src: url('29LTBukra-Md_1.eot');
+    src: url('29LTBukra-Md_1.eot?#iefix') format('embedded-opentype'),
+        url('29LTBukra-Md_1.woff2') format('woff2'),
+        url('29LTBukra-Md_1.woff') format('woff'),
+        url('29LTBukra-Md_1.ttf') format('truetype'),
+        url('29LTBukra-Md_1.svg#29LTBukra-Md') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: '29LT Bukra';
+    src: url('29LTBukra-Bold_1.eot');
+    src: url('29LTBukra-Bold_1.eot?#iefix') format('embedded-opentype'),
+        url('29LTBukra-Bold_1.woff2') format('woff2'),
+        url('29LTBukra-Bold_1.woff') format('woff'),
+        url('29LTBukra-Bold_1.ttf') format('truetype'),
+        url('29LTBukra-Bold_1.svg#29LTBukra-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: '29LT Bukra Lt';
+    src: url('29LTBukra-Lt_1.eot');
+    src: url('29LTBukra-Lt_1.eot?#iefix') format('embedded-opentype'),
+        url('29LTBukra-Lt_1.woff2') format('woff2'),
+        url('29LTBukra-Lt_1.woff') format('woff'),
+        url('29LTBukra-Lt_1.ttf') format('truetype'),
+        url('29LTBukra-Lt_1.svg#29LTBukra-Lt') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: '29LT Bukra SmBd';
+    src: url('29LTBukra-SmBd_1.eot');
+    src: url('29LTBukra-SmBd_1.eot?#iefix') format('embedded-opentype'),
+        url('29LTBukra-SmBd_1.woff2') format('woff2'),
+        url('29LTBukra-SmBd_1.woff') format('woff'),
+        url('29LTBukra-SmBd_1.ttf') format('truetype'),
+        url('29LTBukra-SmBd_1.svg#29LTBukra-SmBd') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: '29LT Bukra Rg';
+    src: url('29LTBukra-Rg_1.eot');
+    src: url('29LTBukra-Rg_1.eot?#iefix') format('embedded-opentype'),
+        url('29LTBukra-Rg_1.woff2') format('woff2'),
+        url('29LTBukra-Rg_1.woff') format('woff'),
+        url('29LTBukra-Rg_1.ttf') format('truetype'),
+        url('29LTBukra-Rg_1.svg#29LTBukra-Rg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
