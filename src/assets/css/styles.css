@@ -464,7 +464,6 @@ span.social img {
 .tabUl {
   display: flex;
   align-items: center;
-  margin-top: 10px;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -2417,6 +2416,7 @@ h4.addressHeading {
   opacity: 1;
   margin: 10px 0 0 0;
   position: relative;
+  z-index:999;
 }
 span.editAdd {
   margin-right: 10px;

@@ -87,7 +87,7 @@ const ProfileSidebar = () => {
             </Link>
           </li>
           <li className={location.pathname === "/profile/saved-card" || location.pathname === "/profile/card-add" || location.pathname === `/profile/card-edit/${id}` ? "activated" : ""}>
-            <Link className="profileLinksTag">
+            <Link to="/profile/saved-card" className="profileLinksTag">
               <span className="iconName">
                 <img src={routIcon3} className="routIcon" />
               </span>

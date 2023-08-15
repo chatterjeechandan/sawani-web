@@ -161,5 +161,15 @@
   "Enter Note": "Enter Note",
   "Enter Unit": "Enter Unit",
   "Select": "Select",
-  "Choose": "Choose"
+  "Choose": "Choose",
+  "Full Name is required": "Full Name is required",
+  "Street is required": "Street is required",
+  "Building is required": "Building is required",
+  "Unit is required": "Unit is required",
+  "Unit should not exceed 10 characters": "Unit should not exceed 10 characters",
+  "City selection is required": "City selection is required",
+  "Region is required": "Region is required",
+  "Note should not exceed 200 characters": "Note should not exceed 200 characters",
+  "Phone Number is required": "Phone Number is required",
+  "City": "City"
 }

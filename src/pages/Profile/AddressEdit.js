@@ -75,7 +75,7 @@ const AddressEdit = () => {
   const validatename = (nameValue) => {
     const newErrors = {};
     if (!nameValue.trim()) {
-      newErrors.name = "Full Name is required";
+      newErrors.name = t("Full Name is required");
     } else {
       newErrors.name = "";
     }
@@ -90,7 +90,7 @@ const AddressEdit = () => {
     if (!phoneNumberValue.trim()) {
       newErrors.phone = "Phone Number is required";
     } else if (!phoneNumberValue.match(mobileFormat)) {
-      newErrors.phone = "Invalid mobile number format. Expected format: 9665XXXXXXXX where X is a digit.";
+      newErrors.phone = t("Invalid mobile number format. Expected format: 9665XXXXXXXX where X is a digit.");
     } else {
       newErrors.phone = "";
     }
@@ -101,7 +101,7 @@ const AddressEdit = () => {
   const validateStreet = (streetValue) => {
     const newErrors = {};
     if (!streetValue.trim()) {
-      newErrors.street = "Street is required";
+      newErrors.street = t("Street is required");
     } else {
       newErrors.street = "";
     }
@@ -112,7 +112,7 @@ const AddressEdit = () => {
   const validateBuilding = (buildingValue) => {
     const newErrors = {};
     if (!buildingValue.trim()) {
-      newErrors.building = "Building is required";
+      newErrors.building = t("Building is required");
     } else {
       newErrors.building = "";
     }
@@ -125,7 +125,7 @@ const AddressEdit = () => {
     if (!unitValue.trim()) {
       newErrors.unit = "Unit is required";
     } if (unitValue.length > 200) {
-      newErrors.note = "Unit should not exceed 10 characters";
+      newErrors.note = t("Unit should not exceed 10 characters");
     } else {
       newErrors.unit = "";
     }
@@ -136,7 +136,7 @@ const AddressEdit = () => {
   const validateCityId = (cityIdValue) => {
     const newErrors = {};
     if (!cityIdValue || cityIdValue === "defaultOption") {
-        newErrors.cityId = "City selection is required";
+        newErrors.cityId = t("City selection is required");
     } else {
         newErrors.cityId = "";
     }
@@ -147,7 +147,7 @@ const AddressEdit = () => {
   const validateRegion = (regionValue) => {
     const newErrors = {};
     if (!regionValue.trim()) {
-      newErrors.region = "Region is required";
+      newErrors.region = t("Region is required");
     } else {
       newErrors.region = "";
     }
@@ -159,7 +159,7 @@ const AddressEdit = () => {
     const newErrors = {};
     // You can have custom validation rules for notes if required
     if (noteValue.length > 200) {
-      newErrors.note = "Note should not exceed 200 characters";
+      newErrors.note = t("Note should not exceed 200 characters");
     } else {
       newErrors.note = "";
     }
@@ -310,7 +310,7 @@ const AddressEdit = () => {
         <div className="profileRightWraper">
           <div className="pointAnalysisWraper">
             <div className="pointTabWraper inputWrapers newAddressWraper">
-              <h4 className="addressHeading">Edit Address</h4>
+              <h4 className="addressHeading">{t("Edit Address")}</h4>
               <div className="addressListings gapTop">
                 <div className="indFields">
                   <label className="fieldLabel">{t("Full Name")} *</label>
