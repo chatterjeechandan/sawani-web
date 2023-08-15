@@ -140,7 +140,7 @@
 .menu-items.cartPopup {
   width: 377px;
   display: block;
-  z-index: 99;
+  z-index: 9999;
   left: auto;
   top: 50px;
   right:0;
