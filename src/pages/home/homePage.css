@@ -182,7 +182,7 @@ font-family: '29LT Bukra';
 
 .afterBanner.center .afterBannerCenterTextWraper {
   padding: 80px 50px;
-  background: transparent linear-gradient(180deg, #F6F2EC00 0%, #DCD4C9 20%, #DCD4C9 79%, #F6F2EC00 100%) 0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(180deg, #F6F2EC00 0%, #dcd4c9e0 20%, rgb(220 212 201 / 58%) 79%, #F6F2EC00 100%) 0% 0% no-repeat padding-box;
   width: 65%;
   margin: 50px auto;
   text-align: center;
@@ -845,12 +845,12 @@ font-family: '29LT Bukra';
   content: " ";
   position: absolute;
   z-index: 1;
-  bottom: 40px;
+  bottom: 55px;
   right: 42px;
   pointer-events: none;
   background-image: url("../../assets/images/oneBack.png");
-  width: 89%;
-  height: 25px;
+  width: 90%;
+  height: 26px;
   background-size: contain; 
 }
 
