@@ -2025,6 +2025,7 @@ img.profileCamel {
   position: absolute;
   bottom: 0;
   left: 25%;
+  cursor: pointer;
 }
 
 p.profileName {
@@ -2354,6 +2355,7 @@ span.pointsPercent {
 img.profile {
   width: 40px;
   margin-right: 10px;
+  margin-top: 1px;
 }
 p.profileNameHeader {
   letter-spacing: 0.35px;

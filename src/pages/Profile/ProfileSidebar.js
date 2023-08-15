@@ -1,6 +1,7 @@
 import React, {
   useState,
   useContext,
+  useRef
 } from "react";
 import { Link } from "react-router-dom";
 import profile from "../../assets/images/profile.png";
@@ -31,18 +32,65 @@ const ProfileSidebar = () => {
     setIsQrOpen(!isQrOpen);
   };
   const { t } = useTranslation();
+  const fileInputRef = useRef(null);
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64String = reader.result.replace("data:", "").replace(/^.+,/, "");
+      updateUserAvatar(base64String);
+     
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
+
+  const updateUserAvatar = async (img) => {
+    setIsLoading(true);
+    const updatedUserObject = {  ...loginResponse, "avatar": img };
+    const response = await updateAvatar(updatedUserObject);
+    if (response.succeeded) {
+      const userInfo = {...loginResponse,...response.data};
+      setLoginResponse(userInfo);
+      setIsLoading(false);
+    }
+  };
+
+  const handleIconClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
   return (
     <div className="profileSidebarWraper">
       <div className="sideProfileTop">
         <div className="profileImgWraper">
           <span className="profileImg">
+           { isLoading && (
+            <Loader
+            showOverlay={false}
+            size={15}
+            color="#000"
+            isLoading={false}
+          />
+           )} 
             <img src={
                 loginResponse?.avatar
-                  ? `data:image/png;base64,${loginResponse?.avatar}`
+                ? `${CONFIG.baseUrl}${loginResponse.avatar}`
                   : noUserImage
               } className="profileImages" alt="" />
-            <img src={profileIcon} className="profileCamel" alt="" />
+            <img src={profileIcon} className="profileCamel" alt="" onClick={handleIconClick} />
+            <input 
+              type="file" 
+              accept="image/*"
+              style={{ display: 'none' }} 
+              ref={fileInputRef} 
+              onChange={handleImageUpload} 
+            />
           </span>
           <p className="profileName">{loginResponse?.fullname}</p>
         </div>

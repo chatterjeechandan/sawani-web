@@ -30,6 +30,7 @@ import Loader from "../../../../components/common/Loader/Loader";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import noUserImage from "../../../../assets/images/no-user.png";
+import CONFIG from '../../../../config/site.config';
 
 const Header = forwardRef((props, ref) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -324,7 +325,7 @@ const Header = forwardRef((props, ref) => {
                   <img
                     src={
                       loginResponse.avatar
-                        ? `data:image/png;base64,${loginResponse.avatar}`
+                        ? `${CONFIG.baseUrl}${loginResponse.avatar}`
                         : noUserImage
                     }
                     className="profile"
