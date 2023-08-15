@@ -2,8 +2,9 @@ import React, { useState, useContext, useEffect, useRef, useMemo, forwardRef, us
 import Header from '../../components/common/layout/Header/Header';
 import Footer from '../../components/common/layout/Footer';
 import slideDown from "../../assets/images/scroll.png";
-import icon1 from "../../assets/images/icon1.png";
+import icon1 from "../../assets/images/milk.png";
 import icon2 from "../../assets/images/icon2.png";
+import icon3 from "../../assets/images/icon3.png";
 import demo1 from "../../assets/images/demo1.png";
 import sl1 from "../../assets/images/sl1.png";
 import sl2 from "../../assets/images/sl2.png";
@@ -13,10 +14,16 @@ import sl5 from "../../assets/images/sl5.png";
 import coconut from "../../assets/images/coconut.png";
 import cradle from "../../assets/images/cradle.png";
 import twiter from "../../assets/images/twitterSmall.png";
-import profile from "../../assets/images/profile.png";
+import profile from "../../assets/images/profileSm.png";
 import profile1 from "../../assets/images/profile1.png";
 import profile2 from "../../assets/images/profile2.png";
+import profile3 from "../../assets/images/profile3.png";
+import profile4 from "../../assets/images/profile4.png";
+import profile5 from "../../assets/images/profile5.png";
 import pots from "../../assets/images/potImg.png";
+import contact1 from "../../assets/images/contact1.png";
+import contact2 from "../../assets/images/contact2.png";
+import contact3 from "../../assets/images/contact3.png";
 import { Link } from 'react-router-dom';
 import  "./homePage.css";
 
@@ -63,7 +70,7 @@ const HomePage = () => {
           <h4>المستقبــــــل</h4>
         </div>
         <div className="slideDownBtnWraper">
-          <p>Slide down</p>
+          <p>تنزلق</p>
           <span className="scrollDown" onClick={scrollToBottom}>
             <img src={slideDown} alt="" />
           </span>
@@ -98,12 +105,12 @@ const HomePage = () => {
       <div className="sliderSection oneSlider" >
         <div className="rowSec">
           <div className="leftSection">
-            <div className="sliderWraper">
+            <div className="sliderWraper heartsBackdrop">
 
               <div className="individualSliders">
                 <div className="headingsWraper">
                   <span>
-                    <img src={icon2} alt="" />
+                    <img src={icon2} className='secIcons' alt="" />
                   </span>
                   <h4>الفوائد الصحية</h4>
                 </div>
@@ -118,7 +125,7 @@ const HomePage = () => {
             <div className="staticSection">
               <div className="headingsWraper">
                 <span>
-                  <img src={icon2} alt="" />
+                  <img src={icon3} className="thirdIcons" alt="" />
                 </span>
                 <h4>الفوائد الصحية</h4>
               </div>
@@ -131,7 +138,7 @@ const HomePage = () => {
             <div className="innerTextWraper">
               <div className="headingsWraper">
                 <span>
-                  <img src={icon1} alt="" />
+                  <img src={icon1} className='fstIcon' alt="" />
                 </span>
                 <h4>منتجاتنا</h4>
               </div>
@@ -233,10 +240,13 @@ const HomePage = () => {
                 <img src={profile2} className='profileImgs' alt='' />
               </span>
               <span className='profileImgs'>
-                <img src={profile1} className='profileImgs' alt='' />
+                <img src={profile3} className='profileImgs' alt='' />
               </span>
               <span className='profileImgs'>
-                <img src={profile2} className='profileImgs' alt='' />
+                <img src={profile4} className='profileImgs' alt='' />
+              </span>
+              <span className='profileImgs'>
+                <img src={profile5} className='profileImgs' alt='' />
               </span>
             </div>
           </div>
@@ -269,7 +279,27 @@ const HomePage = () => {
           <div className="rowSec">
             <div className='leftSection'>
               <div className='blocksWraper'>
-              <h3>المركز الاعلامي</h3>
+                <div className='headerSocial'>
+                <h3>المركز الاعلامي</h3>
+                <ul className='socialLinks'>
+                    <li>
+                      <a href=''>
+                      <img src={contact1} alt=''/>
+                      </a>
+                    </li>
+                    <li>
+                      <a href=''>
+                      <img src={contact2} alt=''/>
+                      </a>
+                    </li>
+                    <li>
+                      <a href=''>
+                      <img src={contact3} alt=''/>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              
               <div className='contactFormWraper'>
                 <div className='indField'>
                   <input className='formFieldsInput' type='text' placeholder='الاسم بالكامل' />

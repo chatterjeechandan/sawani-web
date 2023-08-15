@@ -7,6 +7,140 @@
 }
 
 
+
+@font-face {
+  font-family: '29LT Bukra Rg';
+  src: url('../font/29LTBukra-Rg.eot');
+  src: url('../font/29LTBukra-Rg.eot?#iefix') format('embedded-opentype'),
+      url('../font/29LTBukra-Rg.woff2') format('woff2'),
+      url('../font/29LTBukra-Rg.woff') format('woff'),
+      url('../font/29LTBukra-Rg.ttf') format('truetype'),
+      url('../font/29LTBukra-Rg.svg#29LTBukra-Rg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: '29LT Bukra Lt';
+  src: url('../font/29LTBukra-Lt.eot');
+  src: url('../font/29LTBukra-Lt.eot?#iefix') format('embedded-opentype'),
+      url('../font/29LTBukra-Lt.woff2') format('woff2'),
+      url('../font/29LTBukra-Lt.woff') format('woff'),
+      url('../font/29LTBukra-Lt.ttf') format('truetype'),
+      url('../font/29LTBukra-Lt.svg#29LTBukra-Lt') format('svg');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: '29LT Bukra';
+  src: url('../font/29LTBukra-Bold.eot');
+  src: url('../font/29LTBukra-Bold.eot?#iefix') format('embedded-opentype'),
+      url('../font/29LTBukra-Bold.woff2') format('woff2'),
+      url('../font/29LTBukra-Bold.woff') format('woff'),
+      url('../font/29LTBukra-Bold.ttf') format('truetype'),
+      url('../font/29LTBukra-Bold.svg#29LTBukra-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: '29LT Bukra Md';
+  src: url('../font/29LTBukra-Md.eot');
+  src: url('../font/29LTBukra-Md.eot?#iefix') format('embedded-opentype'),
+      url('../font/29LTBukra-Md.woff2') format('woff2'),
+      url('../font/29LTBukra-Md.woff') format('woff'),
+      url('../font/29LTBukra-Md.ttf') format('truetype'),
+      url('../font/29LTBukra-Md.svg#29LTBukra-Md') format('svg');
+  font-family: '29LT Bukra Md';
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: '29LT Bukra SmBd';
+  src: url('../font/29LTBukra-SmBd.eot');
+  src: url('../font/29LTBukra-SmBd.eot?#iefix') format('embedded-opentype'),
+      url('../font/29LTBukra-SmBd.woff2') format('woff2'),
+      url('../font/29LTBukra-SmBd.woff') format('woff'),
+      url('../font/29LTBukra-SmBd.ttf') format('truetype'),
+      url('../font/29LTBukra-SmBd.svg#29LTBukra-SmBd') format('svg');
+  font-family: '29LT Bukra';
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: '29LT Bukra Md';
+  src: url('../font/29LTBukra-Md_1.eot');
+  src: url('../font/29LTBukra-Md_1.eot?#iefix') format('embedded-opentype'),
+      url('../font/29LTBukra-Md_1.woff2') format('woff2'),
+      url('../font/29LTBukra-Md_1.woff') format('woff'),
+      url('../font/29LTBukra-Md_1.ttf') format('truetype'),
+      url('../font/29LTBukra-Md_1.svg#29LTBukra-Md') format('svg');
+  font-family: '29LT Bukra Md';
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: '29LT Bukra';
+  src: url('../font/29LTBukra-Bold_1.eot');
+  src: url('../font/29LTBukra-Bold_1.eot?#iefix') format('embedded-opentype'),
+      url('../font/29LTBukra-Bold_1.woff2') format('woff2'),
+      url('../font/29LTBukra-Bold_1.woff') format('woff'),
+      url('../font/29LTBukra-Bold_1.ttf') format('truetype'),
+      url('../font/29LTBukra-Bold_1.svg#29LTBukra-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: '29LT Bukra Lt';
+  src: url('../font/29LTBukra-Lt_1.eot');
+  src: url('../font/29LTBukra-Lt_1.eot?#iefix') format('embedded-opentype'),
+      url('../font/29LTBukra-Lt_1.woff2') format('woff2'),
+      url('../font/29LTBukra-Lt_1.woff') format('woff'),
+      url('../font/29LTBukra-Lt_1.ttf') format('truetype'),
+      url('../font/29LTBukra-Lt_1.svg#29LTBukra-Lt') format('svg');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: '29LT Bukra SmBd';
+  src: url('../font/29LTBukra-SmBd_1.eot');
+  src: url('../font/29LTBukra-SmBd_1.eot?#iefix') format('embedded-opentype'),
+      url('../font/29LTBukra-SmBd_1.woff2') format('woff2'),
+      url('../font/29LTBukra-SmBd_1.woff') format('woff'),
+      url('../font/29LTBukra-SmBd_1.ttf') format('truetype'),
+      url('../font/29LTBukra-SmBd_1.svg#29LTBukra-SmBd') format('svg');
+  font-family: '29LT Bukra';
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: '29LT Bukra Rg';
+  src: url('../font/29LTBukra-Rg_1.eot');
+  src: url('../font/29LTBukra-Rg_1.eot?#iefix') format('embedded-opentype'),
+      url('../font/29LTBukra-Rg_1.woff2') format('woff2'),
+      url('../font/29LTBukra-Rg_1.woff') format('woff'),
+      url('../font/29LTBukra-Rg_1.ttf') format('truetype'),
+      url('../font/29LTBukra-Rg_1.svg#29LTBukra-Rg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
+
 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -27,7 +161,7 @@
 
 body,
 html {
-  font-family: "Bukra", sans-serif;
+  font-family: '29LT Bukra Rg';
   font-size: 14px;
   line-height: 1.78em;
   color: #000;
@@ -247,7 +381,7 @@ input:-internal-autofill-selected {
   margin: 20px 5px 0 10px;
   cursor: pointer;
   font-size: 13px;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
 }
 .rowWraper.secondRow {
   width: 100%;
@@ -448,7 +582,7 @@ span.headingContents p {
   margin: 0 auto;
   text-align: center;
   font-size: 25px;
-  font-weight: 600;
+  font-family: '29LT Bukra';
   left: 0;
   right: 0;
   margin-left: auto;
@@ -563,7 +697,7 @@ h2.brownHeading {
   font-size: 17px;
   margin-bottom: 35px;
   padding: 0 43px;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
 }
 
 /* ProductListing page */
@@ -590,7 +724,7 @@ h2.brownHeading {
 span.selectText {
   font-size: 16px;
   color: #1a1818;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
 }
 span.selectIcons {
   height: 30px;
@@ -671,13 +805,13 @@ ul.customDropdown li span.selectIcons {
   margin: 0 45px 0 0;
   cursor: pointer;
   color: #000000;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   font-weight: 16px;
 }
 .productSubLists li:hover,
 .productSubLists li.active {
   text-decoration: underline;
-  font-weight: 600;
+  font-family: '29LT Bukra';
 }
 .filterSections {
   margin-left: auto;
@@ -736,7 +870,7 @@ span.productInfoDetails {
 }
 .productInfoDetails h5 {
   font-size: 18px;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   color: #000000;
 }
 .productInfoDetails p {
@@ -808,7 +942,7 @@ p.productDescription {
   color: #000000;
   font-size: 16px;
   line-height: 20px;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   margin-bottom: 50px;
   padding-right: 50px;
   letter-spacing: 0.5px;
@@ -864,14 +998,14 @@ p.infoHeading {
 
 span.infoValues {
   margin-left: auto;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   color: #0d1d29;
   font-size: 14px;
   width: 8%;
   text-align: center;
 }
 span.infoName {
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   color: #0d1d29;
   font-size: 14px;
   margin-right: auto;
@@ -986,7 +1120,7 @@ input[type="number"] {
 span.qtyText {
   color: #0d1d29;
   font-size: 12px;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   padding-top: 5px;
   margin-left: auto;
 }
@@ -1095,7 +1229,7 @@ span.counterInput input {
   text-align: center;
   font-size: 16px;
   background: #c0843e;
-  font-weight: 600;
+  font-family: '29LT Bukra';
   color: #fff;
 }
 .productNamePrice {
@@ -1106,7 +1240,7 @@ span.counterInput input {
 .productNamePrice h5 {
   font-size: 14px;
   color: #000000;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
 }
 .productNamePrice p {
   font-size: 12px;
@@ -1150,7 +1284,7 @@ span.counterInput input {
 .checkoutProductHeading {
   font-size: 22px;
   color: #1a1818;
-  font-weight: 600;
+  font-family: '29LT Bukra';
   margin-bottom: 25px;
   padding-bottom: 25px;
   border-bottom: 1px solid #aaaaaa;
@@ -1205,13 +1339,13 @@ span.deleteSpan img {
 
 h5.indCartProductName {
   font-size: 16px;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   line-height: 1.2;
 }
 
 p.productPriceInd {
   font-size: 15px;
-  font-weight: 600;
+  font-family: '29LT Bukra';
   margin-bottom: 15px;
 }
 p.productPriceInd span {
@@ -1255,7 +1389,7 @@ span.counterWraper.checkoutcounters span.counterInput input {
   background: #f5f2ea;
   color: #2f1f15;
   font-size: 14px;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   height: 42px;
 }
 .customizeFilter.checkoutPage ul.customDropdown {
@@ -1275,12 +1409,12 @@ span.counterWraper.checkoutcounters span.counterInput input {
 }
 .customizeFilter.checkoutPage ul.customDropdown li:hover span.selectText {
   color: #b7864c;
-  font-weight: 600;
+  font-family: '29LT Bukra';
 }
 
 .customizeFilter.checkoutPage .customizeFilterDisplay span.selectText {
   font-size: 13px;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   width: 95%;
 }
 
@@ -1294,7 +1428,7 @@ span.counterWraper.checkoutcounters span.counterInput input {
 
 span.totalHeading,
 span.totalPrice {
-  font-weight: 600;
+  font-family: '29LT Bukra';
   font-size: 14px;
   color: #1a1818;
 }
@@ -1333,7 +1467,7 @@ span.subPoints {
   text-decoration: underline;
   margin-left: 5px;
   cursor: pointer;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
 }
 
 span.totalPrice.points {
@@ -1366,7 +1500,7 @@ span.totalPrice.points {
 
 span.subHeading {
   font-size: 16px;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   color: #1a1818;
 }
 
@@ -1420,7 +1554,7 @@ span.paymentIcons {
 }
 span.paymentname {
   color: #000000;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   font-size: 14px;
 }
 span.arrowRight {
@@ -1442,7 +1576,7 @@ span.arrowRight {
   color: #fff;
   width: 100%;
   float: left;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   font-size: 14px;
   border-radius: 25px;
   border: none;
@@ -1465,7 +1599,7 @@ span.arrowRight {
 .paginationWrapers p {
   color: #000;
   font-size: 14px;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   margin-bottom: 11px;
   padding-right: 5px;
 }
@@ -1473,7 +1607,7 @@ span.arrowRight {
   display: inline-block;
   margin-right: 8px;
   font-size: 14px;
-  font-weight: 400;
+  font-family: '29LT Bukra Rg';
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -1487,7 +1621,7 @@ span.arrowRight {
 }
 .paginationUl li.current-page {
   color: #b7864c;
-  font-weight: 600;
+  font-family: '29LT Bukra';
   border: none;
 }
 .paginationUl li:hover {
@@ -1903,7 +2037,7 @@ p.profileName {
   color: #000000;
   opacity: 1;
   font-size: 14px;
-  font-weight: 600;
+  font-family: '29LT Bukra';
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -1949,7 +2083,7 @@ p.converstionRate {
   margin-bottom: 8px;
 }
 p.converstionRate span {
-  font-weight: 600;
+  font-family: '29LT Bukra';
   color: #a592b5;
 }
 
@@ -1974,7 +2108,7 @@ p.numberInfo {
   letter-spacing: 0.31px;
   color: #ffffff;
   opacity: 1;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
 }
 img.codeScan {
   width: 16px;
@@ -1993,7 +2127,7 @@ span.nameLink {
   letter-spacing: 0.28px;
   color: #000000;
   opacity: 1;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
 }
 ul.profileRouts li:last-child {
   border-bottom: none;
@@ -2034,7 +2168,7 @@ button.refferBtn {
   color: #fff;
   padding: 8px 28px;
   font-size: 16px;
-  font-weight: 600;
+  font-family: '29LT Bukra';
   float: right;
 }
 .pointAnalysisWraper {
@@ -2103,7 +2237,7 @@ button.refferBtn {
 }
 .pointsTabs li.activeTab,
 .pointsTabs li:hover {
-  font-weight: 600;
+  font-family: '29LT Bukra';
   border-bottom: 1px solid #b7864c;
 }
 
@@ -2121,7 +2255,7 @@ p.earnedInfos span {
   opacity: 1;
   font-size: 12px;
   padding: 6px 18px;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   margin: 0 auto 25px;
 }
 .pointDislayWraper {
@@ -2174,7 +2308,7 @@ p.pointsNames {
   left: 50%;
   transform: translate(-50%, -50%);
   color: #000;
-  font-weight: 600;
+  font-family: '29LT Bukra';
   font-size: 12px;
 }
 
@@ -2184,7 +2318,7 @@ p.equalConversion {
   left: 50%;
   transform: translate(-50%, -50%);
   color: #000;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   font-size: 12px;
 }
 p.equalConversion span {
@@ -2228,7 +2362,7 @@ p.profileNameHeader {
   opacity: 1;
   margin-right: auto;
   font-size: 15px;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
 }
 .orderNowBtns {
   background: #7a619d;
@@ -2259,7 +2393,7 @@ p.profileNameHeader {
   text-align: right;
   font-size: 12px;
   cursor: pointer;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   width: 100%;
   float: right;
 }
@@ -2272,7 +2406,7 @@ h4.addressHeading {
   color: #000000;
   opacity: 1;
   font-size: 14px;
-  font-weight: 600;
+  font-family: '29LT Bukra';
 }
 .indAddressList {
   width: 100%;
@@ -2340,7 +2474,7 @@ p.saudiWraper img {
   padding-right: 15px;
 }
 .notBold {
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
 }
 .indCard {
   width: 100%;
@@ -2368,11 +2502,11 @@ p.saudiWraper img {
 }
 p.cardNumber {
   font-size: 15px;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
 }
 p.cardname {
   font-size: 14px;
-  font-weight: 600;
+  font-family: '29LT Bukra';
   display: none;
 }
 .indCard.activated p.cardname {
@@ -2391,7 +2525,7 @@ p.cardname {
 }
 .favouritetabWraper span {
   font-size: 14px;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   letter-spacing: 0.28px;
   color: #0d1d29;
   opacity: 1;
@@ -2399,7 +2533,7 @@ p.cardname {
   border-bottom: 2px solid transparent;
 }
 .favouritetabWraper span.activates {
-  font-weight: 600;
+  font-family: '29LT Bukra';
   border-bottom: 2px solid #b7864c;
 }
 .tabContents {
@@ -2553,7 +2687,7 @@ p.changePassOptions {
   margin-bottom: 10px;
   cursor: pointer;
   font-size: 12px;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
 }
 
 .pointTabWraper.inputWrapers.newAddressWraper .addressListings {
@@ -2669,7 +2803,7 @@ label.fieldLabel.switchOptions {
 p.contactPagePara {
   text-align: center;
   color: #f5f2ea;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   margin-bottom: 30px;
 }
 .contactPageImg {
@@ -2702,7 +2836,7 @@ textarea.foeldInputsTextarea {
   padding: 14px 35px;
   border: none;
   cursor: pointer;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
 }
 
 .contactUsWraper::after {
@@ -2725,7 +2859,7 @@ ul.profileRouts li a {
   color: #1a1818;
   opacity: 1;
   font-size: 14px;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   margin-top: 15px;
   text-align: center;
 }
@@ -2733,7 +2867,7 @@ p.barCodeHeadingP {
   width: 100%;
   float: left;
   text-align: center;
-  font-weight: 500;
+  font-family: '29LT Bukra Md';
   margin-bottom: 10px;
 }
 p.barCodeHeadingP span {
@@ -3157,7 +3291,7 @@ body.lang-ar .footerMenu ul li {
     font-size: 16px;
     margin-bottom: 35px;
     padding: 0 15px;
-    font-weight: 500;
+    font-family: '29LT Bukra Md';
   }
 }
 
@@ -3651,5 +3785,5 @@ body.lang-ar span.delBtnWraper {
 
 ul.profileRouts li.activated a span.nameLink {
   color: #B7864C;
-  font-weight: 600;
+  font-family: '29LT Bukra';
 }
