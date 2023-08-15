@@ -11,6 +11,8 @@ import sl2 from "../../assets/images/sl2.png";
 import sl3 from "../../assets/images/sl3.png";
 import sl4 from "../../assets/images/sl4.png";
 import sl5 from "../../assets/images/sl5.png";
+import leftControl from "../../assets/images/left.png";
+import rightControl from "../../assets/images/right.png";
 import coconut from "../../assets/images/coconut.png";
 import cradle from "../../assets/images/cradle.png";
 import twiter from "../../assets/images/twitterSmall.png";
@@ -106,7 +108,16 @@ const HomePage = () => {
         <div className="rowSec">
           <div className="leftSection">
             <div className="sliderWraper heartsBackdrop">
-
+              <span className='sliderControls'>
+                  <span className='leftControl'>
+                    <img src={leftControl} className='controlImgs' alt='' />
+                  </span>
+                <span className='rightControl'>
+                <span className='leftControl'>
+                    <img src={rightControl} className='controlImgs' alt='' />
+                  </span>
+                </span>
+              </span>
               <div className="individualSliders">
                 <div className="headingsWraper">
                   <span>
@@ -189,6 +200,13 @@ const HomePage = () => {
               </li>
              </ul>
             </div>
+          </div>
+          <div className='sliderDots'>
+            <ul className='sliderDotsUl'>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
           </div>
           <div className='sliderThumbnail'>
             <ul className='sliderThumbUl'>
