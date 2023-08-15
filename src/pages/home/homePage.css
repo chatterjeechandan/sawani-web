@@ -131,15 +131,15 @@ font-family: '29LT Bukra';
 .afterBanner.left .afterBannerTextWraper {
   width: 50%;
   float: left;
-  padding: 20px 50px 20px 15%;
+  padding: 40px 50px 40px 15%;
   background: transparent
-    linear-gradient(
-      180deg,
-      rgba(183, 134, 76, 1) 0%,
-      rgba(222, 200, 174, 0.45) 75%,
-      rgba(253, 253, 253, 0) 100%
-    )
-    0% 0% no-repeat padding-box;
+  linear-gradient(
+    180deg,
+    rgb(183 134 76 / 75%) 0%,
+    rgba(222, 200, 174, 0.35) 75%,
+    rgba(253, 253, 253, 0) 100%
+  )
+  0% 0% no-repeat padding-box;
   opacity: 1;
 }
 
@@ -157,15 +157,15 @@ font-family: '29LT Bukra';
 .afterBanner.right .afterBannerTextWraper {
   width: 50%;
   float: right;
-  padding: 20px 15% 20px 50px;
+  padding: 40px 15% 40px 50px;
   background: transparent
-    linear-gradient(
-      180deg,
-      rgba(183, 134, 76, 1) 0%,
-      rgba(222, 200, 174, 0.45) 71%,
-      rgba(253, 253, 253, 0) 100%
-    )
-    0% 0% no-repeat padding-box;
+  linear-gradient(
+    180deg,
+    rgb(183 134 76 / 75%) 0%,
+    rgba(222, 200, 174, 0.35) 75%,
+    rgba(253, 253, 253, 0) 100%
+  )
+  0% 0% no-repeat padding-box;
   opacity: 1;
 }
 .afterBanner.center {
