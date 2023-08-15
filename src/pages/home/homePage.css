@@ -1094,3 +1094,35 @@ ul.tabUlWrapers li {
 .headerSocial h3 {
   margin-bottom: 0!important;
 }
+
+/* Slider Controls css */
+span.sliderControls {
+  position: absolute;
+    right: 5px;
+    top: 20px;
+}
+span.leftControl {
+  cursor: pointer;
+  margin-right: 5px;
+}
+span.rightControl {
+  cursor: pointer;
+  margin-left: 5px;
+}
+.sliderThumbnail {
+  width: 100%;
+  float: left;
+}
+.sliderDots {
+  width: 100%;
+  float: left;
+  text-align: center;
+  /* padding: 10px; */
+}
+ul.sliderDotsUl li {
+  height: 8px;
+  width: 8px;
+  background: #b0abab;
+  margin: 0 14px;
+  cursor: pointer;
+}
