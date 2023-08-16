@@ -325,7 +325,7 @@ const Header = forwardRef((props, ref) => {
                   <img
                     src={
                       loginResponse.avatar
-                        ? `${CONFIG.baseUrl}${loginResponse.avatar}`
+                        ? `${CONFIG.baseUrl}/${loginResponse.avatar}`
                         : noUserImage
                     }
                     className="profile"

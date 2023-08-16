@@ -80,7 +80,7 @@ const ProfileSidebar = () => {
            )} 
             <img src={
                 loginResponse?.avatar
-                ? `${CONFIG.baseUrl}${loginResponse.avatar}`
+                ? `${CONFIG.baseUrl}/${loginResponse.avatar}`
                   : noUserImage
               } className="profileImages" alt="" />
             <img src={profileIcon} className="profileCamel" alt="" onClick={handleIconClick} />

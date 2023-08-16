@@ -283,7 +283,7 @@ const EditProfile = () => {
                     name="fullName"
                     value={userInfo.fullName}
                     onChange={handleInputChange}
-                    maxLength={20}
+                    maxLength={50}
                   />
                 </div>
                 {errors.fullName && (

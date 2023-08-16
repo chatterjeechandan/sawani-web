@@ -121,11 +121,12 @@ const AddressEdit = () => {
   };
   
   const validateUnit = (unitValue) => {
+    console.log(unitValue);
     const newErrors = {};
     if (!unitValue.trim()) {
-      newErrors.unit = "Unit is required";
-    } if (unitValue.length > 200) {
-      newErrors.note = t("Unit should not exceed 10 characters");
+      newErrors.unit = t("Unit is required");
+    } else if (unitValue.length > 10) {
+      newErrors.unit = t("Unit should not exceed 10 characters");
     } else {
       newErrors.unit = "";
     }
@@ -243,7 +244,7 @@ const AddressEdit = () => {
         } else {
             setToaster({
               type: "error",
-              message: t("Failed to get latitude and longitude"),
+              message: t("Address is not valid!"),
               duration: 3000,
             });
         }
@@ -369,7 +370,7 @@ const AddressEdit = () => {
                     <p className="errorText">{errors.building}</p>
                 )}
                 <div className="indFields">
-                  <label className="fieldLabel">{t("unit")}</label>
+                  <label className="fieldLabel">{t("unit")} *</label>
                   <input
                     className="foeldInputs"
                     type="text"
@@ -383,7 +384,7 @@ const AddressEdit = () => {
                     <p className="errorText">{errors.unit}</p>
                 )}
                 <div className="indFields">
-                  <label className="fieldLabel">{t("City")}</label>
+                  <label className="fieldLabel">{t("City")} *</label>
                   {isInlineLoading ? (
                      <div className="inlineloader">
                       <Loader
