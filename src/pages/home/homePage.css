@@ -505,12 +505,14 @@ ul.tabUlWrapers li.active:after {
 }
 .tabContentWrapers {
   width: 80%;
-  margin: 0 auto;
+  margin: 0 auto; 
+  position: relative;
 }
 .sliderTabsInfoWraper {
   display: flex;
   align-items: center;
   width: 100%;
+  position: relative;
   float: left;
 }
 span.profileImgs {
@@ -518,76 +520,82 @@ span.profileImgs {
   position: relative;
   overflow: hidden;
 }
-span.profileImgs:first-child, span.profileImgs:nth-child(3) {
+span.profileImgs.first {
   padding-bottom: 50px;
 }
-span.profileImgs:nth-child(2), span.profileImgs:nth-child(4) {
+span.profileImgs.third {
+  padding-bottom: 50px;
+}
+span.profileImgs.second {
   padding-top: 50px;
 }
- span.profileImgs:nth-child(5) {
+span.profileImgs.fourth {
+  padding-top: 50px;
+}
+ span.profileImgs.fifth {
   padding-bottom: 50px;
 }
 span.profileImgs img {
   width: 240px;
 }
-span.profileImgs:first-child::after {
+span.profileImgs.first::after {
   content: " ";
   position: absolute;
   z-index: 1;
-  bottom: 0;
+  bottom: 8px;
   right: 0;
   pointer-events: none;
   background-image: url("../../assets/images/oneBack.png");
-  width: 221px;
-  height: 50px;
+  width: 195px;
+  height: 40px;
   background-size: cover; 
 }
-span.profileImgs:nth-child(2)::before {
+span.profileImgs.second::before {
   content: " ";
   position: absolute;
   z-index: 1;
-  top: 0;
+  top: 0px;
   right: 0;
   pointer-events: none;
   background-image: url("../../assets/images/fourBack.png");
-  width: 221px;
-  height: 50px;
+  width: 195px;
+  height: 40px;
   background-size: cover; 
 }
-span.profileImgs:nth-child(3)::after {
+span.profileImgs.third::after {
   content: " ";
   position: absolute;
   z-index: 1;
-  bottom: 0;
+  bottom: 8px;
   right: 0;
   pointer-events: none;
   background-image: url("../../assets/images/threeBack.png");
-  width: 230px;
-  height: 50px;
+  width: 195px;
+  height: 40px;
   background-size: cover; 
 }
-span.profileImgs:nth-child(4)::before {
+span.profileImgs.fourth::before {
   content: " ";
   position: absolute;
   z-index: 1;
-  top: 0;
+  top: 0px;
   right: 0;
   pointer-events: none;
   background-image: url("../../assets/images/fourBack.png");
-  width: 221px;
-  height: 50px;
+  width: 195px;
+  height: 40px;
   background-size: cover; 
 }
-span.profileImgs:nth-child(5)::after {
+span.profileImgs.fifth::after {
   content: " ";
   position: absolute;
   z-index: 1;
-  bottom: 0;
+  bottom: 8px;
   right: 0;
   pointer-events: none;
   background-image: url("../../assets/images/fiveBack.png");
-  width: 221px;
-  height: 50px;
+  width: 195px;
+  height: 40px;
   background-size: cover; 
 }
 
@@ -1125,4 +1133,17 @@ ul.sliderDotsUl li {
   background: #b0abab;
   margin: 0 14px;
   cursor: pointer;
+}
+span.slideMainBtnLeft {
+  position: absolute;
+  left: -60px;
+  top: 38%;
+}
+span.slideMainBtnRight {
+  position: absolute;
+  right: -60px;
+  top: 38%;
+}
+img.slideBtns {
+  width: 50px;
 }

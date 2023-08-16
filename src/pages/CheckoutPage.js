@@ -313,11 +313,19 @@ const Checkout = () => {
   };
 
   const handleSelectPaymentMethod = (option) => {
+    if (typeof option === "string") {
     setSelectedPaymentMethod(JSON.parse(option));
+    } else {
+      setSelectedPaymentMethod(option);
+    }
   };
 
   const handleSelectOnePayMethod = (option) => {
-    setSelectedOnePayMethod(JSON.parse(option));
+    if (typeof option === "string") {
+      setSelectedOnePayMethod(JSON.parse(option));
+    } else {
+      setSelectedOnePayMethod(option);
+    }
   };
 
   const imageUrls = [r1, r2, r3];

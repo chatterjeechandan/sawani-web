@@ -23,7 +23,7 @@ const SavedCardList = () => {
               </h4>
               <div className="addressListings">
                 <p className="addAddress">
-                  <Link to="/card-add" className="profileLinksTag">
+                  <Link to="/profile/card-add" className="profileLinksTag">
                     + {t("Add New Card")}
                   </Link>
                 </p>

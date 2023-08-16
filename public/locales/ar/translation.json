@@ -163,5 +163,15 @@
   "Enter Building": "أدخل المبنى",
   "Enter Note": "أدخل الملاحظة",
   "Enter Unit": "أدخل الوحدة",
-  "Choose": "اختر"
+  "Choose": "اختر",
+  "Full Name is required" : "الاسم الكامل مطلوب",
+  "Street is required" : "الشارع مطلوب",
+  "Building is required" : "المبنى مطلوب",
+  "Unit is required" : "الوحدة مطلوبة",
+  "Unit should not exceed 10 characters" : "يجب ألا تتجاوز الوحدة 10 أحرف",
+  "City selection is required" : "اختيار المدينة مطلوب",
+  "Region is required" : "المنطقة مطلوبة",
+  "Note should not exceed 200 characters" : "يجب ألا تتجاوز الملاحظة 200 حرف",
+  "Phone Number is required": "رقم الهاتف مطلوب",
+  "City": "مدينة"
 }
