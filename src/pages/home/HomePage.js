@@ -26,6 +26,8 @@ import pots from "../../assets/images/potImg.png";
 import contact1 from "../../assets/images/contact1.png";
 import contact2 from "../../assets/images/contact2.png";
 import contact3 from "../../assets/images/contact3.png";
+import SlideLeft from "../../assets/images/leftSlideMain.png";
+import SlideRight from "../../assets/images/rightSlideMain.png";
 import { Link } from 'react-router-dom';
 import  "./homePage.css";
 
@@ -251,20 +253,26 @@ const HomePage = () => {
           </div>
           <div className='tabContentWrapers'>
             <div className='sliderTabsInfoWraper'>
-              <span className='profileImgs'>
-                <img src={profile1} className='profileImgs' alt='' />
+              <span className='slideMainBtnLeft'>
+                <img src={SlideLeft} className='slideBtns' />
               </span>
-              <span className='profileImgs'>
-                <img src={profile2} className='profileImgs' alt='' />
+              <span className='slideMainBtnRight'>
+              <img src={SlideRight} className='slideBtns' />
               </span>
-              <span className='profileImgs'>
-                <img src={profile3} className='profileImgs' alt='' />
+              <span className='profileImgs first'>
+                <img src={profile1} className='profileImgsPic' alt='' />
               </span>
-              <span className='profileImgs'>
-                <img src={profile4} className='profileImgs' alt='' />
+              <span className='profileImgs second'>
+                <img src={profile2} className='profileImgsPic' alt='' />
               </span>
-              <span className='profileImgs'>
-                <img src={profile5} className='profileImgs' alt='' />
+              <span className='profileImgs third'>
+                <img src={profile3} className='profileImgsPic' alt='' />
+              </span>
+              <span className='profileImgs fourth'>
+                <img src={profile4} className='profileImgsPic' alt='' />
+              </span>
+              <span className='profileImgs fifth'>
+                <img src={profile5} className='profileImgsPic' alt='' />
               </span>
             </div>
           </div>
