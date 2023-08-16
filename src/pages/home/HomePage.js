@@ -58,7 +58,7 @@ const HomePage = () => {
       const footerHeight = 370;
       const offset = 20;
       const footerStartPoint = document.body.scrollHeight - window.innerHeight - footerHeight + offset;
-      if (window.scrollY >= 480 && window.scrollY < footerStartPoint) {
+      if (window.scrollY >= 110 && window.scrollY < footerStartPoint) {
         setScrolled(true);
       } else {
         setScrolled(false);
