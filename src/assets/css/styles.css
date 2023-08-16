@@ -3281,7 +3281,11 @@ body.lang-ar .blockImgs {
 
 body.lang-ar .subProfileInfo {
   float: right;
-    flex-direction: revert;
+  flex-direction: revert;
+}
+
+body.lang-ar p.subParaP {
+  text-align: right;
 }
 
 @media only screen and (max-width: 991px) {
