@@ -1179,12 +1179,12 @@ body.lang-ar .indPointsMini {
   text-align: right;
 }
 body.lang-ar ul.tabUlWrapers li:first-child {
-  margin-left: unset;
+  margin-right: 16px;
   margin-left: 16px;
 }
 
 body.lang-ar ul.tabUlWrapers li:last-child {
-  margin-right: unset;
+  margin-right: 16px;
   margin-left: 16px;
 }
 
