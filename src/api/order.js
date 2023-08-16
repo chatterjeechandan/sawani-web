@@ -27,3 +27,7 @@ export function checkout(orderId) {
 export function getOrder(id) {
     return fetchData(`order/${id}`);
 }
+
+export function updateAnonymousOrder(orderId,userId) {
+    return updateData(`order/${orderId}/order_anonymous_user/${userId}`);
+}

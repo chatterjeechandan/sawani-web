@@ -43,3 +43,11 @@ export function deleteCustomerAddress(Id) {
 export function updateAddress(Id, payload) {
   return updateData(`customer/addresses/${Id}`, payload);
 }
+
+export function checkAnonymousUserMob(mob) {
+  return fetchData(`customer/check_exist/${mob}`);
+}
+
+export function createAnonymousUser(payload) {
+  return postData(`customer/anonymous`, payload);
+}

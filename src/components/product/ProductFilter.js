@@ -140,27 +140,27 @@ const ProductFilter = ({
             <img src={dropimg} alt="" />
           </span> */}
            <div className="dropdown sort-drop" ref={shortDropdownRef}>
-      <div className="customizeFilterDisplay" onClick={() => setSortdropDownOpen(!sortdropDownOpen)}>
-        <span className="selectText">
-          {selectedSort ? t(selectedSort.label) : "Select Sorting"}
-        </span>
-        <span className="dropImages">
-          <img src={dropimg} alt="arrow" />
-        </span>
-      </div>
-      {sortdropDownOpen && (
-        <ul className="customDropdown">
-          {sorts.map((sort) => (
-            <li
-              key={sort.value}
-              onClick={(e) => handleShortSelectChange(e,sort)}
-            >
-              <span className="selectText">{sort.label}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+            <div className="customizeFilterDisplay" onClick={() => setSortdropDownOpen(!sortdropDownOpen)}>
+              <span className="selectText">
+                {selectedSort ? t(selectedSort.label) : "Select Sorting"}
+              </span>
+              <span className="dropImages">
+                <img src={dropimg} alt="arrow" />
+              </span>
+            </div>
+            {sortdropDownOpen && (
+              <ul className="customDropdown">
+                {sorts.map((sort) => (
+                  <li
+                    key={sort.value}
+                    onClick={(e) => handleShortSelectChange(e,sort)}
+                  >
+                    <span className="selectText">{sort.label}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </span>
       </div>
     </div>

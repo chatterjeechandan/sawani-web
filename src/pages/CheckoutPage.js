@@ -33,11 +33,13 @@ import {
   updatePaymentMethod,
   addPayment,
   checkout,
+  updateAnonymousOrder
 } from "../api/order";
 import { useNavigate, useLocation } from "react-router-dom";
 import CONFIG from '../config/site.config';
-import { getCusertomerDetails } from "../api/customer";
+import { getCusertomerDetails, checkAnonymousUserMob, createAnonymousUser } from "../api/customer";
 import { useTranslation } from "react-i18next";
+
 
 const Checkout = () => {
   const [dropDownOpen, setDropDownOpen] = useState(false);
@@ -108,7 +110,7 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    if (!cartItems || cartItems?.items?.length == 0) {
+    if ((!cartItems || cartItems?.items?.length == 0) && !payres) {
       navigate("/in-store");
     }
     getDeliveryMethods();
@@ -334,7 +336,7 @@ const Checkout = () => {
     setToaster(null);
   };
 
-  const submitOrder = () => {
+  const submitOrder = async  () => {
     if (!firstName) {
       setToaster({
         type: "error",
@@ -361,6 +363,13 @@ const Checkout = () => {
         )
       );
       return;
+    }
+
+    if (!loginResponse) {
+      const canProceed = await checkAnonymousUser();
+      if (!canProceed) {
+        return false;
+      }
     }
 
     if (!selectedDeliveryOption) {
@@ -396,7 +405,7 @@ const Checkout = () => {
       const paymentPayload = {
         containerID: "root",
         gateway: {
-          publicKey: "pk_test_Vlk842B1EA7tDN5QbrfGjYzh",
+          publicKey: `${CONFIG.tapPubKey}`,
           supportedCurrencies: "SAR",
           supportedPaymentMethods: "all",
           labels: {
@@ -467,6 +476,28 @@ const Checkout = () => {
     }
   };
 
+  const checkAnonymousUser = async () => {
+    setIsLoading(true);
+    try {
+      const response = await checkAnonymousUserMob(phone);
+      setIsLoading(false);
+      if(response){
+        setToaster({
+          type: "error",
+          message: t("Mobile number already exists! Please login into your account"),
+          duration: 3000,
+        });
+        return false;
+      }
+      else {
+        return true;
+      }
+    } catch (error) {
+      console.error("Error fetching favourite producucts:", error);
+    }
+  }
+
+
   const handleResponseError = (response) => {
     setIsLoading(false);
     if (response.errors) {
@@ -531,7 +562,21 @@ const Checkout = () => {
       if (!initialResponse.succeeded)
         return handleResponseError(initialResponse);
 
-      const orderId = initialResponse.data.id;
+        const orderId = initialResponse.data.id;
+
+        const storedLoginInfo = localStorage.getItem("loginInfo");
+
+      if (!storedLoginInfo) {
+        const createAnonymousUserPayload= {
+          "name": firstName,
+          "mobile": phone
+        }
+        const createAnonymousUserResponse = await createAnonymousUser(createAnonymousUserPayload);
+        
+        if(createAnonymousUserResponse){
+          const updateAnonymousOrderResponse = await updateAnonymousOrder(orderId, createAnonymousUserResponse.id);
+        }
+      }
 
       const deliveryMethodResponse = await updatedeliveryMethod(orderId, {
         id: selectedDeliveryOption,

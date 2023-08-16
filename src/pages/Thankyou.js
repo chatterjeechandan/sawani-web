@@ -10,6 +10,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getOrder } from "../api/order";
 import placeholderImage from "../assets/images/no-image.png";
 import { useTranslation } from "react-i18next";
+import CONFIG from '../config/site.config';
 
 const ThankYou = () => {
     const { id } = useParams();
@@ -59,7 +60,7 @@ const ThankYou = () => {
                         <p className="thanksP">{t("Thank you for your order!")}</p>
                         <h5 className="thanksPrder">{t("Show this code to pick up")}<br /> {t("your order")}</h5>
                         <div className="qrCodeWraper">
-                            {isLoading?<Loader showOverlay={false} size={20} color="#000" isLoading={false} />:<img src={`https://sawaniapi.azurewebsites.net/${order?.data?.qr}`} alt="" />}
+                            {isLoading?<Loader showOverlay={false} size={20} color="#000" isLoading={false} />:<img src={`${CONFIG.baseUrl}/${order?.data?.qr}`} alt="" />}
                          </div>
                          <p className="afterBarCode">{t("Head to")} <br /> <span><Link to= "/products/?pcat=14&scat=69"><b>Gourmet</b></Link></span></p>
                     </div>

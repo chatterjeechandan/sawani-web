@@ -3229,6 +3229,13 @@ body.lang-ar .footerMenu ul li {
   float: right;
 }
 
+body.lang-ar .dropdown.cust-drop ul.customDropdown {
+  float: right;
+  left: auto;
+  margin-left: 0;
+  margin-right: 6px;
+}
+
 @media only screen and (max-width: 991px) {
   body.lang-ar .menu,
   body.lang-ar .icon-wrapper.profile {
@@ -3533,7 +3540,7 @@ body.lang-ar .footerMenu ul li {
   }
 }
 
-@media only screen and (max-width: 360px) {
+@media only screen and (max-width: 380px) {
   .menu-items.cartPopup {
     width: 300px;
     left: -254px;
@@ -3545,6 +3552,9 @@ body.lang-ar .footerMenu ul li {
   .tabUl li {
     font-size: 10px;
     padding: 7px 3px;
+  }
+  .css-1wof3dh-MuiDialogContent-root{
+    width: inherit !important;
   }
 }
 
@@ -3564,6 +3574,11 @@ body.lang-ar .footerMenu ul li {
 
   .right-icons .menu {
     margin-top: 5px;
+  }
+
+  .css-1wof3dh-MuiDialogContent-root{
+    width: inherit !important;
+    max-width: 100% !important;
   }
 }
 
@@ -3789,3 +3804,19 @@ ul.profileRouts li.activated a span.nameLink {
   color: #B7864C;
   font-family: '29LT Bukra';
 }
+
+.dropdown.cust-drop {
+  position:relative;
+  width: 370px;
+}
+
+.dropdown.cust-drop ul.customDropdown {
+    position: relative !important;
+    top: 4px;
+    width: 98%;
+    margin-left: 6px;
+}
+
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root, .css-1e6y48t-MuiButtonBase-root-MuiButton-root{
+  color: #b7864c !important;
+} 
