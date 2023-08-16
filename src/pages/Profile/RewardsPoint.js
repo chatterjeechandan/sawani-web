@@ -61,7 +61,7 @@ const RewardsPointPage = () => {
   };
 
   const options = {
-    cutoutPercentage: 50,
+    cutout: '70%',
     responsive: true,
     maintainAspectRatio: true,
     plugins: {
@@ -107,7 +107,7 @@ const RewardsPointPage = () => {
                           {t("Equals to")} <span>20.32</span> {t("SAR")}
                         </p>
                       </span>
-                      <Doughnut data={data} options={options} />
+                      <Doughnut data={data} options={options}/>
                     </div>
                     <div className="pointsListings">
                       <ul className="pointListUl">
