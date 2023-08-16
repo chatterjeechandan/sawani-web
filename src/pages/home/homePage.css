@@ -298,6 +298,7 @@ p.subHeads {
 }
 .headingsWraper h4 {
   margin-left: 20px;
+  margin-right: 20px;
     font-size: 26px;
     letter-spacing: 0px;
     color: #000000;
@@ -1146,4 +1147,75 @@ span.slideMainBtnRight {
 }
 img.slideBtns {
   width: 50px;
+}
+
+img.ordersImg {
+  vertical-align: middle;
+  width: 18px;
+}
+ul.sliderDotsUl {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+body.lang-ar .afterBanner {
+  text-align: right!important;
+}
+
+body.lang-ar span.sliderControls {
+  left: 5px;
+  right: unset;
+}
+body.lang-ar span.leftControl {
+  float: left;
+}
+
+body.lang-ar .contentWraper p, body.lang-ar .sliderSection.oneSlider .innerTextWraper p {
+  text-align: right;
+}
+
+body.lang-ar .indPointsMini {
+  text-align: right;
+}
+body.lang-ar ul.tabUlWrapers li:first-child {
+  margin-left: unset;
+  margin-left: 16px;
+}
+
+body.lang-ar ul.tabUlWrapers li:last-child {
+  margin-right: unset;
+  margin-left: 16px;
+}
+
+body.lang-ar ul.tabUlWrapers {
+  justify-content: center;
+}  
+
+body.lang-ar .cradelInfoContent h3 {
+  text-align: right;
+}
+
+body.lang-ar .cradelInfoContent p {
+  text-align: right;
+}
+body.lang-ar .subProfileInfo {
+  flex-direction: row;
+}
+
+body.lang-ar ul.socialLinks {
+  margin-left: unset;
+  margin-right: auto;
+}
+
+body.lang-ar .blocksWraper {
+  text-align: right;
+}
+p.subParaP {
+  text-align: left;
+}
+
+body.lang-ar .indField i {
+  left: unset;
+  right: 10px;
 }

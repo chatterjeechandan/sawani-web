@@ -6,6 +6,7 @@ import icon1 from "../../assets/images/milk.png";
 import icon2 from "../../assets/images/icon2.png";
 import icon3 from "../../assets/images/icon3.png";
 import demo1 from "../../assets/images/demo1.png";
+import logoW from "../../assets/images/logoWhite.png";
 import sl1 from "../../assets/images/sl1.png";
 import sl2 from "../../assets/images/sl2.png";
 import sl3 from "../../assets/images/sl3.png";
@@ -41,6 +42,17 @@ const HomePage = () => {
   };
   const [scrolled, setScrolled] = useState(false);
 
+  const [tabOneValue, setTabOneValue] = useState(true);
+  const [tabTwoValue, setTabTwoValue] = useState(false);
+  const setTabOneValueFn = () => {
+    setTabOneValue(true);
+    setTabTwoValue(false);
+  }
+  const setTabTwoValueFn = () => {
+    setTabOneValue(false);
+    setTabTwoValue(true);
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       const footerHeight = 370;
@@ -66,7 +78,7 @@ const HomePage = () => {
       <div className="bannerWrapers">
         <Header />
         {scrolled && (
-           <Link to="/in-store"><span className='orderNowBtns'>Order Now</span></Link>          
+           <Link to="/in-store"><span className='orderNowBtns'><img src={logoW} alt='' className='ordersImg'/> Order Now</span></Link>          
         )}
         
         <div className="bannertextWraper">
@@ -247,10 +259,11 @@ const HomePage = () => {
         <div className="rowSec">
           <div className='mainTabHeaderWraper'>
             <ul className='tabUlWrapers'>
-              <li className='active'>فريق العمل</li>
-              <li>مجلس الإدارة</li>
+              <li className={tabOneValue ? 'active': ''} onClick={setTabOneValueFn}>فريق العمل</li>
+              <li className={tabTwoValue ? 'active': ''} onClick={setTabTwoValueFn}>مجلس الإدارة</li>
             </ul>
           </div>
+          {tabOneValue && (
           <div className='tabContentWrapers'>
             <div className='sliderTabsInfoWraper'>
               <span className='slideMainBtnLeft'>
@@ -276,6 +289,37 @@ const HomePage = () => {
               </span>
             </div>
           </div>
+          )}
+
+        {tabTwoValue && (
+          <div className='tabContentWrapers'>
+            <div className='sliderTabsInfoWraper'>
+              <span className='slideMainBtnLeft'>
+                <img src={SlideLeft} className='slideBtns' />
+              </span>
+              <span className='slideMainBtnRight'>
+              <img src={SlideRight} className='slideBtns' />
+              </span>
+              <span className='profileImgs first'>
+                <img src={profile4} className='profileImgsPic' alt='' />
+              </span>
+              <span className='profileImgs second'>
+                <img src={profile5} className='profileImgsPic' alt='' />
+              </span>
+              <span className='profileImgs third'>
+                <img src={profile1} className='profileImgsPic' alt='' />
+              </span>
+              <span className='profileImgs fourth'>
+                <img src={profile2} className='profileImgsPic' alt='' />
+              </span>
+              <span className='profileImgs fifth'>
+                <img src={profile3} className='profileImgsPic' alt='' />
+              </span>
+            </div>
+          </div>
+          )}
+
+
         </div>
       </div>
       <div className='cradleSectionMain'>

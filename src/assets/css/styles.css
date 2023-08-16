@@ -464,6 +464,7 @@ span.social img {
 .tabUl {
   display: flex;
   align-items: center;
+  margin-top: 10px;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -2025,7 +2026,6 @@ img.profileCamel {
   position: absolute;
   bottom: 0;
   left: 25%;
-  cursor: pointer;
 }
 
 p.profileName {
@@ -2355,7 +2355,6 @@ span.pointsPercent {
 img.profile {
   width: 40px;
   margin-right: 10px;
-  margin-top: 1px;
 }
 p.profileNameHeader {
   letter-spacing: 0.35px;
@@ -2366,23 +2365,13 @@ p.profileNameHeader {
   font-family: '29LT Bukra Md';
 }
 .orderNowBtns {
-  background: #7a619d;
-  position: fixed;
-  left: 40px;
-  bottom: 50px;
-  font-size: 15px;
-  padding: 8px 25px;
-  border-radius: 10px;
-  color: #fff;
-}
-.orderNowBtns {
   background: #a592b5;
   position: fixed;
   left: 40px;
   bottom: 50px;
-  font-size: 15px;
-  padding: 8px 25px;
-  border-radius: 10px;
+  font-size: 13px;
+  padding: 10px 25px;
+  border-radius: 20px;
   color: #fff;
   z-index: 9;
   cursor: pointer;
@@ -2418,7 +2407,6 @@ h4.addressHeading {
   opacity: 1;
   margin: 10px 0 0 0;
   position: relative;
-  z-index:999;
 }
 span.editAdd {
   margin-right: 10px;
