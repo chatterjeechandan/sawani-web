@@ -292,6 +292,7 @@ const Header = forwardRef((props, ref) => {
     i18next.changeLanguage(lang);
     setIsLangMenuOpen(false);
     localStorage.setItem('lang', lang);
+    window.location.reload();
   };
 
   useEffect(() => {

@@ -3224,6 +3224,66 @@ body.lang-ar .dropdown.cust-drop ul.customDropdown {
   margin-right: 6px;
 }
 
+body.lang-ar .afterBanner {
+  text-align: right;
+}
+
+body.lang-ar span.sliderControls{
+  right: auto;
+    left: 5px;
+}
+
+body.lang-ar .headingsWraper h4{
+  margin-left:0;
+  margin-right:20px;
+}
+
+body.lang-ar .contentWraper p.subHeads{
+  text-align: right;
+}
+body.lang-ar .contentWraper p{
+  text-align: right;
+}
+
+body.lang-ar .sliderSection.oneSlider .innerTextWraper p{
+  text-align: right;
+}
+
+body.lang-ar .indPointsMini{
+  text-align: right;
+}
+
+body.lang-ar .cradelInfoContent {
+  text-align: right;
+}
+
+body.lang-ar ul.socialLinks{
+  margin-left: 0;
+    margin-right: auto;
+}
+
+body.lang-ar .indField i {
+  right: 10px;
+  left: auto;
+}
+
+body.lang-ar .blocksWraper {
+  text-align: right;
+}
+
+body.lang-ar .indBlocksMain {
+    float: right;
+}
+
+body.lang-ar .blockImgs {
+  float: left;
+}
+
+body.lang-ar .subProfileInfo {
+  float: right;
+    flex-direction: revert;
+}
+
 @media only screen and (max-width: 991px) {
   body.lang-ar .menu,
   body.lang-ar .icon-wrapper.profile {
@@ -3836,4 +3896,8 @@ span.delBtnWraper.customs {
 span.addBtnWraper.customs.mobileView {
   width: 70px;
 }
+}
+
+.formFieldsInputTextarea {
+  width:100%;
 }
