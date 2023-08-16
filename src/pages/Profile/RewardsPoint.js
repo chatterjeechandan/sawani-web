@@ -16,6 +16,12 @@ import icon1 from "../../assets/images/icons1.png";
 import icon2 from "../../assets/images/icons2.png";
 import icon3 from "../../assets/images/icons3.png";
 import { useTranslation } from "react-i18next";
+import { Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS } from 'chart.js';
+import { ArcElement, Tooltip, Legend } from 'chart.js';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
 
 const RewardsPointPage = () => {
   const { t } = useTranslation();
@@ -37,6 +43,35 @@ const RewardsPointPage = () => {
     setTabOpen1(false);
     setTabOpen2(false);
     setTabOpen3(true);
+  };
+
+  ChartJS.register(ArcElement, Tooltip, Legend);
+
+
+  const data = {
+    labels: ['Redeemed', 'Purchases', 'Weekly logins & other'],
+    datasets: [
+      {
+        data: [15, 25, 35],
+        backgroundColor: ['#B7864C', '#E0DBD0', '#2F1F15'],
+        borderColor: ['#B7864C', '#E0DBD0', '#2F1F15'],
+        borderWidth: 1
+      }
+    ]
+  };
+
+  const options = {
+    cutoutPercentage: 50,
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        enabled: true,
+      },
+    },
   };
 
   return (
@@ -62,7 +97,6 @@ const RewardsPointPage = () => {
                   </p>
                   <div className="pointDislayWraper">
                     <div className="circlePoints">
-                      <img src={circular} className="circleBack" alt="" />
                       <span className="pointsMainInfo">
                         <span className="pointsSmLogo">
                           <img src={smallLogo} className="smLogo" alt="" />
@@ -73,6 +107,7 @@ const RewardsPointPage = () => {
                           {t("Equals to")} <span>20.32</span> {t("SAR")}
                         </p>
                       </span>
+                      <Doughnut data={data} options={options} />
                     </div>
                     <div className="pointsListings">
                       <ul className="pointListUl">
