@@ -3808,3 +3808,32 @@ ul.profileRouts li.activated a span.nameLink {
 .css-1e6y48t-MuiButtonBase-root-MuiButton-root, .css-1e6y48t-MuiButtonBase-root-MuiButton-root{
   color: #b7864c !important;
 } 
+
+
+@media only screen and (min-width: 992px) {
+.mobileView {
+  display: none;
+}
+
+}
+
+@media only screen and (max-width: 991px) {
+
+.desktopView {
+  display: none!important;
+}
+.mobileView {
+  display: block;
+}
+.qntyWrapers.mobileView {
+  display: flex;
+  margin: 0 20px;
+    width: 88%;
+}
+span.delBtnWraper.customs {
+  width: 70px;
+}
+span.addBtnWraper.customs.mobileView {
+  width: 70px;
+}
+}

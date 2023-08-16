@@ -13,6 +13,7 @@ import r3 from "../assets/images/r3.png";
 import rewards from "../assets/images/reward.png";
 import info from "../assets/images/info.png";
 import plus from "../assets/images/addDetail.png";
+import plusMobile from "../assets/images/addCounter.png";
 import minus from "../assets/images/delDetail.png";
 import productInd from "../assets/images/pr1.png";
 import counterPlus from "../assets/images/smallPlus.png";
@@ -600,8 +601,8 @@ const Product = () => {
                   </span>
                 </div>
               </div>
-              <div className="productOtherInfo rewardQntyWraper">
-                <div className="qntyWrapers">
+              <div className="productOtherInfo rewardQntyWraper ">
+                <div className="qntyWrapers desktopView">
                   <span className="mainQtyWraper">
                     <input
                       type="number"
@@ -615,7 +616,7 @@ const Product = () => {
                 </div>
                 <div className="addDelBtn">
                   <span
-                    className="delBtnWraper"
+                    className="delBtnWraper customs"
                     onClick={() => handleCountChange(-1, "decrement")}
                   >
                     {decrementButtonLoading ? (
@@ -629,8 +630,35 @@ const Product = () => {
                       <img src={minus} alt="" />
                     )}
                   </span>
+                  <div className="qntyWrapers mobileView">
+                  <span className="mainQtyWraper">
+                    <input
+                      type="number"
+                      value={count}
+                      onChange={(e) => setCount(Number(e.target.value))}
+                      className="productPieceQty"
+                      ref={cartcountRef}
+                    />
+                  </span>
+                  <span className="qtyText">{t("Qnt.")}</span>
+                </div>
+                <span
+                    className="addBtnWraper customs mobileView"
+                    onClick={() => handleCountChange(1, "increment")}
+                  >
+                    {incrementButtonLoading ? (
+                      <Loader
+                        showOverlay={false}
+                        size={12}
+                        color="#000"
+                        isLoading={false}
+                      />
+                    ) : (
+                      <img src={plusMobile} alt="" />
+                    )}
+                  </span>
                   <span
-                    className="addBtnWraper"
+                    className="addBtnWraper desktopView"
                     onClick={() => handleCountChange(1, "increment")}
                   >
                     {incrementButtonLoading ? (
