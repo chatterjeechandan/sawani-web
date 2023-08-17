@@ -82,15 +82,6 @@ const PickupPage = () => {
                 </span>
                 {t("Pick up")}
               </li>
-              <li
-                className={activeTab === "delivery" ? "active" : ""}
-                onClick={() => handleTabClick("delivery")}
-              >
-                <span>
-                  <img src={tab3} alt="" />
-                </span>
-                {t("Delivery")}
-              </li>
             </ul>
           </div>
           <GeoLocationComponent />

@@ -142,12 +142,6 @@ const CategoryListingPage = () => {
                                 </span>
                                 Pick up
                             </li>
-                            <li className={activeTab === 'delivery' ? 'active' : ''} onClick={() => handleTabClick('delivery')}>
-                                <span>
-                                    <img src={tab3} alt='' />
-                                </span>
-                                Delhivery
-                            </li>
                         </ul>
                     </div>
                     <div className='searchWraper'>

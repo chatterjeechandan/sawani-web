@@ -1,30 +1,115 @@
 import React, {
   useState,
   useContext,
-  useEffect,
-  useRef,
-  useMemo,
-  forwardRef,
-  useImperativeHandle,
+  useEffect
 } from "react";
 import Header from "../../components/common/layout/Header/Header";
 import Footer from "../../components/common/layout/Footer";
 import ProfileSidebar from "./ProfileSidebar";
-import circular from "../../assets/images/circular.png";
-import smallLogo from "../../assets/images/smLogo.png";
-import icon1 from "../../assets/images/icons1.png";
-import icon2 from "../../assets/images/icons2.png";
-import icon3 from "../../assets/images/icons3.png";
 import { useTranslation } from "react-i18next";
-import { Doughnut } from 'react-chartjs-2';
-import { Chart as ChartJS } from 'chart.js';
-import { ArcElement, Tooltip, Legend } from 'chart.js';
-
-ChartJS.register(ArcElement, Tooltip, Legend);
-
+import { getRewards } from "../../api/customer";
+import { AuthContext } from "../../utils/AuthContext";
+import RewardsChart from "../../components/rewardsChart/rewardsChart";
+import Loader from "../../components/common/Loader/Loader";
 
 const RewardsPointPage = () => {
   const { t } = useTranslation();
+  const { loginResponse } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const [pointsData, setPointsData] = useState(null);
+  const [monthlyPercentage, setMonthlyPercentage] = useState(null);
+  const [halfYearlyPercentage, setHalfYearlyPercentage] = useState(null);
+  const [yearlyPercentage, setYearlyPercentage] = useState(null);
+
+  useEffect(() => {
+    if (loginResponse) {
+      getCustomerRewardsPoint();
+    }
+  }, [loginResponse]);
+
+  const getCustomerRewardsPoint = async () => {
+    setIsLoading(true);
+    try {
+      const response = await getRewards();
+      if (response.succeeded) {
+        setPointsData(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching favourite producucts:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (pointsData) {
+      const currentDate = new Date();
+      const oneMonthAgo = new Date();
+      oneMonthAgo.setMonth(currentDate.getMonth() - 1);
+
+      const sixMonthsAgo = new Date();
+      sixMonthsAgo.setMonth(currentDate.getMonth() - 6);
+
+      const oneYearAgo = new Date();
+      oneYearAgo.setFullYear(currentDate.getFullYear() - 1);      
+      
+
+      const totalOneMonth = calculateCustomerRewardsPoint(pointsData, oneMonthAgo, currentDate);
+      const totalSixMonths = calculateCustomerRewardsPoint(pointsData, sixMonthsAgo, currentDate);
+      const totalOneYear = calculateCustomerRewardsPoint(pointsData, oneYearAgo, currentDate);
+
+      setMonthlyPercentage(totalOneMonth);
+      setHalfYearlyPercentage(totalSixMonths);
+      setYearlyPercentage(totalSixMonths);
+
+      console.log(totalOneMonth);
+      console.log(totalSixMonths);
+      console.log(totalOneYear);
+
+      setIsLoading(false);
+    }
+  }, [pointsData]);  
+
+  const calculateCustomerRewardsPoint = (pointsData, startDate, endDate) => {
+    const filteredData = pointsData.filter((entry) => {
+      const entryDate = new Date(entry.createDate);
+      return entryDate >= startDate && entryDate <= endDate;
+    });
+  
+    const totalOrderPurchase = filteredData.reduce(
+      (total, entry) => (entry.activity === "Order_Purchase" ? total + entry.value : total),
+      0
+    );
+  
+    const totalWeeklyLogin = filteredData.reduce(
+      (total, entry) => (entry.activity === "Weekly_Login" ? total + entry.value : total),
+      0
+    );
+  
+    const totalEarnings = filteredData.reduce((total, entry) => total + entry.value, 0);
+  
+    if (totalEarnings === 0) {
+      return {
+        orderPurchasePercentage: 0,
+        weeklyLoginPercentage: 0,
+        totalOrderPurchase,
+        totalWeeklyLogin,
+        totalEarnings,
+      };
+    }
+  
+    const orderPurchasePercentage =
+      ((totalOrderPurchase / totalEarnings) * 100).toFixed(2);
+    const weeklyLoginPercentage =
+      ((totalWeeklyLogin / totalEarnings) * 100).toFixed(2);
+  
+    return {
+      orderPurchasePercentage,
+      weeklyLoginPercentage,
+      totalOrderPurchase,
+      totalWeeklyLogin,
+      totalEarnings,
+    };
+  };
+
   const [isTabOpen1, setTabOpen1] = useState(true);
   const [isTabOpen2, setTabOpen2] = useState(false);
   const [isTabOpen3, setTabOpen3] = useState(false);
@@ -34,44 +119,17 @@ const RewardsPointPage = () => {
     setTabOpen2(false);
     setTabOpen3(false);
   };
+  
   const setTabOpen2Fn = () => {
     setTabOpen1(false);
     setTabOpen2(true);
     setTabOpen3(false);
   };
+
   const setTabOpen3Fn = () => {
     setTabOpen1(false);
     setTabOpen2(false);
     setTabOpen3(true);
-  };
-
-  ChartJS.register(ArcElement, Tooltip, Legend);
-
-
-  const data = {
-    labels: ['Redeemed', 'Purchases', 'Weekly logins & other'],
-    datasets: [
-      {
-        data: [15, 25, 35],
-        backgroundColor: ['#B7864C', '#E0DBD0', '#2F1F15'],
-        borderColor: ['#B7864C', '#E0DBD0', '#2F1F15'],
-        borderWidth: 1
-      }
-    ]
-  };
-
-  const options = {
-    cutout: '70%',
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        enabled: true,
-      },
-    },
   };
 
   return (
@@ -82,6 +140,14 @@ const RewardsPointPage = () => {
         <div className="profileRightWraper">
           <div className="pointAnalysisWraper">
             <div className="pointTabWraper">
+            {isLoading ? (
+                     <Loader
+                     showOverlay={false}
+                     size={20}
+                     color="#B7854C"
+                     isLoading={false}
+                   />
+                    ) : (
               <div className="tabWrapers">
                 <ul className="pointsTabs">
                   <li className={isTabOpen1 ? "activeTab" : ""} onClick={setTabOpen1Fn}>{t("Month")}</li>
@@ -89,55 +155,12 @@ const RewardsPointPage = () => {
                   <li className={isTabOpen3 ? "activeTab" : ""} onClick={setTabOpen3Fn}>{t("Annual")}</li>
                 </ul>
 
-                {/* Tab Component are here */}
                 {isTabOpen1 && (
                   <div className="tabContentCompenents">
                   <p className="earnedInfos">
                     <span>{t("See how much you’ve earned")}</span>
                   </p>
-                  <div className="pointDislayWraper">
-                    <div className="circlePoints">
-                      <span className="pointsMainInfo">
-                        <span className="pointsSmLogo">
-                          <img src={smallLogo} className="smLogo" alt="" />
-                        </span>
-                        <p className="pointsValue">2023</p>
-                        <p className="pointsNames">{t("Point Balance")}</p>
-                        <p className="equalConversion">
-                          {t("Equals to")} <span>20.32</span> {t("SAR")}
-                        </p>
-                      </span>
-                      <Doughnut data={data} options={options} height={100} width={100}/>
-                    </div>
-                    <div className="pointsListings">
-                      <ul className="pointListUl">
-                        <li>
-                          <span className="pointListIcons">
-                            <img src={icon1} className="iconsLists" alt="" />
-                          </span>
-                          <span className="pointsName">{t("Redeemed")}</span>
-                          <span className="pointsPercent">15%</span>
-                        </li>
-                        <li className="activated">
-                          <span className="pointListIcons">
-                            <img src={icon2} className="iconsLists" alt="" />
-                          </span>
-                          <span className="pointsName">{t("Purchases")}</span>
-                          <span className="pointsPercent">25%</span>
-                        </li>
-                        <li>
-                          <span className="pointListIcons">
-                            <img src={icon3} className="iconsLists" alt="" />
-                          </span>
-                          <span className="pointsName">
-                            {t("Weekly logins & other")}
-                          </span>
-                          <span className="pointsPercent">35%</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
+                  <RewardsChart percentage={monthlyPercentage}/>
                   <button className="pointDetail">{t("Details")}</button>
                 </div>
                 )}
@@ -147,111 +170,24 @@ const RewardsPointPage = () => {
                   <p className="earnedInfos">
                     <span>{t("See how much you’ve earned half-yearly")}</span>
                   </p>
-                  <div className="pointDislayWraper">
-                  <div className="circlePoints">
-                      <span className="pointsMainInfo">
-                        <span className="pointsSmLogo">
-                          <img src={smallLogo} className="smLogo" alt="" />
-                        </span>
-                        <p className="pointsValue">2023</p>
-                        <p className="pointsNames">{t("Point Balance")}</p>
-                        <p className="equalConversion">
-                          {t("Equals to")} <span>20.32</span> {t("SAR")}
-                        </p>
-                      </span>
-                      <Doughnut data={data} options={options}/>
-                    </div>
-                    <div className="pointsListings">
-                      <ul className="pointListUl">
-                        <li>
-                          <span className="pointListIcons">
-                            <img src={icon1} className="iconsLists" alt="" />
-                          </span>
-                          <span className="pointsName">{t("Redeemed")}</span>
-                          <span className="pointsPercent">15%</span>
-                        </li>
-                        <li className="activated">
-                          <span className="pointListIcons">
-                            <img src={icon2} className="iconsLists" alt="" />
-                          </span>
-                          <span className="pointsName">{t("Purchases")}</span>
-                          <span className="pointsPercent">25%</span>
-                        </li>
-                        <li>
-                          <span className="pointListIcons">
-                            <img src={icon3} className="iconsLists" alt="" />
-                          </span>
-                          <span className="pointsName">
-                            {t("Weekly logins & other")}
-                          </span>
-                          <span className="pointsPercent">35%</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
+                  <RewardsChart percentage={halfYearlyPercentage}/>                 
                   <button className="pointDetail">{t("Details")}</button>
                 </div>
-                )}
-                
+                )}                
 
                 {isTabOpen3 && (
                   <div className="tabContentCompenents">
                   <p className="earnedInfos">
                     <span>{t("See how much you’ve earned anually")}</span>
-                  </p>
-                  <div className="pointDislayWraper">
-                  <div className="circlePoints">
-                      <span className="pointsMainInfo">
-                        <span className="pointsSmLogo">
-                          <img src={smallLogo} className="smLogo" alt="" />
-                        </span>
-                        <p className="pointsValue">2023</p>
-                        <p className="pointsNames">{t("Point Balance")}</p>
-                        <p className="equalConversion">
-                          {t("Equals to")} <span>20.32</span> {t("SAR")}
-                        </p>
-                      </span>
-                      <Doughnut data={data} options={options}/>
-                    </div>
-                    <div className="pointsListings">
-                      <ul className="pointListUl">
-                        <li>
-                          <span className="pointListIcons">
-                            <img src={icon1} className="iconsLists" alt="" />
-                          </span>
-                          <span className="pointsName">{t("Redeemed")}</span>
-                          <span className="pointsPercent">15%</span>
-                        </li>
-                        <li className="activated">
-                          <span className="pointListIcons">
-                            <img src={icon2} className="iconsLists" alt="" />
-                          </span>
-                          <span className="pointsName">{t("Purchases")}</span>
-                          <span className="pointsPercent">25%</span>
-                        </li>
-                        <li>
-                          <span className="pointListIcons">
-                            <img src={icon3} className="iconsLists" alt="" />
-                          </span>
-                          <span className="pointsName">
-                            {t("Weekly logins & other")}
-                          </span>
-                          <span className="pointsPercent">35%</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
+                  </p>                  
+                  <RewardsChart percentage={yearlyPercentage}/>
                   <button className="pointDetail">{t("Details")}</button>
                 </div>
                 )}
-
-                 {/* Tab Component end here*/}
-
               </div>
+                   )}
             </div>
-
+       
             <div className="questionsWrapers">
               <h3>{t("We want to get to know you")}</h3>
               <button className="qusBtn">{t("Answer Questionnaire")}</button>

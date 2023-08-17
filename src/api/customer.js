@@ -51,3 +51,7 @@ export function checkAnonymousUserMob(mob) {
 export function createAnonymousUser(payload) {
   return postData(`customer/anonymous`, payload);
 }
+
+export function getRewards() {
+  return fetchData(`customer/points`);
+}

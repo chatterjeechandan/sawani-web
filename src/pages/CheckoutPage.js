@@ -9,6 +9,7 @@ import deletes from "../assets/images/delete.png";
 import rewards from "../assets/images/rewardPoint.png";
 import arrows from "../assets/images/arrowPoint.png";
 import payLogo from "../assets/images/payLogo.png";
+import pCreditCardLogo from "../assets/images/credit-card.png";
 import { CartContext } from "../utils/CartContext";
 import placeholderImage from "../assets/images/no-image.png";
 import { updateCartAPI, deleteCartAPI, addCartAPI, getCartAPI } from "../api/cart";
@@ -141,6 +142,7 @@ const Checkout = () => {
   useEffect(() => {
     const paymentResponse = JSON.parse(decodeURIComponent(payres));
     if (paymentResponse) {
+      console.log(paymentResponse);
       setIsLoading(true);
       console.log(paymentResponse);
       if (paymentResponse.callback.response?.code != Number("000")) {
@@ -189,6 +191,39 @@ const Checkout = () => {
     }
   };
 
+
+  useEffect(() => {
+    if(selectedDeliveryOption==="2"){
+      setSelectedPaymentMethod({
+        "id": 1,
+        "name": "Online Checkout"
+      });
+      setSelectedOnePayMethod({
+        "name": "Apple Pay",
+        "image": "Resources/OnePayMethod/apple.png",
+        "flgStatus": 1,
+        "id": 1,
+        "createDate": "2023-08-17T17:37:06.6500117",
+        "updateDate": "2023-08-17T17:37:06.6500119"
+      })
+    }
+  }, [
+    selectedDeliveryOption
+  ]);
+
+  useEffect(() => {
+    if(selectedPaymentMethod) {
+      setSelectedOnePayMethod({
+        "name": "Apple Pay",
+        "image": "Resources/OnePayMethod/apple.png",
+        "flgStatus": 1,
+        "id": 1,
+        "createDate": "2023-08-17T17:37:06.6500117",
+        "updateDate": "2023-08-17T17:37:06.6500119"
+      })
+    }
+  }, [ selectedPaymentMethod ]);
+
   useEffect(() => {
     const checkoutOptionObj = {
       firstName: firstName,
@@ -197,7 +232,6 @@ const Checkout = () => {
       paymentMethod: selectedPaymentMethod,
       onepayReferenceMode: selectedOnePayMethod,
     };
-    //setCheckoutOption(JSON.stringify(checkoutOptionObj));
     localStorage.setItem("checkoutInfo", JSON.stringify(checkoutOptionObj));
   }, [
     selectedDeliveryOption,
@@ -268,24 +302,12 @@ const Checkout = () => {
   };
 
   const deleteCartItem = async (cartItems, updatedCartItems, index) => {
-    //setIsLoading(false);
     cartItems.items.splice(index, 1);
     updateCartItems(cartItems);
-    // const response = await deleteCartAPI(cartItems.id, updatedCartItems);
-    // if (response.succeeded) {
-    //   setIsLoading(false);
-    //   updateCartItems(cartItems);
-    // }
   };
 
   const updateCartItem = async (cartItems, index) => {
-    //setIsLoading(true);
     updateCartItems(cartItems);
-    // const response = await updateCartAPI(cartItems.id, cartItems.items[index]);
-    // if (response.succeeded) {
-    //   updateCartItems(cartItems);
-    //   setIsLoading(false);
-    // }
   };
 
   const calculateSubtotal = () => {
@@ -407,7 +429,7 @@ const Checkout = () => {
         gateway: {
           publicKey: `${CONFIG.tapPubKey}`,
           supportedCurrencies: "SAR",
-          supportedPaymentMethods: "all",
+          supportedPaymentMethods: [ "KNET", "AMERICAN_EXPRESS", "BENEFIT", "MADA","VISA","MASTERCARD", "FAWRY", "OMANNET","APPLE_PAY"],
           labels: {
             cardNumber: "Card Number",
             expirationDate: "MM/YY",
@@ -434,7 +456,6 @@ const Checkout = () => {
           },
         },
         customer: {
-          id: "cus_m1QB0320181401l1LD1812485",
           first_name: firstName,
           phone: {
             country_code: "965",
@@ -699,14 +720,19 @@ const Checkout = () => {
                 isLoading={false}
               />
             ) : (
-              <DialogSelect
-                options={allPaymentMethod}
-                selectedOption={selectedPaymentMethod}
-                onSelect={handleSelectPaymentMethod}
-                buttonText={selectedPaymentMethod?.name}
-                imgSrc={pay1}
-                fieldTitle={t("Payment Method")}
-              />
+              <div 
+              className={selectedDeliveryOption === "2" ? "no-click" : ""}
+              disabled={selectedDeliveryOption === "2"}>
+                <DialogSelect
+                  options={allPaymentMethod}
+                  selectedOption={selectedPaymentMethod}
+                  onSelect={handleSelectPaymentMethod}
+                  buttonText={selectedPaymentMethod?.name}
+                  imgSrc={pay1}
+                  fieldTitle={t("Payment Method")}
+                />
+              </div>
+              
             )}
             {selectedPaymentMethod?.name === "Online Checkout" ? (
               <>
@@ -726,7 +752,7 @@ const Checkout = () => {
                     selectedOption={selectedOnePayMethod}
                     onSelect={handleSelectOnePayMethod}
                     buttonText={selectedOnePayMethod?.name}
-                    imgSrc={apple}
+                    imgSrc={selectedOnePayMethod?.name === "Apple Pay"?apple:pCreditCardLogo}
                     fieldTitle={t("1Pay Method")}
                   />
                 )}
@@ -734,7 +760,6 @@ const Checkout = () => {
             ) : (
               ""
             )}
-
             <button className="payCheckOutBtn" onClick={(e) => submitOrder(e)}>
               {issubmitLoading ? (
                 <Loader
@@ -749,7 +774,6 @@ const Checkout = () => {
             </button>
           </div>
         </div>
-
         <div className="rightCheckoutWraper">
           <h2 className="checkoutProductHeading">{t("Shopping Cart")}</h2>
           <div className="cartProductListings checkout">
@@ -804,36 +828,7 @@ const Checkout = () => {
                   </span>
                 </div>
               ))}
-          </div>
-          {/* <div className='customizeFilter checkoutPage'>
-                        <div className='customizeFilterDisplay' onClick={setDropDownOpenFn}>
-                            <span className='selectText'>
-                                Subscription Duration
-                            </span>
-                            <span className='dropImages'>
-                                <img src={dropimg} alt='' />
-                            </span>
-                        </div>
-                        {dropDownOpen && (
-                            <ul className='customDropdown'>
-                                <li>
-                                    <span className='selectText'>
-                                        2 Weeks
-                                    </span>
-                                </li>
-                                <li>
-                                    <span className='selectText'>
-                                        4 Weeks
-                                    </span>
-                                </li>
-                                <li>
-                                    <span className='selectText'>
-                                        8 Weeks
-                                    </span>
-                                </li>
-                            </ul>
-                        )}
-                    </div> */}
+          </div>          
           <div className="finalCartBills">
             <div className="subTotal">
               <span className="totalHeading">{t("Subtotal")}</span>

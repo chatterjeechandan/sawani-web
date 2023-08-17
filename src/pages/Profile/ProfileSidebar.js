@@ -99,11 +99,11 @@ const ProfileSidebar = () => {
             <Link to="/profile/edit-profile"><img src={edits} alt="" /></Link>
           </span>
           <div className="pointsProfileWrapers">
-            <h3>300</h3>
+            <h3>{loginResponse.points}</h3>
             <img src={reward} alt="" />
           </div>
           <p className="converstionRate">
-            {t("Equals to")} <span>3.00 {t("SAR")}</span>
+            {t("Equals to")} <span>{Number(loginResponse.points)/Number(10)} {t("SAR")}</span>
           </p>
           <p className="numberInfo">{t("Your Sawani Rewards Number")}</p>
           <div className="codeQr" onClick={setIsQrOpenFn}>

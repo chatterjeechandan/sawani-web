@@ -455,7 +455,7 @@ span.social img {
   padding-bottom: 90px;
 }
 .tabWraper {
-  width: 405px;
+  width: 268px;
   float: left;
   margin-right: 10px;
   border-radius: 10px;
@@ -493,7 +493,7 @@ span.social img {
   border-right: none;
 }
 .searchWraper {
-  width: calc(100% - 415px);
+  width: calc(100% - 270px);
   margin-left: auto;
   display: flex;
   align-items: center;
@@ -2026,6 +2026,7 @@ img.profileCamel {
   position: absolute;
   bottom: 0;
   left: 25%;
+  cursor: pointer;
 }
 
 p.profileName {
@@ -2355,6 +2356,7 @@ span.pointsPercent {
 img.profile {
   width: 40px;
   margin-right: 10px;
+  height: 40px;
 }
 p.profileNameHeader {
   letter-spacing: 0.35px;
@@ -3945,4 +3947,9 @@ body.lang-ar span.pointListIcons {
 .pointDislayWraper canvas {
   height: 350px !important;
   width: 350px !important;
+}
+
+.no-click {
+  pointer-events: none;
+  opacity: 0.5;
 }

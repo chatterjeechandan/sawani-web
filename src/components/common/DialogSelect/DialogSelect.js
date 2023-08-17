@@ -13,6 +13,8 @@ import Select from '@mui/material/Select';
 import arrows from "../../../assets/images/arrowPoint.png";
 import { useTranslation } from "react-i18next";
 import dropimg from "../../../assets/images/drop.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 
 const DialogSelect = ({ options, selectedOption, onSelect, buttonText, imgSrc, fieldTitle }) => {
@@ -25,6 +27,8 @@ const DialogSelect = ({ options, selectedOption, onSelect, buttonText, imgSrc, f
     const handleChange = (value) => {
         setTempSelectedOption(value);
         setDropDownOpen(false);
+        onSelect(value);
+        handleClose();
     };
 
     const handleClickOpen = () => {
@@ -89,6 +93,9 @@ const DialogSelect = ({ options, selectedOption, onSelect, buttonText, imgSrc, f
             </div>
             <Dialog disableEscapeKeyDown open={open} onClose={handleClose} sx={{ maxWidth: '90%', width: '90vw', maxHeight: '90%', height: '90vh' }}>
                 <DialogTitle>{`${t("Choose")} ${fieldTitle}`}</DialogTitle>
+                <button className="closeBtn" type="button" onClick={handleClose}>
+          <FontAwesomeIcon icon={faTimes} />
+        </button>
                 <DialogContent sx={{ maxWidth: 'lg', width: '60vw' }}>
                     <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap', marginTop: '20px' }}>
                         <div className="dropdown sort-drop cust-drop" ref={dropdownRef}>
@@ -113,10 +120,10 @@ const DialogSelect = ({ options, selectedOption, onSelect, buttonText, imgSrc, f
                         </div>
                     </Box>
                 </DialogContent>
-                <DialogActions>
+                {/* <DialogActions>
                     <Button onClick={handleClose}>{t("CANCEL")}</Button>
                     <Button onClick={handleOk}>{t("OK")}</Button>
-                </DialogActions>
+                </DialogActions> */}
             </Dialog>
         </div>
     );
