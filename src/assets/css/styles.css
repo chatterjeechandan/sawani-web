@@ -2284,7 +2284,7 @@ button.pointDetail {
   font-size: 600;
 }
 .circlePoints {
-  width: 50%;
+  width: auto;
   position: relative;
 }
 span.pointsSmLogo {
@@ -3940,4 +3940,9 @@ body.lang-ar ul.pointListUl li {
 body.lang-ar span.pointListIcons {
   margin-left: unset!important;
   margin-right: 20px!important;
+}
+
+.pointDislayWraper canvas {
+  height: 350px !important;
+  width: 350px !important;
 }

@@ -107,7 +107,7 @@ const RewardsPointPage = () => {
                           {t("Equals to")} <span>20.32</span> {t("SAR")}
                         </p>
                       </span>
-                      <Doughnut data={data} options={options}/>
+                      <Doughnut data={data} options={options} height={100} width={100}/>
                     </div>
                     <div className="pointsListings">
                       <ul className="pointListUl">
