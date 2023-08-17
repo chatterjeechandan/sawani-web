@@ -397,7 +397,7 @@ span.social img {
 
 .rowWraper.secondRow p {
   font-size: 12px;
-  padding: 10px 0 30px 0;
+  padding: 10px 0 10px 0;
 }
 
 /* dashboard Page */
@@ -628,7 +628,7 @@ li.borderMenu {
 }
 
 .product-container {
-  padding: 50px 0 20px;
+  padding: 0px 0 10px;
   float: left;
   width: 100%;
 }
@@ -900,14 +900,14 @@ span.addDelWraper {
 .productDetailsWraper {
   width: 100%;
   float: left;
-  padding: 60px 75px;
+  padding: 35px 75px 20px 75px;
   background: #fff;
 }
 .detailsWraper {
   width: 100%;
   float: left;
   display: flex;
-  padding-bottom: 45px;
+  padding-bottom: 25px;
   border-bottom: 1px solid #ccc;
 }
 .productimg {
@@ -1159,7 +1159,7 @@ span.addBtnWraper img {
 .relatedProductWraper {
   width: 100%;
   float: left;
-  padding: 45px 0;
+  padding: 40px 0 25px 0;
 }
 .relativeProductHeading {
   width: 100%;
@@ -3337,9 +3337,11 @@ body.lang-ar p.subParaP {
 .footerWraper .rowWraper.firstRow {
   width: 80%;
   border: 0px solid red;
-  padding: 30px 0px 10px;
+  padding: 15px 0px 10px;
   margin-bottom: 25px;
   padding-bottom: 0;
+  float: left;
+  margin: 20px auto;
 
 }
 
