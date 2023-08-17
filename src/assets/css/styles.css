@@ -3883,6 +3883,17 @@ ul.profileRouts li.activated a span.nameLink {
   display: none;
 }
 
+.pointsListings {
+  width: 45%;
+  margin-left: auto;
+}
+
+body.lang-ar .pointsListings {
+  width: 45%;
+  margin-left: unset;
+  margin-right: auto;
+}
+
 }
 
 @media only screen and (max-width: 991px) {
@@ -3904,8 +3915,29 @@ span.delBtnWraper.customs {
 span.addBtnWraper.customs.mobileView {
   width: 70px;
 }
+.pointsListings {
+  width: 100%;
+  margin-left: unset;
+}
+
+body.lang-ar .pointsListings {
+  width: 100%;
+  margin-left: unset;
+  margin-right: unset;
+}
 }
 
 .formFieldsInputTextarea {
   width:100%;
+}
+
+
+
+body.lang-ar ul.pointListUl li {
+  flex-direction: row-reverse;
+}
+
+body.lang-ar span.pointListIcons {
+  margin-left: unset!important;
+  margin-right: 20px!important;
 }

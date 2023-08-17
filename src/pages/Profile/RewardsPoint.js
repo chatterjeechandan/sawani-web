@@ -148,8 +148,7 @@ const RewardsPointPage = () => {
                     <span>{t("See how much you’ve earned half-yearly")}</span>
                   </p>
                   <div className="pointDislayWraper">
-                    <div className="circlePoints">
-                      <img src={circular} className="circleBack" alt="" />
+                  <div className="circlePoints">
                       <span className="pointsMainInfo">
                         <span className="pointsSmLogo">
                           <img src={smallLogo} className="smLogo" alt="" />
@@ -160,6 +159,7 @@ const RewardsPointPage = () => {
                           {t("Equals to")} <span>20.32</span> {t("SAR")}
                         </p>
                       </span>
+                      <Doughnut data={data} options={options}/>
                     </div>
                     <div className="pointsListings">
                       <ul className="pointListUl">
@@ -201,8 +201,7 @@ const RewardsPointPage = () => {
                     <span>{t("See how much you’ve earned anually")}</span>
                   </p>
                   <div className="pointDislayWraper">
-                    <div className="circlePoints">
-                      <img src={circular} className="circleBack" alt="" />
+                  <div className="circlePoints">
                       <span className="pointsMainInfo">
                         <span className="pointsSmLogo">
                           <img src={smallLogo} className="smLogo" alt="" />
@@ -213,6 +212,7 @@ const RewardsPointPage = () => {
                           {t("Equals to")} <span>20.32</span> {t("SAR")}
                         </p>
                       </span>
+                      <Doughnut data={data} options={options}/>
                     </div>
                     <div className="pointsListings">
                       <ul className="pointListUl">
