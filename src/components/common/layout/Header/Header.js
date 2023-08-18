@@ -510,7 +510,7 @@ const Header = forwardRef((props, ref) => {
                             <span className="rewardsIconImg">
                               <img src={rewards} alt="" />
                             </span>
-                            +{totalRewards} {t("POINTS")}
+                            +{totalRewards.toFixed(2)} {t("POINTS")}
                           </span>
                         </div>
                       </div>

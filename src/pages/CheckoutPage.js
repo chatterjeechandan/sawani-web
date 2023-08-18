@@ -62,6 +62,7 @@ const Checkout = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const payres = searchParams.get("payres");
+  const payError = searchParams.get("error");
   const { t } = useTranslation();
 
   const [selectedDeliveryOption, setSelectedDeliveryOption] = useState(() => {
@@ -111,7 +112,7 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    if ((!cartItems || cartItems?.items?.length == 0) && !payres) {
+    if ((!cartItems || cartItems?.items?.length == 0) && !payres && !payError) {
       navigate("/in-store");
     }
     getDeliveryMethods();
@@ -140,6 +141,15 @@ const Checkout = () => {
   }, [cartItems]);
 
   useEffect(() => {
+    setIsLoading(false);
+    setToaster({
+      type: "error",
+      message: t("Payment Failed! Please try again"),
+      duration: 3000,
+    });
+  }, [payError]);
+
+  useEffect(() => {
     const paymentResponse = JSON.parse(decodeURIComponent(payres));
     if (paymentResponse) {
       console.log(paymentResponse);
@@ -156,8 +166,8 @@ const Checkout = () => {
         }, 500);
       } else {
         const addPaymentPayload = {
-          provider: paymentResponse?.callback.source?.payment_method,
-          refCode: paymentResponse?.callback.order_id,
+          provider: 'TAP',
+          refCode: paymentResponse?.callback.id,
           amount: paymentResponse?.callback.amount,
         };
         processOrder(addPaymentPayload);
@@ -429,7 +439,7 @@ const Checkout = () => {
         gateway: {
           publicKey: `${CONFIG.tapPubKey}`,
           supportedCurrencies: "SAR",
-          supportedPaymentMethods: [ "KNET", "AMERICAN_EXPRESS", "BENEFIT", "MADA","VISA","MASTERCARD", "FAWRY", "OMANNET","APPLE_PAY"],
+          supportedPaymentMethods: selectedOnePayMethod?.name === "Apple Pay" ? ["APPLE_PAY"] : ["AMERICAN_EXPRESS","VISA","MASTERCARD"],
           labels: {
             cardNumber: "Card Number",
             expirationDate: "MM/YY",
@@ -852,7 +862,7 @@ const Checkout = () => {
                 <span className="rewardsIconImg">
                   <img src={rewards} alt="" />
                 </span>
-                +{totalRewards} {t("POINTS")}
+                +{totalRewards.toFixed(2)} {t("POINTS")}
               </span>
             </div>
           </div>
