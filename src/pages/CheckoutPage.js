@@ -112,6 +112,7 @@ const Checkout = () => {
   };
 
   useEffect(() => {
+    console.log(payError);
     if ((!cartItems || cartItems?.items?.length == 0) && !payres && !payError) {
       navigate("/in-store");
     }
@@ -141,12 +142,14 @@ const Checkout = () => {
   }, [cartItems]);
 
   useEffect(() => {
-    setIsLoading(false);
-    setToaster({
-      type: "error",
-      message: t("Payment Failed! Please try again"),
-      duration: 3000,
-    });
+    if(payError){
+      setIsLoading(false);
+      setToaster({
+        type: "error",
+        message: t("Payment Failed! Please try again"),
+        duration: 3000,
+      });
+    }    
   }, [payError]);
 
   useEffect(() => {
