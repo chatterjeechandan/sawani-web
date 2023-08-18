@@ -1633,7 +1633,7 @@ span.arrowRight {
 }
 
 .productsRow.listingPages .product-container .indProduct {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 .productsRow.listingPages {
   margin-bottom: 20px;
@@ -3554,7 +3554,7 @@ body.lang-ar p.subParaP {
   }
 
   .productsRow.listingPages {
-    margin-top: 0;
+    margin-top: 20px;
   }
   .filterSections {
     margin-top: 20px;
@@ -3954,4 +3954,134 @@ body.lang-ar span.pointListIcons {
 .no-click {
   pointer-events: none;
   opacity: 0.5;
+
+
+}
+
+
+@media only screen and (max-width: 1150px) { 
+
+  span.slideMainBtnLeft {
+    position: absolute;
+    left: -40px;
+    top: 38%;
+}
+img.slideBtns {
+  width: 47px;
+}
+span.slideMainBtnRight {
+  position: absolute;
+  right: -40px;
+  top: 38%;
+}
+span.profileImgs.fourth::before, span.profileImgs.fifth::after {
+  display: none;
+}
+span.profileImgs.fourth, span.profileImgs.second {
+  padding-top: 20px;
+}
+span.profileImgs.fifth {
+  padding-bottom: 20px;
+}
+span.profileImgs.third {
+  padding-bottom: 20px;
+}
+span.profileImgs.first {
+  padding-bottom: 20px;
+}
+ul.tabUlWrapers li {
+  font-size: 22px!important;
+} 
+.cradleSectionMain {
+  padding-top: 10px;
+}
+.blocksWraper h3, .cradelInfoContent h3, .indPointsMini h3 {
+  font-size: 22px!important;
+}
+.rowSec {
+  margin: 25px auto;
+}
+.indPointsMini p {
+  font-size: 14px;
+}
+.sliderSection:after {
+  height: 125px!important;
+}
+.afterBanner.center .afterBannerCenterTextWraper p {
+  font-size: 18px;
+}
+.afterBanner.center .afterBannerCenterTextWraper h4 {
+  font-size: 45px;
+}
+.afterBanner.right .afterBannerTextWraper p, .afterBanner.left .afterBannerTextWraper p {
+  font-size: 18px;
+}
+.afterBanner.right .afterBannerTextWraper h4, .afterBanner.right .afterBannerTextWraper h5, .afterBanner.left .afterBannerTextWraper h4, .afterBanner.left .afterBannerTextWraper h5, .afterBanner.left .afterBannerTextWraper h6 {
+  font-size: 30px;
+}
+.bannertextWraper p {
+  margin-bottom: 18px;
+}
+.sliderSection.oneSlider .rowSec .rightSection .innerTextWraper .headingsWraper h4 {
+  font-size: 28px;
+}
+.headingsWraper h4, span.userPinfo h4 {
+  font-size: 22px;
+}
+.contentWraper p, span.subText, span.headingContents p {
+  font-size: 14px;
+}
+span.userPinfo p {
+  font-size: 12px;
+}
+.productInfoDetails h5 {
+  font-size: 14px;
+  margin-top: 10px;
+}
+.productInfoDetails p {
+  font-size: 12px;
+}
+.relatedProductWraper {
+  padding-bottom: 0;
+}
+.menu-items.cartPopup h5.indCartProductName {
+  font-size: 11px;
+}
+.menu-items.cartPopup p.productPriceInd {
+  font-size: 10px;
+}
+.menu-items.cartPopup p.productPriceInd span, p.productPriceInd {
+  font-size: 12px;
+}
+.grandTotalWraper.rewardSectionsWrapers span.grandHeading, h5.indCartProductName, p.productPriceInd span {
+  font-size: 14px;
+}
+.cartBtnWraper a:last-child {
+  margin-left: 0px;
+  margin-top: 10px;
+}
+.cartBtnWraper {
+  flex-direction: column;
+}
+.cartBtnWraper a {
+  width: 100%;
+}
+.cartBtnWraper a button {
+  width: 100%!important;
+} 
+.midCartDetailsEdit {
+  padding: 0px 10px;
+}
+.midCheckoutWraper {
+  padding-top: 35px;
+  padding-bottom: 10px;
+}
+.paymentWraper h3, .checkoutProductHeading {
+  font-size: 18px;
+}
+.checkoutProductHeading {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+}
+
 }
