@@ -5,7 +5,7 @@ import camelBack from "../assets/images/camelBacks.png";
 import counterPlus from "../assets/images/smallPlus.png";
 import dropimg from "../assets/images/drop.png";
 import apple from "../assets/images/apples.png";
-import deletes from "../assets/images/delete.png";
+import deletes from "../assets/images/delete@2x.png";
 import rewards from "../assets/images/rewardPoint.png";
 import arrows from "../assets/images/arrowPoint.png";
 import payLogo from "../assets/images/payLogo.png";

@@ -21,7 +21,7 @@ import minus from "../../../../assets/images/minusWhite.png";
 import counterPlus from "../../../../assets/images/addCounter.png";
 import rewards from "../../../../assets/images/rewardPoint.png";
 import cartIcon from "../../../../assets/images/cartIcon.png";
-import deletes from "../../../../assets/images/delete.png";
+import deletes from "../../../../assets/images/delete@2x.png";
 import { CartContext } from "../../../../utils/CartContext";
 import placeholderImage from "../../../../assets/images/no-image.png";
 import { updateCartAPI, deleteCartAPI, getCartAPI, addCartAPI } from "../../../../api/cart";
