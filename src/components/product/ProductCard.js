@@ -124,7 +124,6 @@ const ProductCard = ({ product, openCartPopup }) => {
     try {
       setIsLoading(true);
       const response = await createCartAPI(cartPayload);
-      console.log("cart response:", response);
       if (response.succeeded) {
         getCart(response.data);
       } else {
@@ -138,7 +137,6 @@ const ProductCard = ({ product, openCartPopup }) => {
   const getCart = async (cart) => {
     try {
       const response = await getCartAPI(cart.id);
-      console.log("cart response:", response);
       if (response.succeeded) {
         setIsLoading(false);
         openCartPopup();

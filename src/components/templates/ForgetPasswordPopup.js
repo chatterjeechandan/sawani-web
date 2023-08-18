@@ -44,7 +44,6 @@ const ForgetPasswordPopup = ({ onClose, onOpenLogin }) => {
     try {
       setIsLoading(true);
       const response = await forgotpassword({ mobile });
-      console.log("Forgot Password response:", response);
       if (response.message) {
         setIsLoading(false);
         setToaster({
@@ -130,7 +129,6 @@ const ForgetPasswordPopup = ({ onClose, onOpenLogin }) => {
     try {
       setIsLoading(true);
       const response = await resetPassword({ mobile, otp, password });
-      console.log("Reset Password response:", response);
       if (response.message) {
         setIsLoading(false);
         setToaster({

@@ -63,7 +63,6 @@ const AddressAdd = () => {
   const validatePhoneNumber = (phoneNumberValue) => {
     const newErrors = {};
     const mobileFormat = /^9665\d{8}$/;
-    console.log(phoneNumberValue);
     if (!phoneNumberValue.trim()) {
       newErrors.phone = "Phone Number is required";
     } else if (!phoneNumberValue.match(mobileFormat)) {
@@ -98,7 +97,6 @@ const AddressAdd = () => {
   };
   
   const validateUnit = (unitValue) => {
-    console.log(unitValue);
     const newErrors = {};
     if (!unitValue.trim()) {
       newErrors.unit = t("Unit is required");

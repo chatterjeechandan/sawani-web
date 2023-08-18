@@ -64,7 +64,6 @@ const EditProfile = () => {
   };
 
   const validatePhone = (phoneValue) => {
-    console.log(phoneValue);
     const newErrors = {};
     const mobileFormat = /^9665\d{8}$/;
     if (!phoneValue) {

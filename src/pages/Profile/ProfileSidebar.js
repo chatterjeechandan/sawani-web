@@ -127,7 +127,7 @@ const ProfileSidebar = () => {
                 <img src={routIcon1} className="routIcon" />
               </span>
               <span className="nameLink">{t("Points Analysis")}</span>
-              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+              <i className="fa fa-chevron-right" aria-hidden="true"></i>
             </Link>
           </li>
           <li className={location.pathname === "/profile/favourite-store" || location.pathname === "/profile/favourite-product" ? "activated" : ""}>
@@ -136,7 +136,7 @@ const ProfileSidebar = () => {
                 <img src={routIcon2} className="routIcon" />
               </span>
               <span className="nameLink">{t("Favorites")}</span>
-              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+              <i className="fa fa-chevron-right" aria-hidden="true"></i>
             </Link>
           </li>
           <li className={location.pathname === "/profile/saved-card" || location.pathname === "/profile/card-add" || location.pathname === `/profile/card-edit/${id}` ? "activated" : ""}>
@@ -145,7 +145,7 @@ const ProfileSidebar = () => {
                 <img src={routIcon3} className="routIcon" />
               </span>
               <span className="nameLink">{t("My Cards")}</span>
-              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+              <i className="fa fa-chevron-right" aria-hidden="true"></i>
             </Link>
           </li>
           <li className={location.pathname === "/profile/saved-address" || location.pathname === "/profile/address-add" || location.pathname === `/profile/edit-address/${id}` ? "activated" : ""}>
@@ -154,7 +154,7 @@ const ProfileSidebar = () => {
                 <img src={routIcon4} className="routIcon" />
               </span>
               <span className="nameLink">{t("My Addresses")}</span>
-              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+              <i className="fa fa-chevron-right" aria-hidden="true"></i>
             </Link>
           </li>
         </ul>

@@ -134,7 +134,6 @@ const Header = forwardRef((props, ref) => {
               const existingCartItemIndex1 = cartObj.items.findIndex(
                 (innerItem) => innerItem.productVariantId === item1.productVariantId
               );
-              console.log(existingCartItemIndex1);
               if (existingCartItemIndex1 == -1) {
                 await deleteCartAPI(cartObj.id, item1);
               }
@@ -317,9 +316,9 @@ const Header = forwardRef((props, ref) => {
           onClose={handleToasterClose}
         />
       )}
-      <div class="container">
-        <div class="left-icons">
-          <div class="icon-wrapper profile">
+      <div className="container">
+        <div className="left-icons">
+          <div className="icon-wrapper profile">
             {loginResponse && (
               <Link to="/profile" className="profileLink">
                 <span className="translateNow cus-img-holder">
@@ -337,7 +336,7 @@ const Header = forwardRef((props, ref) => {
               </Link>
             )}
           </div>
-          <div class="icon-wrapper" ref={langmenuRef}>
+          <div className="icon-wrapper" ref={langmenuRef}>
             <span className="translateNow">
               <img src={translate} alt="" onClick={toggleLangMenu} />
             </span>
@@ -354,8 +353,8 @@ const Header = forwardRef((props, ref) => {
         <Link to="/">
           <img src={logo} alt="" className="logo" />
         </Link>
-        <div class="right-icons">
-          <div class="icon-wrapper">
+        <div className="right-icons">
+          <div className="icon-wrapper">
             <div className={`menu ${isMenuOpen ? "open" : ""}`} ref={menuRef}>
               <input
                 type="checkbox"
@@ -400,7 +399,7 @@ const Header = forwardRef((props, ref) => {
               </ul>
             </div>
           </div>
-          <div class="icon-wrapper">
+          <div className="icon-wrapper">
             {cartItems?.items.length > 0 && (
               <div
                 onClick={setCheckoutOpenFn}

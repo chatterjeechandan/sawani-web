@@ -58,12 +58,7 @@ const RewardsPointPage = () => {
 
       setMonthlyPercentage(totalOneMonth);
       setHalfYearlyPercentage(totalSixMonths);
-      setYearlyPercentage(totalSixMonths);
-
-      console.log(totalOneMonth);
-      console.log(totalSixMonths);
-      console.log(totalOneYear);
-
+      setYearlyPercentage(totalOneYear);
       setIsLoading(false);
     }
   }, [pointsData]);  

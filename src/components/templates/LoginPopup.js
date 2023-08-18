@@ -61,7 +61,6 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
     try {
       setIsLoading(true);
       const response = await login({ mobile, password });
-      console.log("Login response:", response);
       if (response.id) {
         const cusDetailresponse = await getSessionCusertomerDetails(response.token);
         const customerobject = {...response, ...cusDetailresponse.data };
@@ -102,8 +101,8 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
 
   const addCartItem = async (cartId, newCartItem) => {
     try {
+      // eslint-disable-next-line no-unused-vars
       const response = await addCartAPI(cartId, newCartItem);
-      console.log(response);
     } catch (error) {
       console.log("Cart add failed");
     }
@@ -111,8 +110,8 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
 
   const updateCartItem = async (cartId, updatedItem) => {
     try {
+      // eslint-disable-next-line no-unused-vars
       const response = await updateCartAPI(cartId, updatedItem);
-      console.log(response);
     } catch (error) {
       console.log("Cart update failed");
     }

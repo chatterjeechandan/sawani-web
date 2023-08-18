@@ -62,7 +62,6 @@ const SignUpPopup = ({ onClose, onOpenLogin }) => {
     try {
       setIsLoading(true);
       const response = await register({ name, mobile, password });
-      console.log("Signup response:", response);
       if (response.id) {
         setToaster({
           type: "success",

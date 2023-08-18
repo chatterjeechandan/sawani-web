@@ -120,7 +120,6 @@ const Product = () => {
   const handleAttributeChange = (event, attributeId) => {
     const { value } = event.target;
     setAttributes((prevAttributes) => {
-      console.log(prevAttributes);
       const attributeIndexMap = product.attributes.reduce(
         (map, attribute, index) => {
           map[attribute.id] = index;
@@ -337,7 +336,6 @@ const Product = () => {
   const createCart = async (cartPayload) => {
     try {
       const response = await createCartAPI(cartPayload);
-      console.log("cart response:", response);
       if (response.succeeded) {
         getCart(response.data);
       } else {
@@ -351,11 +349,9 @@ const Product = () => {
   const getCart = async (cart) => {
     try {
       const response = await getCartAPI(cart.id);
-      console.log("cart response:", response);
       if (response.succeeded) {
         handleSuccess("Product added into cart successfully");
         updateCartItems(response.data);
-        //setIsWholePageLoading(false);
       } else {
         handleError(response.Message || "Cart add failed");
       }
@@ -365,57 +361,15 @@ const Product = () => {
   };
 
   const addCartItem = async (cartId, existingCartItems, newCartItem) => {
-    // try {
-    //   const response = await addCartAPI(cartId, newCartItem);
-    //   console.log("cart update response:", response);
-    //   if (response.succeeded) {
-    //     handleSuccess("Product added into cart successfully");
-    //     updateCartItems(existingCartItems);
-    //     //setIsWholePageLoading(false);
-    //   } else {
-    //     handleError(response.Message || "Cart add failed");
-    //   }
-    // } catch (error) {
-    //   handleError("Cart add failed");
-    // }
     updateCartItems(existingCartItems);
   };
 
   const updateCartItem = async (cartId, updatedItem, index) => {
-    // try {
-    //   const response = await updateCartAPI(cartId, updatedItem);
-    //   console.log("cart update response:", response);
-    //   if (response.succeeded) {
-    //     handleSuccess("Product updated into cart successfully");
-    //     console.log(cartItems);
-    //     cartItems.items[index] = updatedItem;
-    //     updateCartItems(cartItems);
-    //     //setIsWholePageLoading(false);
-    //   } else {
-    //     handleError(response.Message || "Cart update failed");
-    //   }
-    // } catch (error) {
-    //   handleError("Cart update failed");
-    // }
     cartItems.items[index] = updatedItem;
     updateCartItems(cartItems);
   };
 
   const deleteItemCart = async (cartId, deletedItem, index) => {
-    // try {
-    //   const response = await deleteCartAPI(cartId, deletedItem);
-    //   console.log("cart delete response:", response);
-    //   if (response.succeeded) {
-    //     handleSuccess("Product deleted from cart successfully");
-    //     cartItems.items.splice(index, 1);
-    //     updateCartItems(cartItems);
-    //     //setIsWholePageLoading(false);
-    //   } else {
-    //     handleError(response.Message || "Cart delete failed");
-    //   }
-    // } catch (error) {
-    //   handleError("Cart delete failed");
-    // }
     cartItems.items.splice(index, 1);
         updateCartItems(cartItems);
   };

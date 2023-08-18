@@ -112,7 +112,6 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    console.log(payError);
     if ((!cartItems || cartItems?.items?.length == 0) && !payres && !payError) {
       navigate("/in-store");
     }
@@ -155,9 +154,7 @@ const Checkout = () => {
   useEffect(() => {
     const paymentResponse = JSON.parse(decodeURIComponent(payres));
     if (paymentResponse) {
-      console.log(paymentResponse);
       setIsLoading(true);
-      console.log(paymentResponse);
       if (paymentResponse.callback.response?.code != Number("000")) {
         setToaster({
           type: "error",
@@ -595,7 +592,6 @@ const Checkout = () => {
         const existingCartItemIndex1 = cartObj.items.findIndex(
           (innerItem) => innerItem.productVariantId === item1.productVariantId
         );
-        console.log(existingCartItemIndex1);
         if (existingCartItemIndex1 == -1) {
           await deleteCartAPI(cartObj.id, item1);
         }
