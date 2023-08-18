@@ -53,8 +53,13 @@ const ProfileSidebar = () => {
     const updatedUserObject = {  ...loginResponse, "avatar": img };
     const response = await updateAvatar(updatedUserObject);
     if (response.succeeded) {
-      const userInfo = {...loginResponse,...response.data};
-      setLoginResponse(userInfo);
+      const userInfo = {...loginResponse, "avatar": response.data.avatar};
+      localStorage.setItem('loginInfo', JSON.stringify(userInfo));
+      const image = document.querySelector('.profileImages');
+      image.src = `data:image/png;base64,${img}`;
+      const image2 = document.querySelector('img.profile');
+      image2.src = `data:image/png;base64,${img}`;
+      //setLoginResponse(userInfo);
       setIsLoading(false);
     }
   };
@@ -126,7 +131,7 @@ const ProfileSidebar = () => {
             </Link>
           </li>
           <li className={location.pathname === "/profile/favourite-store" || location.pathname === "/profile/favourite-product" ? "activated" : ""}>
-            <Link to="/profile/favourite-store" className="profileLinksTag">
+            <Link to="/profile/favourite-product" className="profileLinksTag">
               <span className="iconName">
                 <img src={routIcon2} className="routIcon" />
               </span>

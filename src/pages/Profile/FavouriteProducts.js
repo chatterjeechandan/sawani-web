@@ -71,11 +71,11 @@ const FavouriteProducts = () => {
           <div className="pointAnalysisWraper">
             <div className="pointTabWraper">
               <div className="favouriteTabs">
-                <div className="favouritetabWraper">
+                {/* <div className="favouritetabWraper">
                   <Link to="/profile/favourite-store" className="profileLinksTag">
                     <span className="">{t("Favorite Stores")}</span>
                   </Link>
-                </div>
+                </div> */}
                 <div className="favouritetabWraper">
                   <Link to="/profile/favourite-product" className="profileLinksTag">
                     {" "}

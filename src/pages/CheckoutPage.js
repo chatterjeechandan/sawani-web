@@ -441,7 +441,7 @@ const Checkout = () => {
         containerID: "root",
         gateway: {
           publicKey: `${CONFIG.tapPubKey}`,
-          merchantId: 24197412,
+          merchantId: `${CONFIG.tapMerchantId}`,
           supportedCurrencies: "SAR",
           supportedPaymentMethods: selectedOnePayMethod?.name === "Apple Pay" ? ["APPLE_PAY"] : ["AMERICAN_EXPRESS","VISA","MASTERCARD"],
           labels: {

@@ -26,7 +26,7 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [loginFormState, setLoginFormState] = useState(false);
+  const [loginFormState, setLoginFormState] = useState(true);
   const [toaster, setToaster] = useState(null);
   const [mobileError, setMobileError] = useState("");
   const [passwordError, setPasswordError] = useState("");

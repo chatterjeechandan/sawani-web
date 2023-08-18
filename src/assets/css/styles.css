@@ -2513,7 +2513,7 @@ p.cardname {
 }
 .favouritetabWraper {
   width: 50%;
-  text-align: center;
+  text-align: left;
 }
 .favouritetabWraper span {
   font-size: 14px;
@@ -3287,6 +3287,10 @@ body.lang-ar .subProfileInfo {
 }
 
 body.lang-ar p.subParaP {
+  text-align: right;
+}
+
+body.lang-ar .favouritetabWraper {
   text-align: right;
 }
 
