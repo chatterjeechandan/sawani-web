@@ -229,7 +229,7 @@ const Header = forwardRef((props, ref) => {
   const calculateRewardstotal = () => {
     if (!cartItems || !cartItems.items) return 0;
 
-    return cartItems.items.reduce((acc, item) => acc + item.rewards, 0);
+    return cartItems.items.reduce((acc, item) => acc + (item.rewards*item.quantity), 0);
   };
 
   const totalRewards = useMemo(() => calculateRewardstotal(), [cartItems]);
@@ -489,7 +489,7 @@ const Header = forwardRef((props, ref) => {
                         <div className="subTotal">
                           <span className="totalHeading">{t("Subtotal")}</span>
                           <span className="totalPrice">
-                            {subtotalPrice.toFixed(2)} {t("SAR")}
+                            {calculateSubtotal().toFixed(2)} {t("SAR")}
                           </span>
                         </div>
                         <div className="rewardSectionsWrapers">
@@ -510,14 +510,14 @@ const Header = forwardRef((props, ref) => {
                             <span className="rewardsIconImg">
                               <img src={rewards} alt="" />
                             </span>
-                            +{totalRewards.toFixed(2)} {t("POINTS")}
+                            +{calculateRewardstotal().toFixed(2)} {t("POINTS")}
                           </span>
                         </div>
                       </div>
                       <div className="grandTotalWraper rewardSectionsWrapers">
                         <span className="grandHeading">{t("TOTAL")}</span>
                         <span className="grandHeading grandPrice">
-                        {subtotalPrice.toFixed(2)} {t("SAR")}
+                        {calculateSubtotal().toFixed(2)} {t("SAR")}
                         </span>
                       </div>
                       <div className="cartBtnWraper">

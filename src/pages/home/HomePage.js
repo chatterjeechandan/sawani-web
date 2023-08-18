@@ -376,15 +376,15 @@ const HomePage = () => {
                   <i class="fa fa-user" aria-hidden="true"></i>
                 </div>
                 <div className='indField'>
-                  <input className='formFieldsInput' type='email' placeholder='الاسم بالكامل' />
+                  <input className='formFieldsInput' type='email' placeholder='البريد الالكتروني' />
                   <i class="fa fa-envelope" aria-hidden="true"></i>
                 </div>
                 <div className='indField'>
-                  <input className='formFieldsInput' type='text' placeholder='الاسم بالكامل' />
+                  <input className='formFieldsInput' type='text' placeholder='رقم الجوال' />
                   <i class="fa fa-mobile" aria-hidden="true"></i>
                 </div>
                 <div className='indField'>
-                  <textarea className='formFieldsInputTextarea'placeholder='الاسم بالكامل' ></textarea>
+                  <textarea className='formFieldsInputTextarea'placeholder='الرسالة' ></textarea>
                   <i class="fa fa-pencil" aria-hidden="true"></i>
                 </div>
                 

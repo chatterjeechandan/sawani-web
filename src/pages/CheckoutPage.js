@@ -337,7 +337,7 @@ const Checkout = () => {
   const calculateRewardstotal = () => {
     if (!cartItems || !cartItems.items) return 0;
 
-    return cartItems.items.reduce((acc, item) => acc + item.rewards, 0);
+    return cartItems.items.reduce((acc, item) => acc + (item.rewards*item.quantity), 0);
   };
 
   const totalRewards = useMemo(() => calculateRewardstotal(), [cartItems]);
@@ -441,6 +441,7 @@ const Checkout = () => {
         containerID: "root",
         gateway: {
           publicKey: `${CONFIG.tapPubKey}`,
+          merchantId: 24197412,
           supportedCurrencies: "SAR",
           supportedPaymentMethods: selectedOnePayMethod?.name === "Apple Pay" ? ["APPLE_PAY"] : ["AMERICAN_EXPRESS","VISA","MASTERCARD"],
           labels: {
@@ -534,11 +535,19 @@ const Checkout = () => {
 
   const handleResponseError = (response) => {
     setIsLoading(false);
-    if (response.errors) {
-      Object.values(response.errors).forEach((errorArray) => {
-        errorArray.forEach((errorMessage) => {
-          setToaster({ type: "error", message: errorMessage, duration: 3000 });
+    if (Array.isArray(response.errors)) {
+      response.errors.forEach((errorMessage) => {
+        setToaster({
+          type: "error",
+          message: errorMessage,
+          duration: 3000,
         });
+      });
+    } else if (response.Message) {
+      setToaster({
+        type: "error",
+        message: response.Message,
+        duration: 3000,
       });
     } else {
       setToaster({
