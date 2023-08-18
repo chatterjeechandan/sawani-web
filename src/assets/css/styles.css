@@ -792,6 +792,7 @@ ul.customDropdown li span.selectIcons {
   float: left;
   display: flex;
   align-items: center;
+  padding: 0 15px 0 40px;
 }
 .productOptions {
   width: auto;
@@ -1816,6 +1817,7 @@ span.arrowRight {
   }
   .productFilterWraper {
     flex-direction: column;
+    padding: 0 15px;
   }
   .customizeFilter,
   .customizeFilterDisplay {
