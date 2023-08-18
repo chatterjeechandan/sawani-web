@@ -41,9 +41,10 @@ const HomePage = () => {
     }
   };
   const [scrolled, setScrolled] = useState(false);
-
   const [tabOneValue, setTabOneValue] = useState(true);
   const [tabTwoValue, setTabTwoValue] = useState(false);
+  const targetRef = useRef(null);
+
   const setTabOneValueFn = () => {
     setTabOneValue(true);
     setTabTwoValue(false);
@@ -66,9 +67,11 @@ const HomePage = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('touchmove', handleScroll);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.addEventListener('touchmove', handleScroll);
     };
   }, []);
 
@@ -78,7 +81,7 @@ const HomePage = () => {
       <div className="bannerWrapers">
         <Header />
         {scrolled && (
-           <Link to="/in-store"><span className='orderNowBtns'><img src={logoW} alt='' className='ordersImg'/> Order Now</span></Link>          
+           <Link to="/in-store" ref={targetRef}><span className='orderNowBtns'><img src={logoW} alt='' className='ordersImg'/> Order Now</span></Link>          
         )}
         
         <div className="bannertextWraper">
