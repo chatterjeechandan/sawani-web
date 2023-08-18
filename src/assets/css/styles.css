@@ -1333,6 +1333,7 @@ span.deleteSpan {
   margin-left: auto;
   padding: 1px;
   width: 30px;
+  font-size: 18px;
 }
 span.deleteSpan img {
   cursor: pointer;

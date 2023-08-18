@@ -40,6 +40,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import CONFIG from '../config/site.config';
 import { getCusertomerDetails, checkAnonymousUserMob, createAnonymousUser } from "../api/customer";
 import { useTranslation } from "react-i18next";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 
 const Checkout = () => {
@@ -842,7 +844,7 @@ const Checkout = () => {
                     className="deleteSpan"
                     onClick={() => deleteCartItemRow(index)}
                   >
-                    <img src={deletes} alt="" />
+                    <FontAwesomeIcon icon={ faTrashCan }/>
                   </span>
                 </div>
               ))}

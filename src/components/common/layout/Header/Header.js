@@ -31,6 +31,8 @@ import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import noUserImage from "../../../../assets/images/no-user.png";
 import CONFIG from '../../../../config/site.config';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 const Header = forwardRef((props, ref) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -479,7 +481,7 @@ const Header = forwardRef((props, ref) => {
                                 className="deleteSpan"
                                 onClick={() => deleteCartItemRow(index)}
                               >
-                                <img src={deletes} alt="" />
+                                <FontAwesomeIcon icon={ faTrashCan }/>
                               </span>
                             </div>
                           ))}
