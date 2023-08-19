@@ -71,7 +71,7 @@ const HomePage = () => {
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.addEventListener('touchmove', handleScroll);
+      window.removeEventListener('touchmove', handleScroll);
     };
   }, []);
 

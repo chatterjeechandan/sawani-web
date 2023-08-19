@@ -66,6 +66,7 @@ const Checkout = () => {
   const payres = searchParams.get("payres");
   const payError = searchParams.get("error");
   const { t } = useTranslation();
+  const selectedDeliveryTypes = localStorage.getItem("selectedDeliveryType");
 
   const [selectedDeliveryOption, setSelectedDeliveryOption] = useState(() => {
     const storedCheckoutInfo = localStorage.getItem("checkoutInfo");
@@ -203,6 +204,16 @@ const Checkout = () => {
     }
   };
 
+  
+
+  useEffect(() => {
+    if(selectedDeliveryTypes){
+      setSelectedDeliveryOption(selectedDeliveryTypes);
+    }
+  }, [
+    selectedDeliveryTypes
+  ]);
+
 
   useEffect(() => {
     if(selectedDeliveryOption==="2"){
@@ -224,15 +235,21 @@ const Checkout = () => {
   ]);
 
   useEffect(() => {
-    if(selectedPaymentMethod) {
-      setSelectedOnePayMethod({
-        "name": "Apple Pay",
-        "image": "Resources/OnePayMethod/apple.png",
-        "flgStatus": 1,
-        "id": 1,
-        "createDate": "2023-08-17T17:37:06.6500117",
-        "updateDate": "2023-08-17T17:37:06.6500119"
-      })
+    if(selectedPaymentMethod) {      
+      const storedCheckoutInfo = localStorage.getItem("checkoutInfo");
+      if (storedCheckoutInfo) {
+        const checkoutFromStorage = JSON.parse(storedCheckoutInfo);    
+        if(!checkoutFromStorage.onepayReferenceMode) {
+          setSelectedOnePayMethod({
+            "name": "Apple Pay",
+            "image": "Resources/OnePayMethod/apple.png",
+            "flgStatus": 1,
+            "id": 1,
+            "createDate": "2023-08-17T17:37:06.6500117",
+            "updateDate": "2023-08-17T17:37:06.6500119"
+          })
+        }
+      }
     }
   }, [ selectedPaymentMethod ]);
 
@@ -515,7 +532,7 @@ const Checkout = () => {
     try {
       const response = await checkAnonymousUserMob(phone);
       setIsLoading(false);
-      if(response){
+      if(!response.StatusCode){
         setToaster({
           type: "error",
           message: t("Mobile number already exists! Please login into your account"),

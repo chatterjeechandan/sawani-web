@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { CategoryContext } from "../utils/CategoryContext";
 import { useTranslation } from "react-i18next";
 import { GeoLocationComponent } from "../components/geoLocation/geoLocation";
+import { getDeliveryMethodAPI } from "../api/lookup";
 
 const InStorePage = () => {
   document.title = "SAWANI In Store Category";
@@ -20,23 +21,42 @@ const InStorePage = () => {
   const [activeTab, setActiveTab] = useState("inStore");
   const { categories, updateCategoryItems } = useContext(CategoryContext);
   const { t } = useTranslation();
+  const [deliveryTypes, setDeliveryTypes] = useState(null);
 
   useEffect(() => {
+    localStorage.setItem('selectedDeliveryType', 1);
     window.scrollTo(0, 0);
     const fetchData = async () => {
       if (!categories) {
         try {
           const response = await fetchCategories();
           updateCategoryItems(response);
+          getDeliveryTypes();
         } catch (error) {
           console.error("Error fetching categories:", error);
-        } finally {
-          setIsLoading(false);
         }
-      } else {
+      }
+      else {
+        getDeliveryTypes();
+      }
+    };
+
+    const getDeliveryTypes = async () => {
+      try {
+        const response = await getDeliveryMethodAPI();
+        response.forEach(item => {
+          if (item.name === "In-store") {
+            setDeliveryTypes(item);
+          }
+        });      
+        
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      } finally {
         setIsLoading(false);
       }
     };
+
     fetchData();
   }, []);
 
@@ -44,9 +64,13 @@ const InStorePage = () => {
     setActiveTab(tab);
     switch (tab) {
       case "inStore":
+        localStorage.setItem('selectedDeliveryType', 1);
+        localStorage.removeItem('checkoutInfo');
         navigate("/in-store");
         break;
       case "pickup":
+        localStorage.setItem('selectedDeliveryType', 2);
+        localStorage.removeItem('checkoutInfo');
         navigate("/pickup");
         break;
       case "delivery":
@@ -108,7 +132,9 @@ const InStorePage = () => {
               />
             ) : (
               categories?.map((category) => (
-                <CategoryCard key={category.id} category={category} />
+                deliveryTypes?.sectionsIds.includes(category.id) && (
+                  <CategoryCard key={category.id} category={category} />
+                )
               ))
             )}
           </div>

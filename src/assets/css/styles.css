@@ -1334,6 +1334,7 @@ span.deleteSpan {
   padding: 1px;
   width: 30px;
   font-size: 18px;
+  cursor:pointer;
 }
 span.deleteSpan img {
   cursor: pointer;

@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { CategoryContext } from "../utils/CategoryContext";
 import { useTranslation } from "react-i18next";
 import { GeoLocationComponent } from "../components/geoLocation/geoLocation";
+import { getDeliveryMethodAPI } from "../api/lookup";
 
 const PickupPage = () => {
   document.title = "SAWANI Pickup Category";
@@ -20,6 +21,7 @@ const PickupPage = () => {
   const [activeTab, setActiveTab] = useState("pickup");
   const { categories, updateCategoryItems } = useContext(CategoryContext);
   const { t } = useTranslation();
+  const [deliveryTypes, setDeliveryTypes] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -28,15 +30,33 @@ const PickupPage = () => {
         try {
           const response = await fetchCategories();
           updateCategoryItems(response);
+          getDeliveryTypes();
         } catch (error) {
           console.error("Error fetching categories:", error);
-        } finally {
-          setIsLoading(false);
         }
       } else {
+        getDeliveryTypes();
+      }
+    };
+
+    const getDeliveryTypes = async () => {
+      setIsLoading(true);
+      try {
+        const response = await getDeliveryMethodAPI();
+        response.forEach(item => {
+          if (item.name === "Pick-up") {
+            setDeliveryTypes(item);
+          }
+        });      
+        
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      } finally {
         setIsLoading(false);
       }
     };
+
+    getDeliveryTypes();
     fetchData();
   }, []);
 
@@ -44,9 +64,13 @@ const PickupPage = () => {
     setActiveTab(tab);
     switch (tab) {
       case "inStore":
+        localStorage.setItem('selectedDeliveryType', 1);
+        localStorage.removeItem('checkoutInfo');
         navigate("/in-store");
         break;
       case "pickup":
+        localStorage.setItem('selectedDeliveryType', 2);
+        localStorage.removeItem('checkoutInfo');
         navigate("/pickup");
         break;
       case "delivery":
@@ -108,7 +132,9 @@ const PickupPage = () => {
               />
             ) : (
               categories?.map((category) => (
-                <CategoryCard key={category.id} category={category} />
+                deliveryTypes?.sectionsIds.includes(category.id) && (
+                  <CategoryCard key={category.id} category={category} />
+                )
               ))
             )}
           </div>
