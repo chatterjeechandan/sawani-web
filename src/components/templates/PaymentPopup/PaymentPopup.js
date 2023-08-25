@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './PaymentPopup.css';
 import Toaster from '../../common/Toaster/Toaster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import TapPaymentForm from './TapPaymentForm';
+// import TapPaymentForm from './TapPaymentForm';
 import { GoSell } from "@tap-payments/gosell";
 import GoSellDemo from './GoSellDemo';
 

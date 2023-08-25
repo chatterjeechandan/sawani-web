@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef, useMemo, forwardRef, useImperativeHandle } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from '../../components/common/layout/Header/Header';
 import Footer from '../../components/common/layout/Footer';
 import slideDown from "../../assets/images/scroll.png";

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Header from "../../components/common/layout/Header/Header";
 import Footer from "../../components/common/layout/Footer";
 import ProfileSidebar from "./ProfileSidebar";
-import products from "../../assets/images/p1s.png";
 import heart from "../../assets/images/heart-2.png";
 import rewards from "../../assets/images/rewardStar.png";
 import { useTranslation } from "react-i18next";

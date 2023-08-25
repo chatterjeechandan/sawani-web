@@ -4,7 +4,6 @@ import React, {
   useRef
 } from "react";
 import { Link } from "react-router-dom";
-import profile from "../../assets/images/profile.png";
 import profileIcon from "../../assets/images/camelIcon.png";
 import reward from "../../assets/images/rewardStar.png";
 import edits from "../../assets/images/edits.png";

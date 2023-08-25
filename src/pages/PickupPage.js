@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../components/common/layout/Header/Header";
 import Footer from "../components/common/layout/Footer";
 import CategoryCard from "../components/category/CategoryCard";
 import tab1 from "../assets/images/t1.png";
 import tab2 from "../assets/images/t2A.png";
-import tab3 from "../assets/images/t3.png";
+// import tab3 from "../assets/images/t3.png";
 import pots from "../assets/images/pots.png";
 import Loader from "../components/common/Loader/Loader";
 import { fetchCategories } from "../api/category";

@@ -13,15 +13,14 @@ import LoginPopup from "../../../templates/LoginPopup";
 import SignUpPopup from "../../../templates/SignupPopup";
 import ForgetPasswordPopup from "../../../templates/ForgetPasswordPopup";
 import logo from "../../../../assets/images/logo.png";
-import profile from "../../../../assets/images/profile.png";
 import translate from "../../../../assets/images/translate.png";
 import { AuthContext } from "../../../../utils/AuthContext";
 import Toaster from "../../../../components/common/Toaster/Toaster";
 import minus from "../../../../assets/images/minusWhite.png";
+import deleteCart from "../../../../assets/images/deleteItem.png";
 import counterPlus from "../../../../assets/images/addCounter.png";
 import rewards from "../../../../assets/images/rewardPoint.png";
 import cartIcon from "../../../../assets/images/cartIcon.png";
-import deletes from "../../../../assets/images/delete@2x.png";
 import { CartContext } from "../../../../utils/CartContext";
 import { updateCartAPI, deleteCartAPI, getCartAPI, addCartAPI } from "../../../../api/cart";
 import { updateCartOwnerToCartAPI } from "../../../../api/cart";
@@ -52,7 +51,10 @@ const Header = forwardRef((props, ref) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const setIsConfirmOpenFn = () => {
+    setIsConfirmOpen(!isConfirmOpen);
+  };
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -494,10 +496,18 @@ const Header = forwardRef((props, ref) => {
                               </span>
                               <span
                                 className="deleteSpan"
-                                onClick={() => deleteCartItemRow(index)}
+                                onClick={setIsConfirmOpenFn}
+                               
                               >
                                 <FontAwesomeIcon icon={ faTrashCan }/>
                               </span>
+                              {/* <span
+                                className="deleteSpan"
+                                 onClick={() => deleteCartItemRow(index)}
+                               
+                              >
+                                <FontAwesomeIcon icon={ faTrashCan }/>
+                              </span> */}
                             </div>
                           ))}
                       </div>
@@ -556,6 +566,20 @@ const Header = forwardRef((props, ref) => {
             )}
           </div>
         </div>
+        {isConfirmOpen && (
+        <div className="popup-overlay">
+          <div className="popup-content barCodesPopup" >
+            <img src={deleteCart} className="cartDeleteIcon" alt="" />
+            <p className="barCodeHeadingP" >
+              Do you really want to remove the item? 
+            </p>
+            <div className="modalConfirmWraper">
+            <button className="submitpopup conformPop" type="submit">Confirm</button>
+            <button className="cancelPopup" onClick={setIsConfirmOpenFn}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
       </div>
       {isLoginPopupOpen && (
         <LoginPopup

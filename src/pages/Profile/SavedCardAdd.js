@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Header from "../../components/common/layout/Header/Header";
 import Footer from "../../components/common/layout/Footer";
 import { useTranslation } from "react-i18next";
