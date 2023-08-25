@@ -31,9 +31,13 @@ import SlideLeft from "../../assets/images/leftSlideMain.png";
 import SlideRight from "../../assets/images/rightSlideMain.png";
 import { Link } from 'react-router-dom';
 import  "./homePage.css";
+import { useTranslation } from "react-i18next";
+import Loader from "../../components/common/Loader/Loader";
+import { contactusAPI } from "../../api/lookup";
+import Toaster from "../../components/common/Toaster/Toaster";
 
 const HomePage = () => {
-
+  const { t } = useTranslation();
   const scrollToBottom = () => {
     const bottomElement = document.getElementById('bottom');
     if (bottomElement) {
@@ -75,15 +79,142 @@ const HomePage = () => {
     };
   }, []);
 
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    email: "",
+    phoneNumber: "",
+    message: ""
+  });
+  const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [toaster, setToaster] = useState(null);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserInfo((prevUserInfo) => ({ ...prevUserInfo, [name]: value }));
+    if (name === "name") {
+      validateName(value);
+    } else if (name === "email") {
+      validateEmail(value);
+    } else if (name === "phoneNumber") {
+      validatephoneNumber(value);
+    }    
+    else if (name === "message") {
+      validateMessage(value);
+    }    
+  };
+
+  const validateName = (nameValue) => {
+    const newErrors = {};
+    if (!nameValue.trim()) {
+      newErrors.name = t("Full Name is required");
+    }
+    else {
+      newErrors.name = "";
+    }
+    setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
+    return newErrors.name ==''? true:false;
+  };
+
+  const validateEmail = (emailValue) => {
+    const newErrors = {};
+    const emailFormat = /\S+@\S+\.\S+/;
+    if (!emailValue) {
+      newErrors.email = t("Email is required");
+    } else if (emailValue && !emailFormat.test(emailValue)) {
+      newErrors.email = t("Invalid Email Address");
+    }else {
+      newErrors.email = "";
+    }
+    setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
+    return newErrors.email ==''?true:false;
+  };
+
+  const validatephoneNumber = (phoneValue) => {
+    const newErrors = {};
+    const mobileFormat = /^9665\d{8}$/;
+    if (!phoneValue) {
+      newErrors.phoneNumber = t("Phone Number is required");
+    } else if (!phoneValue.match(mobileFormat)) {
+      newErrors.phoneNumber = t("Invalid mobile number format. Expected format: 9665XXXXXXXX where X is a digit.");
+    }
+    else {
+      newErrors.phoneNumber = "";
+    }
+    setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
+    return newErrors.phoneNumber ==''?true:false;
+  };
+
+  const validateMessage = (messageValue) => {
+    const newErrors = {};
+    if (!messageValue.trim()) {
+      newErrors.message = t("Message is required");
+    }
+    else {
+      newErrors.message = "";
+    }
+    setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
+    return newErrors.message =='' ? true:false;
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const isNameValid = validateName(userInfo.name);
+    const isEmailValid = validateEmail(userInfo.email); 
+    const isPhoneNumberValid = validatephoneNumber(userInfo.phoneNumber);     
+    const isMessageValid = validateMessage(userInfo.message);   
+    if (isNameValid && isEmailValid && isPhoneNumberValid && isMessageValid) {
+      submitContactUs();
+    }
+  };
+
+  const submitContactUs = async () => {    
+    setIsLoading(true);
+      try {
+       const contactUsPayload = {
+          "fromEmail": userInfo.email,
+          "subject": "Contact Us",
+          "body": userInfo.message,
+          "name": userInfo.name,
+          "phone": userInfo.phoneNumber
+        }
+        const response = await contactusAPI(contactUsPayload);
+        if(response){
+          setIsLoading(false);
+          setToaster({
+            type: "success",
+            message: t("Submitted successfully!"),
+            duration: 3000,
+          });
+          setUserInfo({
+            name: "",
+            email: "",
+            message: "",
+            phoneNumber:""
+          });
+        }        
+      } catch (error) {
+        console.error("Error submitting contact form:", error);
+      }
+  };
+
+  const handleToasterClose = () => {
+    setToaster(null);
+  };
   
   return (
     <div className="dashboardWraper" style={{ textAlign: "left" }}>
+       {toaster && (
+        <Toaster
+          type={toaster.type}
+          message={toaster.message}
+          duration={toaster.duration}
+          onClose={handleToasterClose}
+        />
+      )}
+      <Link to="/in-store" ref={targetRef} className='orderNowBtnsAnchor'><span className='orderNowBtns'><img src={logoW} alt='' className='ordersImg'/>{t('Order Now')}</span></Link>        
       <div className="bannerWrapers">
-        <Header />
-        {scrolled && (
-           <Link to="/in-store" ref={targetRef}><span className='orderNowBtns'><img src={logoW} alt='' className='ordersImg'/> Order Now</span></Link>          
-        )}
-        
+        <Header />        
         <div className="bannertextWraper">
           <p>ارثنا منتجات</p>
           <h4>المستقبــــــل</h4>
@@ -123,6 +254,17 @@ const HomePage = () => {
 
       <div className="sliderSection oneSlider" >
         <div className="rowSec">
+        <div className="rightSection">
+            <div className="innerTextWraper">
+              <div className="headingsWraper">
+                <span>
+                  <img src={icon1} className='fstIcon' alt="" />
+                </span>
+                <h4>منتجاتنا</h4>
+              </div>
+              <p>حليب الإبل غني بالعديد من العناصر الغذائية المهمة للصحة العامة، عندما يتعلق الأمر بالسعرات الحرارية والبروتينات ومحتوى الكربوهيدرات، فإن حليب الإبل يمكن مقارنته بحليب البقر كامل الدسم، ومع ذلك، فهو يحتوي على نسبة أقل من الدهون المشبعة ويوفر المزيد من فيتامينC وفيتامين B والكالسيوم والحديد والبوتاسيوم، كما أنه مصدر جيد للدهون الصحية، مثل الأحماض الدهنية وحمض اللينوليك والأحماض الدهنية غير المشبعة، والتي قد تدعم صحة الدماغ والقلب.حليب الإبل غني بالعديد من العناصر الغذائية المهمة للصحة العامة، عندما يتعلق الأمر بالسعرات الحرارية والبروتينات ومحتوى الكرب</p>
+              </div>
+          </div>
           <div className="leftSection">
             <div className="sliderWraper heartsBackdrop">
               <span className='sliderControls'>
@@ -161,29 +303,14 @@ const HomePage = () => {
                 <p>حليب الإبل غني بالعديد من العناصر الغذائية المهمة للصحة العامة، فيتامينC وفيتامين B والكالسيوم والحديد والبوتاسيوم، كما أنه مصدر جيد للدهون الصحية، مثل الأحماض الدهنية وحمض اللينوليك والأحماض الدهنية غير المشبعة، والتي قد تدعم صحة الدماغ والقلب.</p>
               </div>
             </div>
-          </div>
-          <div className="rightSection">
-            <div className="innerTextWraper">
-              <div className="headingsWraper">
-                <span>
-                  <img src={icon1} className='fstIcon' alt="" />
-                </span>
-                <h4>منتجاتنا</h4>
-              </div>
-              <p>حليب الإبل غني بالعديد من العناصر الغذائية المهمة للصحة العامة، عندما يتعلق الأمر بالسعرات الحرارية والبروتينات ومحتوى الكربوهيدرات، فإن حليب الإبل يمكن مقارنته بحليب البقر كامل الدسم، ومع ذلك، فهو يحتوي على نسبة أقل من الدهون المشبعة ويوفر المزيد من فيتامينC وفيتامين B والكالسيوم والحديد والبوتاسيوم، كما أنه مصدر جيد للدهون الصحية، مثل الأحماض الدهنية وحمض اللينوليك والأحماض الدهنية غير المشبعة، والتي قد تدعم صحة الدماغ والقلب.حليب الإبل غني بالعديد من العناصر الغذائية المهمة للصحة العامة، عندما يتعلق الأمر بالسعرات الحرارية والبروتينات ومحتوى الكرب</p>
-              </div>
-          </div>
+          </div>         
         </div>
       </div>
 
       <div className='midSliderWraper'>
       <div className="rowSec">
 
-      <div className='rightContentSec'>
-          <span className='rightSideImgWraper'>
-            <img src={coconut} alt='' />
-          </span>
-        </div>
+     
         <div className='leftContentSec '>
           <div className='contentWrapers'>
             <div className='indPointsMini'>
@@ -254,6 +381,12 @@ const HomePage = () => {
               </li>
             </ul>
           </div>
+        </div>
+
+        <div className='rightContentSec'>
+          <span className='rightSideImgWraper'>
+            <img src={coconut} alt='' />
+          </span>
         </div>
       </div>
       </div>
@@ -350,84 +483,130 @@ const HomePage = () => {
         
         <div className='countactSectionWrapers'>
           <div className="rowSec">
+          <div className='rightSection'>
+              <div className='blocksWraper'>
+                <h3>المركز الاعلامي</h3>
+                <div className='indBloackContent'>
+                  <div className='blockImgs'>
+                    <img src={pots} className='potsImg' />
+                  </div> 
+                  <div className='indBlocksMain'>
+                    <p>اقتصادي / صندوق الاستثمارات العامة يعلن افتتاح ثلاثة مكاتب جديدة لشركات تابعة في لندن ونيويورك وهونغ كونغ لمواصلة توسّعه العالمي</p>
+                    <p className='subParaP'>تم النشر بتاريخ الخميس 2022/2/24</p>
+                  </div>                                   
+                </div>
+                <div className='indBloackContent'>
+                <div className='blockImgs'>
+                    <img src={pots} className='potsImg' />
+                  </div> 
+                  <div className='indBlocksMain'>
+                    <p>اقتصادي / صندوق الاستثمارات العامة يعلن افتتاح ثلاثة مكاتب جديدة لشركات تابعة في لندن ونيويورك وهونغ كونغ لمواصلة توسّعه العالمي</p>
+                    <p className='subParaP'>تم النشر بتاريخ الخميس 2022/2/24</p>
+                  </div>                                   
+                </div>
+                <div className='indBloackContent'>
+                  <div className='blockImgs'>
+                    <img src={pots} className='potsImg' />
+                  </div>  
+                  <div className='indBlocksMain'>
+                    <p>اقتصادي / صندوق الاستثمارات العامة يعلن افتتاح ثلاثة مكاتب جديدة لشركات تابعة في لندن ونيويورك وهونغ كونغ لمواصلة توسّعه العالمي</p>
+                    <p className='subParaP'>تم النشر بتاريخ الخميس 2022/2/24</p>
+                  </div>                                  
+                </div>
+              </div>
+            </div>
             <div className='leftSection'>
               <div className='blocksWraper'>
                 <div className='headerSocial'>
                 <h3>المركز الاعلامي</h3>
                 <ul className='socialLinks'>
                     <li>
-                      <a href=''>
-                      <img src={contact1} alt=''/>
-                      </a>
+                    <Link to="/"><img src={contact1} alt=''/></Link>
+                      </li>
+                    <li>
+                      <Link to="https://www.linkedin.com/company/sawanisaudi/" target="_blank" rel="noopener noreferrer"><img src={contact2} alt=''/></Link>
                     </li>
                     <li>
-                      <a href=''>
-                      <img src={contact2} alt=''/>
-                      </a>
-                    </li>
-                    <li>
-                      <a href=''>
-                      <img src={contact3} alt=''/>
-                      </a>
+                      <Link to="https://twitter.com/NougSaudi" target="_blank" rel="noopener noreferrer"><img src={contact3} alt=''/></Link>
                     </li>
                   </ul>
                 </div>
               
               <div className='contactFormWraper'>
                 <div className='indField'>
-                  <input className='formFieldsInput' type='text' placeholder='الاسم بالكامل' />
+                  <input 
+                    className='formFieldsInput' 
+                    type='text' 
+                    placeholder='الاسم بالكامل'
+                    name="name"
+                    onChange={handleInputChange}
+                    maxLength={50}
+                    value={userInfo.name}
+                  />
                   <i className="fa fa-user" aria-hidden="true"></i>
                 </div>
+                {errors.name && (
+                    <p className="errorText">{errors.name}</p>
+                )}
                 <div className='indField'>
-                  <input className='formFieldsInput' type='email' placeholder='البريد الالكتروني' />
+                  <input 
+                    className='formFieldsInput' 
+                    type='email' 
+                    placeholder='البريد الالكتروني'
+                    name="email"
+                    onChange={handleInputChange}
+                    value={userInfo.email}
+                  />
                   <i className="fa fa-envelope" aria-hidden="true"></i>
                 </div>
+                {errors.email && (
+                  <p className="errorText">{errors.email}</p>
+                )}
                 <div className='indField'>
-                  <input className='formFieldsInput' type='text' placeholder='رقم الجوال' />
+                  <input 
+                    className='formFieldsInput' 
+                    type='text' 
+                    placeholder='رقم الجوال'
+                    name="phoneNumber"
+                    onChange={handleInputChange}
+                    value={userInfo.phoneNumber}
+                  />
                   <i className="fa fa-mobile" aria-hidden="true"></i>
                 </div>
+                {errors.phoneNumber && (
+                  <p className="errorText">{errors.phoneNumber}</p>
+                )}
                 <div className='indField'>
-                  <textarea className='formFieldsInputTextarea'placeholder='الرسالة' ></textarea>
+                  <textarea 
+                    className='formFieldsInputTextarea'
+                    placeholder='الرسالة'
+                    name="message"
+                    onChange={handleInputChange}
+                    value={userInfo.message}
+                  ></textarea>
                   <i className="fa fa-pencil" aria-hidden="true"></i>
                 </div>
+                {errors.message && (
+                  <p className="errorText">{errors.message}</p>
+                )}
+                  <button className='submitContctForm' onClick={handleSubmit}>
+                  {isLoading ? (
+                    <div className="buttonloader">
+                      <Loader
+                        showOverlay={false}
+                        size={15}
+                        color="#fff"
+                        isLoading={true}
+                      />
+                    </div>                  
+                    ) : (
+                      t("ارسل")
+                  )}
+                  </button>
                 
-                  <button className='submitContctForm'>ارسل</button>
-                
               </div>
               </div>
-            </div>
-            <div className='rightSection'>
-              <div className='blocksWraper'>
-                <h3>المركز الاعلامي</h3>
-                <div className='indBloackContent'>
-                  <div className='indBlocksMain'>
-                    <p>اقتصادي / صندوق الاستثمارات العامة يعلن افتتاح ثلاثة مكاتب جديدة لشركات تابعة في لندن ونيويورك وهونغ كونغ لمواصلة توسّعه العالمي</p>
-                  </div>
-                  <div className='blockImgs'>
-                    <img src={pots} className='potsImg' />
-                  </div>
-                  <p className='subParaP'>تم النشر بتاريخ الخميس 2022/2/24</p>
-                </div>
-                <div className='indBloackContent'>
-                  <div className='indBlocksMain'>
-                    <p>اقتصادي / صندوق الاستثمارات العامة يعلن افتتاح ثلاثة مكاتب جديدة لشركات تابعة في لندن ونيويورك وهونغ كونغ لمواصلة توسّعه العالمي</p>
-                  </div>
-                  <div className='blockImgs'>
-                    <img src={pots} className='potsImg' />
-                  </div>
-                  <p className='subParaP'>تم النشر بتاريخ الخميس 2022/2/24</p>
-                </div>
-                <div className='indBloackContent'>
-                  <div className='indBlocksMain'>
-                    <p>اقتصادي / صندوق الاستثمارات العامة يعلن افتتاح ثلاثة مكاتب جديدة لشركات تابعة في لندن ونيويورك وهونغ كونغ لمواصلة توسّعه العالمي</p>
-                  </div>
-                  <div className='blockImgs'>
-                    <img src={pots} className='potsImg' />
-                  </div>
-                  <p className='subParaP'>تم النشر بتاريخ الخميس 2022/2/24</p>
-                </div>
-              </div>
-            </div>
+            </div>        
           </div>
         </div>
 

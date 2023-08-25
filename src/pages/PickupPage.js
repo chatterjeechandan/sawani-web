@@ -8,11 +8,18 @@ import tab3 from "../assets/images/t3.png";
 import pots from "../assets/images/pots.png";
 import Loader from "../components/common/Loader/Loader";
 import { fetchCategories } from "../api/category";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { CategoryContext } from "../utils/CategoryContext";
 import { useTranslation } from "react-i18next";
 import { GeoLocationComponent } from "../components/geoLocation/geoLocation";
 import { getDeliveryMethodAPI } from "../api/lookup";
+import { CartContext } from "../utils/CartContext";
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const PickupPage = () => {
   document.title = "SAWANI Pickup Category";
@@ -22,8 +29,12 @@ const PickupPage = () => {
   const { categories, updateCategoryItems } = useContext(CategoryContext);
   const { t } = useTranslation();
   const [deliveryTypes, setDeliveryTypes] = useState(null);
+  const { cartItems, updateCartItems } = useContext(CartContext);
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
+    localStorage.setItem('selectedDeliveryType', 2);    
     window.scrollTo(0, 0);
     const fetchData = async () => {
       if (!categories) {
@@ -55,23 +66,16 @@ const PickupPage = () => {
         setIsLoading(false);
       }
     };
-
-    getDeliveryTypes();
     fetchData();
   }, []);
 
   const handleTabClick = (tab) => {
-    setActiveTab(tab);
     switch (tab) {
       case "inStore":
-        localStorage.setItem('selectedDeliveryType', 1);
-        localStorage.removeItem('checkoutInfo');
-        navigate("/in-store");
+        changeDeliveryMode(1,tab);
         break;
       case "pickup":
-        localStorage.setItem('selectedDeliveryType', 2);
-        localStorage.removeItem('checkoutInfo');
-        navigate("/pickup");
+        changeDeliveryMode(2,tab);
         break;
       case "delivery":
         navigate("/delivery");
@@ -80,6 +84,44 @@ const PickupPage = () => {
         break;
     }
   };
+
+  const changeDeliveryMode = (mode,tab) => {
+    const selectedDeliveryMode = localStorage.getItem("selectedDeliveryType");
+    if(Number(selectedDeliveryMode) !== Number(mode)){
+      if(cartItems){
+        if(cartItems.items.length === 0 ){
+          setActiveTab(tab);
+          localStorage.setItem('selectedDeliveryType', mode);
+          localStorage.removeItem('checkoutInfo');
+          if(mode===1){        
+            navigate("/in-store");
+          }
+          else{
+            navigate("/pickup");
+          }
+        } else {
+          setOpen(true);
+        }
+      } else {
+        setActiveTab(tab);
+        localStorage.setItem('selectedDeliveryType', mode);
+        localStorage.removeItem('checkoutInfo');
+        navigate("/in-store");
+      }      
+    }
+  };
+
+  const handleAgree = () => {
+    updateCartItems({...cartItems, items: []});
+    localStorage.setItem('selectedDeliveryType', 1);
+    localStorage.removeItem('checkoutInfo');
+    setActiveTab('inStore');
+    navigate("/in-store");
+  };  
+
+  const handleClose = () => {
+    setOpen(false);
+  }; 
 
   return (
     <div className="dashboardPageMaimWraper">
@@ -141,6 +183,27 @@ const PickupPage = () => {
         </div>
       </div>
       <Footer />
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {t("Are you sure?")}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {t("You already have Items in your cart. Cart will be deleted if you change the delivery method.")}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleAgree} className="confirm-agree-button">
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

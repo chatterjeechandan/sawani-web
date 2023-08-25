@@ -3,6 +3,7 @@ import iconSelect from "../../assets/images/iconSelect.png";
 import dropimg from "../../assets/images/drop.png";
 import { useLocation, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { getDeliveryMethodAPI } from "../../api/lookup";
 
 const ProductFilter = ({
   categories,
@@ -20,7 +21,7 @@ const ProductFilter = ({
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const sortUrl = searchParams.get("sort");
-  
+  const [selectionSectionId, setSelectionSectionId] = useState(null);
 
   const sorts = [
     { value: "new", label: t("New Arrival") },
@@ -34,6 +35,7 @@ const ProductFilter = ({
   
 
   useEffect(() => {
+    getDeliveryTypes();
     if(sortUrl){
       const selectedSortObj = sorts.find(sort => sort.value === sortUrl);
       setSelectedSort(selectedSortObj);
@@ -43,6 +45,21 @@ const ProductFilter = ({
       document.removeEventListener("click", handleOutsideClick);
     };
   }, []);
+
+  const getDeliveryTypes = async () => {
+    const selectedDeliveryTypes = localStorage.getItem("selectedDeliveryType");
+    try {
+      const response = await getDeliveryMethodAPI();
+      response.forEach(item => {
+        if (Number(item.id) === Number(selectedDeliveryTypes)) {
+          setSelectionSectionId(item.sectionsIds);
+        }
+      });      
+      
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    } 
+  };
 
   const handleOutsideClick = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -82,14 +99,14 @@ const ProductFilter = ({
           {dropDownOpen && (
             <ul className="customDropdown">
               {categories.map((category) => {
+                if (!selectionSectionId.includes(category.id)) {
+                  return null;
+                }
                 if (Number(category.id) === Number(selectedCategory.id)) {
                   return null;
                 }
                 return (
-                  <li
-                    key={category.id}
-                    onClick={() => handleCategoryClick(category)}
-                  >
+                  <li key={category.id} onClick={() => handleCategoryClick(category)}>
                     <span className="selectIcons">
                       <img src={iconSelect} alt="Select" />
                     </span>
@@ -101,44 +118,9 @@ const ProductFilter = ({
           )}
         </div>
       </div>
-      {/* <div className='productOptions'>
-                <ul className='productSubLists'>
-                    {selectedCategory?.childCategories.map((subCategory) => {
-                        return (
-                            <li key={subCategory.id} className={Number(subCategory.id) === Number(scat) ? 'active' : ''}>
-                                <Link to={`/products/?pcat=${selectedCategory.id}&scat=${subCategory.id}`} className="product-link" style={{ display: 'inline' }}>
-                                    {subCategory.name}
-                                </Link>
-                            </li>
-                        );
-                    })}
-                </ul>
-            </div> */}
       <div className="filterSections">
-        {/* <span className='filterDrop first'>
-                    <select>
-                        <option>Filter</option>
-                    </select>
-                    <span className='dropArrows'>
-                        <img src={dropimg} alt='' />
-                    </span>
-                </span> */}
         <span className="filterDrop laste">
           <p>{t("Sort By:")} </p>
-          {/* <select onChange={(e) => handleShortSelectChange(e)}>
-            <option value="new" selected={sort === "new" || !sort}>
-              {t("New Arrival")}
-            </option>
-            <option value="price_high" selected={sort === "price_high"}>
-              {t("Price High to Low")}
-            </option>
-            <option value="price_low" selected={sort === "price_low"}>
-              {t("Price Low to High")}
-            </option>
-          </select>
-          <span className="dropArrows">
-            <img src={dropimg} alt="" />
-          </span> */}
            <div className="dropdown sort-drop" ref={shortDropdownRef}>
             <div className="customizeFilterDisplay" onClick={() => setSortdropDownOpen(!sortdropDownOpen)}>
               <span className="selectText">

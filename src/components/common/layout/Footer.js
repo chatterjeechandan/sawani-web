@@ -11,10 +11,7 @@ const Footer = () => {
     <footer>
       {/* Your footer content goes here */}
       <div className="footerWraper">
-        <div className="rowWraper firstRow rowSec">
-          <div className="logoSec">
-            <img src={footerLogo} alt="" />
-          </div>
+        <div className="rowWraper firstRow rowSec">          
           <div className="footerMenu">
             <ul>
               <li>
@@ -46,16 +43,19 @@ const Footer = () => {
               </li>
             </ul>
           </div>
+          <div className="logoSec">
+            <img src={footerLogo} alt="" />
+          </div>
         </div>
         <div className="rowWraper secondRow">
           <div className="socialIcons">
             <span className="social">
-              <Link to="/">
+              <Link to="https://www.linkedin.com/company/sawanisaudi/" target="_blank" rel="noopener noreferrer">
                 <img src={s1} alt="" />
               </Link>
             </span>
             <span className="social">
-              <Link to="/">
+              <Link to="https://twitter.com/NougSaudi" target="_blank" rel="noopener noreferrer">
                 <img src={s2} alt="" />
               </Link>
             </span>

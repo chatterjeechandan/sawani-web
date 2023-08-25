@@ -171,5 +171,14 @@
   "Region is required": "Region is required",
   "Note should not exceed 200 characters": "Note should not exceed 200 characters",
   "Phone Number is required": "Phone Number is required",
-  "City": "City"
+  "City": "City",
+  "Are you sure?": "Are you sure?",
+  "You already have Items in your cart. Cart will be deleted if you change the delivery method.": "You already have Items in your cart. Cart will be deleted if you change the delivery method.",
+  "Agree": "Agree",
+  "Disagree": "Disagree",
+  "Contact us submitted successfully!": "Contact us submitted successfully!",
+  "Email is required" : "Email is required",
+  "Invalid Email Address": "Invalid Email Address",
+  "Message is required": "Message is required",
+  "Submitted successfully!": "Submitted successfully!"
 }

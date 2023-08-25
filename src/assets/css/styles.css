@@ -349,6 +349,8 @@ input:-internal-autofill-selected {
   align-items: center;
   flex-direction: column;
   background: #f7f2ec;
+  z-index: 7;
+  position: relative;
 }
 
 .rowWraper.firstRow {
@@ -361,17 +363,15 @@ input:-internal-autofill-selected {
 
 .logoSec {
   width: 30%;
-  float: left;
-  text-align: right;
-  padding-right: 100px;
+  float: right;
+  padding-left: 100px;
 }
 .logoSec img {
   width: 225px;
-  float: left;
+  float: right;
 }
 .footerMenu {
   width: 70%;
-  float: right;
   text-align: left;
   padding: 0 10px;
 }
@@ -464,7 +464,6 @@ span.social img {
 .tabUl {
   display: flex;
   align-items: center;
-  margin-top: 10px;
   border-radius: 10px;
   overflow: hidden;
 }
@@ -2370,6 +2369,9 @@ p.profileNameHeader {
   font-size: 15px;
   font-family: '29LT Bukra Md';
 }
+.orderNowBtnsAnchor{
+  display: block;
+}
 .orderNowBtns {
   background: #a592b5;
   position: fixed;
@@ -2379,7 +2381,7 @@ p.profileNameHeader {
   padding: 10px 25px;
   border-radius: 20px;
   color: #fff;
-  z-index: 9;
+  z-index: 7;
   cursor: pointer;
 }
 .addAddress {
@@ -2918,7 +2920,8 @@ body.lang-ar .footerMenu {
 }
 
 body.lang-ar .logoSec {
-  float: right;
+  float: left;
+  padding-left: 0;
 }
 
 body.lang-ar .checkoutProductHeading {
@@ -2951,7 +2954,7 @@ body.lang-ar .cartBtnWraper .checkBtn {
 }
 
 body.lang-ar .logoSec img {
-  float: right;
+  float: left;
 }
 
 body.lang-ar .searchArea {
@@ -3291,11 +3294,38 @@ body.lang-ar .subProfileInfo {
 }
 
 body.lang-ar p.subParaP {
-  text-align: right;
+  text-align: left;
 }
 
 body.lang-ar .favouritetabWraper {
   text-align: right;
+}
+
+body.lang-ar .loader-content span {
+  margin-left:0px;
+  margin-right:5px;
+}
+
+body.lang-ar .sliderWraper.heartsBackdrop::before {
+  right:auto;
+  left:10px;
+}
+
+body.lang-ar .sliderSection:after {
+  transform: inherit;
+}
+
+body.lang-ar .leftSection {
+  float: left;
+}
+
+body.lang-ar span.userPImg {
+  margin-left:20px;
+  margin-right:0px
+}
+
+body.lang-ar span.rightSideImgWraper {
+  left: -80px;
 }
 
 @media only screen and (max-width: 991px) {
@@ -3343,13 +3373,15 @@ body.lang-ar .favouritetabWraper {
 /***************RTL CSS ENDS HERE*****************************/
 
 .footerWraper .rowWraper.firstRow {
-  width: 80%;
+  width: 70%;
   border: 0px solid red;
   padding: 15px 0px 10px;
   margin-bottom: 25px;
   padding-bottom: 0;
   float: left;
   margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
 
 }
 
@@ -3648,6 +3680,48 @@ body.lang-ar .favouritetabWraper {
   .menu-items {
     width: 165px;
   }
+
+  .relatedProductWraper .indProduct {
+    width: 44%;
+  }
+
+  .midSliderWraper .rowSec{
+    flex-direction: column;
+  }
+
+  span.rightSideImgWraper {
+    left: inherit;
+    top: 57px;
+  }
+
+  .sliderSection.oneSlider .rowSec {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sliderSection.oneSlider .rowSec .rightSection{
+    margin-top: 100px;
+  }
+
+  body.lang-ar .sliderSection.oneSlider .rowSec .rightSection{
+    margin-top: 50px;
+  }
+
+  .sliderSection.oneSlider .rowSec .leftSection {
+    padding: 30px 0 0 0;
+  }
+
+  .footerWraper .rowWraper.firstRow{
+    flex-direction: column-reverse;
+  }
+
+  .indBloackContent {
+    flex-direction: column;
+  }
+
+  .indBlocksMain{
+    width:100%;
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1200px) {
@@ -3667,6 +3741,15 @@ body.lang-ar .favouritetabWraper {
 @media only screen and (min-width: 1601px) {
   .individualProduct {
     height: 320px;
+  }
+  .indProduct {
+    min-height: 300px;
+  }
+}
+
+@media only screen and (min-width: 1501px) and (max-width: 1601px){
+  .indProduct {
+    min-height: 300px;
   }
 }
 /* Thanks Page */
@@ -4111,4 +4194,40 @@ span.userPinfo p {
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: #555;
+}
+
+.confirm-agree-button {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+.input-wrapper {
+  display:flex;
+  flex-direction:column;
+  width: 49.5%;
+}
+
+.sortFieldInput {
+  justify-content: space-between;
+}
+
+.input-wrapper .indFields {
+  width:100% !important;
+}
+
+.input-wrapper.contact {
+  width: 100%;
+}
+
+.loader-content span {
+  margin-left:5px;
+}
+
+.productsDisplayWraper.extraProducts {
+  justify-content: flex-start;
+}
+
+.noProduct.relateed {
+  padding: 50px 0 0 0 !important;
+  height: 200px;
 }

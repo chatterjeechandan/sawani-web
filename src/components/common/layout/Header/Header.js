@@ -23,7 +23,6 @@ import rewards from "../../../../assets/images/rewardPoint.png";
 import cartIcon from "../../../../assets/images/cartIcon.png";
 import deletes from "../../../../assets/images/delete@2x.png";
 import { CartContext } from "../../../../utils/CartContext";
-import placeholderImage from "../../../../assets/images/no-image.png";
 import { updateCartAPI, deleteCartAPI, getCartAPI, addCartAPI } from "../../../../api/cart";
 import { updateCartOwnerToCartAPI } from "../../../../api/cart";
 import Loader from "../../../../components/common/Loader/Loader";
@@ -33,6 +32,7 @@ import noUserImage from "../../../../assets/images/no-user.png";
 import CONFIG from '../../../../config/site.config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import productInd from "../../../../assets/images/pr1.png";
 
 const Header = forwardRef((props, ref) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -113,44 +113,48 @@ const Header = forwardRef((props, ref) => {
     };
 
     const storedCartInfo = localStorage.getItem("cartInfo");
-
+    console.log(storedCartInfo);
     if (storedCartInfo) {
         try {
-            setIsShowWholePageLoader(true);           
-            
+            setIsShowWholePageLoader(true);
             const cartObj = JSON.parse(storedCartInfo);
-            const getActualCartResponse =  await getCartAPI(cartObj.id);      
-          
-            for (const item of cartObj.items) {
-              const existingCartItemIndex = getActualCartResponse.data.items.findIndex(
-                (innerItem) => innerItem.productVariantId === item.productVariantId
-              );
-              if (existingCartItemIndex !== -1) {
-                await updateCartAPI(cartObj.id, item);
-              } else {
-                await addCartAPI(cartObj.id, item);
+            const getActualCartResponse =  await getCartAPI(cartObj.id);
+            
+            if(cartObj.items.length > 0) {
+              for (const item of cartObj.items) {
+                const existingCartItemIndex = getActualCartResponse.data.items.findIndex(
+                  (innerItem) => innerItem.productVariantId === item.productVariantId
+                );
+                if (existingCartItemIndex !== -1) {
+                  await updateCartAPI(cartObj.id, item);
+                } else {
+                  await addCartAPI(cartObj.id, item);
+                }
               }
-            }
-
-            for (const item1 of getActualCartResponse.data.items) {
-              const existingCartItemIndex1 = cartObj.items.findIndex(
-                (innerItem) => innerItem.productVariantId === item1.productVariantId
-              );
-              if (existingCartItemIndex1 == -1) {
+  
+              for (const item1 of getActualCartResponse.data.items) {
+                const existingCartItemIndex1 = cartObj.items.findIndex(
+                  (innerItem) => innerItem.productVariantId === item1.productVariantId
+                );
+                if (existingCartItemIndex1 == -1) {
+                  await deleteCartAPI(cartObj.id, item1);
+                }
+              }
+            } else {
+              for (const item1 of getActualCartResponse.data.items) {
                 await deleteCartAPI(cartObj.id, item1);
               }
             }
 
             const response_new = await updateCartOwnerToCartAPI(cartItems.id);
-            if (response_new.succeeded) {
-                setToaster({
-                    type: "success",
-                    message: t("Logout successful"),
-                    duration: 3000,
-                });
-                updateCartItems(null);
-                setTimeout(performLogoutActions, 500);
-            }
+
+            setToaster({
+              type: "success",
+              message: t("Logout successful"),
+              duration: 3000,
+            });
+            updateCartItems(null);
+            setTimeout(performLogoutActions, 500);
         } catch (error) {
             console.error("Error updating cart owner:", error);
         }
@@ -308,6 +312,8 @@ const Header = forwardRef((props, ref) => {
 
   const storedCartInfo = localStorage.getItem("cartInfo");
 
+  const selectedDeliveryMode = localStorage.getItem("selectedDeliveryType");
+
   return (
     <header className="header headerWrapers">
       {toaster && (
@@ -372,7 +378,16 @@ const Header = forwardRef((props, ref) => {
               </label>
               <ul className="menu-items detail menuDrop">
                 <li>
-                  <Link to="/in-store">{t("Order Now")}</Link>
+                {
+                  (selectedDeliveryMode == 1 || !selectedDeliveryMode) && (
+                    <Link to="/in-store">{t("Order Now")}</Link>
+                  )
+                }
+                {
+                  selectedDeliveryMode == 2 && (
+                    <Link to="/pickup">{t("Order Now")}</Link>
+                  )
+                }                 
                 </li>
                 <li>
                   <Link to="/contact-us">{t("Contact Us")}</Link>
@@ -440,7 +455,7 @@ const Header = forwardRef((props, ref) => {
                                   src={
                                     item?.image
                                       ? `data:image/png;base64,${item.image}`
-                                      : placeholderImage
+                                      : productInd
                                   }
                                   alt=""
                                 />
@@ -521,8 +536,17 @@ const Header = forwardRef((props, ref) => {
                         {calculateSubtotal().toFixed(2)} {t("SAR")}
                         </span>
                       </div>
-                      <div className="cartBtnWraper">
-                          <Link to="/in-store"><button className="pinkBtn">{t("CONTINUE SHOPPING")}</button></Link>
+                      <div className="cartBtnWraper">                         
+                          {
+                            (selectedDeliveryMode == 1 || !selectedDeliveryMode) && (
+                              <Link to="/in-store"><button className="pinkBtn">{t("CONTINUE SHOPPING")}</button></Link>
+                            )
+                          }
+                          {
+                            selectedDeliveryMode == 2 && (
+                              <Link to="/pickup"><button className="pinkBtn">{t("CONTINUE SHOPPING")}</button></Link>
+                            )
+                          }
                           <Link to="/checkout"><button className="checkBtn">{t("CHECKOUT")}</button></Link>
                       </div>
                     </div>

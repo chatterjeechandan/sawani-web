@@ -11,3 +11,7 @@ export function fetchProductsbyCat(storeId, scatId, sort) {
 export function getProductById(productId) {
     return fetchData(`catalog/products/${productId}`);
 }
+
+export function getRelatedProducts(variantId) {
+    return fetchData(`catalog/related_products/${variantId}`);
+}

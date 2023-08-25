@@ -13,7 +13,7 @@ import {
   deleteCustomerFavourite,
 } from "../../api/customer";
 import Loader from "../../components/common/Loader/Loader";
-import placeholderImage from "../../assets/images/no-image.png";
+import productInd from "../../assets/images/pr1.png";
 
 const FavouriteProducts = () => {
   const { t } = useTranslation();
@@ -101,7 +101,7 @@ const FavouriteProducts = () => {
                       <Link to={`/product/${favourite.product.productId}`} className="indProductsWraperLink">
                         <div className="indProductsWraper" key={favourite.id /* assuming each favourite has a unique id */}>
                           <div className="imagePrd">
-                            <img src={favourite.product.image ? `data:image/png;base64,${favourite.product.image}` : placeholderImage} alt="" />
+                            <img src={favourite.product.image ? `data:image/png;base64,${favourite.product.image}` : productInd} alt="" />
                             <span className="likeProducts">
                               <img src={heart} alt=""  onClick={(e) => handleFavouriteDelete(e,index,favourite)}/>
                               {deletingAddresses.has(favourite.id) && (

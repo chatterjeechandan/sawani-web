@@ -11,7 +11,7 @@ import arrows from "../assets/images/arrowPoint.png";
 import payLogo from "../assets/images/payLogo.png";
 import pCreditCardLogo from "../assets/images/credit-card.png";
 import { CartContext } from "../utils/CartContext";
-import placeholderImage from "../assets/images/no-image.png";
+import productInd from "../assets/images/pr1.png";
 import { updateCartAPI, deleteCartAPI, addCartAPI, getCartAPI } from "../api/cart";
 import minus from "../assets/images/minusWhite.png";
 import { AuthContext } from "../utils/AuthContext";
@@ -115,7 +115,10 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    if ((!cartItems || cartItems?.items?.length == 0) && !payres && !payError) {
+    const storedCartInfo = localStorage.getItem("cartInfo");
+    if (!storedCartInfo) navigate("/in-store");
+    const cartObj = JSON.parse(storedCartInfo);
+    if (cartObj?.items?.length == 0) {
       navigate("/in-store");
     }
     getDeliveryMethods();
@@ -578,6 +581,7 @@ const Checkout = () => {
     setIsLoading(false);
     updateCartItems(null);
     localStorage.removeItem("checkoutInfo");
+    localStorage.removeItem("selectedDeliveryType");
     setToaster({
       type: "success",
       message: t("Order has been succesfully placed!"),
@@ -655,6 +659,10 @@ const Checkout = () => {
       const checkoutResponse = await checkout(orderId);
       if (!checkoutResponse.succeeded)
         return handleResponseError(checkoutResponse);
+
+      for (const item of cartObj.items) {
+        await deleteCartAPI(cartObj.id, item);
+      }      
 
       processOrderSuccess(checkoutResponse);
     } catch (error) {
@@ -823,7 +831,7 @@ const Checkout = () => {
                       src={
                         item?.image
                           ? `data:image/png;base64,${item.image}`
-                          : placeholderImage
+                          : productInd
                       }
                       alt=""
                     />

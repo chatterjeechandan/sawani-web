@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getProductById } from "../api/product";
+import { getProductById, getRelatedProducts } from "../api/product";
 import Loader from "../components/common/Loader/Loader";
 import Header from "../components/common/layout/Header/Header";
 import Footer from "../components/common/layout/Footer";
@@ -16,10 +16,7 @@ import plus from "../assets/images/addDetail.png";
 import plusMobile from "../assets/images/addCounter.png";
 import minus from "../assets/images/delDetail.png";
 import productInd from "../assets/images/pr1.png";
-import counterPlus from "../assets/images/smallPlus.png";
-import counterMinus from "../assets/images/smallMinus.png";
 import camel from "../assets/images/camelWhite.png";
-import placeholderImage from "../assets/images/no-image.png";
 import Tooltip from "@mui/material/Tooltip";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -42,11 +39,13 @@ import {
   createCustomerFavourite,
   deleteCustomerFavourite,
 } from "../api/customer";
+import ProductCard from "../components/product/ProductCard";
 
 const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingRelated, setIsLoadingRelated] = useState(true);
   const [incrementButtonLoading, setIncrementButtonLoading] = useState(false);
   const [decrementButtonLoading, setDecrementButtonLoading] = useState(false);
   const [isFavourite, setIsFavourite] = useState(false);
@@ -55,6 +54,7 @@ const Product = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [attributes, setAttributes] = useState([]);
   const [provariant, setProvariant] = useState(null);
+  const [relatedProducts, setRelatedProducts] = useState(null);
   const [count, setCount] = useState(0);
   const [toaster, setToaster] = useState(null);
   const { loginResponse } = useContext(AuthContext);
@@ -83,8 +83,22 @@ const Product = () => {
       setIsLoading(false);
       selectCategory(response.categoryId);
       setProvariant(response.variants[0]);
+      setRelatedProductFn(response.variants[0].id)
     } catch (error) {
       console.error("Error fetching product:", error);
+      setIsLoading(false);
+    }
+  };
+
+  const setRelatedProductFn = async (varientId) => {
+    try {
+      const response = await getRelatedProducts(varientId);
+      if(response.succeeded) {
+        setRelatedProducts(response.data);
+        setIsLoadingRelated(false);
+      }      
+    } catch (error) {
+      console.error("Error fetching related product:", error);
       setIsLoading(false);
     }
   };
@@ -107,15 +121,6 @@ const Product = () => {
     navigate(url);
     setSelectedCategory(category);
   };
-
-  // useEffect(() => {
-  //     if (attributes.length > 0 && attributes.every((attr) => attr !== null && attr !== "")) {
-  //         const variantRes = product.variants.find((variant) => {
-  //             return variant.selectedValueIds.every((attrValue) => attributes.includes(Number(attrValue)));
-  //         });
-  //         setProvariant(variantRes);
-  //     }
-  // }, [attributes, product?.variants]);
 
   const handleAttributeChange = (event, attributeId) => {
     const { value } = event.target;
@@ -154,18 +159,9 @@ const Product = () => {
       setIncrementButtonLoading(false);
       setDecrementButtonLoading(false);
       return;
-    } else {
-      //setIsWholePageLoading(true);
-    }
-
-    if (state === "decrement") {
-      //setDecrementButtonLoading(true);
-    } else {
-      //setIncrementButtonLoading(true);
     }
 
     const newCount = count + amount;
-
     let cartPayload = {
       storeId: 1,
       items: [
@@ -324,7 +320,6 @@ const Product = () => {
   const handleSuccess = (successMessage) => {
     setIncrementButtonLoading(false);
     setDecrementButtonLoading(false);
-    //setToaster({ type: 'success', message: successMessage, duration: 3000 });
   };
 
   const handleError = (errorMessage) => {
@@ -378,9 +373,17 @@ const Product = () => {
     setToaster(null);
   };
 
+  const headerRef = useRef(null);
+
+  const openCartPopup = () => {
+    if (headerRef.current && headerRef.current.openCartPopup) {
+      headerRef.current.openCartPopup();
+    }
+  };
+
   return (
     <div className="dashboardPageMaimWraper">
-      <Header />
+      <Header ref={headerRef}/>
       <div className="productPageWraper detailsPages">
         <div className="productFilterWraper">
           <ProductFilter
@@ -408,7 +411,7 @@ const Product = () => {
                 src={`${
                   product?.image
                     ? `data:image/png;base64,${product.image}`
-                    : placeholderImage
+                    : productInd
                 }`}
                 alt={product.name}
               />
@@ -639,77 +642,21 @@ const Product = () => {
             <h4>{t("You might also like")}</h4>
           </div>
           <div className="productsDisplayWraper extraProducts">
-            <div className="indrelatesProduct">
-              <div className="imageWraper">
-                <img src={productInd} className="prdtImgs" alt="" />
-                {/* <span className="counterWraper">
-                                    <span className="plusCounter" onClick={counteroptionFm}>
-                                        <img src={counterPlus} alt="" />
-                                    </span>
-                                    {isCounterOpen && (
-                                        <>
-                                            <span className="counterInput">
-                                                <input type="number" className="inputCounter" value={1} />
-                                            </span>
-                                            <span className="minusCounter">
-                                                <img src={counterMinus} alt="" />
-                                            </span>
-                                        </>
-                                    )}
-
-                                </span> */}
-              </div>
-              <div className="productNamePrice">
-                <h5>Date Milk</h5>
-                <p>250.00 SAR</p>
-              </div>
-            </div>
-            <div className="indrelatesProduct">
-              <div className="imageWraper">
-                <img src={productInd} className="prdtImgs" alt="" />
-              </div>
-              <div className="productNamePrice">
-                <h5>Date Milk</h5>
-                <p>250.00 SAR</p>
-              </div>
-            </div>
-            <div className="indrelatesProduct">
-              <div className="imageWraper">
-                <img src={productInd} className="prdtImgs" alt="" />
-              </div>
-              <div className="productNamePrice">
-                <h5>Date Milk</h5>
-                <p>250.00 SAR</p>
-              </div>
-            </div>
-            <div className="indrelatesProduct">
-              <div className="imageWraper">
-                <img src={productInd} className="prdtImgs" alt="" />
-              </div>
-              <div className="productNamePrice">
-                <h5>Date Milk</h5>
-                <p>250.00 SAR</p>
-              </div>
-            </div>
-            <div className="indrelatesProduct">
-              <div className="imageWraper">
-                <img src={productInd} className="prdtImgs" alt="" />
-              </div>
-              <div className="productNamePrice">
-                <h5>Date Milk</h5>
-                <p>250.00 SAR</p>
-              </div>
-            </div>
-
-            <div className="indrelatesProduct">
-              <div className="imageWraper">
-                <img src={productInd} className="prdtImgs" alt="" />
-              </div>
-              <div className="productNamePrice">
-                <h5>Date Milk</h5>
-                <p>250.00 SAR</p>
-              </div>
-            </div>
+            {isLoadingRelated ? (
+              <Loader showOverlay={false} size={20} color="#B7854C" isLoading={false} />
+            ) : relatedProducts.length === 0 ? (
+              <p className="noProduct relateed" style={{ textAlign: "center" }}>
+                {t("No products found.")}
+              </p>
+            ) : (
+              relatedProducts.map((item, index) => (
+                <ProductCard
+                  key={item.id}
+                  product={item}
+                  openCartPopup={openCartPopup}
+                />
+              ))
+            )}
           </div>
         </div>
       </div>

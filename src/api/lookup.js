@@ -1,4 +1,4 @@
-import { fetchData } from './apiClient';
+import { fetchData, postData } from './apiClient';
 
 export function getDeliveryMethodAPI() {
     return fetchData(`lookups/delivery_types`);
@@ -14,4 +14,8 @@ export function getOnePayMethodAPI() {
 
 export function getCitiesAPI() {
     return fetchData(`lookups/cities`);
+}
+
+export function contactusAPI(payload) {
+    return postData(`contactus`, payload);
 }

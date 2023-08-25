@@ -1,0 +1,41 @@
+# Node related
+node_modules/
+npm-debug.log
+*.log
+*.pid
+*.log.*
+
+# Git
+.git/
+.gitignore
+
+# IDE/Editor folders
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# build output
+build/
+
+# env files (avoid potential sensitive information leaks)
+.env
+.env.*
+
+# cache
+.cache/
+
+# Test logs
+coverage/
+*.lcov
+
+# Misc
+*.bak
+*.tmp
+*.swp
+README.md
+LICENSE

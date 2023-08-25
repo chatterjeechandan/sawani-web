@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import "./Product.css";
 import add from "../../assets/images/addCounter.png";
-import placeholderImage from "../../assets/images/no-image.png";
 import { CartContext } from "../../utils/CartContext";
 import counterMinus from "../../assets/images/smallMinus.png";
 import Loader from "../../components/common/Loader/Loader";
@@ -17,6 +16,7 @@ import {
 } from "../../api/cart";
 import Toaster from "../../components/common/Toaster/Toaster";
 import { useTranslation } from "react-i18next";
+import productInd from "../../assets/images/pr1.png";
 
 const ProductCard = ({ product, openCartPopup }) => {
   const { id, name, image, price } = product;
@@ -184,7 +184,7 @@ const ProductCard = ({ product, openCartPopup }) => {
 
   const productImage = image
     ? `data:image/png;base64,${image}`
-    : placeholderImage;
+    : productInd;
 
   return (
     <div className="indProduct">

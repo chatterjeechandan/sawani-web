@@ -13,6 +13,13 @@ import { CategoryContext } from "../utils/CategoryContext";
 import { useTranslation } from "react-i18next";
 import { GeoLocationComponent } from "../components/geoLocation/geoLocation";
 import { getDeliveryMethodAPI } from "../api/lookup";
+import { CartContext } from "../utils/CartContext";
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const InStorePage = () => {
   document.title = "SAWANI In Store Category";
@@ -22,9 +29,11 @@ const InStorePage = () => {
   const { categories, updateCategoryItems } = useContext(CategoryContext);
   const { t } = useTranslation();
   const [deliveryTypes, setDeliveryTypes] = useState(null);
+  const { cartItems, updateCartItems } = useContext(CartContext);
+  const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    localStorage.setItem('selectedDeliveryType', 1);
+  useEffect(() => {    
+    localStorage.setItem('selectedDeliveryType', 1);    
     window.scrollTo(0, 0);
     const fetchData = async () => {
       if (!categories) {
@@ -61,17 +70,12 @@ const InStorePage = () => {
   }, []);
 
   const handleTabClick = (tab) => {
-    setActiveTab(tab);
     switch (tab) {
       case "inStore":
-        localStorage.setItem('selectedDeliveryType', 1);
-        localStorage.removeItem('checkoutInfo');
-        navigate("/in-store");
+        changeDeliveryMode(1,tab);
         break;
       case "pickup":
-        localStorage.setItem('selectedDeliveryType', 2);
-        localStorage.removeItem('checkoutInfo');
-        navigate("/pickup");
+        changeDeliveryMode(2,tab);
         break;
       case "delivery":
         navigate("/delivery");
@@ -79,6 +83,45 @@ const InStorePage = () => {
       default:
         break;
     }
+  };
+
+
+  const changeDeliveryMode = (mode,tab) => {
+    const selectedDeliveryMode = localStorage.getItem("selectedDeliveryType");
+    if(Number(selectedDeliveryMode) !== Number(mode)){
+      if(cartItems){
+        if(cartItems.items.length === 0 ){
+          setActiveTab(tab);
+          localStorage.setItem('selectedDeliveryType', mode);
+          localStorage.removeItem('checkoutInfo');
+          if(mode===1){        
+            navigate("/in-store");
+          }
+          else{
+            navigate("/pickup");
+          }
+        } else {
+          setOpen(true);
+        }
+      } else {
+        setActiveTab(tab);
+        localStorage.setItem('selectedDeliveryType', mode);
+        localStorage.removeItem('checkoutInfo');
+        navigate("/pickup");
+      }      
+    }
+  };
+
+  const handleAgree = () => {
+    updateCartItems({...cartItems, items: []});
+    localStorage.setItem('selectedDeliveryType', 2);
+    localStorage.removeItem('checkoutInfo');
+    setActiveTab('pickup');
+    navigate("/pickup");
+  };  
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -141,6 +184,27 @@ const InStorePage = () => {
         </div>
       </div>
       <Footer />
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {t("Are you sure?")}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {t("You already have Items in your cart. Cart will be deleted if you change the delivery method.")}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>{t("Disagree")}</Button>
+          <Button onClick={handleAgree} className="confirm-agree-button">
+            {t("Agree")}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

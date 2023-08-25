@@ -173,5 +173,14 @@
   "Region is required" : "المنطقة مطلوبة",
   "Note should not exceed 200 characters" : "يجب ألا تتجاوز الملاحظة 200 حرف",
   "Phone Number is required": "رقم الهاتف مطلوب",
-  "City": "مدينة"
+  "City": "مدينة",
+  "Are you sure?": "هل أنت متأكد؟",
+  "You already have Items in your cart. Cart will be deleted if you change the delivery method.": "لديك بالفعل عناصر في سلة التسوق الخاصة بك.  سيتم حذف سلة التسوق إذا قمت بتغيير طريقة التسليم",
+  "Agree": "موافق",
+  "Disagree": "غير موافق",
+  "Contact us submitted successfully!": "تم إرسال رسالتك بنجاح!",
+  "Email is required": "البريد الإلكتروني مطلوب",
+  "Invalid Email Address": "عنوان البريد الإلكتروني غير صالح",
+  "Message is required": "الرسالة مطلوبة",
+  "Submitted successfully!": "تم الإرسال بنجاح!"
 }

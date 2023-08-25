@@ -8,9 +8,9 @@ import { CartContext } from '../utils/CartContext';
 import Loader from '../components/common/Loader/Loader';
 import { useParams, Link } from 'react-router-dom';
 import { getOrder } from "../api/order";
-import placeholderImage from "../assets/images/no-image.png";
 import { useTranslation } from "react-i18next";
 import CONFIG from '../config/site.config';
+import productInd from "../assets/images/pr1.png";
 
 const ThankYou = () => {
     const { id } = useParams();
@@ -79,7 +79,7 @@ const ThankYou = () => {
                                             src={
                                                 item?.image
                                                 ? `data:image/png;base64,${item.image}`
-                                                : placeholderImage
+                                                : productInd
                                             }
                                             alt=""
                                             className="orderProducts"
