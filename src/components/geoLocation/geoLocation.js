@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 const GeoLocationComponent = () => {
   const [address, setAddress] = useState("");
-  const [location, setLocation] = useState({ lat: null, lng: null });
+  const [setLocation] = useState({ lat: null, lng: null });
   const { t, i18n } = useTranslation();
   const inputRef = useRef(null);
   const autocompleteRef = useRef(null);
@@ -37,6 +37,7 @@ const GeoLocationComponent = () => {
         window.google.maps.event.clearInstanceListeners(autocompleteRef.current);
       }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.language]);
 
   function getCurrentLocation(callback) {

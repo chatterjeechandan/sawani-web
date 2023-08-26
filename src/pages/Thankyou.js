@@ -1,8 +1,7 @@
-import React, { useContext, useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Header from '../components/common/layout/Header/Header';
 import Footer from '../components/common/layout/Footer';
 import camelBack from "../assets/images/camelBacks.png";
-// import { CartContext } from '../utils/CartContext';
 import Loader from '../components/common/Loader/Loader';
 import { useParams, Link } from 'react-router-dom';
 import { getOrder } from "../api/order";
@@ -18,6 +17,7 @@ const ThankYou = () => {
 
     useEffect(() => {
         fetchOrder();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
     
     const fetchOrder = async () => {
@@ -41,6 +41,7 @@ const ThankYou = () => {
         );
       };
     
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       const subtotalPrice = useMemo(() => calculateSubtotal(), [order]);
 
     return (

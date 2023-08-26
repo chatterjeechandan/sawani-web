@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Header from '../../components/common/layout/Header/Header';
 import Footer from '../../components/common/layout/Footer';
 import slideDown from "../../assets/images/scroll.png";
@@ -44,7 +44,6 @@ const HomePage = () => {
       bottomElement.scrollIntoView({ behavior: 'smooth' });
     }
   };
-  const [scrolled, setScrolled] = useState(false);
   const [tabOneValue, setTabOneValue] = useState(true);
   const [tabTwoValue, setTabTwoValue] = useState(false);
   const targetRef = useRef(null);
@@ -57,27 +56,6 @@ const HomePage = () => {
     setTabOneValue(false);
     setTabTwoValue(true);
   }
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const footerHeight = 370;
-      const offset = 20;
-      const footerStartPoint = document.body.scrollHeight - window.innerHeight - footerHeight + offset;
-      if (window.scrollY >= 110 && window.scrollY < footerStartPoint) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('touchmove', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('touchmove', handleScroll);
-    };
-  }, []);
 
   const [userInfo, setUserInfo] = useState({
     name: "",
@@ -113,7 +91,7 @@ const HomePage = () => {
       newErrors.name = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.name ==''? true:false;
+    return newErrors.name ===''? true:false;
   };
 
   const validateEmail = (emailValue) => {
@@ -127,7 +105,7 @@ const HomePage = () => {
       newErrors.email = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.email ==''?true:false;
+    return newErrors.email ===''?true:false;
   };
 
   const validatephoneNumber = (phoneValue) => {
@@ -142,7 +120,7 @@ const HomePage = () => {
       newErrors.phoneNumber = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.phoneNumber ==''?true:false;
+    return newErrors.phoneNumber ===''?true:false;
   };
 
   const validateMessage = (messageValue) => {
@@ -154,7 +132,7 @@ const HomePage = () => {
       newErrors.message = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.message =='' ? true:false;
+    return newErrors.message ==='' ? true:false;
   };
 
   const handleSubmit = (event) => {
@@ -201,6 +179,8 @@ const HomePage = () => {
   const handleToasterClose = () => {
     setToaster(null);
   };
+
+  const selectedDeliveryMode = localStorage.getItem("selectedDeliveryType");
   
   return (
     <div className="dashboardWraper" style={{ textAlign: "left" }}>
@@ -212,7 +192,20 @@ const HomePage = () => {
           onClose={handleToasterClose}
         />
       )}
-      <Link to="/in-store" ref={targetRef} className='orderNowBtnsAnchor'><span className='orderNowBtns'><img src={logoW} alt='' className='ordersImg'/>{t('Order Now')}</span></Link>        
+       {
+        (Number(selectedDeliveryMode) === 1 || !selectedDeliveryMode) && (
+          <Link to="/in-store" ref={targetRef} className='orderNowBtnsAnchor'>
+            <span className='orderNowBtns'><img src={logoW} alt='' className='ordersImg'/>{t('Order Now')}</span>
+          </Link> 
+        )
+      }
+      {
+        Number(selectedDeliveryMode) === 2 && (
+          <Link to="/pickup" ref={targetRef} className='orderNowBtnsAnchor'>
+            <span className='orderNowBtns'><img src={logoW} alt='' className='ordersImg'/>{t('Order Now')}</span>
+          </Link> 
+        )
+      }        
       <div className="bannerWrapers">
         <Header />        
         <div className="bannertextWraper">
@@ -403,10 +396,10 @@ const HomePage = () => {
           <div className='tabContentWrapers'>
             <div className='sliderTabsInfoWraper'>
               <span className='slideMainBtnLeft'>
-                <img src={SlideLeft} className='slideBtns' />
+                <img src={SlideLeft} className='slideBtns' alt=''/>
               </span>
               <span className='slideMainBtnRight'>
-              <img src={SlideRight} className='slideBtns' />
+              <img src={SlideRight} className='slideBtns' alt=''/>
               </span>
               <span className='profileImgs first'>
                 <img src={profile1} className='profileImgsPic' alt='' />
@@ -431,10 +424,10 @@ const HomePage = () => {
           <div className='tabContentWrapers'>
             <div className='sliderTabsInfoWraper'>
               <span className='slideMainBtnLeft'>
-                <img src={SlideLeft} className='slideBtns' />
+                <img src={SlideLeft} className='slideBtns' alt=''/>
               </span>
               <span className='slideMainBtnRight'>
-              <img src={SlideRight} className='slideBtns' />
+              <img src={SlideRight} className='slideBtns' alt=''/>
               </span>
               <span className='profileImgs first'>
                 <img src={profile4} className='profileImgsPic' alt='' />
@@ -470,7 +463,7 @@ const HomePage = () => {
                 <img src={profile} alt='' />
               </span>
               <span className='userPinfo'>
-                <h4>عبدالله محمد <a href=''><img src={twiter} className='twiterLink' alt='' /></a></h4>
+                <h4>عبدالله محمد <Link to='/'><img src={twiter} className='twiterLink' alt='' /></Link></h4>
                 <p>الرئيس التنفيذي لشركة السواني</p>
               </span>
             </div>
@@ -488,7 +481,7 @@ const HomePage = () => {
                 <h3>المركز الاعلامي</h3>
                 <div className='indBloackContent'>
                   <div className='blockImgs'>
-                    <img src={pots} className='potsImg' />
+                    <img src={pots} className='potsImg' alt=''/>
                   </div> 
                   <div className='indBlocksMain'>
                     <p>اقتصادي / صندوق الاستثمارات العامة يعلن افتتاح ثلاثة مكاتب جديدة لشركات تابعة في لندن ونيويورك وهونغ كونغ لمواصلة توسّعه العالمي</p>
@@ -497,7 +490,7 @@ const HomePage = () => {
                 </div>
                 <div className='indBloackContent'>
                 <div className='blockImgs'>
-                    <img src={pots} className='potsImg' />
+                    <img src={pots} className='potsImg' alt=''/>
                   </div> 
                   <div className='indBlocksMain'>
                     <p>اقتصادي / صندوق الاستثمارات العامة يعلن افتتاح ثلاثة مكاتب جديدة لشركات تابعة في لندن ونيويورك وهونغ كونغ لمواصلة توسّعه العالمي</p>
@@ -506,7 +499,7 @@ const HomePage = () => {
                 </div>
                 <div className='indBloackContent'>
                   <div className='blockImgs'>
-                    <img src={pots} className='potsImg' />
+                    <img src={pots} className='potsImg' alt=''/>
                   </div>  
                   <div className='indBlocksMain'>
                     <p>اقتصادي / صندوق الاستثمارات العامة يعلن افتتاح ثلاثة مكاتب جديدة لشركات تابعة في لندن ونيويورك وهونغ كونغ لمواصلة توسّعه العالمي</p>

@@ -42,7 +42,6 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 
 const Checkout = () => {
-  const [dropDownOpen, setDropDownOpen] = useState(false);
   const { cartItems, updateCartItems } = useContext(CartContext);
   const [isLoading, setIsLoading] = useState(false);
   const { loginResponse } = useContext(AuthContext);
@@ -55,7 +54,6 @@ const Checkout = () => {
   const [allOnePaymMethod, setAllOnePaymMethod] = useState(null);
   const [issubmitLoading, setSubmitLoading] = useState(false);
   const [toaster, setToaster] = useState(null);
-  const [isPaymentPopupOpen, setIsPaymentPopupOpen] = useState(false);
   const headerRef = useRef();
   const navigate = useNavigate();
   const location = useLocation();
@@ -107,20 +105,17 @@ const Checkout = () => {
     }
   });
 
-  const setDropDownOpenFn = () => {
-    setDropDownOpen(!dropDownOpen);
-  };
-
   useEffect(() => {
     const storedCartInfo = localStorage.getItem("cartInfo");
     if (!storedCartInfo) navigate("/in-store");
     const cartObj = JSON.parse(storedCartInfo);
-    if (cartObj?.items?.length == 0) {
+    if (cartObj?.items?.length === 0) {
       navigate("/in-store");
     }
     getDeliveryMethods();
     getPaymentMethods();
     getOnePayMethods();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -138,9 +133,10 @@ const Checkout = () => {
   };
 
   useEffect(() => {
-    if (cartItems?.items?.length == 0) {
+    if (cartItems?.items?.length === 0) {
       navigate("/in-store");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems]);
 
   useEffect(() => {
@@ -152,13 +148,14 @@ const Checkout = () => {
         duration: 3000,
       });
     }    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [payError]);
 
   useEffect(() => {
     const paymentResponse = JSON.parse(decodeURIComponent(payres));
     if (paymentResponse) {
       setIsLoading(true);
-      if (paymentResponse.callback.response?.code != Number("000")) {
+      if (paymentResponse.callback.response?.code !== Number("000")) {
         setToaster({
           type: "error",
           message: t("Payment Failed! Please try again"),
@@ -176,6 +173,7 @@ const Checkout = () => {
         processOrder(addPaymentPayload);
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [payres]);
 
   const handleInputChange = (e) => {
@@ -202,9 +200,7 @@ const Checkout = () => {
       default:
         break;
     }
-  };
-
-  
+  };  
 
   useEffect(() => {
     if(selectedDeliveryTypes){
@@ -348,6 +344,7 @@ const Checkout = () => {
     );
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const subtotalPrice = useMemo(() => calculateSubtotal(), [cartItems]);
 
   const calculateRewardstotal = () => {
@@ -356,6 +353,7 @@ const Checkout = () => {
     return cartItems.items.reduce((acc, item) => acc + (item.rewards*item.quantity), 0);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const totalRewards = useMemo(() => calculateRewardstotal(), [cartItems]);
 
   const handleLoginClick = (e) => {
@@ -612,7 +610,7 @@ const Checkout = () => {
         const existingCartItemIndex1 = cartObj.items.findIndex(
           (innerItem) => innerItem.productVariantId === item1.productVariantId
         );
-        if (existingCartItemIndex1 == -1) {
+        if (existingCartItemIndex1 === -1) {
           await deleteCartAPI(cartObj.id, item1);
         }
       }
@@ -633,7 +631,7 @@ const Checkout = () => {
         const createAnonymousUserResponse = await createAnonymousUser(createAnonymousUserPayload);
         
         if(createAnonymousUserResponse){
-          const updateAnonymousOrderResponse = await updateAnonymousOrder(orderId, createAnonymousUserResponse.id);
+          await updateAnonymousOrder(orderId, createAnonymousUserResponse.id);
         }
       }
 
@@ -666,14 +664,6 @@ const Checkout = () => {
       setIsLoading(false);
       console.error("Error creating cart to order:", error);
     }
-  };
-
-  const handleClosePaymentPopup = () => {
-    setIsPaymentPopupOpen(false);
-  };
-
-  const handlePayNowClick = () => {
-    setIsPaymentPopupOpen(true);
   };
 
   return (
@@ -735,7 +725,7 @@ const Checkout = () => {
             ""
           )}
           <div className="paymentWraper">
-            <h3 onClick={handlePayNowClick}>{t("Delivery Method")}</h3>
+            <h3>{t("Delivery Method")}</h3>
             <div className="infodetails margin-20">
               {isinlineLoadingDelivery ? (
                 <Loader

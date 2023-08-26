@@ -8,7 +8,6 @@ import rewards from "../../assets/images/rewardStar.png";
 import { useTranslation } from "react-i18next";
 import {
   getCusertomerFavourite,
-  createCustomerFavourite,
   deleteCustomerFavourite,
 } from "../../api/customer";
 import Loader from "../../components/common/Loader/Loader";
@@ -18,8 +17,7 @@ const FavouriteProducts = () => {
   const { t } = useTranslation();
   const [favourites, setFavourites] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isFavouriteLoader, setIsFavouriteLoader] = useState(false);
-  const [deletingAddresses, setDeletingAddresses] = useState(new Set());
+  const [favouritingProduct, setFavouritingProduct] = useState(new Set());
 
   useEffect(() => {
     customerFavourite();
@@ -27,20 +25,18 @@ const FavouriteProducts = () => {
 
   const handleFavouriteDelete = async (e,index,favourite) => {
     e.preventDefault();
-    setDeletingAddresses(prev => new Set([...prev, favourite.id]));
-    setIsFavouriteLoader(true);
+    setFavouritingProduct(prev => new Set([...prev, favourite.id]));
     try {
       const response = await deleteCustomerFavourite(favourite.id);
       if (response) {
         const updatedFavourites = [...favourites.slice(0, index), ...favourites.slice(index + 1)];
         setFavourites(updatedFavourites);
-        setIsFavouriteLoader(false);
       }
     } catch (error) {
       console.error("Error fetching favourite producucts:", error);
     }
     finally {
-      setDeletingAddresses(prev => {
+      setFavouritingProduct(prev => {
         const newSet = new Set([...prev]);
         newSet.delete(favourite.id);
         return newSet;
@@ -70,11 +66,6 @@ const FavouriteProducts = () => {
           <div className="pointAnalysisWraper">
             <div className="pointTabWraper">
               <div className="favouriteTabs">
-                {/* <div className="favouritetabWraper">
-                  <Link to="/profile/favourite-store" className="profileLinksTag">
-                    <span className="">{t("Favorite Stores")}</span>
-                  </Link>
-                </div> */}
                 <div className="favouritetabWraper">
                   <Link to="/profile/favourite-product" className="profileLinksTag">
                     {" "}
@@ -103,7 +94,7 @@ const FavouriteProducts = () => {
                             <img src={favourite.product.image ? `data:image/png;base64,${favourite.product.image}` : productInd} alt="" />
                             <span className="likeProducts">
                               <img src={heart} alt=""  onClick={(e) => handleFavouriteDelete(e,index,favourite)}/>
-                              {deletingAddresses.has(favourite.id) && (
+                              {favouritingProduct.has(favourite.id) && (
                               <Loader
                                 showOverlay={false}
                                 size={10}

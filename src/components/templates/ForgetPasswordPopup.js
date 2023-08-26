@@ -86,7 +86,7 @@ const ForgetPasswordPopup = ({ onClose, onOpenLogin }) => {
       setConfirmpassError("");
     }
 
-    if (password == confirmPassword) {
+    if (password === confirmPassword) {
       setConfirmpassError("");
     }
   }, [password, confirmPassword]);

@@ -1,15 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-// import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-// import InputLabel from '@mui/material/InputLabel';
-// import OutlinedInput from '@mui/material/OutlinedInput';
-// import MenuItem from '@mui/material/MenuItem';
-// import FormControl from '@mui/material/FormControl';
-// import Select from '@mui/material/Select';
 import arrows from "../../../assets/images/arrowPoint.png";
 import { useTranslation } from "react-i18next";
 import dropimg from "../../../assets/images/drop.png";
@@ -43,12 +36,6 @@ const DialogSelect = ({ options, selectedOption, onSelect, buttonText, imgSrc, f
         if (reason !== 'backdropClick') {
             setOpen(false);
         }
-    };
-
-    const handleOk = () => {
-        // Update the main state with the selected option
-        onSelect(tempSelectedOption);
-        handleClose();
     };
 
     const getDropdownText = (selection) => {
@@ -120,10 +107,6 @@ const DialogSelect = ({ options, selectedOption, onSelect, buttonText, imgSrc, f
                         </div>
                     </Box>
                 </DialogContent>
-                {/* <DialogActions>
-                    <Button onClick={handleClose}>{t("CANCEL")}</Button>
-                    <Button onClick={handleOk}>{t("OK")}</Button>
-                </DialogActions> */}
             </Dialog>
         </div>
     );

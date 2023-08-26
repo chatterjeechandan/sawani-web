@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import iconSelect from "../../assets/images/iconSelect.png";
 import dropimg from "../../assets/images/drop.png";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getDeliveryMethodAPI } from "../../api/lookup";
 
@@ -44,6 +44,7 @@ const ProductFilter = ({
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getDeliveryTypes = async () => {

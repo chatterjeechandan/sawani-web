@@ -26,15 +26,18 @@ const ProductList = () => {
 
   useEffect(() => {
     fetchProducts();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pcat, scat, sort]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchProducts();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     selectCategory();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categories]);
 
   const selectCategory = () => {

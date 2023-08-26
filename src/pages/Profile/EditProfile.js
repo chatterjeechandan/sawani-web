@@ -60,7 +60,7 @@ const EditProfile = () => {
       newErrors.fullName = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.fullName ==''?true:false;
+    return newErrors.fullName ===''?true:false;
   };
 
   const validatePhone = (phoneValue) => {
@@ -75,7 +75,7 @@ const EditProfile = () => {
       newErrors.phoneNumber = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.phoneNumber ==''?true:false;
+    return newErrors.phoneNumber ===''?true:false;
   };
 
   const validateEmail = (emailValue) => {
@@ -89,7 +89,7 @@ const EditProfile = () => {
       newErrors.email = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.email ==''?true:false;
+    return newErrors.email ===''?true:false;
   };
 
   const validatePassword = (passwordValue) => {
@@ -103,20 +103,20 @@ const EditProfile = () => {
       newErrors.password = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.password ==''?true:false;
+    return newErrors.password ===''?true:false;
   };
 
   const validateConfirmPassword = (confirmPasswordValue) => {
     const newErrors = {};
     if (!confirmPasswordValue) {
       newErrors.confirmPassword = "Confirm Password is required";
-    } else if (confirmPasswordValue != userInfo.password) {
+    } else if (confirmPasswordValue !== userInfo.password) {
       newErrors.confirmPassword = "Passwords do not match";
     }else {
       newErrors.confirmPassword = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.confirmPassword ==''?true:false;
+    return newErrors.confirmPassword ===''?true:false;
   };
 
   const handleInputChange = (event) => {
@@ -159,7 +159,7 @@ const EditProfile = () => {
               "mobile": updatedUserObject.phoneNumber,
               "password": updatedUserObject.password
             };
-            const response = await resetPassword(passwordUpdatePayoad);
+            await resetPassword(passwordUpdatePayoad);
           }
           setIsLoading(false);
           setToaster({
@@ -200,18 +200,22 @@ const EditProfile = () => {
   };
 
   const setDob = (date) => {
+    // eslint-disable-next-line no-useless-computed-key
     setUserInfo((prevUserInfo) => ({ ...prevUserInfo, ['dob']: date }));
   };
 
   const handleGenderChange = (event) => {
+    // eslint-disable-next-line no-useless-computed-key
     setUserInfo((prevUserInfo) => ({ ...prevUserInfo, ['gender']: event.target.value }));
   };
 
   const handleEmailNotificationChange = (event) => {
+    // eslint-disable-next-line no-useless-computed-key
     setUserInfo((prevUserInfo) => ({ ...prevUserInfo, ['emailNotification']: !userInfo.emailNotification }));
   };
 
   const handleTextNotificationChange = (event) => {
+    // eslint-disable-next-line no-useless-computed-key
     setUserInfo((prevUserInfo) => ({ ...prevUserInfo, ['textNotification']: !userInfo.textNotification }));
   };
 

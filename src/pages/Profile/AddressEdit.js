@@ -5,9 +5,9 @@ import ProfileSidebar from "./ProfileSidebar";
 import { useTranslation } from "react-i18next";
 import Loader from "../../components/common/Loader/Loader";
 import Toaster from "../../components/common/Toaster/Toaster";
-import { addCustomerAddress, updateAddress } from "../../api/customer";
+import { updateAddress } from "../../api/customer";
 import { getCitiesAPI } from "../../api/lookup";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 
 
@@ -19,7 +19,6 @@ const AddressEdit = () => {
   const [isInlineLoading, setIsInlineLoading] = useState(false);
   const [toaster, setToaster] = useState(null);
   const [allCities, setAllCities] = useState(null);
-  const navigate = useNavigate();
 
   const location = useLocation();
   const passedAddress = location.state?.data;

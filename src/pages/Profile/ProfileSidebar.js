@@ -24,7 +24,7 @@ import { useLocation, useParams } from "react-router-dom";
 const ProfileSidebar = () => {
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { loginResponse, login: setLoginResponse } = useContext(AuthContext);
+  const { loginResponse } = useContext(AuthContext);
   const location = useLocation();
   const { id } = useParams();
   const setIsQrOpenFn = () => {
@@ -58,7 +58,6 @@ const ProfileSidebar = () => {
       image.src = `data:image/png;base64,${img}`;
       const image2 = document.querySelector('img.profile');
       image2.src = `data:image/png;base64,${img}`;
-      //setLoginResponse(userInfo);
       setIsLoading(false);
     }
   };
@@ -111,7 +110,7 @@ const ProfileSidebar = () => {
           </p>
           <p className="numberInfo">{t("Your Sawani Rewards Number")}</p>
           <div className="codeQr" onClick={setIsQrOpenFn}>
-            <img src={qr} className="codeScan" />
+            <img src={qr} className="codeScan" alt=''/>
             E01N-98OL-3D5U
           </div>
         </div>
@@ -123,7 +122,7 @@ const ProfileSidebar = () => {
           <li className={location.pathname === "/profile" ? "activated" : ""}>
             <Link to="/profile" className="profileLinksTag">
               <span className="iconName">
-                <img src={routIcon1} className="routIcon" />
+                <img src={routIcon1} className="routIcon" alt=''/>
               </span>
               <span className="nameLink">{t("Points Analysis")}</span>
               <i className="fa fa-chevron-right" aria-hidden="true"></i>
@@ -132,7 +131,7 @@ const ProfileSidebar = () => {
           <li className={location.pathname === "/profile/favourite-store" || location.pathname === "/profile/favourite-product" ? "activated" : ""}>
             <Link to="/profile/favourite-product" className="profileLinksTag">
               <span className="iconName">
-                <img src={routIcon2} className="routIcon" />
+                <img src={routIcon2} className="routIcon" alt=''/>
               </span>
               <span className="nameLink">{t("Favorites")}</span>
               <i className="fa fa-chevron-right" aria-hidden="true"></i>
@@ -141,7 +140,7 @@ const ProfileSidebar = () => {
           <li className={location.pathname === "/profile/saved-card" || location.pathname === "/profile/card-add" || location.pathname === `/profile/card-edit/${id}` ? "activated" : ""}>
             <Link to="/profile/saved-card" className="profileLinksTag">
               <span className="iconName">
-                <img src={routIcon3} className="routIcon" />
+                <img src={routIcon3} className="routIcon" alt=''/>
               </span>
               <span className="nameLink">{t("My Cards")}</span>
               <i className="fa fa-chevron-right" aria-hidden="true"></i>
@@ -150,7 +149,7 @@ const ProfileSidebar = () => {
           <li className={location.pathname === "/profile/saved-address" || location.pathname === "/profile/address-add" || location.pathname === `/profile/edit-address/${id}` ? "activated" : ""}>
             <Link to="/profile/saved-address" className="profileLinksTag">
               <span className="iconName">
-                <img src={routIcon4} className="routIcon" />
+                <img src={routIcon4} className="routIcon" alt=''/>
               </span>
               <span className="nameLink">{t("My Addresses")}</span>
               <i className="fa fa-chevron-right" aria-hidden="true"></i>
@@ -174,7 +173,7 @@ const ProfileSidebar = () => {
               {t("Scan to earn")}
               <br /> <span>SAWANI©</span> {t("POINTS")}
             </p>
-            <img src={barCode} className="barCodeImg" />
+            <img src={barCode} className="barCodeImg" alt=''/>
             <p className="idBar">E01N-98OL-3D5U</p>
           </div>
         </div>

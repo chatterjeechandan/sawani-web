@@ -39,7 +39,7 @@ const ContactUs = () => {
       newErrors.name = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.name ==''? true:false;
+    return newErrors.name ===''? true:false;
   };
 
   const validateEmail = (emailValue) => {
@@ -53,7 +53,7 @@ const ContactUs = () => {
       newErrors.email = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.email ==''?true:false;
+    return newErrors.email ===''?true:false;
   };
 
   const validateMessage = (messageValue) => {
@@ -65,7 +65,7 @@ const ContactUs = () => {
       newErrors.message = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.message =='' ? true:false;
+    return newErrors.message ==='' ? true:false;
   };
 
   const handleSubmit = (event) => {

@@ -3,7 +3,6 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  useMemo,
   forwardRef,
   useImperativeHandle,
 } from "react";
@@ -17,7 +16,6 @@ import translate from "../../../../assets/images/translate.png";
 import { AuthContext } from "../../../../utils/AuthContext";
 import Toaster from "../../../../components/common/Toaster/Toaster";
 import minus from "../../../../assets/images/minusWhite.png";
-import deleteCart from "../../../../assets/images/deleteItem.png";
 import counterPlus from "../../../../assets/images/addCounter.png";
 import rewards from "../../../../assets/images/rewardPoint.png";
 import cartIcon from "../../../../assets/images/cartIcon.png";
@@ -45,16 +43,12 @@ const Header = forwardRef((props, ref) => {
   const menuRef = useRef(null);
   const langmenuRef = useRef(null);
   const cartRef = useRef(null);
-  const [cartinlineloader, setCartinlineloader] = useState(false);
   const [isShowWholePageLoader, setIsShowWholePageLoader] = useState(false);
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const setIsConfirmOpenFn = () => {
-    setIsConfirmOpen(!isConfirmOpen);
-  };
+  
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -138,7 +132,7 @@ const Header = forwardRef((props, ref) => {
                 const existingCartItemIndex1 = cartObj.items.findIndex(
                   (innerItem) => innerItem.productVariantId === item1.productVariantId
                 );
-                if (existingCartItemIndex1 == -1) {
+                if (existingCartItemIndex1 === -1) {
                   await deleteCartAPI(cartObj.id, item1);
                 }
               }
@@ -148,7 +142,7 @@ const Header = forwardRef((props, ref) => {
               }
             }
 
-            const response_new = await updateCartOwnerToCartAPI(cartItems.id);
+            await updateCartOwnerToCartAPI(cartItems.id);
 
             setToaster({
               type: "success",
@@ -230,16 +224,10 @@ const Header = forwardRef((props, ref) => {
     );
   };
 
-  const subtotalPrice = useMemo(() => calculateSubtotal(), [cartItems]);
-
-
   const calculateRewardstotal = () => {
     if (!cartItems || !cartItems.items) return 0;
-
     return cartItems.items.reduce((acc, item) => acc + (item.rewards*item.quantity), 0);
   };
-
-  const totalRewards = useMemo(() => calculateRewardstotal(), [cartItems]);
 
   const cartPopupClickHandler = (e) => {
     e.stopPropagation();
@@ -291,10 +279,6 @@ const Header = forwardRef((props, ref) => {
     },
   }));
 
-  const handleError = (errorMessage) => {
-    setToaster({ type: "error", message: errorMessage, duration: 3000 });
-  };
-
   const changeLanguage = (lang) => {
     i18next.changeLanguage(lang);
     setIsLangMenuOpen(false);
@@ -310,9 +294,8 @@ const Header = forwardRef((props, ref) => {
     } else if (currentLang === "ar") {
       document.body.classList.add("lang-ar");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18next.language]);
-
-  const storedCartInfo = localStorage.getItem("cartInfo");
 
   const selectedDeliveryMode = localStorage.getItem("selectedDeliveryType");
 
@@ -381,12 +364,12 @@ const Header = forwardRef((props, ref) => {
               <ul className="menu-items detail menuDrop">
                 <li>
                 {
-                  (selectedDeliveryMode == 1 || !selectedDeliveryMode) && (
+                  (Number(selectedDeliveryMode) === 1 || !selectedDeliveryMode) && (
                     <Link to="/in-store">{t("Order Now")}</Link>
                   )
                 }
                 {
-                  selectedDeliveryMode == 2 && (
+                  Number(selectedDeliveryMode) === 2 && (
                     <Link to="/pickup">{t("Order Now")}</Link>
                   )
                 }                 
@@ -426,18 +409,7 @@ const Header = forwardRef((props, ref) => {
                 ref={cartRef}
               >
                 <img src={cartIcon} className="carticon" alt="" />
-                <span className="cart-count">
-                  {cartinlineloader ? (
-                    <Loader
-                      showOverlay={false}
-                      size={12}
-                      color="#000"
-                      isLoading={false}
-                    />
-                  ) : (
-                    getCartCount()
-                  )}
-                </span>
+                <span className="cart-count">{getCartCount()}</span>
                 {isCheckoutOpen && (
                   <div
                     className="menu-items cartPopup"
@@ -496,18 +468,11 @@ const Header = forwardRef((props, ref) => {
                               </span>
                               <span
                                 className="deleteSpan"
-                                onClick={setIsConfirmOpenFn}
-                               
-                              >
-                                <FontAwesomeIcon icon={ faTrashCan }/>
-                              </span>
-                              {/* <span
-                                className="deleteSpan"
                                  onClick={() => deleteCartItemRow(index)}
                                
                               >
                                 <FontAwesomeIcon icon={ faTrashCan }/>
-                              </span> */}
+                              </span>
                             </div>
                           ))}
                       </div>
@@ -548,12 +513,12 @@ const Header = forwardRef((props, ref) => {
                       </div>
                       <div className="cartBtnWraper">                         
                           {
-                            (selectedDeliveryMode == 1 || !selectedDeliveryMode) && (
+                            (Number(selectedDeliveryMode) === 1 || !selectedDeliveryMode) && (
                               <Link to="/in-store"><button className="pinkBtn">{t("CONTINUE SHOPPING")}</button></Link>
                             )
                           }
                           {
-                            selectedDeliveryMode == 2 && (
+                            Number(selectedDeliveryMode) === 2 && (
                               <Link to="/pickup"><button className="pinkBtn">{t("CONTINUE SHOPPING")}</button></Link>
                             )
                           }
@@ -566,20 +531,6 @@ const Header = forwardRef((props, ref) => {
             )}
           </div>
         </div>
-        {isConfirmOpen && (
-        <div className="popup-overlay">
-          <div className="popup-content barCodesPopup" >
-            <img src={deleteCart} className="cartDeleteIcon" alt="" />
-            <p className="barCodeHeadingP" >
-              Do you really want to remove the item? 
-            </p>
-            <div className="modalConfirmWraper">
-            <button className="submitpopup conformPop" type="submit">Confirm</button>
-            <button className="cancelPopup" onClick={setIsConfirmOpenFn}>Cancel</button>
-            </div>
-          </div>
-        </div>
-      )}
       </div>
       {isLoginPopupOpen && (
         <LoginPopup

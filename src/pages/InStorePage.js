@@ -4,7 +4,6 @@ import Footer from "../components/common/layout/Footer";
 import CategoryCard from "../components/category/CategoryCard";
 import tab1 from "../assets/images/t1A.png";
 import tab2 from "../assets/images/t2.png";
-// import tab3 from "../assets/images/t3.png";
 import pots from "../assets/images/pots.png";
 import Loader from "../components/common/Loader/Loader";
 import { fetchCategories } from "../api/category";
@@ -14,15 +13,11 @@ import { useTranslation } from "react-i18next";
 import { GeoLocationComponent } from "../components/geoLocation/geoLocation";
 import { getDeliveryMethodAPI } from "../api/lookup";
 import { CartContext } from "../utils/CartContext";
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import deleteCart from "../assets/images/deleteItem.png";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const InStorePage = () => {
-  document.title = "SAWANI In Store Category";
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("inStore");
@@ -30,7 +25,11 @@ const InStorePage = () => {
   const { t } = useTranslation();
   const [deliveryTypes, setDeliveryTypes] = useState(null);
   const { cartItems, updateCartItems } = useContext(CartContext);
-  const [open, setOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+  const setIsConfirmOpenFn = () => {
+    setIsConfirmOpen(!isConfirmOpen);
+  };
 
   useEffect(() => {    
     localStorage.setItem('selectedDeliveryType', 1);    
@@ -67,6 +66,7 @@ const InStorePage = () => {
     };
 
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleTabClick = (tab) => {
@@ -101,7 +101,7 @@ const InStorePage = () => {
             navigate("/pickup");
           }
         } else {
-          setOpen(true);
+          setIsConfirmOpen(true);
         }
       } else {
         setActiveTab(tab);
@@ -118,10 +118,6 @@ const InStorePage = () => {
     localStorage.removeItem('checkoutInfo');
     setActiveTab('pickup');
     navigate("/pickup");
-  };  
-
-  const handleClose = () => {
-    setOpen(false);
   };
 
   return (
@@ -184,27 +180,24 @@ const InStorePage = () => {
         </div>
       </div>
       <Footer />
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {t("Are you sure?")}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {t("You already have Items in your cart. Cart will be deleted if you change the delivery method.")}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>{t("Disagree")}</Button>
-          <Button onClick={handleAgree} className="confirm-agree-button">
-            {t("Agree")}
-          </Button>
-        </DialogActions>
-      </Dialog>
+      {isConfirmOpen && (
+        <div className="popup-overlay">
+          <div className="popup-content barCodesPopup" >
+            <button className="closeBtn" type="button" onClick={setIsConfirmOpenFn}>
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+            <img src={deleteCart} className="cartDeleteIcon" alt="" />
+            <p className="barCodeHeadingP" >
+              {t("You already have Items in your cart. Cart will be deleted if you change the delivery method.")}
+            </p>
+            <div className="modalConfirmWraper">
+            <button className="submitpopup conformPop" onClick={handleAgree}>{t("Agree")}</button>
+            <button className="cancelPopup" onClick={setIsConfirmOpenFn}>{t("Disagree")}</button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

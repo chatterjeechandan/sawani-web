@@ -9,9 +9,6 @@ import Loader from "../../components/common/Loader/Loader";
 import { AuthContext } from "../../utils/AuthContext";
 import {
   createCartAPI,
-  updateCartAPI,
-  addCartAPI,
-  deleteCartAPI,
   getCartAPI,
 } from "../../api/cart";
 import Toaster from "../../components/common/Toaster/Toaster";
@@ -20,7 +17,7 @@ import productInd from "../../assets/images/pr1.png";
 
 const ProductCard = ({ product, openCartPopup }) => {
   const { id, name, image, price } = product;
-  const { cartItems, updateCartItems, refreshCart } = useContext(CartContext);
+  const { cartItems, updateCartItems } = useContext(CartContext);
   const [count, setCount] = useState(0);
   const [incrementButtonLoading, setIncrementButtonLoading] = useState(false);
   const [decrementButtonLoading, setDecrementButtonLoading] = useState(false);
@@ -31,10 +28,12 @@ const ProductCard = ({ product, openCartPopup }) => {
 
   useEffect(() => {
     setCounter();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     setCounter();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems]);
 
   const setCounter = () => {

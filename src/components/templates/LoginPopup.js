@@ -12,14 +12,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { CartContext } from "../../utils/CartContext";
 import { getActiveCart, updateCartOwnerToCartAPI } from "../../api/cart";
-import {
-  createCartAPI,
+import {  
   updateCartAPI,
-  addCartAPI,
-  deleteCartAPI,
-  getCartAPI,
+  addCartAPI
 } from "../../api/cart";
-import { getCusertomerDetails , getSessionCusertomerDetails} from "../../api/customer";
+import { getSessionCusertomerDetails} from "../../api/customer";
 import { useTranslation } from "react-i18next";
 
 const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {

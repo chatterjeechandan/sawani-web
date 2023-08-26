@@ -11,24 +11,15 @@ import r1 from "../assets/images/r1.png";
 import r2 from "../assets/images/r2.png";
 import r3 from "../assets/images/r3.png";
 import rewards from "../assets/images/reward.png";
-import info from "../assets/images/info.png";
 import plus from "../assets/images/addDetail.png";
 import plusMobile from "../assets/images/addCounter.png";
 import minus from "../assets/images/delDetail.png";
 import productInd from "../assets/images/pr1.png";
 import camel from "../assets/images/camelWhite.png";
-import Tooltip from "@mui/material/Tooltip";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import Toaster from "../components/common/Toaster/Toaster";
 import { AuthContext } from "../utils/AuthContext";
 import {
   createCartAPI,
-  updateCartAPI,
-  addCartAPI,
-  deleteCartAPI,
   getCartAPI,
 } from "../api/cart";
 import { CartContext } from "../utils/CartContext";
@@ -50,9 +41,7 @@ const Product = () => {
   const [decrementButtonLoading, setDecrementButtonLoading] = useState(false);
   const [isFavourite, setIsFavourite] = useState(false);
   const [isFavouriteLoader, setIsFavouriteLoader] = useState(false);
-  const [isCounterOpen, setCounterOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [attributes, setAttributes] = useState([]);
   const [provariant, setProvariant] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState(null);
   const [count, setCount] = useState(0);
@@ -62,18 +51,16 @@ const Product = () => {
   const { categories } = useContext(CategoryContext);
   const navigate = useNavigate();
   const cartcountRef = useRef();
-  const { t } = useTranslation();
-
-  const counteroptionFm = () => {
-    setCounterOpen(!isCounterOpen);
-  };
+  const { t } = useTranslation(); 
 
   useEffect(() => {
     fetchProduct();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, categories]);
 
   useEffect(() => {
     fetchProduct();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchProduct = async () => {
@@ -120,22 +107,6 @@ const Product = () => {
         : `/products/?pcat=${category.id}`;
     navigate(url);
     setSelectedCategory(category);
-  };
-
-  const handleAttributeChange = (event, attributeId) => {
-    const { value } = event.target;
-    setAttributes((prevAttributes) => {
-      const attributeIndexMap = product.attributes.reduce(
-        (map, attribute, index) => {
-          map[attribute.id] = index;
-          return map;
-        },
-        {}
-      );
-      const updatedAttributes = [...prevAttributes];
-      updatedAttributes[attributeIndexMap[attributeId]] = Number(value);
-      return updatedAttributes;
-    });
   };
 
   const handleShortSelectChange = (selectedValue) => {
@@ -248,6 +219,7 @@ const Product = () => {
     if (loginResponse && product) {
       customerFavourite();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product,loginResponse]);
 
   const customerFavourite = async () => {
@@ -467,42 +439,6 @@ const Product = () => {
                 dangerouslySetInnerHTML={{ __html: product.description }}
               ></p>
               <div className="productOtherInfo">
-                {product.attributes.length > 0 && (
-                  <p className="infoHeading">Product Option</p>
-                )}
-                <div className="config-option">
-                  {product.attributes.map((attribute) => (
-                    <div className="productOtherInfo" key={attribute.id}>
-                      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                        <InputLabel
-                          id={`attribute-select-label-${attribute.id}`}
-                        >
-                          {attribute.name}
-                        </InputLabel>
-                        <Select
-                          labelId={`attribute-select-label-${attribute.id}`}
-                          id={`attribute-select-${attribute.id}`}
-                          value={attribute.isSelected}
-                          label={attribute.name}
-                          onChange={(event) =>
-                            handleAttributeChange(event, attribute.id)
-                          }
-                        >
-                          <MenuItem value="">
-                            <em>None</em>
-                          </MenuItem>
-                          {attribute.values.map((value) => (
-                            <MenuItem key={value.id} value={value.id}>
-                              {value.name}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="productOtherInfo">
                 <p className="infoHeading">{t("Ingredients")}</p>
                 <div className="infodetails">
                   <span className="infoName">Sugar</span>
@@ -545,9 +481,6 @@ const Product = () => {
               <div className="productOtherInfo rewardQntyWraper">
                 <p className="infoHeading">{t("Rewards")}</p>
                 <span className="infoIconWraper">
-                  <Tooltip title="This is the rewards point" arrow>
-                    <img src={info} alt="" />
-                  </Tooltip>
                 </span>
                 <div className="rewardSec">
                   <span className="rewardIcon">

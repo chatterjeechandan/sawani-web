@@ -7,7 +7,7 @@ const RadioButtonsWithImages = ({ options, selectedOption, onChange, imageUrls }
     return (
         <div>
             {options?.map((option, index) => (
-                selectedDeliveryTypes == option.id && (
+                selectedDeliveryTypes === option.id && (
                     <label key={option.id}>
                         <input
                             type="radio"
