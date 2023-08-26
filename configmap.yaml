@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: react-config
+data:
+  REACT_APP_BASE_URL: "https://sawaniapiv02.azurewebsites.net"
+  REACT_APP_TAP_PUB_KEY: "pk_test_qDdOx6ufrkJiNc5lo9nHM0zT"
+  REACT_APP_TAP_MERCHANT_ID: "24197412"

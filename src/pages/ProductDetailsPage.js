@@ -31,6 +31,8 @@ import {
   deleteCustomerFavourite,
 } from "../api/customer";
 import ProductCard from "../components/product/ProductCard";
+import Tooltip from "@mui/material/Tooltip";
+import info from "../assets/images/info.png";
 
 const Product = () => {
   const { id } = useParams();
@@ -481,6 +483,9 @@ const Product = () => {
               <div className="productOtherInfo rewardQntyWraper">
                 <p className="infoHeading">{t("Rewards")}</p>
                 <span className="infoIconWraper">
+                  <Tooltip title="This is the rewards point" arrow>
+                    <img src={info} alt="" />
+                  </Tooltip>
                 </span>
                 <div className="rewardSec">
                   <span className="rewardIcon">

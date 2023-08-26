@@ -1,7 +1,0 @@
-{
-  "name": "sawani-web",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "custom"
-}
