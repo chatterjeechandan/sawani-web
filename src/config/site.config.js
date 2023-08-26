@@ -1,7 +1,7 @@
-const CONFIG =  {
-  baseUrl: 'https://sawaniapiv02.azurewebsites.net',
-  tapPubKey: 'pk_test_qDdOx6ufrkJiNc5lo9nHM0zT',
-  tapMerchantId: 24197412
+const CONFIG = {
+  baseUrl: process.env.REACT_APP_BASE_URL,
+  tapPubKey: process.env.REACT_APP_TAP_PUB_KEY,
+  tapMerchantId: process.env.REACT_APP_TAP_MERCHANT_ID
 };
 
 export default CONFIG;
