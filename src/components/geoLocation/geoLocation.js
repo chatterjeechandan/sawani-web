@@ -1,22 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
 import search from "../../assets/images/search.png";
 import { useTranslation } from "react-i18next";
+import { getConfig } from "../../config/site.config";
 
 const GeoLocationComponent = () => {
   const [address, setAddress] = useState("");
-  const [setLocation] = useState({ lat: null, lng: null });
+  // eslint-disable-next-line no-unused-vars
+  const [location, setLocation] = useState({ lat: null, lng: null });
   const { t, i18n } = useTranslation();
   const inputRef = useRef(null);
   const autocompleteRef = useRef(null);
+  const SITE_CONFIG = getConfig();
 
   useEffect(() => {
     const currentLanguage = i18n.language;
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDLooDo7_YuZa_ZW2zUtE7nOUGJsP_8guQ&libraries=places&language=${currentLanguage}`;
+    const script = document.createElement("script");
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${SITE_CONFIG.googleMapKey}&libraries=places&language=${currentLanguage}`;
     script.async = true;
-    
+
     script.onload = () => {
-      autocompleteRef.current = new window.google.maps.places.Autocomplete(inputRef.current);
+      autocompleteRef.current = new window.google.maps.places.Autocomplete(
+        inputRef.current
+      );
       autocompleteRef.current.addListener("place_changed", () => {
         const place = autocompleteRef.current.getPlace();
         if (place.geometry && place.geometry.location) {
@@ -34,10 +39,12 @@ const GeoLocationComponent = () => {
     return () => {
       document.body.removeChild(script);
       if (window.google && autocompleteRef.current) {
-        window.google.maps.event.clearInstanceListeners(autocompleteRef.current);
+        window.google.maps.event.clearInstanceListeners(
+          autocompleteRef.current
+        );
       }
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.language]);
 
   function getCurrentLocation(callback) {

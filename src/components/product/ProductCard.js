@@ -7,16 +7,13 @@ import { CartContext } from "../../utils/CartContext";
 import counterMinus from "../../assets/images/smallMinus.png";
 import Loader from "../../components/common/Loader/Loader";
 import { AuthContext } from "../../utils/AuthContext";
-import {
-  createCartAPI,
-  getCartAPI,
-} from "../../api/cart";
+import { createCartAPI, getCartAPI } from "../../api/cart";
 import Toaster from "../../components/common/Toaster/Toaster";
 import { useTranslation } from "react-i18next";
 import productInd from "../../assets/images/pr1.png";
 
 const ProductCard = ({ product, openCartPopup }) => {
-  const { id, name, image, price } = product;
+  const { id, name, image, price, quantity } = product;
   const { cartItems, updateCartItems } = useContext(CartContext);
   const [count, setCount] = useState(0);
   const [incrementButtonLoading, setIncrementButtonLoading] = useState(false);
@@ -28,12 +25,12 @@ const ProductCard = ({ product, openCartPopup }) => {
 
   useEffect(() => {
     setCounter();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     setCounter();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems]);
 
   const setCounter = () => {
@@ -151,19 +148,19 @@ const ProductCard = ({ product, openCartPopup }) => {
 
   const addCartItem = async (cartId, existingCartItems, newCartItem) => {
     const updatedCartItems = [...existingCartItems.items, newCartItem];
-    updateCartItems({...cartItems, items: updatedCartItems});
+    updateCartItems({ ...cartItems, items: updatedCartItems });
   };
 
   const updateCartItem = async (cartId, updatedItem, index) => {
     const newCartItems = [...cartItems.items];
     newCartItems[index] = updatedItem;
-    updateCartItems({...cartItems, items: newCartItems});
+    updateCartItems({ ...cartItems, items: newCartItems });
   };
 
   const deleteItemCart = async (cartId, deletedItem, index) => {
     const newCartItems = [...cartItems.items];
     newCartItems.splice(index, 1);
-    updateCartItems({...cartItems, items: newCartItems});
+    updateCartItems({ ...cartItems, items: newCartItems });
   };
 
   const handleSuccess = (successMessage) => {
@@ -181,9 +178,7 @@ const ProductCard = ({ product, openCartPopup }) => {
     setToaster(null);
   };
 
-  const productImage = image
-    ? `data:image/png;base64,${image}`
-    : productInd;
+  const productImage = image ? `data:image/png;base64,${image}` : productInd;
 
   return (
     <div className="indProduct">
@@ -195,54 +190,61 @@ const ProductCard = ({ product, openCartPopup }) => {
       <Link
         to={`/product/${id}`}
         className="product-link"
-        style={{ display: "inline" }}
+        style={{ display: "inline", width: "100%" }}
       >
-        <span className="produtImage">
+        <span className="productImage">
+          {(quantity < 0 || quantity === 0) && (
+            <div className="outOfStockOverlay">
+              <span className="outOfStockMessage">{t("Out of Stock")}</span>
+            </div>
+          )}
           <img src={productImage} alt={name} className="product-image" />
-          <span className="counterWraper">
-            <span
-              className="plusCounter"
-              onClick={(e) => handleCountChange(e, 1, "increment")}
-            >
-              {incrementButtonLoading ? (
-                <Loader
-                  showOverlay={false}
-                  size={12}
-                  color="#000"
-                  isLoading={false}
-                />
-              ) : (
-                <img src={add} alt="" />
+          {quantity > 0 && (
+            <span className="counterWrapper plusminusholder">
+              <span
+                className="plusCounter"
+                onClick={(e) => handleCountChange(e, 1, "increment")}
+              >
+                {incrementButtonLoading ? (
+                  <Loader
+                    showOverlay={false}
+                    size={12}
+                    color="#000"
+                    isLoading={false}
+                  />
+                ) : (
+                  <img src={add} alt="" />
+                )}
+              </span>
+              {count > 0 && (
+                <>
+                  <span className="counterInput">
+                    <input
+                      type="number"
+                      className="inputCounter"
+                      value={count}
+                      readOnly
+                    />
+                  </span>
+                  <span
+                    className="minusCounter"
+                    onClick={(e) => handleCountChange(e, -1, "decrement")}
+                  >
+                    {decrementButtonLoading ? (
+                      <Loader
+                        showOverlay={false}
+                        size={12}
+                        color="#000"
+                        isLoading={false}
+                      />
+                    ) : (
+                      <img src={counterMinus} alt="" />
+                    )}
+                  </span>
+                </>
               )}
             </span>
-            {count > 0 && (
-              <>
-                <span className="counterInput">
-                  <input
-                    type="number"
-                    className="inputCounter"
-                    value={count}
-                    readOnly
-                  />
-                </span>
-                <span
-                  className="minusCounter"
-                  onClick={(e) => handleCountChange(e, -1, "decrement")}
-                >
-                  {decrementButtonLoading ? (
-                    <Loader
-                      showOverlay={false}
-                      size={12}
-                      color="#000"
-                      isLoading={false}
-                    />
-                  ) : (
-                    <img src={counterMinus} alt="" />
-                  )}
-                </span>
-              </>
-            )}
-          </span>
+          )}
         </span>
         <span className="productInfoDetails">
           <h5>{name}</h5>

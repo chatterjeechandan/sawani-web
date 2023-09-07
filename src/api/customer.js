@@ -1,4 +1,10 @@
-import { postData, fetchData, deleteData, updateData, fetchSessionData } from "./apiClient";
+import {
+  postData,
+  fetchData,
+  deleteData,
+  updateData,
+  fetchSessionData,
+} from "./apiClient";
 
 export function getCusertomerDetails(Id) {
   return fetchData(`customer/${Id}`);

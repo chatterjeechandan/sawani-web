@@ -1,23 +1,25 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import Header from "../components/common/layout/Header/Header";
 import Footer from "../components/common/layout/Footer";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { fetchProductsbyCat } from "../api/product";
 import Loader from "../components/common/Loader/Loader";
 import ProductCard from "../components/product/ProductCard";
 import { ProductFilter } from "../components/product/ProductFilter";
 import { CategoryContext } from "../utils/CategoryContext";
 import { useTranslation } from "react-i18next";
+import i18next from "i18next";
+import { fetchCategories } from "../api/category";
 
 const ProductList = () => {
+  const { pcat } = useParams();
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isInitialMount, setIsInitialMount] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const { categories } = useContext(CategoryContext);
-  const pcat = searchParams.get("pcat");
-  const scat = searchParams.get("scat");
+  const { categories, updateCategoryItems } = useContext(CategoryContext);
   const sort = searchParams.get("sort");
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,28 +27,40 @@ const ProductList = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
+    if (isInitialMount) {
+      window.scrollTo(0, 0);
+      setIsInitialMount(false);
+    }
+
     fetchProducts();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pcat, scat, sort]);
+    // If you still want to ignore lint warnings, add the line below
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pcat, sort, i18next.language]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    fetchProducts();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    updateCategoryContext();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [i18next.language]);
 
   useEffect(() => {
     selectCategory();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categories]);
+
+  const updateCategoryContext = async () => {
+    const response = await fetchCategories();
+    updateCategoryItems(response);
+  };
 
   const selectCategory = () => {
     if (!categories) {
       return;
     }
+    const number = pcat.split("&")[0];
     const selectedCategory = categories.find(
-      (category) => Number(category.id) === Number(pcat)
+      (category) => Number(category.id) === Number(number)
     );
+    console.log(selectedCategory);
     setSelectedCategory(selectedCategory);
   };
 
@@ -64,10 +78,7 @@ const ProductList = () => {
   };
 
   const handleCategorySelect = (category) => {
-    const url =
-      category.childCategories.length > 0
-        ? `/products/?pcat=${category.id}&scat=${category.childCategories[0].id}`
-        : `/products/?pcat=${category.id}`;
+    const url = `/products/${category.id}`;
     navigate(url);
     setSelectedCategory(category);
   };
@@ -77,9 +88,7 @@ const ProductList = () => {
   };
 
   const handleShortSelectChange = (selectedValue) => {
-    const url = scat
-      ? `/products/?pcat=${pcat}&scat=${scat}&sort=${selectedValue}`
-      : `/products/?pcat=${pcat}&sort=${selectedValue}`;
+    const url = `/products/${pcat}&sort=${selectedValue}`;
     navigate(url);
   };
 
@@ -100,7 +109,6 @@ const ProductList = () => {
         <ProductFilter
           categories={categories}
           selectedCategory={selectedCategory}
-          scat={scat}
           handleCategorySelect={handleCategorySelect}
           setSelectedCategory={setSelectedCategory}
           onShortSelectChange={handleShortSelectChange}
@@ -112,6 +120,7 @@ const ProductList = () => {
               size={30}
               color="#B7854C"
               isLoading={false}
+              showImg={true}
             />
           ) : products.length === 0 ? (
             <p className="noProduct" style={{ textAlign: "center" }}>

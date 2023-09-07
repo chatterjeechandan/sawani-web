@@ -14,7 +14,7 @@ const ContactUs = () => {
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
   });
   const [toaster, setToaster] = useState(null);
 
@@ -27,19 +27,18 @@ const ContactUs = () => {
       validateEmail(value);
     } else if (name === "message") {
       validateMessage(value);
-    }    
+    }
   };
 
   const validateName = (nameValue) => {
     const newErrors = {};
     if (!nameValue.trim()) {
       newErrors.name = t("Full Name is required");
-    }
-    else {
+    } else {
       newErrors.name = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.name ===''? true:false;
+    return newErrors.name === "" ? true : false;
   };
 
   const validateEmail = (emailValue) => {
@@ -49,62 +48,61 @@ const ContactUs = () => {
       newErrors.email = t("Email is required");
     } else if (emailValue && !emailFormat.test(emailValue)) {
       newErrors.email = t("Invalid Email Address");
-    }else {
+    } else {
       newErrors.email = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.email ===''?true:false;
+    return newErrors.email === "" ? true : false;
   };
 
   const validateMessage = (messageValue) => {
     const newErrors = {};
     if (!messageValue.trim()) {
       newErrors.message = t("Message is required");
-    }
-    else {
+    } else {
       newErrors.message = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.message ==='' ? true:false;
+    return newErrors.message === "" ? true : false;
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const isNameValid = validateName(userInfo.name);
-    const isEmailValid = validateEmail(userInfo.email);    
-    const isMessageValid = validateMessage(userInfo.message);   
+    const isEmailValid = validateEmail(userInfo.email);
+    const isMessageValid = validateMessage(userInfo.message);
     if (isNameValid && isEmailValid && isMessageValid) {
       submitContactUs();
     }
   };
 
-  const submitContactUs = async () => {    
+  const submitContactUs = async () => {
     setIsLoading(true);
-      try {
-       const contactUsPayload = {
-          "fromEmail": userInfo.email,
-          "subject": "Contact Us",
-          "body": userInfo.message,
-          "name": userInfo.name,
-          "phone": " "
-        }
-        const response = await contactusAPI(contactUsPayload);
-        if(response){
-          setIsLoading(false);
-          setToaster({
-            type: "success",
-            message: t("Submitted successfully!"),
-            duration: 3000,
-          });
-          setUserInfo({
-            name: "",
-            email: "",
-            message: ""
-          });
-        }        
-      } catch (error) {
-        console.error("Error submitting contact form:", error);
+    try {
+      const contactUsPayload = {
+        fromEmail: userInfo.email,
+        subject: "Contact Us",
+        body: userInfo.message,
+        name: userInfo.name,
+        phone: " ",
+      };
+      const response = await contactusAPI(contactUsPayload);
+      if (response) {
+        setIsLoading(false);
+        setToaster({
+          type: "success",
+          message: t("Submitted successfully!"),
+          duration: 3000,
+        });
+        setUserInfo({
+          name: "",
+          email: "",
+          message: "",
+        });
       }
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+    }
   };
 
   const handleToasterClose = () => {
@@ -115,14 +113,14 @@ const ContactUs = () => {
     <>
       <Header />
       <div className="dashboardMidContent profilePages contactPage">
-      {toaster && (
-        <Toaster
-          type={toaster.type}
-          message={toaster.message}
-          duration={toaster.duration}
-          onClose={handleToasterClose}
-        />
-      )}
+        {toaster && (
+          <Toaster
+            type={toaster.type}
+            message={toaster.message}
+            duration={toaster.duration}
+            onClose={handleToasterClose}
+          />
+        )}
         <div className="contactUsWraper">
           <h4 className="contactHeading">{t("Talk to Us")}</h4>
           <p className="contactPagePara">
@@ -146,9 +144,7 @@ const ContactUs = () => {
                     maxLength={50}
                   />
                 </div>
-                {errors.name && (
-                    <p className="errorText">{errors.name}</p>
-                )}
+                {errors.name && <p className="errorText">{errors.name}</p>}
               </div>
               <div className="input-wrapper">
                 <div className="indFields cvv emails">
@@ -162,10 +158,8 @@ const ContactUs = () => {
                     onChange={handleInputChange}
                   />
                 </div>
-                {errors.email && (
-                  <p className="errorText">{errors.email}</p>
-                )}
-              </div>             
+                {errors.email && <p className="errorText">{errors.email}</p>}
+              </div>
             </div>
             <div className="input-wrapper contact">
               <div className="indFields">
@@ -178,9 +172,7 @@ const ContactUs = () => {
                   onChange={handleInputChange}
                 ></textarea>
               </div>
-              {errors.message && (
-                <p className="errorText">{errors.message}</p>
-              )}
+              {errors.message && <p className="errorText">{errors.message}</p>}
             </div>
             <button className="contactBtns" onClick={handleSubmit}>
               {isLoading ? (
@@ -191,9 +183,9 @@ const ContactUs = () => {
                     color="#000"
                     isLoading={true}
                   />
-                </div>                  
-                ) : (
-                  t("Send Message")
+                </div>
+              ) : (
+                t("Send Message")
               )}
             </button>
           </div>

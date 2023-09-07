@@ -1,0 +1,9 @@
+{
+  "isDevelopMode": true,
+  "baseUrl": "https://api.tamam123.com",
+  "apiUrl": "https://api.tamam123.com",
+  "tapPubKey_dev": "pk_test_qDdOx6ufrkJiNc5lo9nHM0zT",
+  "tapPubKey_prod": "pk_live_ehN35mEZlYCkB1dO4jqxzD06",
+  "tapMerchantId": "24197412",
+  "googleMapKey": "AIzaSyDLooDo7_YuZa_ZW2zUtE7nOUGJsP_8guQ"
+}

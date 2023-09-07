@@ -20,15 +20,20 @@ import counterPlus from "../../../../assets/images/addCounter.png";
 import rewards from "../../../../assets/images/rewardPoint.png";
 import cartIcon from "../../../../assets/images/cartIcon.png";
 import { CartContext } from "../../../../utils/CartContext";
-import { updateCartAPI, deleteCartAPI, getCartAPI, addCartAPI } from "../../../../api/cart";
+import {
+  updateCartAPI,
+  deleteCartAPI,
+  getCartAPI,
+  addCartAPI,
+} from "../../../../api/cart";
 import { updateCartOwnerToCartAPI } from "../../../../api/cart";
 import Loader from "../../../../components/common/Loader/Loader";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import noUserImage from "../../../../assets/images/no-user.png";
-import CONFIG from '../../../../config/site.config';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { getConfig } from "../../../../config/site.config";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import productInd from "../../../../assets/images/pr1.png";
 
 const Header = forwardRef((props, ref) => {
@@ -36,7 +41,8 @@ const Header = forwardRef((props, ref) => {
   const [isCheckoutOpen, setCheckoutOpen] = useState(false);
   const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
   const [isSignupPopupOpen, setSignupPopupOpen] = useState(false);
-  const [isForgotPasswordPopupOpen, setForgotPasswordPopupOpen] =useState(false);
+  const [isForgotPasswordPopupOpen, setForgotPasswordPopupOpen] =
+    useState(false);
   const [toaster, setToaster] = useState(null);
   const { loginResponse, logout } = useContext(AuthContext);
   const { cartItems, updateCartItems } = useContext(CartContext);
@@ -48,7 +54,7 @@ const Header = forwardRef((props, ref) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  
+  const SITE_CONFIG = getConfig();
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
@@ -86,84 +92,86 @@ const Header = forwardRef((props, ref) => {
     e.preventDefault();
 
     const isProfileRoute = () => {
-        const profileRoutes = [
-            '/rewards-point', 
-            '/saved-address', 
-            '/address-add', 
-            '/saved-card', 
-            '/card-add', 
-            '/favourite-store', 
-            '/favourite-product', 
-            '/edit-profile'
-        ];
-        return profileRoutes.includes(pathname);
+      const profileRoutes = [
+        "/rewards-point",
+        "/saved-address",
+        "/address-add",
+        "/saved-card",
+        "/card-add",
+        "/favourite-store",
+        "/favourite-product",
+        "/edit-profile",
+      ];
+      return profileRoutes.includes(pathname);
     };
 
     const performLogoutActions = () => {
-        logout();
-        setIsShowWholePageLoader(false);
-        setMenuOpen(false);
-        if (isProfileRoute()) {
-            navigate('/');
-        }
+      logout();
+      setIsShowWholePageLoader(false);
+      setMenuOpen(false);
+      if (isProfileRoute()) {
+        navigate("/");
+      }
     };
 
     const storedCartInfo = localStorage.getItem("cartInfo");
     console.log(storedCartInfo);
     if (storedCartInfo) {
-        try {
-            setIsShowWholePageLoader(true);
-            const cartObj = JSON.parse(storedCartInfo);
-            const getActualCartResponse =  await getCartAPI(cartObj.id);
-            
-            if(cartObj.items.length > 0) {
-              for (const item of cartObj.items) {
-                const existingCartItemIndex = getActualCartResponse.data.items.findIndex(
-                  (innerItem) => innerItem.productVariantId === item.productVariantId
-                );
-                if (existingCartItemIndex !== -1) {
-                  await updateCartAPI(cartObj.id, item);
-                } else {
-                  await addCartAPI(cartObj.id, item);
-                }
-              }
-  
-              for (const item1 of getActualCartResponse.data.items) {
-                const existingCartItemIndex1 = cartObj.items.findIndex(
-                  (innerItem) => innerItem.productVariantId === item1.productVariantId
-                );
-                if (existingCartItemIndex1 === -1) {
-                  await deleteCartAPI(cartObj.id, item1);
-                }
-              }
+      try {
+        setIsShowWholePageLoader(true);
+        const cartObj = JSON.parse(storedCartInfo);
+        const getActualCartResponse = await getCartAPI(cartObj.id);
+
+        if (cartObj.items.length > 0) {
+          for (const item of cartObj.items) {
+            const existingCartItemIndex =
+              getActualCartResponse.data.items.findIndex(
+                (innerItem) =>
+                  innerItem.productVariantId === item.productVariantId
+              );
+            if (existingCartItemIndex !== -1) {
+              await updateCartAPI(cartObj.id, item);
             } else {
-              for (const item1 of getActualCartResponse.data.items) {
-                await deleteCartAPI(cartObj.id, item1);
-              }
+              await addCartAPI(cartObj.id, item);
             }
+          }
 
-            await updateCartOwnerToCartAPI(cartItems.id);
-
-            setToaster({
-              type: "success",
-              message: t("Logout successful"),
-              duration: 3000,
-            });
-            updateCartItems(null);
-            setTimeout(performLogoutActions, 500);
-        } catch (error) {
-            console.error("Error updating cart owner:", error);
+          for (const item1 of getActualCartResponse.data.items) {
+            const existingCartItemIndex1 = cartObj.items.findIndex(
+              (innerItem) =>
+                innerItem.productVariantId === item1.productVariantId
+            );
+            if (existingCartItemIndex1 === -1) {
+              await deleteCartAPI(cartObj.id, item1);
+            }
+          }
+        } else {
+          for (const item1 of getActualCartResponse.data.items) {
+            await deleteCartAPI(cartObj.id, item1);
+          }
         }
-    } else {
-        setToaster({
-            type: "success",
-            message: t("Logout successful"),
-            duration: 3000,
-        });
-        setTimeout(performLogoutActions, 500);
-    }
-};
 
+        await updateCartOwnerToCartAPI(cartItems.id);
+
+        setToaster({
+          type: "success",
+          message: t("Logout successful"),
+          duration: 3000,
+        });
+        updateCartItems(null);
+        setTimeout(performLogoutActions, 500);
+      } catch (error) {
+        console.error("Error updating cart owner:", error);
+      }
+    } else {
+      setToaster({
+        type: "success",
+        message: t("Logout successful"),
+        duration: 3000,
+      });
+      setTimeout(performLogoutActions, 500);
+    }
+  };
 
   const handleToasterClose = () => {
     setToaster(null);
@@ -198,14 +206,14 @@ const Header = forwardRef((props, ref) => {
   };
 
   useEffect(() => {
-    const savedLang = localStorage.getItem('lang');
+    const savedLang = localStorage.getItem("lang");
     if (savedLang) {
       i18next.changeLanguage(savedLang);
     }
     document.addEventListener("click", handleOutsideClick);
     return () => {
       document.removeEventListener("click", handleOutsideClick);
-    };    
+    };
   }, []);
 
   const getCartCount = () => {
@@ -226,7 +234,10 @@ const Header = forwardRef((props, ref) => {
 
   const calculateRewardstotal = () => {
     if (!cartItems || !cartItems.items) return 0;
-    return cartItems.items.reduce((acc, item) => acc + (item.rewards*item.quantity), 0);
+    return cartItems.items.reduce(
+      (acc, item) => acc + item.rewards * item.quantity,
+      0
+    );
   };
 
   const cartPopupClickHandler = (e) => {
@@ -250,7 +261,7 @@ const Header = forwardRef((props, ref) => {
   const deleteCartItemRow = (index) => {
     const newCartItems = [...cartItems.items];
     newCartItems.splice(index, 1);
-    updateCartItems({...cartItems, items: newCartItems});
+    updateCartItems({ ...cartItems, items: newCartItems });
   };
 
   const deleteCartItem = async (cartItems, updatedCartItems, index) => {
@@ -282,8 +293,8 @@ const Header = forwardRef((props, ref) => {
   const changeLanguage = (lang) => {
     i18next.changeLanguage(lang);
     setIsLangMenuOpen(false);
-    localStorage.setItem('lang', lang);
-    window.location.reload();
+    localStorage.setItem("lang", lang);
+    //window.location.reload();
   };
 
   useEffect(() => {
@@ -294,7 +305,7 @@ const Header = forwardRef((props, ref) => {
     } else if (currentLang === "ar") {
       document.body.classList.add("lang-ar");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18next.language]);
 
   const selectedDeliveryMode = localStorage.getItem("selectedDeliveryType");
@@ -318,7 +329,7 @@ const Header = forwardRef((props, ref) => {
                   <img
                     src={
                       loginResponse.avatar
-                        ? `${CONFIG.baseUrl}/${loginResponse.avatar}`
+                        ? `${SITE_CONFIG.apiUrl}/${loginResponse.avatar}`
                         : noUserImage
                     }
                     className="profile"
@@ -329,7 +340,7 @@ const Header = forwardRef((props, ref) => {
               </Link>
             )}
           </div>
-          <div className="icon-wrapper" ref={langmenuRef}>
+          <div className="icon-wrapper menu" ref={langmenuRef}>
             <span className="translateNow">
               <img src={translate} alt="" onClick={toggleLangMenu} />
             </span>
@@ -363,16 +374,13 @@ const Header = forwardRef((props, ref) => {
               </label>
               <ul className="menu-items detail menuDrop">
                 <li>
-                {
-                  (Number(selectedDeliveryMode) === 1 || !selectedDeliveryMode) && (
+                  {(Number(selectedDeliveryMode) === 1 ||
+                    !selectedDeliveryMode) && (
                     <Link to="/in-store">{t("Order Now")}</Link>
-                  )
-                }
-                {
-                  Number(selectedDeliveryMode) === 2 && (
+                  )}
+                  {Number(selectedDeliveryMode) === 2 && (
                     <Link to="/pickup">{t("Order Now")}</Link>
-                  )
-                }                 
+                  )}
                 </li>
                 <li>
                   <Link to="/contact-us">{t("Contact Us")}</Link>
@@ -442,8 +450,6 @@ const Header = forwardRef((props, ref) => {
                                   <span>{item.price}</span> {t("SAR")}
                                 </p>
                                 <span className="counterWraper checkoutcounters">
-                                  
-
                                   <span
                                     className="minusCounter"
                                     onClick={() => handleCountChange(index, -1)}
@@ -468,10 +474,9 @@ const Header = forwardRef((props, ref) => {
                               </span>
                               <span
                                 className="deleteSpan"
-                                 onClick={() => deleteCartItemRow(index)}
-                               
+                                onClick={() => deleteCartItemRow(index)}
                               >
-                                <FontAwesomeIcon icon={ faTrashCan }/>
+                                <FontAwesomeIcon icon={faTrashCan} />
                               </span>
                             </div>
                           ))}
@@ -508,21 +513,28 @@ const Header = forwardRef((props, ref) => {
                       <div className="grandTotalWraper rewardSectionsWrapers">
                         <span className="grandHeading">{t("TOTAL")}</span>
                         <span className="grandHeading grandPrice">
-                        {calculateSubtotal().toFixed(2)} {t("SAR")}
+                          {calculateSubtotal().toFixed(2)} {t("SAR")}
                         </span>
                       </div>
-                      <div className="cartBtnWraper">                         
-                          {
-                            (Number(selectedDeliveryMode) === 1 || !selectedDeliveryMode) && (
-                              <Link to="/in-store"><button className="pinkBtn">{t("CONTINUE SHOPPING")}</button></Link>
-                            )
-                          }
-                          {
-                            Number(selectedDeliveryMode) === 2 && (
-                              <Link to="/pickup"><button className="pinkBtn">{t("CONTINUE SHOPPING")}</button></Link>
-                            )
-                          }
-                          <Link to="/checkout"><button className="checkBtn">{t("CHECKOUT")}</button></Link>
+                      <div className="cartBtnWraper">
+                        {(Number(selectedDeliveryMode) === 1 ||
+                          !selectedDeliveryMode) && (
+                          <Link to="/in-store">
+                            <button className="pinkBtn">
+                              {t("CONTINUE SHOPPING")}
+                            </button>
+                          </Link>
+                        )}
+                        {Number(selectedDeliveryMode) === 2 && (
+                          <Link to="/pickup">
+                            <button className="pinkBtn">
+                              {t("CONTINUE SHOPPING")}
+                            </button>
+                          </Link>
+                        )}
+                        <Link to="/checkout">
+                          <button className="checkBtn">{t("CHECKOUT")}</button>
+                        </Link>
                       </div>
                     </div>
                   </div>

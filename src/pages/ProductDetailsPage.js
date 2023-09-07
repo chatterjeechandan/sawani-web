@@ -18,10 +18,7 @@ import productInd from "../assets/images/pr1.png";
 import camel from "../assets/images/camelWhite.png";
 import Toaster from "../components/common/Toaster/Toaster";
 import { AuthContext } from "../utils/AuthContext";
-import {
-  createCartAPI,
-  getCartAPI,
-} from "../api/cart";
+import { createCartAPI, getCartAPI } from "../api/cart";
 import { CartContext } from "../utils/CartContext";
 import { CategoryContext } from "../utils/CategoryContext";
 import { useTranslation } from "react-i18next";
@@ -33,6 +30,8 @@ import {
 import ProductCard from "../components/product/ProductCard";
 import Tooltip from "@mui/material/Tooltip";
 import info from "../assets/images/info.png";
+import i18next from "i18next";
+import { fetchCategories } from "../api/category";
 
 const Product = () => {
   const { id } = useParams();
@@ -50,29 +49,35 @@ const Product = () => {
   const [toaster, setToaster] = useState(null);
   const { loginResponse } = useContext(AuthContext);
   const { cartItems, updateCartItems } = useContext(CartContext);
-  const { categories } = useContext(CategoryContext);
+  const { categories, updateCategoryItems } = useContext(CategoryContext);
   const navigate = useNavigate();
   const cartcountRef = useRef();
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchProduct();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, categories]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, categories, i18next.language]);
 
   useEffect(() => {
-    fetchProduct();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    updateCategoryContext();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [i18next.language]);
+
+  const updateCategoryContext = async () => {
+    const response = await fetchCategories();
+    updateCategoryItems(response);
+  };
 
   const fetchProduct = async () => {
+    setIsLoading(true);
     try {
       const response = await getProductById(id);
       setProduct(response);
       setIsLoading(false);
       selectCategory(response.categoryId);
       setProvariant(response.variants[0]);
-      setRelatedProductFn(response.variants[0].id)
+      setRelatedProductFn(response.variants[0].id);
     } catch (error) {
       console.error("Error fetching product:", error);
       setIsLoading(false);
@@ -82,10 +87,10 @@ const Product = () => {
   const setRelatedProductFn = async (varientId) => {
     try {
       const response = await getRelatedProducts(varientId);
-      if(response.succeeded) {
+      if (response.succeeded) {
         setRelatedProducts(response.data);
         setIsLoadingRelated(false);
-      }      
+      }
     } catch (error) {
       console.error("Error fetching related product:", error);
       setIsLoading(false);
@@ -103,20 +108,12 @@ const Product = () => {
   };
 
   const handleCategorySelect = (category) => {
-    const url =
-      category.childCategories.length > 0
-        ? `/products/?pcat=${category.id}&scat=${category.childCategories[0].id}`
-        : `/products/?pcat=${category.id}`;
-    navigate(url);
+    navigate(`/products/${category.id}`);
     setSelectedCategory(category);
   };
 
   const handleShortSelectChange = (selectedValue) => {
-    const url =
-      selectedCategory.childCategories.length > 0
-        ? `/products/?pcat=${selectedCategory.id}&scat=${selectedCategory.childCategories[0].id}&sort=${selectedValue}`
-        : `/products/?pcat=${selectedCategory.id}&sort=${selectedValue}`;
-    navigate(url);
+    navigate(`/products/${selectedCategory.id}&sort=${selectedValue}`);
   };
 
   const handleCountChange = (amount, state) => {
@@ -221,11 +218,11 @@ const Product = () => {
     if (loginResponse && product) {
       customerFavourite();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product,loginResponse]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product, loginResponse]);
 
   const customerFavourite = async () => {
-    if(!isFavourite) {
+    if (!isFavourite) {
       try {
         setIsFavouriteLoader(true);
         const response = await getCusertomerFavourite();
@@ -241,8 +238,7 @@ const Product = () => {
           if (!foundMatch || foundMatch) {
             setIsFavouriteLoader(false);
           }
-        }
-        else {
+        } else {
           setIsFavouriteLoader(false);
         }
       } catch (error) {
@@ -340,7 +336,7 @@ const Product = () => {
 
   const deleteItemCart = async (cartId, deletedItem, index) => {
     cartItems.items.splice(index, 1);
-        updateCartItems(cartItems);
+    updateCartItems(cartItems);
   };
 
   const handleToasterClose = () => {
@@ -357,7 +353,7 @@ const Product = () => {
 
   return (
     <div className="dashboardPageMaimWraper">
-      <Header ref={headerRef}/>
+      <Header ref={headerRef} />
       <div className="productPageWraper detailsPages">
         <div className="productFilterWraper">
           <ProductFilter
@@ -377,6 +373,7 @@ const Product = () => {
             size={30}
             color="#B7854C"
             isLoading={false}
+            showImg={true}
           />
         ) : (
           <div className="detailsWraper">
@@ -496,79 +493,86 @@ const Product = () => {
                   </span>
                 </div>
               </div>
-              <div className="productOtherInfo rewardQntyWraper ">
-                <div className="qntyWrapers desktopView">
-                  <span className="mainQtyWraper">
-                    <input
-                      type="number"
-                      value={count}
-                      onChange={(e) => setCount(Number(e.target.value))}
-                      className="productPieceQty"
-                      ref={cartcountRef}
-                    />
-                  </span>
-                  <span className="qtyText">{t("Qnt.")}</span>
+              {(product.quantity < 0 || product.quantity === 0) && (
+                <div className="outOfStockOverlay0">
+                  <span className="outOfStockMessage">Out of Stock</span>
                 </div>
-                <div className="addDelBtn">
-                  <span
-                    className="delBtnWraper customs"
-                    onClick={() => handleCountChange(-1, "decrement")}
-                  >
-                    {decrementButtonLoading ? (
-                      <Loader
-                        showOverlay={false}
-                        size={12}
-                        color="#000"
-                        isLoading={false}
+              )}
+              {product.quantity > 0 && (
+                <div className="productOtherInfo rewardQntyWraper ">
+                  <div className="qntyWrapers desktopView">
+                    <span className="mainQtyWraper">
+                      <input
+                        type="number"
+                        value={count}
+                        onChange={(e) => setCount(Number(e.target.value))}
+                        className="productPieceQty"
+                        ref={cartcountRef}
                       />
-                    ) : (
-                      <img src={minus} alt="" />
-                    )}
-                  </span>
-                  <div className="qntyWrapers mobileView">
-                  <span className="mainQtyWraper">
-                    <input
-                      type="number"
-                      value={count}
-                      onChange={(e) => setCount(Number(e.target.value))}
-                      className="productPieceQty"
-                      ref={cartcountRef}
-                    />
-                  </span>
-                  <span className="qtyText">{t("Qnt.")}</span>
+                    </span>
+                    <span className="qtyText">{t("Qnt.")}</span>
+                  </div>
+                  <div className="addDelBtn">
+                    <span
+                      className="delBtnWraper customs"
+                      onClick={() => handleCountChange(-1, "decrement")}
+                    >
+                      {decrementButtonLoading ? (
+                        <Loader
+                          showOverlay={false}
+                          size={12}
+                          color="#000"
+                          isLoading={false}
+                        />
+                      ) : (
+                        <img src={minus} alt="" />
+                      )}
+                    </span>
+                    <div className="qntyWrapers mobileView">
+                      <span className="mainQtyWraper">
+                        <input
+                          type="number"
+                          value={count}
+                          onChange={(e) => setCount(Number(e.target.value))}
+                          className="productPieceQty"
+                          ref={cartcountRef}
+                        />
+                      </span>
+                      <span className="qtyText">{t("Qnt.")}</span>
+                    </div>
+                    <span
+                      className="addBtnWraper customs mobileView"
+                      onClick={() => handleCountChange(1, "increment")}
+                    >
+                      {incrementButtonLoading ? (
+                        <Loader
+                          showOverlay={false}
+                          size={12}
+                          color="#000"
+                          isLoading={false}
+                        />
+                      ) : (
+                        <img src={plusMobile} alt="" />
+                      )}
+                    </span>
+                    <span
+                      className="addBtnWraper desktopView"
+                      onClick={() => handleCountChange(1, "increment")}
+                    >
+                      {incrementButtonLoading ? (
+                        <Loader
+                          showOverlay={false}
+                          size={12}
+                          color="#000"
+                          isLoading={false}
+                        />
+                      ) : (
+                        <img src={plus} alt="" />
+                      )}
+                    </span>
+                  </div>
                 </div>
-                <span
-                    className="addBtnWraper customs mobileView"
-                    onClick={() => handleCountChange(1, "increment")}
-                  >
-                    {incrementButtonLoading ? (
-                      <Loader
-                        showOverlay={false}
-                        size={12}
-                        color="#000"
-                        isLoading={false}
-                      />
-                    ) : (
-                      <img src={plusMobile} alt="" />
-                    )}
-                  </span>
-                  <span
-                    className="addBtnWraper desktopView"
-                    onClick={() => handleCountChange(1, "increment")}
-                  >
-                    {incrementButtonLoading ? (
-                      <Loader
-                        showOverlay={false}
-                        size={12}
-                        color="#000"
-                        isLoading={false}
-                      />
-                    ) : (
-                      <img src={plus} alt="" />
-                    )}
-                  </span>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         )}
@@ -581,7 +585,12 @@ const Product = () => {
           </div>
           <div className="productsDisplayWraper extraProducts">
             {isLoadingRelated ? (
-              <Loader showOverlay={false} size={20} color="#B7854C" isLoading={false} />
+              <Loader
+                showOverlay={false}
+                size={20}
+                color="#B7854C"
+                isLoading={false}
+              />
             ) : relatedProducts.length === 0 ? (
               <p className="noProduct relateed" style={{ textAlign: "center" }}>
                 {t("No products found.")}

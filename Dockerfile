@@ -18,6 +18,7 @@ RUN npm ci --only=production
 COPY . .
 
 # Build the React application.
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 RUN npm run build
 
 # Step 2: Serve the React application from Nginx.
@@ -26,6 +27,7 @@ FROM nginx:alpine
 # Copy only the built artifacts from the build stage.
 COPY --from=build-step /app/build /usr/share/nginx/html
 
+COPY nginx/default.conf  /etc/nginx/conf.d/default.conf
 # Expose port 80 for Nginx.
 EXPOSE 80
 

@@ -12,11 +12,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { CartContext } from "../../utils/CartContext";
 import { getActiveCart, updateCartOwnerToCartAPI } from "../../api/cart";
-import {  
-  updateCartAPI,
-  addCartAPI
-} from "../../api/cart";
-import { getSessionCusertomerDetails} from "../../api/customer";
+import { updateCartAPI, addCartAPI } from "../../api/cart";
+import { getSessionCusertomerDetails } from "../../api/customer";
 import { useTranslation } from "react-i18next";
 
 const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
@@ -59,8 +56,10 @@ const LoginPopup = ({ onClose, onOpenSignup, onOpenForgotPassword }) => {
       setIsLoading(true);
       const response = await login({ mobile, password });
       if (response.id) {
-        const cusDetailresponse = await getSessionCusertomerDetails(response.token);
-        const customerobject = {...response, ...cusDetailresponse.data };
+        const cusDetailresponse = await getSessionCusertomerDetails(
+          response.token
+        );
+        const customerobject = { ...response, ...cusDetailresponse.data };
         setLoginResponse(customerobject);
         setIsLoading(false);
         setToaster({

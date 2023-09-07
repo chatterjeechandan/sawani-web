@@ -14,12 +14,12 @@ import { GeoLocationComponent } from "../components/geoLocation/geoLocation";
 import { getDeliveryMethodAPI } from "../api/lookup";
 import { CartContext } from "../utils/CartContext";
 import deleteCart from "../assets/images/deleteItem.png";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import i18next from "i18next";
 
 const PickupPage = () => {
-  document.title = "SAWANI Pickup Category";
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("pickup");
   const { categories, updateCategoryItems } = useContext(CategoryContext);
@@ -33,49 +33,41 @@ const PickupPage = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem('selectedDeliveryType', 2);    
+    localStorage.setItem("selectedDeliveryType", 2);
     window.scrollTo(0, 0);
-    const fetchData = async () => {
-      if (!categories) {
-        try {
-          const response = await fetchCategories();
-          updateCategoryItems(response);
-          getDeliveryTypes();
-        } catch (error) {
-          console.error("Error fetching categories:", error);
-        }
-      } else {
-        getDeliveryTypes();
-      }
-    };
-
-    const getDeliveryTypes = async () => {
-      setIsLoading(true);
-      try {
-        const response = await getDeliveryMethodAPI();
-        response.forEach(item => {
-          if (item.name === "Pick-up") {
-            setDeliveryTypes(item);
-          }
-        });      
-        
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetchCategories();
+      updateCategoryItems(response);
+      const responsePickup = await getDeliveryMethodAPI();
+      responsePickup.forEach((item) => {
+        if (item.name === "Pick-up") {
+          setDeliveryTypes(item);
+        }
+      });
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [i18next.language]);
 
   const handleTabClick = (tab) => {
     switch (tab) {
       case "inStore":
-        changeDeliveryMode(1,tab);
+        changeDeliveryMode(1, tab);
         break;
       case "pickup":
-        changeDeliveryMode(2,tab);
+        changeDeliveryMode(2, tab);
         break;
       case "delivery":
         navigate("/delivery");
@@ -85,18 +77,17 @@ const PickupPage = () => {
     }
   };
 
-  const changeDeliveryMode = (mode,tab) => {
+  const changeDeliveryMode = (mode, tab) => {
     const selectedDeliveryMode = localStorage.getItem("selectedDeliveryType");
-    if(Number(selectedDeliveryMode) !== Number(mode)){
-      if(cartItems){
-        if(cartItems.items.length === 0 ){
+    if (Number(selectedDeliveryMode) !== Number(mode)) {
+      if (cartItems) {
+        if (cartItems.items.length === 0) {
           setActiveTab(tab);
-          localStorage.setItem('selectedDeliveryType', mode);
-          localStorage.removeItem('checkoutInfo');
-          if(mode===1){        
+          localStorage.setItem("selectedDeliveryType", mode);
+          localStorage.removeItem("checkoutInfo");
+          if (mode === 1) {
             navigate("/in-store");
-          }
-          else{
+          } else {
             navigate("/pickup");
           }
         } else {
@@ -104,18 +95,18 @@ const PickupPage = () => {
         }
       } else {
         setActiveTab(tab);
-        localStorage.setItem('selectedDeliveryType', mode);
-        localStorage.removeItem('checkoutInfo');
+        localStorage.setItem("selectedDeliveryType", mode);
+        localStorage.removeItem("checkoutInfo");
         navigate("/in-store");
-      }      
+      }
     }
   };
 
   const handleAgree = () => {
-    updateCartItems({...cartItems, items: []});
-    localStorage.setItem('selectedDeliveryType', 1);
-    localStorage.removeItem('checkoutInfo');
-    setActiveTab('inStore');
+    updateCartItems({ ...cartItems, items: [] });
+    localStorage.setItem("selectedDeliveryType", 1);
+    localStorage.removeItem("checkoutInfo");
+    setActiveTab("inStore");
     navigate("/in-store");
   };
 
@@ -167,13 +158,15 @@ const PickupPage = () => {
                 size={30}
                 color="#B7854C"
                 isLoading={false}
+                showImg={true}
               />
             ) : (
-              categories?.map((category) => (
-                deliveryTypes?.sectionsIds.includes(category.id) && (
-                  <CategoryCard key={category.id} category={category} />
-                )
-              ))
+              categories?.map(
+                (category) =>
+                  deliveryTypes?.sectionsIds.includes(category.id) && (
+                    <CategoryCard key={category.id} category={category} />
+                  )
+              )
             )}
           </div>
         </div>
@@ -181,17 +174,27 @@ const PickupPage = () => {
       <Footer />
       {isConfirmOpen && (
         <div className="popup-overlay">
-          <div className="popup-content barCodesPopup" >
-            <button className="closeBtn" type="button" onClick={setIsConfirmOpenFn}>
+          <div className="popup-content barCodesPopup">
+            <button
+              className="closeBtn"
+              type="button"
+              onClick={setIsConfirmOpenFn}
+            >
               <FontAwesomeIcon icon={faTimes} />
             </button>
             <img src={deleteCart} className="cartDeleteIcon" alt="" />
-            <p className="barCodeHeadingP" >
-              {t("You already have Items in your cart. Cart will be deleted if you change the delivery method.")}
+            <p className="barCodeHeadingP">
+              {t(
+                "You already have Items in your cart. Cart will be deleted if you change the delivery method."
+              )}
             </p>
             <div className="modalConfirmWraper">
-            <button className="submitpopup conformPop" onClick={handleAgree}>{t("Agree")}</button>
-            <button className="cancelPopup" onClick={setIsConfirmOpenFn}>{t("Disagree")}</button>
+              <button className="submitpopup conformPop" onClick={handleAgree}>
+                {t("Agree")}
+              </button>
+              <button className="cancelPopup" onClick={setIsConfirmOpenFn}>
+                {t("Disagree")}
+              </button>
             </div>
           </div>
         </div>

@@ -8,8 +8,7 @@ import Toaster from "../../components/common/Toaster/Toaster";
 import { updateAddress } from "../../api/customer";
 import { getCitiesAPI } from "../../api/lookup";
 import { useParams } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
-
+import { useLocation } from "react-router-dom";
 
 const AddressEdit = () => {
   const { t } = useTranslation();
@@ -55,7 +54,7 @@ const AddressEdit = () => {
   }, [passedAddress]);
 
   useEffect(() => {
-    getAllCities();    
+    getAllCities();
   }, []);
 
   const getAllCities = async () => {
@@ -79,23 +78,25 @@ const AddressEdit = () => {
       newErrors.name = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.name === '' ? true : false;
+    return newErrors.name === "" ? true : false;
   };
-  
+
   const validatePhoneNumber = (phoneNumberValue) => {
     const newErrors = {};
     const mobileFormat = /^9665\d{8}$/;
     if (!phoneNumberValue.trim()) {
       newErrors.phone = "Phone Number is required";
     } else if (!phoneNumberValue.match(mobileFormat)) {
-      newErrors.phone = t("Invalid mobile number format. Expected format: 9665XXXXXXXX where X is a digit.");
+      newErrors.phone = t(
+        "Invalid mobile number format. Expected format: 9665XXXXXXXX where X is a digit."
+      );
     } else {
       newErrors.phone = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.phone === '' ? true : false;
+    return newErrors.phone === "" ? true : false;
   };
-  
+
   const validateStreet = (streetValue) => {
     const newErrors = {};
     if (!streetValue.trim()) {
@@ -104,9 +105,9 @@ const AddressEdit = () => {
       newErrors.street = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.street === '' ? true : false;
+    return newErrors.street === "" ? true : false;
   };
-  
+
   const validateBuilding = (buildingValue) => {
     const newErrors = {};
     if (!buildingValue.trim()) {
@@ -115,9 +116,9 @@ const AddressEdit = () => {
       newErrors.building = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.building === '' ? true : false;
+    return newErrors.building === "" ? true : false;
   };
-  
+
   const validateUnit = (unitValue) => {
     const newErrors = {};
     if (!unitValue.trim()) {
@@ -128,20 +129,20 @@ const AddressEdit = () => {
       newErrors.unit = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.unit === '' ? true : false;
+    return newErrors.unit === "" ? true : false;
   };
 
   const validateCityId = (cityIdValue) => {
     const newErrors = {};
     if (!cityIdValue || cityIdValue === "defaultOption") {
-        newErrors.cityId = t("City selection is required");
+      newErrors.cityId = t("City selection is required");
     } else {
-        newErrors.cityId = "";
+      newErrors.cityId = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.cityId === '' ? true : false;
+    return newErrors.cityId === "" ? true : false;
   };
-  
+
   const validateRegion = (regionValue) => {
     const newErrors = {};
     if (!regionValue.trim()) {
@@ -150,9 +151,9 @@ const AddressEdit = () => {
       newErrors.region = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.region === '' ? true : false;
+    return newErrors.region === "" ? true : false;
   };
-  
+
   const validateNote = (noteValue) => {
     const newErrors = {};
     // You can have custom validation rules for notes if required
@@ -162,10 +163,9 @@ const AddressEdit = () => {
       newErrors.note = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.note === '' ? true : false;
+    return newErrors.note === "" ? true : false;
   };
-  
-  
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevUserInfo) => ({ ...prevUserInfo, [name]: value }));
@@ -199,23 +199,24 @@ const AddressEdit = () => {
     }
   };
 
-
   function geocodeAddress(formData, callback) {
     const fullAddress = `${formData.street}, ${formData.building}, ${formData.region}, ${formData.unit}`;
     const geocoder = new window.google.maps.Geocoder();
 
-    geocoder.geocode({ 'address': fullAddress }, (results, status) => {
-        if (status === window.google.maps.GeocoderStatus.OK) {
-            callback({
-                lat: results[0].geometry.location.lat(),
-                long: results[0].geometry.location.lng()
-            });
-        } else {
-            console.error('Geocode was not successful for the following reason: ' + status);
-            callback(null);
-        }
+    geocoder.geocode({ address: fullAddress }, (results, status) => {
+      if (status === window.google.maps.GeocoderStatus.OK) {
+        callback({
+          lat: results[0].geometry.location.lat(),
+          long: results[0].geometry.location.lng(),
+        });
+      } else {
+        console.error(
+          "Geocode was not successful for the following reason: " + status
+        );
+        callback(null);
+      }
     });
-}
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -227,66 +228,73 @@ const AddressEdit = () => {
     const isRegionValid = validateRegion(formData.region);
     const isNoteValid = validateNote(formData.note);
     const isCityValid = validateCityId(formData.cityId);
-    
-    if (isnameValid && isPhoneNumberValid && isStreetValid && isBuildingValid && isUnitValid && isRegionValid && isNoteValid && isCityValid) {
+
+    if (
+      isnameValid &&
+      isPhoneNumberValid &&
+      isStreetValid &&
+      isBuildingValid &&
+      isUnitValid &&
+      isRegionValid &&
+      isNoteValid &&
+      isCityValid
+    ) {
       geocodeAddress(formData, (coords) => {
-        if(coords) {
-            setIsLoading(true);
-            setFormData(prevFormData => ({
-              ...prevFormData,
-              lat: coords.lat,
-              long: coords.long
-            }));
-            updateCustAddress(coords);
+        if (coords) {
+          setIsLoading(true);
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            lat: coords.lat,
+            long: coords.long,
+          }));
+          updateCustAddress(coords);
         } else {
-            setToaster({
-              type: "error",
-              message: t("Address is not valid!"),
-              duration: 3000,
-            });
+          setToaster({
+            type: "error",
+            message: t("Address is not valid!"),
+            duration: 3000,
+          });
         }
       });
     }
   };
 
-
   const updateCustAddress = async (cord) => {
     try {
-      const addressPayload= formData;
-      addressPayload['lat'] = cord.lat;
-      addressPayload['long'] = cord.long;      
-      addressPayload['id'] = id;      
+      const addressPayload = formData;
+      addressPayload["lat"] = cord.lat;
+      addressPayload["long"] = cord.long;
+      addressPayload["id"] = id;
       const response = await updateAddress(id, addressPayload);
       if (response.succeeded) {
         setToaster({
           type: "success",
-          message: 'Address Updated successfully!',
+          message: "Address Updated successfully!",
           duration: 3000,
         });
         setIsLoading(false);
-      }
-      else {
+      } else {
         setIsLoading(false);
         let allErrorMessages = [];
         Object.values(response.errors).forEach((errorArray) => {
-            allErrorMessages = allErrorMessages.concat(errorArray);
+          allErrorMessages = allErrorMessages.concat(errorArray);
         });
         let delay = 0;
         allErrorMessages.forEach((errorMessage) => {
-        setTimeout(() => {
+          setTimeout(() => {
             setToaster({
-                type: "error",
-                message: errorMessage,
-                duration: 3000,
+              type: "error",
+              message: errorMessage,
+              duration: 3000,
             });
-        }, delay);    
-        delay += 500;
-      });
+          }, delay);
+          delay += 500;
+        });
       }
     } catch (error) {
       console.error("Error fetching favourite producucts:", error);
     }
-  }
+  };
 
   const handleToasterClose = () => {
     setToaster(null);
@@ -296,14 +304,14 @@ const AddressEdit = () => {
     <>
       <Header />
       <div className="dashboardMidContent profilePages">
-      {toaster && (
-        <Toaster
-          type={toaster.type}
-          message={toaster.message}
-          duration={toaster.duration}
-          onClose={handleToasterClose}
-        />
-      )}
+        {toaster && (
+          <Toaster
+            type={toaster.type}
+            message={toaster.message}
+            duration={toaster.duration}
+            onClose={handleToasterClose}
+          />
+        )}
         <ProfileSidebar />
         <div className="profileRightWraper">
           <div className="pointAnalysisWraper">
@@ -321,9 +329,7 @@ const AddressEdit = () => {
                     value={formData.name}
                   />
                 </div>
-                {errors.name && (
-                    <p className="errorText">{errors.name}</p>
-                )}
+                {errors.name && <p className="errorText">{errors.name}</p>}
                 <div className="indFields">
                   <label className="fieldLabel">{t("Phone Number")} *</label>
                   <input
@@ -335,9 +341,7 @@ const AddressEdit = () => {
                     value={formData.phone}
                   />
                 </div>
-                {errors.phone && (
-                    <p className="errorText">{errors.phone}</p>
-                )}
+                {errors.phone && <p className="errorText">{errors.phone}</p>}
                 <div className="indFields">
                   <label className="fieldLabel">{t("street")} *</label>
                   <input
@@ -349,9 +353,7 @@ const AddressEdit = () => {
                     value={formData.street}
                   />
                 </div>
-                {errors.street && (
-                    <p className="errorText">{errors.street}</p>
-                )}
+                {errors.street && <p className="errorText">{errors.street}</p>}
                 <div className="indFields">
                   <label className="fieldLabel">{t("building")} *</label>
                   <input
@@ -364,7 +366,7 @@ const AddressEdit = () => {
                   />
                 </div>
                 {errors.building && (
-                    <p className="errorText">{errors.building}</p>
+                  <p className="errorText">{errors.building}</p>
                 )}
                 <div className="indFields">
                   <label className="fieldLabel">{t("unit")} *</label>
@@ -377,30 +379,35 @@ const AddressEdit = () => {
                     value={formData.unit}
                   />
                 </div>
-                {errors.unit && (
-                    <p className="errorText">{errors.unit}</p>
-                )}
+                {errors.unit && <p className="errorText">{errors.unit}</p>}
                 <div className="indFields">
                   <label className="fieldLabel">{t("City")} *</label>
                   {isInlineLoading ? (
-                     <div className="inlineloader">
+                    <div className="inlineloader">
                       <Loader
                         showOverlay={false}
                         size={20}
                         color="#B7854C"
                         isLoading={false}
                       />
-                     </div> 
-                    ) : (
-                    <select className="foeldInputs" name="cityId" onChange={handleInputChange}  value={formData.cityId} >
-                       <option>{t("Select City")}</option>
-                       {allCities?.map(city => <option key={city.id} value={city.id}>{city.name}</option>)}
+                    </div>
+                  ) : (
+                    <select
+                      className="foeldInputs"
+                      name="cityId"
+                      onChange={handleInputChange}
+                      value={formData.cityId}
+                    >
+                      <option>{t("Select City")}</option>
+                      {allCities?.map((city) => (
+                        <option key={city.id} value={city.id}>
+                          {city.name}
+                        </option>
+                      ))}
                     </select>
-                    )}
+                  )}
                 </div>
-                {errors.cityId && (
-                    <p className="errorText">{errors.cityId}</p>
-                )}
+                {errors.cityId && <p className="errorText">{errors.cityId}</p>}
                 <div className="indFields">
                   <label className="fieldLabel">{t("region")} *</label>
                   <input
@@ -412,9 +419,7 @@ const AddressEdit = () => {
                     value={formData.region}
                   />
                 </div>
-                {errors.region && (
-                    <p className="errorText">{errors.region}</p>
-                )}
+                {errors.region && <p className="errorText">{errors.region}</p>}
                 <div className="indFields">
                   <label className="fieldLabel">{t("note")}</label>
                   <textarea
@@ -426,11 +431,9 @@ const AddressEdit = () => {
                     value={formData.note}
                   ></textarea>
                 </div>
-                {errors.note && (
-                    <p className="errorText">{errors.note}</p>
-                )}
+                {errors.note && <p className="errorText">{errors.note}</p>}
                 <button className="submitInfo" onClick={handleSubmit}>
-                    {isLoading ? (
+                  {isLoading ? (
                     <div className="buttonloader">
                       <Loader
                         showOverlay={false}
@@ -438,10 +441,10 @@ const AddressEdit = () => {
                         color="#ffffff"
                         isLoading={true}
                       />
-                    </div>                  
-                    ) : (
-                      t("Submit")
-                    )}
+                    </div>
+                  ) : (
+                    t("Submit")
+                  )}
                 </button>
               </div>
             </div>

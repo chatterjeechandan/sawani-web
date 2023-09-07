@@ -9,7 +9,6 @@ import { addCustomerAddress } from "../../api/customer";
 import { getCitiesAPI } from "../../api/lookup";
 import { useNavigate } from "react-router-dom";
 
-
 const AddressAdd = () => {
   const { t } = useTranslation();
   const [errors, setErrors] = useState({});
@@ -20,7 +19,7 @@ const AddressAdd = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getAllCities();    
+    getAllCities();
   }, []);
 
   const getAllCities = async () => {
@@ -57,23 +56,25 @@ const AddressAdd = () => {
       newErrors.name = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.name === '' ? true : false;
+    return newErrors.name === "" ? true : false;
   };
-  
+
   const validatePhoneNumber = (phoneNumberValue) => {
     const newErrors = {};
     const mobileFormat = /^9665\d{8}$/;
     if (!phoneNumberValue.trim()) {
       newErrors.phone = "Phone Number is required";
     } else if (!phoneNumberValue.match(mobileFormat)) {
-      newErrors.phone = t("Invalid mobile number format. Expected format: 9665XXXXXXXX where X is a digit.");
+      newErrors.phone = t(
+        "Invalid mobile number format. Expected format: 9665XXXXXXXX where X is a digit."
+      );
     } else {
       newErrors.phone = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.phone === '' ? true : false;
+    return newErrors.phone === "" ? true : false;
   };
-  
+
   const validateStreet = (streetValue) => {
     const newErrors = {};
     if (!streetValue.trim()) {
@@ -82,9 +83,9 @@ const AddressAdd = () => {
       newErrors.street = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.street === '' ? true : false;
+    return newErrors.street === "" ? true : false;
   };
-  
+
   const validateBuilding = (buildingValue) => {
     const newErrors = {};
     if (!buildingValue.trim()) {
@@ -93,9 +94,9 @@ const AddressAdd = () => {
       newErrors.building = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.building === '' ? true : false;
+    return newErrors.building === "" ? true : false;
   };
-  
+
   const validateUnit = (unitValue) => {
     const newErrors = {};
     if (!unitValue.trim()) {
@@ -106,20 +107,20 @@ const AddressAdd = () => {
       newErrors.unit = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.unit === '' ? true : false;
+    return newErrors.unit === "" ? true : false;
   };
 
   const validateCityId = (cityIdValue) => {
     const newErrors = {};
     if (!cityIdValue || cityIdValue === "defaultOption") {
-        newErrors.cityId = t("City selection is required");
+      newErrors.cityId = t("City selection is required");
     } else {
-        newErrors.cityId = "";
+      newErrors.cityId = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.cityId === '' ? true : false;
+    return newErrors.cityId === "" ? true : false;
   };
-  
+
   const validateRegion = (regionValue) => {
     const newErrors = {};
     if (!regionValue.trim()) {
@@ -128,9 +129,9 @@ const AddressAdd = () => {
       newErrors.region = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.region === '' ? true : false;
+    return newErrors.region === "" ? true : false;
   };
-  
+
   const validateNote = (noteValue) => {
     const newErrors = {};
     // You can have custom validation rules for notes if required
@@ -140,10 +141,9 @@ const AddressAdd = () => {
       newErrors.note = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.note === '' ? true : false;
+    return newErrors.note === "" ? true : false;
   };
-  
-  
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevUserInfo) => ({ ...prevUserInfo, [name]: value }));
@@ -177,23 +177,24 @@ const AddressAdd = () => {
     }
   };
 
-
   function geocodeAddress(formData, callback) {
     const fullAddress = `${formData.street}, ${formData.building}, ${formData.region}, ${formData.unit}`;
     const geocoder = new window.google.maps.Geocoder();
 
-    geocoder.geocode({ 'address': fullAddress }, (results, status) => {
-        if (status === window.google.maps.GeocoderStatus.OK) {
-            callback({
-                lat: results[0].geometry.location.lat(),
-                long: results[0].geometry.location.lng()
-            });
-        } else {
-            console.error('Geocode was not successful for the following reason: ' + status);
-            callback(null);
-        }
+    geocoder.geocode({ address: fullAddress }, (results, status) => {
+      if (status === window.google.maps.GeocoderStatus.OK) {
+        callback({
+          lat: results[0].geometry.location.lat(),
+          long: results[0].geometry.location.lng(),
+        });
+      } else {
+        console.error(
+          "Geocode was not successful for the following reason: " + status
+        );
+        callback(null);
+      }
     });
-}
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -205,68 +206,75 @@ const AddressAdd = () => {
     const isRegionValid = validateRegion(formData.region);
     const isNoteValid = validateNote(formData.note);
     const isCityValid = validateCityId(formData.cityId);
-    
-    if (isnameValid && isPhoneNumberValid && isStreetValid && isBuildingValid && isUnitValid && isRegionValid && isNoteValid && isCityValid) {
+
+    if (
+      isnameValid &&
+      isPhoneNumberValid &&
+      isStreetValid &&
+      isBuildingValid &&
+      isUnitValid &&
+      isRegionValid &&
+      isNoteValid &&
+      isCityValid
+    ) {
       geocodeAddress(formData, (coords) => {
-        if(coords) {
-            setIsLoading(true);
-            setFormData(prevFormData => ({
-              ...prevFormData,
-              lat: coords.lat,
-              long: coords.long
-            }));
-            updateCustAddress(coords);
+        if (coords) {
+          setIsLoading(true);
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            lat: coords.lat,
+            long: coords.long,
+          }));
+          updateCustAddress(coords);
         } else {
-            setToaster({
-              type: "error",
-              message: t("Address is not valid!"),
-              duration: 3000,
-            });
+          setToaster({
+            type: "error",
+            message: t("Address is not valid!"),
+            duration: 3000,
+          });
         }
       });
     }
   };
 
-
   const updateCustAddress = async (cord) => {
     try {
-      const addressPayload= formData;
-      addressPayload['lat'] = cord.lat;
-      addressPayload['long'] = cord.long;      
+      const addressPayload = formData;
+      addressPayload["lat"] = cord.lat;
+      addressPayload["long"] = cord.long;
       const response = await addCustomerAddress(addressPayload);
       if (response.succeeded) {
         setToaster({
           type: "success",
-          message: 'Address saved successfully!',
+          message: "Address saved successfully!",
           duration: 3000,
         });
         setIsLoading(false);
         setTimeout(() => {
           navigate("/profile/saved-address");
-      }, 500);
-      }
-      else {
+        }, 500);
+      } else {
         setIsLoading(false);
         let allErrorMessages = [];
         Object.values(response.errors).forEach((errorArray) => {
-            allErrorMessages = allErrorMessages.concat(errorArray);
+          allErrorMessages = allErrorMessages.concat(errorArray);
         });
         let delay = 0;
         allErrorMessages.forEach((errorMessage) => {
-        setTimeout(() => {
+          setTimeout(() => {
             setToaster({
-                type: "error",
-                message: errorMessage,
-                duration: 3000,
+              type: "error",
+              message: errorMessage,
+              duration: 3000,
             });
-        }, delay);    
-        delay += 500;
-      });
+          }, delay);
+          delay += 500;
+        });
       }
     } catch (error) {
       console.error("Error fetching favourite producucts:", error);
     }
-  }
+  };
 
   const handleToasterClose = () => {
     setToaster(null);
@@ -276,14 +284,14 @@ const AddressAdd = () => {
     <>
       <Header />
       <div className="dashboardMidContent profilePages">
-      {toaster && (
-        <Toaster
-          type={toaster.type}
-          message={toaster.message}
-          duration={toaster.duration}
-          onClose={handleToasterClose}
-        />
-      )}
+        {toaster && (
+          <Toaster
+            type={toaster.type}
+            message={toaster.message}
+            duration={toaster.duration}
+            onClose={handleToasterClose}
+          />
+        )}
         <ProfileSidebar />
         <div className="profileRightWraper">
           <div className="pointAnalysisWraper">
@@ -300,9 +308,7 @@ const AddressAdd = () => {
                     onChange={handleInputChange}
                   />
                 </div>
-                {errors.name && (
-                    <p className="errorText">{errors.name}</p>
-                )}
+                {errors.name && <p className="errorText">{errors.name}</p>}
                 <div className="indFields">
                   <label className="fieldLabel">{t("Phone Number")} *</label>
                   <input
@@ -313,9 +319,7 @@ const AddressAdd = () => {
                     onChange={handleInputChange}
                   />
                 </div>
-                {errors.phone && (
-                    <p className="errorText">{errors.phone}</p>
-                )}
+                {errors.phone && <p className="errorText">{errors.phone}</p>}
                 <div className="indFields">
                   <label className="fieldLabel">{t("street")} *</label>
                   <input
@@ -326,9 +330,7 @@ const AddressAdd = () => {
                     onChange={handleInputChange}
                   />
                 </div>
-                {errors.street && (
-                    <p className="errorText">{errors.street}</p>
-                )}
+                {errors.street && <p className="errorText">{errors.street}</p>}
                 <div className="indFields">
                   <label className="fieldLabel">{t("building")} *</label>
                   <input
@@ -340,7 +342,7 @@ const AddressAdd = () => {
                   />
                 </div>
                 {errors.building && (
-                    <p className="errorText">{errors.building}</p>
+                  <p className="errorText">{errors.building}</p>
                 )}
                 <div className="indFields">
                   <label className="fieldLabel">{t("unit")} *</label>
@@ -352,30 +354,34 @@ const AddressAdd = () => {
                     onChange={handleInputChange}
                   />
                 </div>
-                {errors.unit && (
-                    <p className="errorText">{errors.unit}</p>
-                )}
+                {errors.unit && <p className="errorText">{errors.unit}</p>}
                 <div className="indFields">
                   <label className="fieldLabel">{t("City")} *</label>
                   {isInlineLoading ? (
-                     <div className="inlineloader">
+                    <div className="inlineloader">
                       <Loader
                         showOverlay={false}
                         size={20}
                         color="#B7854C"
                         isLoading={false}
                       />
-                     </div> 
-                    ) : (
-                    <select className="foeldInputs" name="cityId" onChange={handleInputChange}>
-                       <option>{t("Select City")}</option>
-                       {allCities?.map(city => <option key={city.id} value={city.id}>{city.name}</option>)}
+                    </div>
+                  ) : (
+                    <select
+                      className="foeldInputs"
+                      name="cityId"
+                      onChange={handleInputChange}
+                    >
+                      <option>{t("Select City")}</option>
+                      {allCities?.map((city) => (
+                        <option key={city.id} value={city.id}>
+                          {city.name}
+                        </option>
+                      ))}
                     </select>
-                    )}
+                  )}
                 </div>
-                {errors.cityId && (
-                    <p className="errorText">{errors.cityId}</p>
-                )}
+                {errors.cityId && <p className="errorText">{errors.cityId}</p>}
                 <div className="indFields">
                   <label className="fieldLabel">{t("region")} *</label>
                   <input
@@ -386,9 +392,7 @@ const AddressAdd = () => {
                     onChange={handleInputChange}
                   />
                 </div>
-                {errors.region && (
-                    <p className="errorText">{errors.region}</p>
-                )}
+                {errors.region && <p className="errorText">{errors.region}</p>}
                 <div className="indFields">
                   <label className="fieldLabel">{t("note")}</label>
                   <textarea
@@ -399,11 +403,9 @@ const AddressAdd = () => {
                     onChange={handleInputChange}
                   ></textarea>
                 </div>
-                {errors.note && (
-                    <p className="errorText">{errors.note}</p>
-                )}
+                {errors.note && <p className="errorText">{errors.note}</p>}
                 <button className="submitInfo" onClick={handleSubmit}>
-                    {isLoading ? (
+                  {isLoading ? (
                     <div className="buttonloader">
                       <Loader
                         showOverlay={false}
@@ -411,10 +413,10 @@ const AddressAdd = () => {
                         color="#ffffff"
                         isLoading={true}
                       />
-                    </div>                  
-                    ) : (
-                      t("Submit")
-                    )}
+                    </div>
+                  ) : (
+                    t("Submit")
+                  )}
                 </button>
               </div>
             </div>

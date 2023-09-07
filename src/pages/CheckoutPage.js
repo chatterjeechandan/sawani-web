@@ -9,7 +9,12 @@ import payLogo from "../assets/images/payLogo.png";
 import pCreditCardLogo from "../assets/images/credit-card.png";
 import { CartContext } from "../utils/CartContext";
 import productInd from "../assets/images/pr1.png";
-import { updateCartAPI, deleteCartAPI, addCartAPI, getCartAPI } from "../api/cart";
+import {
+  updateCartAPI,
+  deleteCartAPI,
+  addCartAPI,
+  getCartAPI,
+} from "../api/cart";
 import minus from "../assets/images/minusWhite.png";
 import { AuthContext } from "../utils/AuthContext";
 import Loader from "../components/common/Loader/Loader";
@@ -31,15 +36,30 @@ import {
   updatePaymentMethod,
   addPayment,
   checkout,
-  updateAnonymousOrder
+  updateAnonymousOrder,
 } from "../api/order";
 import { useNavigate, useLocation } from "react-router-dom";
-import CONFIG from '../config/site.config';
-import { getCusertomerDetails, checkAnonymousUserMob, createAnonymousUser } from "../api/customer";
+import { getConfig } from "../config/site.config";
+import {
+  getCusertomerDetails,
+  checkAnonymousUserMob,
+  createAnonymousUser,
+} from "../api/customer";
 import { useTranslation } from "react-i18next";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import GoSellElement from "../components/templates/PaymentPopup/GoSellElement";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  ApplePayButton,
+  ThemeMode,
+  SupportedNetworks,
+  Scope,
+  Environment,
+  Locale,
+  ButtonType,
+  Edges,
+} from "@tap-payments/apple-pay-button";
 
 const Checkout = () => {
   const { cartItems, updateCartItems } = useContext(CartContext);
@@ -53,6 +73,9 @@ const Checkout = () => {
   const [allPaymentMethod, setAllPaymentMethod] = useState(null);
   const [allOnePaymMethod, setAllOnePaymMethod] = useState(null);
   const [issubmitLoading, setSubmitLoading] = useState(false);
+  const [openPaymentPopup, setOpenPaymentPopup] = useState(false);
+  const [paymentPayload, setPaymentPayload] = useState(null);
+  const [isSafari, setIsSafari] = useState(false);
   const [toaster, setToaster] = useState(null);
   const headerRef = useRef();
   const navigate = useNavigate();
@@ -60,8 +83,10 @@ const Checkout = () => {
   const searchParams = new URLSearchParams(location.search);
   const payres = searchParams.get("payres");
   const payError = searchParams.get("error");
+  const tap_id = searchParams.get("tap_id");
   const { t } = useTranslation();
   const selectedDeliveryTypes = localStorage.getItem("selectedDeliveryType");
+  const SITE_CONFIG = getConfig();
 
   const [selectedDeliveryOption, setSelectedDeliveryOption] = useState(() => {
     const storedCheckoutInfo = localStorage.getItem("checkoutInfo");
@@ -115,7 +140,11 @@ const Checkout = () => {
     getDeliveryMethods();
     getPaymentMethods();
     getOnePayMethods();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    const userAgent = window.navigator.userAgent;
+    const safariCheck = /^((?!chrome|android).)*safari/i.test(userAgent);
+    setIsSafari(safariCheck);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -136,19 +165,19 @@ const Checkout = () => {
     if (cartItems?.items?.length === 0) {
       navigate("/in-store");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems]);
 
   useEffect(() => {
-    if(payError){
+    if (payError) {
       setIsLoading(false);
       setToaster({
         type: "error",
         message: t("Payment Failed! Please try again"),
         duration: 3000,
       });
-    }    
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [payError]);
 
   useEffect(() => {
@@ -166,15 +195,24 @@ const Checkout = () => {
         }, 500);
       } else {
         const addPaymentPayload = {
-          provider: 'TAP',
+          provider: "TAP",
           refCode: paymentResponse?.callback.id,
           amount: paymentResponse?.callback.amount,
         };
         processOrder(addPaymentPayload);
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [payres]);
+
+  useEffect(() => {
+    if (tap_id) {
+      setIsLoading(true);
+      const orderId = localStorage.getItem("selectedOrderId");
+      handleCheckout(orderId);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tap_id]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -200,54 +238,49 @@ const Checkout = () => {
       default:
         break;
     }
-  };  
+  };
 
   useEffect(() => {
-    if(selectedDeliveryTypes){
+    if (selectedDeliveryTypes) {
       setSelectedDeliveryOption(selectedDeliveryTypes);
     }
-  }, [
-    selectedDeliveryTypes
-  ]);
-
+  }, [selectedDeliveryTypes]);
 
   useEffect(() => {
-    if(selectedDeliveryOption==="2"){
+    if (selectedDeliveryOption === "2") {
       setSelectedPaymentMethod({
-        "id": 1,
-        "name": "Online Checkout"
+        id: 1,
+        name: "Online Checkout",
       });
       setSelectedOnePayMethod({
-        "name": "Apple Pay",
-        "image": "Resources/OnePayMethod/apple.png",
-        "flgStatus": 1,
-        "id": 1,
-        "createDate": "2023-08-17T17:37:06.6500117",
-        "updateDate": "2023-08-17T17:37:06.6500119"
-      })
+        name: "Apple Pay",
+        image: "Resources/OnePayMethod/apple.png",
+        flgStatus: 1,
+        id: 1,
+        createDate: "2023-08-17T17:37:06.6500117",
+        updateDate: "2023-08-17T17:37:06.6500119",
+      });
     }
-  }, [
-    selectedDeliveryOption
-  ]);
+  }, [selectedDeliveryOption]);
 
   useEffect(() => {
-    if(selectedPaymentMethod) {      
+    if (selectedPaymentMethod) {
       const storedCheckoutInfo = localStorage.getItem("checkoutInfo");
       if (storedCheckoutInfo) {
-        const checkoutFromStorage = JSON.parse(storedCheckoutInfo);    
-        if(!checkoutFromStorage.onepayReferenceMode) {
+        const checkoutFromStorage = JSON.parse(storedCheckoutInfo);
+        if (!checkoutFromStorage.onepayReferenceMode) {
           setSelectedOnePayMethod({
-            "name": "Apple Pay",
-            "image": "Resources/OnePayMethod/apple.png",
-            "flgStatus": 1,
-            "id": 1,
-            "createDate": "2023-08-17T17:37:06.6500117",
-            "updateDate": "2023-08-17T17:37:06.6500119"
-          })
+            name: "Apple Pay",
+            image: "Resources/OnePayMethod/apple.png",
+            flgStatus: 1,
+            id: 1,
+            createDate: "2023-08-17T17:37:06.6500117",
+            updateDate: "2023-08-17T17:37:06.6500119",
+          });
         }
       }
     }
-  }, [ selectedPaymentMethod ]);
+  }, [selectedPaymentMethod]);
 
   useEffect(() => {
     const checkoutOptionObj = {
@@ -350,7 +383,10 @@ const Checkout = () => {
   const calculateRewardstotal = () => {
     if (!cartItems || !cartItems.items) return 0;
 
-    return cartItems.items.reduce((acc, item) => acc + (item.rewards*item.quantity), 0);
+    return cartItems.items.reduce(
+      (acc, item) => acc + item.rewards * item.quantity,
+      0
+    );
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -365,7 +401,7 @@ const Checkout = () => {
 
   const handleSelectPaymentMethod = (option) => {
     if (typeof option === "string") {
-    setSelectedPaymentMethod(JSON.parse(option));
+      setSelectedPaymentMethod(JSON.parse(option));
     } else {
       setSelectedPaymentMethod(option);
     }
@@ -385,7 +421,7 @@ const Checkout = () => {
     setToaster(null);
   };
 
-  const submitOrder = async  () => {
+  const submitOrder = async () => {
     if (!firstName) {
       setToaster({
         type: "error",
@@ -451,13 +487,12 @@ const Checkout = () => {
 
     if (selectedPaymentMethod.name !== "In-Store Checkout") {
       setSubmitLoading(true);
-      const paymentPayload = {
-        containerID: "root",
+      const paymentPayloadObj = {
         gateway: {
-          publicKey: `${CONFIG.tapPubKey}`,
-          merchantId: `${CONFIG.tapMerchantId}`,
+          publicKey: `${SITE_CONFIG.tapPubKey_dev}`,
+          merchantId: `${SITE_CONFIG.tapMerchantId}`,
           supportedCurrencies: "SAR",
-          supportedPaymentMethods: selectedOnePayMethod?.name === "Apple Pay" ? ["APPLE_PAY"] : ["AMERICAN_EXPRESS","VISA","MASTERCARD"],
+          supportedPaymentMethods: ["AMERICAN_EXPRESS", "VISA", "MASTERCARD"],
           labels: {
             cardNumber: "Card Number",
             expirationDate: "MM/YY",
@@ -496,26 +531,25 @@ const Checkout = () => {
           items: [],
         },
         transaction: {
-          mode: "charge",
-          charge: {
-            redirect: window.location.origin + "/redirect.html",
-            post: `${CONFIG.baseUrl}/payment/tap_webhook`
-          },
+          mode: "token",
         },
       };
-
       cartItems.items.forEach((item) => {
-        paymentPayload.order.items.push({
+        paymentPayloadObj.order.items.push({
           id: item.productVariantId,
           name: item.name,
           quantity: item.quantity,
           amount_per_unit: item.price,
         });
       });
-      setSubmitLoading(false);
-      let encodedObject = encodeURIComponent(JSON.stringify(paymentPayload));
-      window.location.href = "/payment.html?payload=" + encodedObject;
+      setPaymentPayload(paymentPayloadObj);
+      if (selectedOnePayMethod?.name === "Apple Pay") {
+      } else {
+        setSubmitLoading(false);
+        setOpenPaymentPopup(true);
+      }
     } else {
+      setSubmitLoading(false);
       const addPaymentPayload = {
         provider: "POS",
         refCode: (Math.random() + 1).toString(36).substring(7),
@@ -530,22 +564,22 @@ const Checkout = () => {
     try {
       const response = await checkAnonymousUserMob(phone);
       setIsLoading(false);
-      if(!response.StatusCode){
+      if (!response.StatusCode) {
         setToaster({
           type: "error",
-          message: t("Mobile number already exists! Please login into your account"),
+          message: t(
+            "Mobile number already exists! Please login into your account"
+          ),
           duration: 3000,
         });
         return false;
-      }
-      else {
+      } else {
         return true;
       }
     } catch (error) {
       console.error("Error fetching favourite producucts:", error);
     }
-  }
-
+  };
 
   const handleResponseError = (response) => {
     setIsLoading(false);
@@ -577,6 +611,7 @@ const Checkout = () => {
     updateCartItems(null);
     localStorage.removeItem("checkoutInfo");
     localStorage.removeItem("selectedDeliveryType");
+    localStorage.removeItem("selectedOrderId");
     setToaster({
       type: "success",
       message: t("Order has been succesfully placed!"),
@@ -593,12 +628,13 @@ const Checkout = () => {
       const storedCartInfo = localStorage.getItem("cartInfo");
       if (!storedCartInfo) return;
       const cartObj = JSON.parse(storedCartInfo);
-      const getActualCartResponse =  await getCartAPI(cartObj.id);      
-     
+      const getActualCartResponse = await getCartAPI(cartObj.id);
+
       for (const item of cartObj.items) {
-        const existingCartItemIndex = getActualCartResponse.data.items.findIndex(
-          (innerItem) => innerItem.productVariantId === item.productVariantId
-        );
+        const existingCartItemIndex =
+          getActualCartResponse.data.items.findIndex(
+            (innerItem) => innerItem.productVariantId === item.productVariantId
+          );
         if (existingCartItemIndex !== -1) {
           await updateCartAPI(cartObj.id, item);
         } else {
@@ -619,18 +655,22 @@ const Checkout = () => {
       if (!initialResponse.succeeded)
         return handleResponseError(initialResponse);
 
-        const orderId = initialResponse.data.id;
+      const orderId = initialResponse.data.id;
 
-        const storedLoginInfo = localStorage.getItem("loginInfo");
+      const storedLoginInfo = localStorage.getItem("loginInfo");
+
+      localStorage.setItem("selectedOrderId", orderId);
 
       if (!storedLoginInfo) {
-        const createAnonymousUserPayload= {
-          "name": firstName,
-          "mobile": phone
-        }
-        const createAnonymousUserResponse = await createAnonymousUser(createAnonymousUserPayload);
-        
-        if(createAnonymousUserResponse){
+        const createAnonymousUserPayload = {
+          name: firstName,
+          mobile: phone,
+        };
+        const createAnonymousUserResponse = await createAnonymousUser(
+          createAnonymousUserPayload
+        );
+
+        if (createAnonymousUserResponse) {
           await updateAnonymousOrder(orderId, createAnonymousUserResponse.id);
         }
       }
@@ -651,19 +691,53 @@ const Checkout = () => {
       if (!paymentResponse.succeeded)
         return handleResponseError(paymentResponse);
 
-      const checkoutResponse = await checkout(orderId);
-      if (!checkoutResponse.succeeded)
-        return handleResponseError(checkoutResponse);
-
-      for (const item of cartObj.items) {
-        await deleteCartAPI(cartObj.id, item);
-      }      
-
-      processOrderSuccess(checkoutResponse);
+      if (selectedPaymentMethod?.name === "Online Checkout") {
+        if (selectedOnePayMethod?.name === "Apple Pay") {
+          handleCheckout(orderId);
+        } else {
+          window.location.href = paymentResponse.data.payments[0].chargeURL;
+        }
+      } else {
+        handleCheckout(orderId);
+      }
     } catch (error) {
       setIsLoading(false);
       console.error("Error creating cart to order:", error);
     }
+  };
+
+  const handleCheckout = async (orderId) => {
+    const storedCartInfo = localStorage.getItem("cartInfo");
+    if (!storedCartInfo) return;
+    const cartObj = JSON.parse(storedCartInfo);
+    const checkoutResponse = await checkout(orderId);
+    if (!checkoutResponse.succeeded)
+      return handleResponseError(checkoutResponse);
+
+    for (const item of cartObj.items) {
+      await deleteCartAPI(cartObj.id, item);
+    }
+    processOrderSuccess(checkoutResponse);
+  };
+
+  const handleTransactionComplete = (response) => {
+    setOpenPaymentPopup(false);
+    const addPaymentPayload = {
+      provider: "TAP",
+      refCode: response.id,
+      amount: subtotalPrice,
+    };
+    processOrder(addPaymentPayload);
+  };
+
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      setOpenPaymentPopup(false);
+    }
+  };
+
+  const closePaymentPopup = (e) => {
+    setOpenPaymentPopup(false);
   };
 
   return (
@@ -752,9 +826,10 @@ const Checkout = () => {
                 isLoading={false}
               />
             ) : (
-              <div 
-              className={selectedDeliveryOption === "2" ? "no-click" : ""}
-              disabled={selectedDeliveryOption === "2"}>
+              <div
+                className={selectedDeliveryOption === "2" ? "no-click" : ""}
+                disabled={selectedDeliveryOption === "2"}
+              >
                 <DialogSelect
                   options={allPaymentMethod}
                   selectedOption={selectedPaymentMethod}
@@ -764,7 +839,6 @@ const Checkout = () => {
                   fieldTitle={t("Payment Method")}
                 />
               </div>
-              
             )}
             {selectedPaymentMethod?.name === "Online Checkout" ? (
               <>
@@ -784,7 +858,11 @@ const Checkout = () => {
                     selectedOption={selectedOnePayMethod}
                     onSelect={handleSelectOnePayMethod}
                     buttonText={selectedOnePayMethod?.name}
-                    imgSrc={selectedOnePayMethod?.name === "Apple Pay"?apple:pCreditCardLogo}
+                    imgSrc={
+                      selectedOnePayMethod?.name === "Apple Pay"
+                        ? apple
+                        : pCreditCardLogo
+                    }
                     fieldTitle={t("1Pay Method")}
                   />
                 )}
@@ -792,18 +870,128 @@ const Checkout = () => {
             ) : (
               ""
             )}
-            <button className="payCheckOutBtn" onClick={(e) => submitOrder(e)}>
-              {issubmitLoading ? (
-                <Loader
-                  showOverlay={false}
-                  size={12}
-                  color="#ffffff"
-                  isLoading={true}
-                />
-              ) : (
-                t("PAY NOW")
+            {((selectedPaymentMethod?.name === "Online Checkout" &&
+              selectedOnePayMethod?.name !== "Apple Pay") ||
+              selectedPaymentMethod?.name !== "Online Checkout") && (
+              <button className="payCheckOutBtn" onClick={(e) => submitOrder()}>
+                {issubmitLoading ? (
+                  <Loader
+                    showOverlay={false}
+                    size={12}
+                    color="#ffffff"
+                    isLoading={true}
+                  />
+                ) : (
+                  t("PAY NOW")
+                )}
+              </button>
+            )}
+            {selectedPaymentMethod?.name === "Online Checkout" &&
+              selectedOnePayMethod?.name === "Apple Pay" && (
+                <div>
+                  {isSafari ? (
+                    <ApplePayButton
+                      publicKey={SITE_CONFIG.tapPubKey_dev}
+                      environment={Environment.Development}
+                      debug
+                      merchant={{
+                        domain: SITE_CONFIG.baseUrl,
+                        id: SITE_CONFIG.tapMerchantId,
+                      }}
+                      transaction={{
+                        amount: subtotalPrice.toFixed(2),
+                        currency: "SAR",
+                      }}
+                      scope={Scope.TapToken}
+                      acceptance={{
+                        supportedBrands: [
+                          SupportedNetworks.Mada,
+                          SupportedNetworks.Visa,
+                          SupportedNetworks.MasterCard,
+                        ],
+                        supportedCards: ["DEBIT", "CREDIT"],
+                        supportedCardsWithAuthentications: ["3DS", "EMV"],
+                      }}
+                      customer={{
+                        name: [
+                          {
+                            lang: Locale.EN,
+                            first: firstName,
+                          },
+                        ],
+                        contact: {
+                          phone: {
+                            countryCode: "+965",
+                            number: phone,
+                          },
+                        },
+                      }}
+                      interface={{
+                        locale: Locale.EN,
+                        theme: ThemeMode.DARK,
+                        type: ButtonType.BUY,
+                        edges: Edges.CURVED,
+                      }}
+                      onCancel={() => {
+                        setIsLoading(false);
+                        setSubmitLoading(false);
+                        setToaster({
+                          type: "error",
+                          message: t("Payment Cancled! Please try again"),
+                          duration: 3000,
+                        });
+                      }}
+                      onError={(err) => {
+                        console.log(err);
+                        setIsLoading(false);
+                        if (!firstName) {
+                          setToaster({
+                            type: "error",
+                            message: t("Please enter customer name!"),
+                            duration: 3000,
+                          });
+                          return false;
+                        } else if (!phone) {
+                          setToaster({
+                            type: "error",
+                            message: t("Please enter customer mobile!"),
+                            duration: 3000,
+                          });
+                          return false;
+                        } else {
+                          setToaster({
+                            type: "error",
+                            message: t(
+                              "Apple Pay button initialization Failed! Please try again"
+                            ),
+                            duration: 3000,
+                          });
+                        }
+                      }}
+                      onSuccess={async (token) => {
+                        setSubmitLoading(false);
+                        const addPaymentPayload = {
+                          provider: "TAP",
+                          refCode: token,
+                          amount: subtotalPrice.toFixed(2),
+                        };
+                        processOrder(addPaymentPayload);
+                      }}
+                      onClick={() => {
+                        submitOrder();
+                      }}
+                    />
+                  ) : (
+                    <div>
+                      {selectedPaymentMethod?.name === "Online Checkout" && (
+                        <p color="red">
+                          {t("This payment method is only supported in Safari")}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
               )}
-            </button>
           </div>
         </div>
         <div className="rightCheckoutWraper">
@@ -829,7 +1017,6 @@ const Checkout = () => {
                       <span>{item.price}</span> {t("SAR")}
                     </p>
                     <span className="counterWraper checkoutcounters">
-                      
                       <span
                         className="minusCounter"
                         onClick={() => handleCountChange(index, -1)}
@@ -856,11 +1043,11 @@ const Checkout = () => {
                     className="deleteSpan"
                     onClick={() => deleteCartItemRow(index)}
                   >
-                    <FontAwesomeIcon icon={ faTrashCan }/>
+                    <FontAwesomeIcon icon={faTrashCan} />
                   </span>
                 </div>
               ))}
-          </div>          
+          </div>
           <div className="finalCartBills">
             <div className="subTotal">
               <span className="totalHeading">{t("Subtotal")}</span>
@@ -897,6 +1084,35 @@ const Checkout = () => {
         </div>
       </div>
       <Footer />
+      {openPaymentPopup && (
+        <div className="popup-overlay" onClick={handleOverlayClick}>
+          {toaster && (
+            <Toaster
+              type={toaster.type}
+              message={toaster.message}
+              duration={toaster.duration}
+              onClose={handleToasterClose}
+            />
+          )}
+          <div className="popup-content">
+            <h2>Please fill your card information</h2>
+            <button
+              className="closeBtn"
+              type="button"
+              onClick={closePaymentPopup}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+            <div className="loginFormWraper">
+              <GoSellElement
+                config={paymentPayload}
+                onTransactionComplete={handleTransactionComplete}
+                selectedOnePayMethod={selectedOnePayMethod}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

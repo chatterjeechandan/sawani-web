@@ -1,68 +1,51 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-
-
-/* @font-face {
-  font-family: 'Bukra';
-  src: url('./fonts/29LTBukraRegular3.otf') format('opentype');
-} */
-
-
-
 @font-face {
-  font-family: '29LT Bukra Rg';
-  src: url('../font/29LTBukra-Rg.eot');
-  src: url('../font/29LTBukra-Rg.eot?#iefix') format('embedded-opentype'),
-      url('../font/29LTBukra-Rg.woff2') format('woff2'),
-      url('../font/29LTBukra-Rg.woff') format('woff'),
-      url('../font/29LTBukra-Rg.ttf') format('truetype'),
-      url('../font/29LTBukra-Rg.svg#29LTBukra-Rg') format('svg');
+  font-family: "29LT Bukra Rg";
+  src: url("../font/29LTBukra-Rg.eot");
+  src: url("../font/29LTBukra-Rg.eot?#iefix") format("embedded-opentype"),
+    url("../font/29LTBukra-Rg.woff2") format("woff2"),
+    url("../font/29LTBukra-Rg.woff") format("woff"),
+    url("../font/29LTBukra-Rg.ttf") format("truetype"),
+    url("../font/29LTBukra-Rg.svg#29LTBukra-Rg") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
-  font-family: '29LT Bukra Lt';
-  src: url('../font/29LTBukra-Lt.eot');
-  src: url('../font/29LTBukra-Lt.eot?#iefix') format('embedded-opentype'),
-      url('../font/29LTBukra-Lt.woff2') format('woff2'),
-      url('../font/29LTBukra-Lt.woff') format('woff'),
-      url('../font/29LTBukra-Lt.ttf') format('truetype'),
-      url('../font/29LTBukra-Lt.svg#29LTBukra-Lt') format('svg');
+  font-family: "29LT Bukra Lt";
+  src: url("../font/29LTBukra-Lt.eot");
+  src: url("../font/29LTBukra-Lt.eot?#iefix") format("embedded-opentype"),
+    url("../font/29LTBukra-Lt.woff2") format("woff2"),
+    url("../font/29LTBukra-Lt.woff") format("woff"),
+    url("../font/29LTBukra-Lt.ttf") format("truetype"),
+    url("../font/29LTBukra-Lt.svg#29LTBukra-Lt") format("svg");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
-  font-family: '29LT Bukra';
-  src: url('../font/29LTBukra-Bold.eot');
-  src: url('../font/29LTBukra-Bold.eot?#iefix') format('embedded-opentype'),
-      url('../font/29LTBukra-Bold.woff2') format('woff2'),
-      url('../font/29LTBukra-Bold.woff') format('woff'),
-      url('../font/29LTBukra-Bold.ttf') format('truetype'),
-      url('../font/29LTBukra-Bold.svg#29LTBukra-Bold') format('svg');
+  font-family: "29LT Bukra";
+  src: url("../font/29LTBukra-Bold.eot");
+  src: url("../font/29LTBukra-Bold.eot?#iefix") format("embedded-opentype"),
+    url("../font/29LTBukra-Bold.woff2") format("woff2"),
+    url("../font/29LTBukra-Bold.woff") format("woff"),
+    url("../font/29LTBukra-Bold.ttf") format("truetype"),
+    url("../font/29LTBukra-Bold.svg#29LTBukra-Bold") format("svg");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
-  font-family: '29LT Bukra Md';
-  src: url('../font/29LTBukra-Md.eot');
-  src: url('../font/29LTBukra-Md.eot?#iefix') format('embedded-opentype'),
-      url('../font/29LTBukra-Md.woff2') format('woff2'),
-      url('../font/29LTBukra-Md.woff') format('woff'),
-      url('../font/29LTBukra-Md.ttf') format('truetype'),
-      url('../font/29LTBukra-Md.svg#29LTBukra-Md') format('svg');
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
+  src: url("../font/29LTBukra-Md.eot");
+  src: url("../font/29LTBukra-Md.eot?#iefix") format("embedded-opentype"),
+    url("../font/29LTBukra-Md.woff2") format("woff2"),
+    url("../font/29LTBukra-Md.woff") format("woff"),
+    url("../font/29LTBukra-Md.ttf") format("truetype"),
+    url("../font/29LTBukra-Md.svg#29LTBukra-Md") format("svg");
+  font-family: "29LT Bukra Md";
   font-style: normal;
   font-display: swap;
 }
-
-
-
-
 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -74,16 +57,14 @@
   margin: 0;
   padding: 0;
 }
-
 :before,
 :after {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-
 body,
 html {
-  font-family: '29LT Bukra Rg';
+  font-family: "29LT Bukra Rg";
   font-size: 14px;
   line-height: 1.78em;
   color: #000;
@@ -91,20 +72,17 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
 }
-
 /* Lists==================== */
 ol,
 ul {
   list-style: none;
 }
-
 /* Links, inputs and Buttons==================== */
 a {
   color: inherit;
   display: inline-flex;
   align-items: center;
 }
-
 a,
 .btn,
 .button,
@@ -120,7 +98,6 @@ select {
   transition: all cubic-bezier(1, -0.05, 0.25, 1) 0.4s;
   cursor: pointer;
 }
-
 input,
 textarea,
 select {
@@ -128,51 +105,41 @@ select {
   background-color: transparent;
   border: 1px solid #ccc;
 }
-
 input::-ms-clear,
 input:-ms-clear {
   display: none;
 }
-
 textarea {
   resize: none;
 }
-
 :disabled,
 ::disabled {
   cursor: not-allowed;
 }
-
 :readonly,
 ::readonly {
   cursor: default;
 }
-
 ::-webkit-input-placeholder {
   font-size: inherit;
   color: #bbb9d1;
 }
-
 ::-moz-placeholder {
   font-size: inherit;
   color: #bbb9d1;
 }
-
 :-ms-input-placeholder {
   font-size: inherit;
   color: #bbb9d1;
 }
-
 ::-ms-input-placeholder {
   font-size: inherit;
   color: #bbb9d1;
 }
-
 ::placeholder {
   font-size: inherit;
   color: #bbb9d1;
 }
-
 /* Tables==================== */
 .table,
 table {
@@ -182,13 +149,10 @@ table {
   border-spacing: 0;
   border-collapse: collapse;
 }
-
 td {
   vertical-align: middle;
 }
-
 /* Headings==================== */
-
 h1,
 h2,
 h3,
@@ -197,19 +161,16 @@ h5,
 h6 {
   margin: 0;
 }
-
 /* Other elements==================== */
 img {
   display: inline-flex;
   max-height: 100%;
   max-width: 100%;
 }
-
 blockquote,
 q {
   quotes: none;
 }
-
 blockquote:before,
 blockquote:after,
 q:before,
@@ -217,22 +178,18 @@ q:after {
   content: "";
   content: none;
 }
-
 br,
 .clear {
   clear: both;
 }
-
 audio,
 video {
   display: block;
   width: 100%;
 }
-
 figure {
   vertical-align: middle;
 }
-
 .btn {
   display: inline-flex;
   align-items: center;
@@ -240,31 +197,24 @@ figure {
   cursor: pointer;
   border: none;
 }
-
 .container {
   width: 100%;
   max-width: 106.71em;
   padding: 0 1.07em;
   margin: 0 auto;
 }
-
 .clearfix:after {
   clear: both;
 }
-
 .clearfix:after,
 .clearfix:before {
   content: "";
   display: table;
 }
-
 input:-internal-autofill-selected {
   background: #fff;
 }
-
-
 /* footer css */
-
 .footerWraper {
   width: 100%;
   display: flex;
@@ -274,7 +224,6 @@ input:-internal-autofill-selected {
   z-index: 7;
   position: relative;
 }
-
 .rowWraper.firstRow {
   width: 100%;
   float: left;
@@ -282,7 +231,6 @@ input:-internal-autofill-selected {
   margin-bottom: 25px;
   padding-bottom: 0;
 }
-
 .logoSec {
   width: 30%;
   float: right;
@@ -297,13 +245,12 @@ input:-internal-autofill-selected {
   text-align: left;
   padding: 0 10px;
 }
-
 .footerMenu ul li {
   display: inline-block;
   margin: 20px 5px 0 10px;
   cursor: pointer;
   font-size: 13px;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
 }
 .rowWraper.secondRow {
   width: 100%;
@@ -316,26 +263,21 @@ span.social img {
   width: 20px;
   margin: 0 5px;
 }
-
 .rowWraper.secondRow p {
   font-size: 12px;
   padding: 10px 0 10px 0;
 }
-
 /* dashboard Page */
-
 .dashboardPageMaimWraper {
   width: 100%;
   float: left;
   background: #f7f2ec;
 }
-
 .dashboardMidContent {
   width: 100%;
   float: left;
   position: relative;
 }
-
 .dashboardMidContent::before {
   content: " ";
   position: absolute;
@@ -347,7 +289,6 @@ span.social img {
   width: 225px;
   height: 148px;
 }
-
 .dashboardMidContent::after {
   content: " ";
   position: absolute;
@@ -360,7 +301,6 @@ span.social img {
   height: 55px;
   background-size: cover;
 }
-
 .dashboardMidContent {
   width: 100%;
   word-break: break-all;
@@ -368,7 +308,6 @@ span.social img {
   background: #f5f2ea;
   padding: 25px 80px 50px 80px;
 }
-
 .tabSearchWraper {
   width: 100%;
   display: flex;
@@ -390,26 +329,26 @@ span.social img {
   overflow: hidden;
 }
 .tabUl li {
-  width: 135px; 
-   padding: 15px 10px;
-    background-color: #b8a8c2;
+  width: 135px;
+  padding: 15px 10px;
+  background-color: #b8a8c2;
   cursor: pointer;
   display: flex;
-    align-items: center; 
+  align-items: center;
   border-right: 1px solid #a592b6;
 }
 .tabUl li span img {
-    /* height: 58px; */
+  /* height: 58px;
+  */
 }
 .tabUl li span img {
-    width: 22px;
-    margin-right: 7px;
+  width: 22px;
+  margin-right: 7px;
 }
 .tabUl li.active {
-    background-color: #a592b6 ;
-    font-weight: 700;
+  background-color: #a592b6;
+  font-weight: 700;
 }
-
 .tabUl li:last-child {
   border-right: none;
 }
@@ -466,7 +405,6 @@ span.headingImage img {
   display: flex;
   align-items: center;
 }
-
 span.headingContents h3 {
   font-size: 22px;
   color: #1a1818;
@@ -478,9 +416,10 @@ span.headingContents p {
 }
 .productlistingsStore {
   width: 100%;
-  float: left;
   padding-top: 35px;
   padding-bottom: 108px;
+  display: flex;
+  flex-wrap: wrap;
 }
 .individualProduct {
   width: 20%;
@@ -496,20 +435,13 @@ span.headingContents p {
   margin: 5px auto;
   cursor: pointer;
 }
-
 .individualProduct p {
-  position: absolute;
-  bottom: 15%;
   margin: 0 auto;
   text-align: center;
   font-size: 25px;
-  font-family: '29LT Bukra';
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
+  font-family: "29LT Bukra";
+  margin-top: 10px;
 }
-
 span.dropdownMemu {
   width: 160px;
   display: block;
@@ -522,7 +454,6 @@ span.dropdownMemu {
   left: -65px;
   top: 120%;
 }
-
 li.borderMenu {
   height: 1px;
   background: #b7864c;
@@ -537,7 +468,6 @@ li.borderMenu {
 .dropdownMemu ul li:first-child {
   margin-top: 0;
 }
-
 .errorText {
   color: red;
   font-size: 12px;
@@ -547,13 +477,13 @@ li.borderMenu {
   text-align: left;
   line-height: 15px;
 }
-
 .product-container {
   padding: 0px 0 10px;
   float: left;
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
-
 .dashboardMidContentDelhivery {
   width: 100%;
   float: left;
@@ -561,7 +491,6 @@ li.borderMenu {
   padding: 25px 80px 240px 80px;
   position: relative;
 }
-
 .dashboardMidContentDelhivery::after {
   content: " ";
   position: absolute;
@@ -574,7 +503,6 @@ li.borderMenu {
   height: 45px;
   background-size: cover;
 }
-
 .dashboardMidContent.delhivery::before {
   display: none;
 }
@@ -586,7 +514,6 @@ li.borderMenu {
   height: 47px;
   cursor: pointer;
 }
-
 .leftInfoContent {
   width: 40%;
   text-align: center;
@@ -618,11 +545,9 @@ h2.brownHeading {
   font-size: 17px;
   margin-bottom: 35px;
   padding: 0 43px;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
 }
-
 /* ProductListing page */
-
 .productPageWraper {
   width: 100%;
   float: left;
@@ -630,7 +555,6 @@ h2.brownHeading {
   display: flex;
   flex-direction: column;
 }
-
 .customizeFilterDisplay {
   width: 211px;
   height: 48px;
@@ -643,21 +567,19 @@ h2.brownHeading {
   cursor: pointer;
 }
 span.selectText {
-  font-size: 16px;
+  font-size: 14px;
   color: #1a1818;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
 }
 span.selectIcons {
   height: 30px;
   width: 30px;
   margin-right: 15px;
 }
-
 span.selectIcons img {
   width: 100%;
   height: 100%;
 }
-
 ul.customDropdown {
   background: #e0dbd0;
   border-radius: 10px;
@@ -692,7 +614,6 @@ span.dropImages {
   float: left;
   position: relative;
 }
-
 ul.customDropdown li span.selectText {
   font-size: 16px;
   width: 135px;
@@ -701,13 +622,11 @@ ul.customDropdown li span.selectText {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 ul.customDropdown li span.selectIcons {
   height: 25px;
   width: 25px;
   margin-right: 15px;
 }
-
 .productFilterWraper {
   width: 100%;
   float: left;
@@ -727,20 +646,19 @@ ul.customDropdown li span.selectIcons {
   margin: 0 45px 0 0;
   cursor: pointer;
   color: #000000;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   font-weight: 16px;
 }
 .productSubLists li:hover,
 .productSubLists li.active {
   text-decoration: underline;
-  font-family: '29LT Bukra';
+  font-family: "29LT Bukra";
 }
 .filterSections {
   margin-left: auto;
   display: flex;
   align-items: center;
 }
-
 .filterDrop {
   position: relative;
   margin-right: 15px;
@@ -762,13 +680,11 @@ span.dropArrows {
   right: -5px;
   top: 8px;
 }
-
 .productsRow {
   width: 100%;
   float: left;
   margin: 60px 0;
 }
-
 .indProduct {
   width: 20%;
   float: left;
@@ -776,23 +692,28 @@ span.dropArrows {
   margin: 5px 0;
 }
 .produtImage {
-  width: 100%;
-  position: relative;
   float: left;
-}
-.produtImage img {
+  position: relative;
   width: 100%;
+  display: flex;
+  background: #dad2c2;
   border-radius: 10px;
 }
-
+.produtImage img {
+  width: unset;
+  float: none;
+  margin: 0 auto;
+  height: 260px;
+}
 span.productInfoDetails {
   width: 100%;
   float: left;
   display: block;
+  margin-top: 10px;
 }
 .productInfoDetails h5 {
   font-size: 18px;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   color: #000000;
 }
 .productInfoDetails p {
@@ -804,7 +725,8 @@ span.addDelWraper {
   width: 40px;
   position: absolute;
   right: -10px;
-  /* border: 1px solid #fff; */
+  /* border: 1px solid #fff;
+  */
   display: block;
   top: -5px;
 }
@@ -816,9 +738,7 @@ span.addDelWraper {
   border: 1px solid #ccc;
   cursor: pointer;
 }
-
 /* Product Details Css */
-
 .productDetailsWraper {
   width: 100%;
   float: left;
@@ -851,7 +771,7 @@ h2.productName {
   color: #1a1818;
   font-size: 20px;
   font-weight: 700;
-  width:80%;
+  width: 80%;
 }
 p.productPrice {
   color: #b7864c;
@@ -864,7 +784,7 @@ p.productDescription {
   color: #000000;
   font-size: 16px;
   line-height: 20px;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   margin-bottom: 50px;
   padding-right: 50px;
   letter-spacing: 0.5px;
@@ -879,17 +799,14 @@ p.productDescription {
 .bookMark img {
   width: 100%;
 }
-
 .productOtherInfo {
   width: 100%;
   float: left;
   margin-bottom: 25px;
 }
-
 .productOtherInfo:last-child {
   margin-bottom: 0px;
 }
-
 p.infoHeading {
   color: #0d1d29;
   font-size: 16px;
@@ -903,31 +820,28 @@ p.infoHeading {
   align-items: center;
   margin-bottom: 2px;
 }
-
 .infodetails.margin-20 {
   margin-bottom: 20px;
 }
-
 .paymentWraper .loader {
   height: auto;
   justify-content: flex-start;
   margin-bottom: 20px;
 }
-
-.buttonloader .loader, .inlineloader .loader {
+.buttonloader .loader,
+.inlineloader .loader {
   height: auto;
 }
-
 span.infoValues {
   margin-left: auto;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   color: #0d1d29;
   font-size: 14px;
   width: 8%;
   text-align: center;
 }
 span.infoName {
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   color: #0d1d29;
   font-size: 14px;
   margin-right: auto;
@@ -950,7 +864,6 @@ span.infoName {
   bottom: -7px;
   left: 0;
 }
-
 .productOperationWrapers {
   width: 186px;
 }
@@ -1003,7 +916,6 @@ span.rewardPointsInfo {
   color: #1a1818;
   font-weight: 700;
 }
-
 .qntyWrapers {
   width: 100%;
   float: left;
@@ -1019,12 +931,10 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
 }
-
 .mainQtyWraper {
   width: 70px;
   height: 100%;
@@ -1038,11 +948,10 @@ input[type="number"] {
   width: 100%;
   font-weight: 700;
 }
-
 span.qtyText {
   color: #0d1d29;
   font-size: 12px;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   padding-top: 5px;
   margin-left: auto;
 }
@@ -1106,7 +1015,6 @@ span.headingIconImg {
   -webkit-column-gap: 28px;
   column-gap: 28px;
 }
-
 .indrelatesProduct {
   flex: 1 1 16.6%;
   position: relative;
@@ -1115,6 +1023,7 @@ span.headingIconImg {
 .imageWraper {
   position: relative;
 }
+
 span.counterWraper {
   width: 40px;
   display: flex;
@@ -1151,7 +1060,7 @@ span.counterInput input {
   text-align: center;
   font-size: 16px;
   background: #c0843e;
-  font-family: '29LT Bukra';
+  font-family: "29LT Bukra";
   color: #fff;
 }
 .productNamePrice {
@@ -1162,7 +1071,7 @@ span.counterInput input {
 .productNamePrice h5 {
   font-size: 14px;
   color: #000000;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
 }
 .productNamePrice p {
   font-size: 12px;
@@ -1170,9 +1079,7 @@ span.counterInput input {
   font-weight: 700;
   line-height: 14px;
 }
-
 /* Checkout Page css */
-
 .checkoutWraper {
   width: 100%;
   float: left;
@@ -1197,7 +1104,6 @@ span.counterInput input {
   padding: 158px 35px;
   background: #e0dbd0;
 }
-
 .midCheckoutWraper {
   width: calc(100% - 777px);
   padding: 158px 75px;
@@ -1206,7 +1112,7 @@ span.counterInput input {
 .checkoutProductHeading {
   font-size: 22px;
   color: #1a1818;
-  font-family: '29LT Bukra';
+  font-family: "29LT Bukra";
   margin-bottom: 25px;
   padding-bottom: 25px;
   border-bottom: 1px solid #aaaaaa;
@@ -1234,13 +1140,11 @@ span.counterWraper.checkoutcounters {
   padding: 5px 4px;
   margin-bottom: 15px;
 }
-
 .individualCartProducts {
   width: 100%;
   display: flex;
   align-items: center;
 }
-
 span.productCartImage {
   width: 110px;
   border-radius: 10px;
@@ -1249,34 +1153,30 @@ span.productCartImage {
 span.productCartImage img {
   width: 100%;
 }
-
 span.deleteSpan {
   margin-left: auto;
   padding: 1px;
   width: 30px;
   font-size: 18px;
-  cursor:pointer;
+  cursor: pointer;
 }
 span.deleteSpan img {
   cursor: pointer;
 }
-
 h5.indCartProductName {
   font-size: 16px;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   line-height: 1.2;
 }
-
 p.productPriceInd {
   font-size: 15px;
-  font-family: '29LT Bukra';
+  font-family: "29LT Bukra";
   margin-bottom: 15px;
 }
 p.productPriceInd span {
   font-weight: 700;
   font-size: 18px;
 }
-
 span.counterWraper.checkoutcounters span.plusCounter {
   width: 32%;
   height: 30px;
@@ -1293,7 +1193,6 @@ span.counterWraper.checkoutcounters span.counterInput {
   height: 30px;
   background: transparent;
 }
-
 span.counterWraper.checkoutcounters span.counterInput input {
   background: transparent;
   color: #000;
@@ -1306,14 +1205,13 @@ span.counterWraper.checkoutcounters span.counterInput input {
   padding-bottom: 25px;
   border-bottom: 1px solid #979797;
 }
-
 .customizeFilter.checkoutPage .customizeFilterDisplay {
   width: 100%;
   padding: 10px;
   background: #f5f2ea;
   color: #2f1f15;
   font-size: 14px;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   height: 42px;
 }
 .customizeFilter.checkoutPage ul.customDropdown {
@@ -1333,15 +1231,13 @@ span.counterWraper.checkoutcounters span.counterInput input {
 }
 .customizeFilter.checkoutPage ul.customDropdown li:hover span.selectText {
   color: #b7864c;
-  font-family: '29LT Bukra';
+  font-family: "29LT Bukra";
 }
-
 .customizeFilter.checkoutPage .customizeFilterDisplay span.selectText {
   font-size: 13px;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   width: 95%;
 }
-
 .finalCartBills {
   margin: 0 0 25px 0;
   padding-bottom: 25px;
@@ -1349,10 +1245,9 @@ span.counterWraper.checkoutcounters span.counterInput input {
   width: 100%;
   float: left;
 }
-
 span.totalHeading,
 span.totalPrice {
-  font-family: '29LT Bukra';
+  font-family: "29LT Bukra";
   font-size: 14px;
   color: #1a1818;
 }
@@ -1366,11 +1261,9 @@ span.totalPrice {
   display: flex;
   align-items: center;
 }
-
 .subTotal {
   margin-bottom: 5px;
 }
-
 span.rewardsIconImg {
   width: 18px;
   height: 18px;
@@ -1381,7 +1274,6 @@ span.rewardsIconImg img {
   width: 100%;
   height: 100%;
 }
-
 span.totalHeading.points {
   color: #b7864c;
 }
@@ -1391,15 +1283,13 @@ span.subPoints {
   text-decoration: underline;
   margin-left: 5px;
   cursor: pointer;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
 }
-
 span.totalPrice.points {
   display: flex;
   align-items: center;
   color: #b7864c;
 }
-
 .grandTotalWraper.rewardSectionsWrapers span.grandHeading {
   font-weight: 700;
   font-size: 16px;
@@ -1408,12 +1298,10 @@ span.totalPrice.points {
 .grandTotalWraper.rewardSectionsWrapers span.grandHeading.grandPrice {
   margin-left: auto;
 }
-
 .guestLoginWraper {
   width: 100%;
   float: left;
 }
-
 .guestLoginWraper h3 {
   font-size: 22px;
   font-weight: 700;
@@ -1421,13 +1309,11 @@ span.totalPrice.points {
   margin-bottom: 25px;
   text-align: left;
 }
-
 span.subHeading {
   font-size: 16px;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   color: #1a1818;
 }
-
 input.inputGuest {
   width: 100%;
   background: #dec8ae72;
@@ -1478,7 +1364,7 @@ span.paymentIcons {
 }
 span.paymentname {
   color: #000000;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   font-size: 14px;
 }
 span.arrowRight {
@@ -1500,7 +1386,7 @@ span.arrowRight {
   color: #fff;
   width: 100%;
   float: left;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   font-size: 14px;
   border-radius: 25px;
   border: none;
@@ -1509,21 +1395,18 @@ span.arrowRight {
 .productPageWraper.detailsPages {
   padding-top: 0;
 }
-
 .camelWraper img {
   height: 100%;
 }
-
 .paginationWrapers {
   width: 100%;
   float: left;
   text-align: right;
 }
-
 .paginationWrapers p {
   color: #000;
   font-size: 14px;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   margin-bottom: 11px;
   padding-right: 5px;
 }
@@ -1531,7 +1414,7 @@ span.arrowRight {
   display: inline-block;
   margin-right: 8px;
   font-size: 14px;
-  font-family: '29LT Bukra Rg';
+  font-family: "29LT Bukra Rg";
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -1545,7 +1428,7 @@ span.arrowRight {
 }
 .paginationUl li.current-page {
   color: #b7864c;
-  font-family: '29LT Bukra';
+  font-family: "29LT Bukra";
   border: none;
 }
 .paginationUl li:hover {
@@ -1555,7 +1438,6 @@ span.arrowRight {
 .paginationUl li:last-child {
   margin: 0;
 }
-
 .productsRow.listingPages .product-container .indProduct {
   margin-bottom: 15px;
 }
@@ -1580,7 +1462,6 @@ span.arrowRight {
   left: unset;
   top: unset;
 }
-
 /* tooltipStyles.css */
 .custom-tooltip {
   background: #f0f0f0;
@@ -1590,23 +1471,19 @@ span.arrowRight {
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
 .config-option {
   display: flex;
 }
-
 .config-option .productOtherInfo {
   width: auto !important;
 }
-
 .config-option .MuiFormControl-root {
   margin-left: 0px;
 }
-
 /* Responsive css */
 @media only screen and (max-width: 1024px) {
   .headerWrapers {
-    padding: 35px 10px;
+    padding: 35px 10px !important;
   }
   .menuWraper {
     padding-left: 0;
@@ -1628,7 +1505,6 @@ span.arrowRight {
   .afterBanner.center {
     height: auto;
   }
-
   .afterBanner.center .afterBannerCenterTextWraper {
     padding: 25px 15px;
     width: 90%;
@@ -1642,7 +1518,6 @@ span.arrowRight {
   .rowWraper.firstRow {
     padding: 25px 25px 10px;
   }
-
   .logoSec,
   .footerMenu {
     width: 100%;
@@ -1665,8 +1540,7 @@ span.arrowRight {
   .menu-items.menuDrop::before {
     left: 50%;
   }
-  /* 
-    DASHBOARD CSS */
+  /* DASHBOARD CSS */
   .dashboardMidContent {
     padding: 18px;
   }
@@ -1723,7 +1597,7 @@ span.arrowRight {
     width: 100%;
     margin: 0;
   }
-  /* Category page  */
+  /* Category page */
   .productlistingsStore {
     padding: 35px 0;
   }
@@ -1836,26 +1710,21 @@ span.arrowRight {
     padding: 140px 20px 40px 20px;
   }
 }
-
 .addBtnWraper .loader,
 .delBtnWraper .loader {
   height: 43px;
 }
-
 .guestLoginP b {
   cursor: pointer;
 }
-
 .payCheckOutBtn .loader {
   justify-content: center;
   font-size: 18px;
 }
-
 .expiryCvcContainer {
   display: flex;
   width: 100%;
 }
-
 .expiryCvcContainer select {
   width: 100%;
   float: left;
@@ -1867,9 +1736,7 @@ span.arrowRight {
   margin: 0 10px;
   color: #d3c2c2;
 }
-
 /* Profile Section css */
-
 .profileSidebarWraper {
   width: 40%;
   float: left;
@@ -1923,7 +1790,6 @@ span.arrowRight {
   background-size: cover;
   overflow: hidden;
 }
-
 .profileImgWraper {
   width: 55%;
   text-align: center;
@@ -1953,7 +1819,6 @@ img.profileCamel {
   left: 25%;
   cursor: pointer;
 }
-
 p.profileName {
   width: 100%;
   display: block;
@@ -1963,7 +1828,7 @@ p.profileName {
   color: #000000;
   opacity: 1;
   font-size: 14px;
-  font-family: '29LT Bukra';
+  font-family: "29LT Bukra";
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -2009,10 +1874,9 @@ p.converstionRate {
   margin-bottom: 8px;
 }
 p.converstionRate span {
-  font-family: '29LT Bukra';
+  font-family: "29LT Bukra";
   color: #a592b5;
 }
-
 p.numberInfo {
   letter-spacing: 0.26px;
   color: #000000;
@@ -2021,7 +1885,6 @@ p.numberInfo {
   float: left;
   width: 100%;
 }
-
 .codeQr {
   width: 100%;
   float: left;
@@ -2034,7 +1897,7 @@ p.numberInfo {
   letter-spacing: 0.31px;
   color: #ffffff;
   opacity: 1;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
 }
 img.codeScan {
   width: 16px;
@@ -2053,7 +1916,7 @@ span.nameLink {
   letter-spacing: 0.28px;
   color: #000000;
   opacity: 1;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
 }
 ul.profileRouts li:last-child {
   border-bottom: none;
@@ -2065,7 +1928,6 @@ span.iconName {
   width: 28px;
   margin-right: 15px;
 }
-
 ul.profileRouts li i {
   margin-left: auto;
 }
@@ -2073,14 +1935,12 @@ ul.profileRouts li i {
   background: rgb(248 244 238 / 82%);
   padding: 60px 80px 60px 80px;
 }
-
 .refferWraper h4 {
   letter-spacing: 0.4px;
   color: #000000;
   opacity: 1;
   font-size: 20px;
 }
-
 .refferWraper p {
   font-size: 16px;
   color: #000000;
@@ -2094,7 +1954,7 @@ button.refferBtn {
   color: #fff;
   padding: 8px 28px;
   font-size: 16px;
-  font-family: '29LT Bukra';
+  font-family: "29LT Bukra";
   float: right;
 }
 .pointAnalysisWraper {
@@ -2111,7 +1971,6 @@ button.refferBtn {
   margin-bottom: 15px;
   min-height: 456.5px;
 }
-
 .questionsWrapers {
   background: transparent url("../images/questionBack.png") 0% 0% no-repeat
     padding-box;
@@ -2129,7 +1988,6 @@ button.refferBtn {
   font-size: 21px;
   margin-bottom: 60px;
 }
-
 .qusBtn {
   border: none;
   padding: 8px 32px;
@@ -2143,7 +2001,6 @@ button.refferBtn {
   cursor: pointer;
   float: right;
 }
-
 .pointsTabs {
   width: 100%;
   float: left;
@@ -2163,10 +2020,9 @@ button.refferBtn {
 }
 .pointsTabs li.activeTab,
 .pointsTabs li:hover {
-  font-family: '29LT Bukra';
+  font-family: "29LT Bukra";
   border-bottom: 1px solid #b7864c;
 }
-
 p.earnedInfos {
   width: 100%;
   float: left;
@@ -2181,7 +2037,7 @@ p.earnedInfos span {
   opacity: 1;
   font-size: 12px;
   padding: 6px 18px;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   margin: 0 auto 25px;
 }
 .pointDislayWraper {
@@ -2194,13 +2050,14 @@ p.earnedInfos span {
 .tabWrapers {
   text-align: center;
 }
-
 button.pointDetail {
-  /* border: none; */
+  /* border: none;
+  */
   letter-spacing: 0.64px;
   color: #1a1818;
   text-transform: uppercase;
-  /* opacity: 1; */
+  /* opacity: 1;
+  */
   border: 1px solid #1a1818;
   border-radius: 10px;
   opacity: 1;
@@ -2234,17 +2091,16 @@ p.pointsNames {
   left: 50%;
   transform: translate(-50%, -50%);
   color: #000;
-  font-family: '29LT Bukra';
+  font-family: "29LT Bukra";
   font-size: 12px;
 }
-
 p.equalConversion {
   position: absolute;
   top: 61%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: #000;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   font-size: 12px;
 }
 p.equalConversion span {
@@ -2289,9 +2145,9 @@ p.profileNameHeader {
   opacity: 1;
   margin-right: auto;
   font-size: 15px;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
 }
-.orderNowBtnsAnchor{
+.orderNowBtnsAnchor {
   display: block;
 }
 .orderNowBtns {
@@ -2313,7 +2169,7 @@ p.profileNameHeader {
   text-align: right;
   font-size: 12px;
   cursor: pointer;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   width: 100%;
   float: right;
 }
@@ -2326,7 +2182,7 @@ h4.addressHeading {
   color: #000000;
   opacity: 1;
   font-size: 14px;
-  font-family: '29LT Bukra';
+  font-family: "29LT Bukra";
 }
 .indAddressList {
   width: 100%;
@@ -2344,13 +2200,13 @@ span.editAdd {
 }
 span.deleteAdd {
   cursor: pointer;
-  position:relative;
+  position: relative;
 }
-span.deleteAdd .loader{
+span.deleteAdd .loader {
   position: absolute;
-    height: auto;
-    top: -8px;
-    right: 0;
+  height: auto;
+  top: -8px;
+  right: 0;
 }
 span.editAddress {
   position: absolute;
@@ -2385,7 +2241,6 @@ p.saudiWraper img {
 .phoneNumbers b {
   margin-right: 3px;
 }
-
 .addressListings {
   width: 100%;
   float: left;
@@ -2394,7 +2249,7 @@ p.saudiWraper img {
   padding-right: 15px;
 }
 .notBold {
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
 }
 .indCard {
   width: 100%;
@@ -2422,11 +2277,11 @@ p.saudiWraper img {
 }
 p.cardNumber {
   font-size: 15px;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
 }
 p.cardname {
   font-size: 14px;
-  font-family: '29LT Bukra';
+  font-family: "29LT Bukra";
   display: none;
 }
 .indCard.activated p.cardname {
@@ -2445,7 +2300,7 @@ p.cardname {
 }
 .favouritetabWraper span {
   font-size: 14px;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   letter-spacing: 0.28px;
   color: #0d1d29;
   opacity: 1;
@@ -2453,7 +2308,7 @@ p.cardname {
   border-bottom: 2px solid transparent;
 }
 .favouritetabWraper span.activates {
-  font-family: '29LT Bukra';
+  font-family: "29LT Bukra";
   border-bottom: 2px solid #b7864c;
 }
 .tabContents {
@@ -2471,11 +2326,9 @@ p.noRecords {
   font-weight: 700;
   padding-top: 15%;
 }
-
 .indProductsWraperLink {
-  width:31%;
+  width: 31%;
 }
-
 .indProductsWraper {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
@@ -2519,7 +2372,7 @@ span.likeProducts {
   top: 10px;
   right: 5px;
 }
-span.likeProducts .loader{
+span.likeProducts .loader {
   height: auto;
   position: absolute;
   top: 0;
@@ -2560,7 +2413,6 @@ input.foeldInputs {
   height: 35px;
   padding: 2px 10px 2px 2px;
 }
-
 .sortFieldInput {
   width: 100%;
   float: left;
@@ -2607,13 +2459,11 @@ p.changePassOptions {
   margin-bottom: 10px;
   cursor: pointer;
   font-size: 12px;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
 }
-
 .pointTabWraper.inputWrapers.newAddressWraper .addressListings {
   max-height: none;
 }
-
 .inlineOptions {
   display: flex;
   align-items: center;
@@ -2628,7 +2478,6 @@ input.radioGender {
   height: 13px;
   width: 13px;
 }
-
 .switch {
   position: relative;
   display: inline-block;
@@ -2636,13 +2485,11 @@ input.radioGender {
   height: 25px;
   margin-right: 15px;
 }
-
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
-
 .slider {
   position: absolute;
   cursor: pointer;
@@ -2654,7 +2501,6 @@ input.radioGender {
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
-
 .slider:before {
   position: absolute;
   content: "";
@@ -2666,26 +2512,21 @@ input.radioGender {
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
-
 input:checked + .slider {
   background-color: #2196f3;
 }
-
 input:focus + .slider {
   box-shadow: 0 0 1px #2196f3;
 }
-
 input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
-
 /* Rounded sliders */
 .slider.round {
   border-radius: 34px;
 }
-
 .slider.round:before {
   border-radius: 50%;
 }
@@ -2713,7 +2554,6 @@ label.fieldLabel.switchOptions {
 .dashboardMidContent.profilePages.contactPage::before {
   display: none;
 }
-
 .contactHeading {
   text-align: center;
   color: #f5f2ea;
@@ -2723,14 +2563,13 @@ label.fieldLabel.switchOptions {
 p.contactPagePara {
   text-align: center;
   color: #f5f2ea;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   margin-bottom: 30px;
 }
 .contactPageImg {
   width: 49%;
   float: left;
 }
-
 .contactFieldsWraper {
   width: 49%;
   float: right;
@@ -2756,9 +2595,8 @@ textarea.foeldInputsTextarea {
   padding: 14px 35px;
   border: none;
   cursor: pointer;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
 }
-
 .contactUsWraper::after {
   content: " ";
   position: absolute;
@@ -2779,7 +2617,7 @@ ul.profileRouts li a {
   color: #1a1818;
   opacity: 1;
   font-size: 14px;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   margin-top: 15px;
   text-align: center;
 }
@@ -2787,7 +2625,7 @@ p.barCodeHeadingP {
   width: 100%;
   float: left;
   text-align: center;
-  font-family: '29LT Bukra Md';
+  font-family: "29LT Bukra Md";
   margin-bottom: 10px;
 }
 p.barCodeHeadingP span {
@@ -2806,171 +2644,155 @@ img.barCodeImg {
   display: none;
 }
 
-/***************RTL CSS START HERE*****************************/
+.afterBarCode span {
+  display: flex;
+  flex-direction: column;
+}
 
+.loader-img-holder {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+
+.fabcontent .imagePrd {
+  display: flex;
+  justify-content: center;
+  background: #d9d1c1;
+}
+
+.fabcontent .imagePrd img {
+  width: unset;
+}
+/***************RTL CSS START HERE*****************************/
 body.lang-ar {
   direction: rtl;
 }
-
 body.lang-ar .icon-wrapper.profile {
   margin-left: 40px;
   margin-right: auto;
 }
-
 body.lang-ar img.profile {
   margin-right: auto;
   margin-left: 10px;
 }
-
 body.lang-ar .menu {
   margin-right: auto;
   margin-left: 40px;
 }
-
 body.lang-ar .menu-items li {
   text-align: right;
 }
-
 body.lang-ar .orderNowBtns {
   left: auto;
   right: 40px;
 }
-
 body.lang-ar .footerMenu {
   float: left;
   text-align: right;
 }
-
 body.lang-ar .logoSec {
   float: left;
   padding-left: 0;
 }
-
 body.lang-ar .checkoutProductHeading {
   text-align: right;
 }
-
 body.lang-ar .indCartProductName {
   text-align: right;
 }
-
 body.lang-ar .productPriceInd {
   text-align: right;
 }
-
 body.lang-ar span.totalPrice {
   margin-right: auto;
   margin-left: inherit;
 }
-
 body.lang-ar
   .grandTotalWraper.rewardSectionsWrapers
   span.grandHeading.grandPrice {
   margin-left: inherit;
   margin-right: auto;
 }
-
 body.lang-ar .cartBtnWraper .checkBtn {
-  margin-right: 10px;
-  margin-left: inherit;
+  margin-left: 0;
+  margin-right: 15px;
 }
-
 body.lang-ar .logoSec img {
   float: left;
 }
-
 body.lang-ar .searchArea {
   margin-left: 10px;
 }
-
 body.lang-ar .dashboardMidContent::before {
   left: 0;
   right: auto;
   transform: rotate(180deg);
 }
-
 body.lang-ar span.headingImage {
   margin-left: 15px;
 }
-
 body.lang-ar .individualProduct {
   float: right;
 }
-
 body.lang-ar span.selectIcons {
   margin-right: 0;
   margin-left: 15px;
 }
-
 body.lang-ar span.dropImages {
   right: auto;
   left: 12px;
 }
-
 body.lang-ar ul.customDropdown li span.selectIcons {
   margin-right: 0;
   margin-left: 15px;
 }
-
 body.lang-ar .filterSections {
   margin-right: auto;
   margin-left: 0;
 }
-
 body.lang-ar span.dropArrows {
   right: auto;
   left: -8px;
 }
-
 body.lang-ar span.counterWraper {
   left: 0;
   right: auto;
 }
-
 body.lang-ar .paginationWrapers {
   float: right;
   text-align: left;
 }
-
 body.lang-ar .bookMark {
   right: auto;
   left: 65px;
 }
-
 body.lang-ar p.productDescription {
   padding-right: 0;
 }
-
 body.lang-ar .productNamePrice {
   text-align: right;
 }
-
 body.lang-ar .indFields.exp.names {
   margin-left: auto;
   margin-right: 0;
 }
-
 body.lang-ar label.fieldLabel {
   text-align: right;
   margin-right: 0;
 }
-
 body.lang-ar input.foeldInputs {
   padding-right: 0;
 }
-
 body.lang-ar .contactPageImg {
   float: right;
 }
-
 body.lang-ar .contactFieldsWraper {
   float: left;
 }
-
 body.lang-ar .indFields.cvv.emails {
   margin-left: 0;
 }
-
 body.lang-ar .profileSidebarWraper {
   float: right;
   padding-right: 0;
@@ -2994,40 +2816,32 @@ body.lang-ar .profileRightWraper {
   padding-left: 0;
   padding-right: 20px;
 }
-
 body.lang-ar span.pointListIcons {
   margin-right: 0;
   margin-left: 20px;
 }
-
 body.lang-ar span.editPointsSec {
   left: -10px;
   right: auto;
 }
-
 body.lang-ar .pointsProfileWrapers h3 {
   margin-right: auto;
   margin-left: 10px;
 }
-
 body.lang-ar .pointsProfileWrapers img {
   margin-left: auto;
   margin-right: 0;
 }
-
 body.lang-ar .qusBtn {
   float: left;
 }
-
 body.lang-ar body.lang-ar button.refferBtn {
   float: left;
 }
-
 body.lang-ar img.codeScan {
   margin-right: 0;
   margin-left: 15px;
 }
-
 body.lang-ar span.pointsDetails {
   margin-left: auto;
   margin-right: inherit;
@@ -3036,230 +2850,194 @@ body.lang-ar img.rewardStars {
   margin-left: inherit;
   margin-right: auto;
 }
-
 body.lang-ar .addAddress a {
   float: left;
 }
-
 body.lang-ar .cardLogo {
   margin-right: auto;
   margin-left: 0;
 }
-
 body.lang-ar .addressListings {
   margin-left: 15px;
   margin-right: 0;
 }
-
 body.lang-ar .indFields.exp {
   margin-right: 0;
   margin-left: auto;
   width: 53%;
 }
-
 body.lang-ar .indFields.cvv {
   margin-right: auto;
   margin-left: 0;
 }
-
 body.lang-ar span.editAddress {
   right: auto;
   left: 15px;
 }
-
 body.lang-ar span.editAdd {
   margin-left: 10px;
   margin-right: 0;
 }
-
 body.lang-ar .menu-items.cartPopup {
   right: auto !important;
   left: 0;
 }
-
 body.lang-ar .menu-items.cartPopup .rightCheckoutWraper::before {
   left: -11px;
   right: auto;
 }
-
 body.lang-ar .indFields.exp.names {
   margin-left: 10px;
 }
-
 body.lang-ar .cus-img-holder {
   margin-left: 10px;
   margin-right: auto;
 }
-
 body.lang-ar .guestLoginWraper h3 {
   text-align: right;
 }
-
 body.lang-ar span.counterInput {
   margin-right: 2px;
 }
-
 body.lang-ar .errorText {
   text-align: right;
   width: 100%;
 }
-
 body.lang-ar .dropdown.sort-drop .customizeFilterDisplay {
   padding-right: 10px;
-    padding-left: 25px;
-    margin-left: 0;
-    margin-right: 5px;
+  padding-left: 25px;
+  margin-left: 0;
+  margin-right: 5px;
 }
-
 body.lang-ar .indProduct {
-  float:right;
+  float: right;
 }
-
 body.lang-ar .paymentIcons {
   margin-right: 0;
   margin-left: 20px;
 }
-
 body.lang-ar .arrowRight {
   margin-right: auto;
   margin-left: 0;
   transform: rotate(180deg);
 }
-
 body.lang-ar span.subPoints {
-  margin-right:5px;
+  margin-right: 5px;
 }
-
-body.lang-ar span.infoIconWraper{
-  left:auto;
-  right:120px;
+body.lang-ar span.infoIconWraper {
+  left: auto;
+  right: 120px;
 }
-
-body.lang-ar .productOtherInfo.rewardQntyWraper, body.lang-ar  .productOtherInfo.rewardQntyWraper {
- float:right;
+body.lang-ar .productOtherInfo.rewardQntyWraper,
+body.lang-ar .productOtherInfo.rewardQntyWraper {
+  float: right;
 }
-
-body.lang-ar  .tabUl li span img {
+body.lang-ar .tabUl li span img {
   margin-right: auto;
   margin-left: 7px;
 }
-
 body.lang-ar .footerMenu ul li {
   float: right;
 }
-
 body.lang-ar .dropdown.cust-drop ul.customDropdown {
   float: right;
   left: auto;
   margin-left: 0;
   margin-right: 6px;
 }
-
 body.lang-ar .afterBanner {
   text-align: right;
 }
-
-body.lang-ar span.sliderControls{
+body.lang-ar span.sliderControls {
   right: auto;
-    left: 5px;
+  left: 5px;
 }
-
-body.lang-ar .headingsWraper h4{
-  margin-left:0;
-  margin-right:20px;
+body.lang-ar .headingsWraper h4 {
+  margin-left: 0;
+  margin-right: 20px;
 }
-
-body.lang-ar .contentWraper p.subHeads{
+body.lang-ar .contentWraper p.subHeads {
   text-align: right;
 }
-body.lang-ar .contentWraper p{
+body.lang-ar .contentWraper p {
   text-align: right;
 }
-
-body.lang-ar .sliderSection.oneSlider .innerTextWraper p{
+body.lang-ar .sliderSection.oneSlider .innerTextWraper p {
   text-align: right;
 }
-
-body.lang-ar .indPointsMini{
+body.lang-ar .indPointsMini {
   text-align: right;
 }
-
 body.lang-ar .cradelInfoContent {
   text-align: right;
 }
-
-body.lang-ar ul.socialLinks{
+body.lang-ar ul.socialLinks {
   margin-left: 0;
-    margin-right: auto;
+  margin-right: auto;
 }
-
 body.lang-ar .indField i {
   right: 10px;
   left: auto;
 }
-
 body.lang-ar .blocksWraper {
   text-align: right;
 }
-
 body.lang-ar .indBlocksMain {
-    float: right;
+  float: right;
 }
-
 body.lang-ar .blockImgs {
   float: left;
 }
-
 body.lang-ar .subProfileInfo {
   float: right;
   flex-direction: revert;
 }
-
 body.lang-ar p.subParaP {
   text-align: left;
 }
-
 body.lang-ar .favouritetabWraper {
   text-align: right;
 }
-
 body.lang-ar .loader-content span {
-  margin-left:0px;
-  margin-right:5px;
+  margin-left: 0px;
+  margin-right: 5px;
 }
-
 body.lang-ar .sliderWraper.heartsBackdrop::before {
-  right:auto;
-  left:10px;
+  right: auto;
+  left: 10px;
 }
-
 body.lang-ar .sliderSection:after {
   transform: inherit;
 }
-
 body.lang-ar .leftSection {
   float: left;
 }
-
 body.lang-ar span.userPImg {
-  margin-left:20px;
-  margin-right:0px
+  margin-left: 20px;
+  margin-right: 0px;
 }
-
 body.lang-ar span.rightSideImgWraper {
   left: -80px;
 }
-
+body.lang-ar .closeBtn {
+  right: auto;
+  left: 25px;
+}
+body.lang-ar .plusminusholder {
+  right: auto;
+  left: 0;
+}
+body.lang-ar .modalConfirmWraper {
+  justify-content: space-between;
+}
 @media only screen and (max-width: 991px) {
   body.lang-ar .menu,
   body.lang-ar .icon-wrapper.profile {
     margin-left: 5px !important;
   }
-
   .popup-content {
     width: 90%;
   }
-
   body.lang-ar .menu-items.translation {
     left: -72px;
     z-index: 999;
@@ -3290,10 +3068,11 @@ body.lang-ar span.rightSideImgWraper {
   body.lang-ar .addressListings {
     margin-left: 0;
   }
+  body.lang-ar .cartBtnWraper .checkBtn {
+    margin-right: 0px;
+  }
 }
-
 /***************RTL CSS ENDS HERE*****************************/
-
 .footerWraper .rowWraper.firstRow {
   width: 70%;
   border: 0px solid red;
@@ -3304,9 +3083,7 @@ body.lang-ar span.rightSideImgWraper {
   margin: 20px auto;
   display: flex;
   justify-content: space-between;
-
 }
-
 @media only screen and (max-width: 1340px) and (min-width: 1025px) {
   .menu-items.cartPopup {
     left: -235px;
@@ -3318,15 +3095,13 @@ body.lang-ar span.rightSideImgWraper {
     font-size: 16px;
     margin-bottom: 35px;
     padding: 0 15px;
-    font-family: '29LT Bukra Md';
+    font-family: "29LT Bukra Md";
   }
 }
-
 @media only screen and (max-width: 991px) {
   .logoWrapers {
     width: 40%;
   }
-
   .translateWraper {
     width: 35%;
     text-align: center;
@@ -3364,7 +3139,6 @@ body.lang-ar span.rightSideImgWraper {
     float: none;
   }
 }
-
 .cus-img-holder {
   border: 2px solid #fff;
   border-radius: 100%;
@@ -3373,96 +3147,80 @@ body.lang-ar span.rightSideImgWraper {
   height: 40px;
   margin-right: 10px;
 }
-
 .favourite-holder {
   position: relative;
 }
-
 .favourite-holder .loader {
   height: auto;
   position: absolute;
   top: 0;
   margin-top: 9px;
 }
-
 .cartBtnWraper a:last-child {
   margin-left: 15px;
 }
-
 .cartProductListings {
   overflow: auto;
 }
-
 .cartProductListings::-webkit-scrollbar {
   width: 10px;
 }
-
 .cartProductListings::-webkit-scrollbar-track {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   border-radius: 10px;
 }
-
 .cartProductListings::-webkit-scrollbar-thumb {
   background-color: #888;
   border-radius: 10px;
-  border: 2px solid #F5F5F5;
+  border: 2px solid #f5f5f5;
 }
-
 .cartProductListings::-webkit-scrollbar-thumb:hover {
   background-color: #555;
 }
-
 .addressListings::-webkit-scrollbar {
   width: 10px;
 }
-
 .addressListings::-webkit-scrollbar-track {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   border-radius: 10px;
 }
-
 .addressListings::-webkit-scrollbar-thumb {
   background-color: #888;
   border-radius: 10px;
-  border: 2px solid #F5F5F5;
+  border: 2px solid #f5f5f5;
 }
-
 .addressListings::-webkit-scrollbar-thumb:hover {
   background-color: #555;
 }
-
 .cartProductListings {
   scrollbar-width: thin;
-  scrollbar-color: #888 #F5F5F5;
+  scrollbar-color: #888 #f5f5f5;
 }
-
-.dropdown.sort-drop .customizeFilterDisplay{
+.dropdown.sort-drop .customizeFilterDisplay {
   width: auto;
   padding-right: 26px;
   height: auto;
   padding: 8px 12px;
   padding-right: 25px;
-  margin-left:5px;
+  margin-left: 5px;
 }
-
-.dropdown.sort-drop .selectText{
+.dropdown.sort-drop .selectText {
   font-size: 13px;
 }
-
 .dropdown.sort-drop ul.customDropdown li {
   padding: 5px 15px;
 }
-
-.MuiDialogContent-root{
-  width:100% !important;
+.MuiDialogContent-root {
+  width: 100% !important;
 }
-
-.css-gmnm9-MuiFormControl-root{
-  width:100% !important;
+.css-gmnm9-MuiFormControl-root {
+  width: 100% !important;
 }
-
+.pointDislayWraper canvas {
+  height: 350px !important;
+  width: 350px !important;
+}
 /*******************************Profile Responsive************************************/
-
 @media only screen and (max-width: 991px) {
   .dashboardMidContent.profilePages {
     padding: 0 15px;
@@ -3487,7 +3245,7 @@ body.lang-ar span.rightSideImgWraper {
     width: 100%;
   }
   .indProductsWraperLink {
-    width:50%;
+    width: 50%;
   }
   h4.prodFavName,
   span.pointsDetails {
@@ -3514,7 +3272,6 @@ body.lang-ar span.rightSideImgWraper {
     width: 50%;
     min-height: 300px;
   }
-
   .productsRow.listingPages {
     margin-top: 20px;
   }
@@ -3527,155 +3284,153 @@ body.lang-ar span.rightSideImgWraper {
   .toaster.success {
     width: 90%;
   }
-
   .productsDisplayWraper {
     display: flex;
-    flex-direction: row; /* Changed to row to layout items horizontally */
-    flex-wrap: wrap; /* Allow items to wrap to the next row if needed */
+    flex-direction: row;
+    /* Changed to row to layout items horizontally */
+    flex-wrap: wrap;
+    /* Allow items to wrap to the next row if needed */
     align-items: center;
     justify-content: center;
     grid-column-gap: 28px;
     column-gap: 28px;
   }
-
   .indrelatesProduct {
-    flex: 1 1 calc(50% - 28px); /* Adjusted flex-basis to ensure only two items per row, also accounting for the column-gap */
+    flex: 1 1 calc(50% - 28px);
+    /* Adjusted flex-basis to ensure only two items per row, also accounting for the column-gap */
     position: relative;
     text-align: center;
   }
-
   .produtImage {
     height: 200px;
   }
-
   .produtImage img {
     height: 100%;
   }
-
   .cartBtnWraper .pinkBtn {
-    width:auto;
+    width: auto;
     padding: 12px 15px;
   }
 }
-
 @media only screen and (max-width: 380px) {
+  .cart-icon,
+  .icon-wrapper {
+    position: static !important;
+  }
   .menu-items.cartPopup {
-    width: 300px;
-    left: -254px;
+    width: 90%;
+    position: absolute;
+    left: 0 !important;
+    top: 95px;
+    margin: 0 auto;
   }
   body.lang-ar .menu-items.cartPopup {
     left: auto;
-    right: -254px !important;
+    right: 0px !important;
   }
   .tabUl li {
     font-size: 10px;
     padding: 7px 3px;
   }
-  .css-1wof3dh-MuiDialogContent-root{
+  .css-1wof3dh-MuiDialogContent-root {
     width: inherit !important;
   }
-}
-
-@media only screen and (max-width: 767px) {
-  .individualProduct {
-    max-height: 180px;
+  .productPageWraper {
+    padding: 0;
+    padding-bottom: 20px;
   }
-
+  .icon-wrapper.menu {
+    position: relative !important;
+  }
+}
+@media only screen and (max-width: 767px) {
   span.translateNow {
     margin-top: 10px;
     display: inline-block;
   }
-
   .right-icons {
     margin-top: 15px;
   }
-
   .right-icons .menu {
     margin-top: 5px;
   }
-
-  .css-1wof3dh-MuiDialogContent-root{
+  .css-1wof3dh-MuiDialogContent-root {
     width: inherit !important;
     max-width: 100% !important;
   }
-
   .menu-items {
     width: 165px;
   }
-
   .relatedProductWraper .indProduct {
     width: 44%;
   }
-
-  .midSliderWraper .rowSec{
+  .midSliderWraper .rowSec {
     flex-direction: column;
   }
-
   span.rightSideImgWraper {
     left: inherit;
     top: 57px;
   }
-
   .sliderSection.oneSlider .rowSec {
     display: flex;
     flex-direction: column;
   }
-
-  .sliderSection.oneSlider .rowSec .rightSection{
+  .sliderSection.oneSlider .rowSec .rightSection {
     margin-top: 100px;
   }
-
-  body.lang-ar .sliderSection.oneSlider .rowSec .rightSection{
+  body.lang-ar .sliderSection.oneSlider .rowSec .rightSection {
     margin-top: 50px;
   }
-
   .sliderSection.oneSlider .rowSec .leftSection {
     padding: 30px 0 0 0;
   }
-
-  .footerWraper .rowWraper.firstRow{
+  .footerWraper .rowWraper.firstRow {
     flex-direction: column-reverse;
   }
-
   .indBloackContent {
     flex-direction: column;
   }
-
-  .indBlocksMain{
-    width:100%;
+  .indBlocksMain {
+    width: 100%;
+  }
+  .tabUl li {
+    width: 50%;
+  }
+  .toaster {
+    width: 90%;
+  }
+  .pointDislayWraper canvas {
+    height: 300px !important;
+    width: 300px !important;
+    margin: 0 auto;
+  }
+  .individualProduct p {
+    font-size: 16px;
+    margin-top: 0;
   }
 }
-
 @media only screen and (min-width: 768px) and (max-width: 1200px) {
   .individualProduct {
     width: 33%;
   }
-
   span.counterWraper.checkoutcounters {
-    width:120px;
+    width: 120px;
   }
-
   .tabUl {
     width: 370px;
   }
 }
-
 @media only screen and (min-width: 1601px) {
-  .individualProduct {
-    height: 320px;
-  }
   .indProduct {
     min-height: 300px;
   }
 }
-
-@media only screen and (min-width: 1501px) and (max-width: 1601px){
+@media only screen and (min-width: 1501px) and (max-width: 1601px) {
   .indProduct {
     min-height: 300px;
   }
 }
 /* Thanks Page */
-
 .orderDetailsWraper {
   display: flex;
   align-items: center;
@@ -3692,13 +3447,13 @@ body.lang-ar span.rightSideImgWraper {
 span.productOrderInfo {
   margin-left: auto;
   margin-right: auto;
-  text-align:  center;
+  text-align: center;
 }
 span.counterOrdered {
   width: 28px;
   height: 28px;
   padding: 15px;
-  background: #B7864C;
+  background: #b7864c;
   padding: 7px;
   line-height: 12px;
   text-align: center;
@@ -3709,12 +3464,12 @@ span.orderImg {
   height: 52px;
 }
 .grandTotalWraper.rewardSectionsWrapersBig .grandHeading {
-  color: #B7864C;
+  color: #b7864c;
   font-size: 18px;
-  font-weight: 700;;
+  font-weight: 700;
 }
 .grandTotalWraper.rewardSectionsWrapersBig {
-width: 100%;
+  width: 100%;
   float: left;
   display: flex;
   align-items: center;
@@ -3725,14 +3480,14 @@ width: 100%;
 }
 p.thanksP {
   letter-spacing: 0.38px;
-  color: #0D1D29;
+  color: #0d1d29;
   opacity: 1;
   font-size: 16px;
   margin-bottom: 5px;
 }
 h5.thanksPrder {
   letter-spacing: 0px;
-  color: #1A1818;
+  color: #1a1818;
   opacity: 1;
   font-size: 20px;
   margin-bottom: 22px;
@@ -3748,52 +3503,42 @@ p.afterBarCode {
   line-height: 20px;
 }
 /* Thanks Page ends */
-
-
 /***********profile*************/
-
 .date-picker .MuiTextField-root {
-  width:100%;
+  width: 100%;
 }
-
 .date-picker .MuiTextField-root fieldset {
   border: 0;
 }
-
 .date-picker .MuiTextField-root input {
   padding: 0;
   padding-bottom: 20px;
 }
-
 .date-picker .MuiTextField-root button {
   margin-top: -22px;
 }
 /* Profile Responsive */
-
 @media only screen and (max-width: 1365px) {
-
   .profileImgWraper {
     width: 45%;
     text-align: center;
+  }
+  .profilePointWraper {
+    width: 55%;
+  }
 }
-.profilePointWraper {
-  width: 55%;
-}
-}
-
 @media only screen and (max-width: 1210px) {
-
   .profileImgWraper {
     width: 40%;
     text-align: center;
+  }
+  .profilePointWraper {
+    width: 60%;
+  }
 }
-.profilePointWraper {
-  width: 60%;
-}
-}
-
-@media only screen and (max-width: 1130px) and  (min-width: 992px) {
-  .profileRightWraper, .profileSidebarWraper {
+@media only screen and (max-width: 1130px) and (min-width: 992px) {
+  .profileRightWraper,
+  .profileSidebarWraper {
     width: 100%;
   }
   .dashboardMidContent.profilePages {
@@ -3801,22 +3546,21 @@ p.afterBarCode {
   }
 }
 @media only screen and (max-width: 420px) {
-.sideProfileTop {
-flex-direction: column;
+  .sideProfileTop {
+    flex-direction: column;
+  }
+  .profileImgWraper,
+  .profilePointWraper {
+    width: 100%;
+  }
+  img.profileCamel {
+    display: none;
+  }
 }
-.profileImgWraper, .profilePointWraper {
-  width: 100%;
-}
-img.profileCamel {
-  display: none;
-}
-}
-
 .foeldInputs.text-area {
-  width:100%;
-  border:0;
+  width: 100%;
+  border: 0;
 }
-
 select.foeldInputs {
   width: 100%;
   border: 0;
@@ -3824,7 +3568,7 @@ select.foeldInputs {
 img.circleBack {
   width: 202px;
 }
-@media only screen and (max-width: 720px) { 
+@media only screen and (max-width: 720px) {
   .inlineOptions {
     font-size: 12px;
   }
@@ -3833,341 +3577,319 @@ img.circleBack {
   }
   span.optionsInline {
     width: 100%;
+  }
+  .inlineOptions {
+    font-size: 12px;
+    flex-direction: column;
+  }
+  .inlineOptions label.fieldLabel {
+    width: 100%;
+    margin: 0 0 15px 0;
+  }
+  span.optionsInline {
+    width: 100% !important;
+  }
+  label {
+    margin-right: 7px;
+  }
+  .switch {
+    margin-right: 6px;
+  }
+  .pointTabWraper {
+    padding: 20px 10px;
+  }
+  .refferWraper {
+    padding: 20px 12px;
+  }
+  body.lang-ar span.addBtnWraper {
+    margin-left: unset;
+  }
+  body.lang-ar span.delBtnWraper {
+    margin-right: unset;
+    margin-left: auto;
+  }
 }
-.inlineOptions {
-  font-size: 12px;
-  flex-direction: column;
-}
-.inlineOptions label.fieldLabel {
-  width: 100%;
-  margin: 0 0 15px 0;
-}
-span.optionsInline {
-  width: 100%!important;
-}
-label {
-  margin-right: 7px;
-}
-.switch {
-  margin-right: 6px;
-}
-.pointTabWraper {
-  padding: 20px 10px;
-}
-.refferWraper {
-padding: 20px 12px; 
-}
-body.lang-ar span.addBtnWraper {
-margin-left: unset;
-}
-body.lang-ar span.delBtnWraper {
-  margin-right: unset;
-  margin-left: auto;
-}
-}
-
 .profileImg .loader {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
 ul.profileRouts li.activated a span.nameLink {
-  color: #B7864C;
-  font-family: '29LT Bukra';
+  color: #b7864c;
+  font-family: "29LT Bukra";
 }
-
 .dropdown.cust-drop {
-  position:relative;
+  position: relative;
   width: 370px;
 }
-
 .dropdown.cust-drop ul.customDropdown {
-    position: relative !important;
-    top: 4px;
-    width: 98%;
-    margin-left: 6px;
+  position: relative !important;
+  top: 4px;
+  width: 98%;
+  margin-left: 6px;
 }
-
-.css-1e6y48t-MuiButtonBase-root-MuiButton-root, .css-1e6y48t-MuiButtonBase-root-MuiButton-root{
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root,
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
   color: #b7864c !important;
-} 
-
-
+}
 @media only screen and (min-width: 992px) {
-.mobileView {
-  display: none;
+  .mobileView {
+    display: none;
+  }
+  .pointsListings {
+    width: 45%;
+    margin-left: auto;
+  }
+  body.lang-ar .pointsListings {
+    width: 45%;
+    margin-left: unset;
+    margin-right: auto;
+  }
 }
-
-.pointsListings {
-  width: 45%;
-  margin-left: auto;
-}
-
-body.lang-ar .pointsListings {
-  width: 45%;
-  margin-left: unset;
-  margin-right: auto;
-}
-
-}
-
 @media only screen and (max-width: 991px) {
-
-.desktopView {
-  display: none!important;
-}
-.mobileView {
-  display: block;
-}
-.qntyWrapers.mobileView {
-  display: flex;
-  margin: 0 20px;
+  .desktopView {
+    display: none !important;
+  }
+  .mobileView {
+    display: block;
+  }
+  .qntyWrapers.mobileView {
+    display: flex;
+    margin: 0 20px;
     width: 88%;
+  }
+  span.delBtnWraper.customs {
+    width: 70px;
+  }
+  span.addBtnWraper.customs.mobileView {
+    width: 70px;
+  }
+  .pointsListings {
+    width: 100%;
+    margin-left: unset;
+  }
+  body.lang-ar .pointsListings {
+    width: 100%;
+    margin-left: unset;
+    margin-right: unset;
+  }
 }
-span.delBtnWraper.customs {
-  width: 70px;
-}
-span.addBtnWraper.customs.mobileView {
-  width: 70px;
-}
-.pointsListings {
-  width: 100%;
-  margin-left: unset;
-}
-
-body.lang-ar .pointsListings {
-  width: 100%;
-  margin-left: unset;
-  margin-right: unset;
-}
-}
-
 .formFieldsInputTextarea {
-  width:100%;
+  width: 100%;
 }
-
-
-
 body.lang-ar ul.pointListUl li {
   flex-direction: row-reverse;
 }
-
 body.lang-ar span.pointListIcons {
-  margin-left: unset!important;
-  margin-right: 20px!important;
+  margin-left: unset !important;
+  margin-right: 20px !important;
 }
-
-.pointDislayWraper canvas {
-  height: 350px !important;
-  width: 350px !important;
-}
-
 .no-click {
   pointer-events: none;
   opacity: 0.5;
-
-
 }
-
-
-@media only screen and (max-width: 1150px) { 
-
+@media only screen and (max-width: 1150px) {
   span.slideMainBtnLeft {
     position: absolute;
     left: -40px;
     top: 38%;
+  }
+  img.slideBtns {
+    width: 47px;
+  }
+  span.slideMainBtnRight {
+    position: absolute;
+    right: -40px;
+    top: 38%;
+  }
+  span.profileImgs.fourth::before,
+  span.profileImgs.fifth::after {
+    display: none;
+  }
+  span.profileImgs.fourth,
+  span.profileImgs.second {
+    padding-top: 20px;
+  }
+  span.profileImgs.fifth {
+    padding-bottom: 20px;
+  }
+  span.profileImgs.third {
+    padding-bottom: 20px;
+  }
+  span.profileImgs.first {
+    padding-bottom: 20px;
+  }
+  ul.tabUlWrapers li {
+    font-size: 22px !important;
+  }
+  .cradleSectionMain {
+    padding-top: 10px;
+  }
+  .blocksWraper h3,
+  .cradelInfoContent h3,
+  .indPointsMini h3 {
+    font-size: 22px !important;
+  }
+  .rowSec {
+    margin: 25px auto;
+  }
+  .indPointsMini p {
+    font-size: 14px;
+  }
+  .sliderSection:after {
+    height: 125px !important;
+  }
+  .afterBanner.center .afterBannerCenterTextWraper p {
+    font-size: 18px;
+  }
+  .afterBanner.center .afterBannerCenterTextWraper h4 {
+    font-size: 45px;
+  }
+  .afterBanner.right .afterBannerTextWraper p,
+  .afterBanner.left .afterBannerTextWraper p {
+    font-size: 18px;
+  }
+  .afterBanner.right .afterBannerTextWraper h4,
+  .afterBanner.right .afterBannerTextWraper h5,
+  .afterBanner.left .afterBannerTextWraper h4,
+  .afterBanner.left .afterBannerTextWraper h5,
+  .afterBanner.left .afterBannerTextWraper h6 {
+    font-size: 30px;
+  }
+  .bannertextWraper p {
+    margin-bottom: 18px;
+  }
+  .sliderSection.oneSlider
+    .rowSec
+    .rightSection
+    .innerTextWraper
+    .headingsWraper
+    h4 {
+    font-size: 28px;
+  }
+  .headingsWraper h4,
+  span.userPinfo h4 {
+    font-size: 22px;
+  }
+  .contentWraper p,
+  span.subText,
+  span.headingContents p {
+    font-size: 14px;
+  }
+  span.userPinfo p {
+    font-size: 12px;
+  }
+  .productInfoDetails h5 {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  .productInfoDetails p {
+    font-size: 12px;
+  }
+  .relatedProductWraper {
+    padding-bottom: 0;
+  }
+  .menu-items.cartPopup h5.indCartProductName {
+    font-size: 11px;
+  }
+  .menu-items.cartPopup p.productPriceInd {
+    font-size: 10px;
+  }
+  .menu-items.cartPopup p.productPriceInd span,
+  p.productPriceInd {
+    font-size: 12px;
+  }
+  .grandTotalWraper.rewardSectionsWrapers span.grandHeading,
+  h5.indCartProductName,
+  p.productPriceInd span {
+    font-size: 14px;
+  }
+  .cartBtnWraper a:last-child {
+    margin-left: 0px;
+    margin-top: 10px;
+  }
+  .cartBtnWraper {
+    flex-direction: column;
+  }
+  .cartBtnWraper a {
+    width: 100%;
+  }
+  .cartBtnWraper a button {
+    width: 100% !important;
+  }
+  .midCartDetailsEdit {
+    padding: 0px 10px;
+  }
+  .midCheckoutWraper {
+    padding-top: 35px;
+    padding-bottom: 10px;
+  }
+  .paymentWraper h3,
+  .checkoutProductHeading {
+    font-size: 18px;
+  }
+  .checkoutProductHeading {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+  }
 }
-img.slideBtns {
-  width: 47px;
-}
-span.slideMainBtnRight {
-  position: absolute;
-  right: -40px;
-  top: 38%;
-}
-span.profileImgs.fourth::before, span.profileImgs.fifth::after {
-  display: none;
-}
-span.profileImgs.fourth, span.profileImgs.second {
-  padding-top: 20px;
-}
-span.profileImgs.fifth {
-  padding-bottom: 20px;
-}
-span.profileImgs.third {
-  padding-bottom: 20px;
-}
-span.profileImgs.first {
-  padding-bottom: 20px;
-}
-ul.tabUlWrapers li {
-  font-size: 22px!important;
-} 
-.cradleSectionMain {
-  padding-top: 10px;
-}
-.blocksWraper h3, .cradelInfoContent h3, .indPointsMini h3 {
-  font-size: 22px!important;
-}
-.rowSec {
-  margin: 25px auto;
-}
-.indPointsMini p {
-  font-size: 14px;
-}
-.sliderSection:after {
-  height: 125px!important;
-}
-.afterBanner.center .afterBannerCenterTextWraper p {
-  font-size: 18px;
-}
-.afterBanner.center .afterBannerCenterTextWraper h4 {
-  font-size: 45px;
-}
-.afterBanner.right .afterBannerTextWraper p, .afterBanner.left .afterBannerTextWraper p {
-  font-size: 18px;
-}
-.afterBanner.right .afterBannerTextWraper h4, .afterBanner.right .afterBannerTextWraper h5, .afterBanner.left .afterBannerTextWraper h4, .afterBanner.left .afterBannerTextWraper h5, .afterBanner.left .afterBannerTextWraper h6 {
-  font-size: 30px;
-}
-.bannertextWraper p {
-  margin-bottom: 18px;
-}
-.sliderSection.oneSlider .rowSec .rightSection .innerTextWraper .headingsWraper h4 {
-  font-size: 28px;
-}
-.headingsWraper h4, span.userPinfo h4 {
-  font-size: 22px;
-}
-.contentWraper p, span.subText, span.headingContents p {
-  font-size: 14px;
-}
-span.userPinfo p {
-  font-size: 12px;
-}
-.productInfoDetails h5 {
-  font-size: 14px;
-  margin-top: 10px;
-}
-.productInfoDetails p {
-  font-size: 12px;
-}
-.relatedProductWraper {
-  padding-bottom: 0;
-}
-.menu-items.cartPopup h5.indCartProductName {
-  font-size: 11px;
-}
-.menu-items.cartPopup p.productPriceInd {
-  font-size: 10px;
-}
-.menu-items.cartPopup p.productPriceInd span, p.productPriceInd {
-  font-size: 12px;
-}
-.grandTotalWraper.rewardSectionsWrapers span.grandHeading, h5.indCartProductName, p.productPriceInd span {
-  font-size: 14px;
-}
-.cartBtnWraper a:last-child {
-  margin-left: 0px;
-  margin-top: 10px;
-}
-.cartBtnWraper {
-  flex-direction: column;
-}
-.cartBtnWraper a {
-  width: 100%;
-}
-.cartBtnWraper a button {
-  width: 100%!important;
-} 
-.midCartDetailsEdit {
-  padding: 0px 10px;
-}
-.midCheckoutWraper {
-  padding-top: 35px;
-  padding-bottom: 10px;
-}
-.paymentWraper h3, .checkoutProductHeading {
-  font-size: 18px;
-}
-.checkoutProductHeading {
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-}
-
-}
-
 ::-webkit-scrollbar {
   width: 10px;
 }
-
 ::-webkit-scrollbar-track {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb {
   background-color: #888;
   border-radius: 10px;
-  border: 2px solid #F5F5F5;
+  border: 2px solid #f5f5f5;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background-color: #555;
 }
-
 .confirm-agree-button {
   background-color: #000 !important;
   color: #fff !important;
 }
-
 .input-wrapper {
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
   width: 49.5%;
 }
-
 .sortFieldInput {
   justify-content: space-between;
 }
-
 .input-wrapper .indFields {
-  width:100% !important;
+  width: 100% !important;
 }
-
 .input-wrapper.contact {
   width: 100%;
 }
-
 .loader-content span {
-  margin-left:5px;
+  margin-left: 5px;
 }
-
 .productsDisplayWraper.extraProducts {
   justify-content: flex-start;
 }
-
 .noProduct.relateed {
   padding: 50px 0 0 0 !important;
   height: 200px;
 }
-
 button.submitpopup.conformPop {
   width: 45%;
   margin-right: auto;
   margin-bottom: 0;
 }
-
 button.cancelPopup {
   width: 45%;
   background: #ca552edc;
-    border: none;
-    padding: 12px;
-    color: #fff;
-    border-radius: 10px;
-    margin-top: 5px;
+  border: none;
+  padding: 12px;
+  color: #fff;
+  border-radius: 10px;
+  margin-top: 5px;
   margin-left: auto;
 }
 .modalConfirmWraper {
@@ -4176,8 +3898,32 @@ button.cancelPopup {
   align-items: center;
   float: left;
 }
-
 img.cartDeleteIcon {
   width: 60px;
   margin: 0 0 15px 0;
+}
+.tap-payment-btn {
+  background: #b8864c;
+  border: 0;
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 15px;
+  color: #fff;
+  border-radius: 25px;
+}
+.headerWrapers {
+  width: 100%;
+  float: left;
+  display: flex;
+  align-items: center;
+  background: transparent
+    linear-gradient(
+      180deg,
+      rgb(183 134 76 / 60%) 0%,
+      rgba(222, 200, 174, 0.45) 71%,
+      rgba(253, 253, 253, 0) 100%
+    )
+    0% 0% no-repeat padding-box;
+  opacity: 1;
+  padding: 35px 55px;
 }

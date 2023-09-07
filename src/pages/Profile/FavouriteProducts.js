@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/common/layout/Header/Header";
 import Footer from "../../components/common/layout/Footer";
@@ -12,6 +12,7 @@ import {
 } from "../../api/customer";
 import Loader from "../../components/common/Loader/Loader";
 import productInd from "../../assets/images/pr1.png";
+import i18next from "i18next";
 
 const FavouriteProducts = () => {
   const { t } = useTranslation();
@@ -23,26 +24,33 @@ const FavouriteProducts = () => {
     customerFavourite();
   }, []);
 
-  const handleFavouriteDelete = async (e,index,favourite) => {
+  useEffect(() => {
+    customerFavourite();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [i18next.language]);
+
+  const handleFavouriteDelete = async (e, index, favourite) => {
     e.preventDefault();
-    setFavouritingProduct(prev => new Set([...prev, favourite.id]));
+    setFavouritingProduct((prev) => new Set([...prev, favourite.id]));
     try {
       const response = await deleteCustomerFavourite(favourite.id);
       if (response) {
-        const updatedFavourites = [...favourites.slice(0, index), ...favourites.slice(index + 1)];
+        const updatedFavourites = [
+          ...favourites.slice(0, index),
+          ...favourites.slice(index + 1),
+        ];
         setFavourites(updatedFavourites);
       }
     } catch (error) {
       console.error("Error fetching favourite producucts:", error);
-    }
-    finally {
-      setFavouritingProduct(prev => {
+    } finally {
+      setFavouritingProduct((prev) => {
         const newSet = new Set([...prev]);
         newSet.delete(favourite.id);
         return newSet;
       });
     }
-  }  
+  };
 
   const customerFavourite = async () => {
     setIsLoading(true);
@@ -50,7 +58,7 @@ const FavouriteProducts = () => {
       const response = await getCusertomerFavourite();
       if (response) {
         setIsLoading(false);
-        setFavourites(response)
+        setFavourites(response);
       }
     } catch (error) {
       console.error("Error fetching favourite producucts:", error);
@@ -67,34 +75,58 @@ const FavouriteProducts = () => {
             <div className="pointTabWraper">
               <div className="favouriteTabs">
                 <div className="favouritetabWraper">
-                  <Link to="/profile/favourite-product" className="profileLinksTag">
+                  <Link
+                    to="/profile/favourite-product"
+                    className="profileLinksTag"
+                  >
                     {" "}
                     <span className="activates">{t("Favorite Products")}</span>
                   </Link>
                 </div>
               </div>
-              <div className="tabContents">
+              <div className="tabContents fabcontent">
                 {isLoading ? (
                   <Loader
                     showOverlay={false}
                     size={25}
                     color="#B7854C"
-                    isLoading={false}  // this might be redundant if you are already checking isLoading outside
+                    isLoading={false} // this might be redundant if you are already checking isLoading outside
+                    showImg={true}
                   />
+                ) : favourites.length === 0 ? (
+                  <p className="noRecords">
+                    {t("You don’t have favorite product yet")}
+                  </p>
                 ) : (
-                  favourites.length === 0 ? (
-                    <p className="noRecords">
-                      {t("You don’t have favorite product yet")}
-                    </p>
-                  ) : (
-                    favourites.map((favourite,index) => (
-                      <Link to={`/product/${favourite.product.productId}`} className="indProductsWraperLink">
-                        <div className="indProductsWraper" key={favourite.id /* assuming each favourite has a unique id */}>
-                          <div className="imagePrd">
-                            <img src={favourite.product.image ? `data:image/png;base64,${favourite.product.image}` : productInd} alt="" />
-                            <span className="likeProducts">
-                              <img src={heart} alt=""  onClick={(e) => handleFavouriteDelete(e,index,favourite)}/>
-                              {favouritingProduct.has(favourite.id) && (
+                  favourites.map((favourite, index) => (
+                    <Link
+                      to={`/product/${favourite.product.productId}`}
+                      className="indProductsWraperLink"
+                    >
+                      <div
+                        className="indProductsWraper"
+                        key={
+                          favourite.id /* assuming each favourite has a unique id */
+                        }
+                      >
+                        <div className="imagePrd">
+                          <img
+                            src={
+                              favourite.product.image
+                                ? `data:image/png;base64,${favourite.product.image}`
+                                : productInd
+                            }
+                            alt=""
+                          />
+                          <span className="likeProducts">
+                            <img
+                              src={heart}
+                              alt=""
+                              onClick={(e) =>
+                                handleFavouriteDelete(e, index, favourite)
+                              }
+                            />
+                            {favouritingProduct.has(favourite.id) && (
                               <Loader
                                 showOverlay={false}
                                 size={10}
@@ -102,19 +134,22 @@ const FavouriteProducts = () => {
                                 isLoading={false}
                               />
                             )}
-                            </span>
-                          </div>
-                          <h4 className="prodFavName">{favourite.product.name }</h4>
-                          <div className="pointsWraperInd">
-                            <img src={rewards} className="rewardStars" alt="" />
-                            <span className="pointsDetails">
-                              <b>+{favourite.product.rewards} {t("POINTS")}</b>
-                            </span>
-                          </div>
+                          </span>
                         </div>
-                      </Link>
-                    ))
-                  )
+                        <h4 className="prodFavName">
+                          {favourite.product.name}
+                        </h4>
+                        <div className="pointsWraperInd">
+                          <img src={rewards} className="rewardStars" alt="" />
+                          <span className="pointsDetails">
+                            <b>
+                              +{favourite.product.rewards} {t("POINTS")}
+                            </b>
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))
                 )}
               </div>
             </div>

@@ -1,8 +1,5 @@
-import { fetchData } from './apiClient';
+import { fetchData } from "./apiClient";
 
 export function fetchCategories() {
-    return fetchData('catalog/nested_categories');
+  return fetchData("catalog/nested_categories");
 }
-
-
-

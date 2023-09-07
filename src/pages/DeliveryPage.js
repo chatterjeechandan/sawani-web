@@ -56,7 +56,7 @@ const DeliveryPage = () => {
               >
                 <span>
                   <img src={tab2} alt="" />
-                </span>                
+                </span>
                 {t("Pick up")}
               </li>
               <li
@@ -65,7 +65,7 @@ const DeliveryPage = () => {
               >
                 <span>
                   <img src={tab3} alt="" />
-                </span>                
+                </span>
                 {t("Delivery")}
               </li>
             </ul>

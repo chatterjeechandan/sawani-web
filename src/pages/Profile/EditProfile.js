@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Header from "../../components/common/layout/Header/Header";
 import Footer from "../../components/common/layout/Footer";
 import ProfileSidebar from "./ProfileSidebar";
@@ -6,13 +6,13 @@ import { useTranslation } from "react-i18next";
 import { AuthContext } from "../../utils/AuthContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {updateProfile } from "../../api/customer";
+import { updateProfile } from "../../api/customer";
 import Loader from "../../components/common/Loader/Loader";
 import Toaster from "../../components/common/Toaster/Toaster";
 import { resetPassword } from "../../api/auth";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLock } from '@fortawesome/free-solid-svg-icons';
-import { faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 
 const EditProfile = () => {
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ const EditProfile = () => {
     emailNotification: false,
     textNotification: false,
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [toaster, setToaster] = useState(null);
@@ -45,22 +45,20 @@ const EditProfile = () => {
         emailNotification: loginResponse.emailNotification || false,
         textNotification: loginResponse.textNotification || false,
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
       }));
     }
   }, [loginResponse]);
-
 
   const validateName = (nameValue) => {
     const newErrors = {};
     if (!nameValue) {
       newErrors.fullName = "Full Name is required";
-    }
-    else {
+    } else {
       newErrors.fullName = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.fullName ===''?true:false;
+    return newErrors.fullName === "" ? true : false;
   };
 
   const validatePhone = (phoneValue) => {
@@ -69,13 +67,13 @@ const EditProfile = () => {
     if (!phoneValue) {
       newErrors.phoneNumber = "Phone Number is required";
     } else if (!phoneValue.match(mobileFormat)) {
-      newErrors.phoneNumber = "Invalid mobile number format. Expected format: 9665XXXXXXXX where X is a digit.";
-    }
-    else {
+      newErrors.phoneNumber =
+        "Invalid mobile number format. Expected format: 9665XXXXXXXX where X is a digit.";
+    } else {
       newErrors.phoneNumber = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.phoneNumber ===''?true:false;
+    return newErrors.phoneNumber === "" ? true : false;
   };
 
   const validateEmail = (emailValue) => {
@@ -85,25 +83,27 @@ const EditProfile = () => {
       newErrors.email = "Email is required";
     } else if (emailValue && !emailFormat.test(emailValue)) {
       newErrors.email = "Invalid Email Address";
-    }else {
+    } else {
       newErrors.email = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.email ===''?true:false;
+    return newErrors.email === "" ? true : false;
   };
 
   const validatePassword = (passwordValue) => {
     const newErrors = {};
-    const passwordFormat = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,}$/;
+    const passwordFormat =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,}$/;
     if (!passwordValue) {
       newErrors.password = "Password is required";
     } else if (passwordValue && !passwordFormat.test(passwordValue)) {
-      newErrors.password =  "Password must contain at least 8 characters, including lowercase and uppercase letters, numbers, and special characters";
-    }else {
+      newErrors.password =
+        "Password must contain at least 8 characters, including lowercase and uppercase letters, numbers, and special characters";
+    } else {
       newErrors.password = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.password ===''?true:false;
+    return newErrors.password === "" ? true : false;
   };
 
   const validateConfirmPassword = (confirmPasswordValue) => {
@@ -112,11 +112,11 @@ const EditProfile = () => {
       newErrors.confirmPassword = "Confirm Password is required";
     } else if (confirmPasswordValue !== userInfo.password) {
       newErrors.confirmPassword = "Passwords do not match";
-    }else {
+    } else {
       newErrors.confirmPassword = "";
     }
     setErrors((prevErrors) => ({ ...prevErrors, ...newErrors }));
-    return newErrors.confirmPassword ===''?true:false;
+    return newErrors.confirmPassword === "" ? true : false;
   };
 
   const handleInputChange = (event) => {
@@ -133,60 +133,63 @@ const EditProfile = () => {
       validatePassword(newValue);
     } else if (name === "confirmPassword") {
       validateConfirmPassword(newValue);
-    }    
+    }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const isNameValid = validateName(userInfo.fullName);
     const isPhoneValid = validatePhone(userInfo.phoneNumber);
-    const isEmailValid = validateEmail(userInfo.email);    
-    const isPasswordValid = showPasswordFields ? validatePassword(userInfo.password) && validateConfirmPassword(userInfo.confirmPassword) : true;
+    const isEmailValid = validateEmail(userInfo.email);
+    const isPasswordValid = showPasswordFields
+      ? validatePassword(userInfo.password) &&
+        validateConfirmPassword(userInfo.confirmPassword)
+      : true;
     if (isNameValid && isPhoneValid && isEmailValid && isPasswordValid) {
       updateCustProfile();
     }
   };
 
-  const updateCustProfile = async () => {    
+  const updateCustProfile = async () => {
     setIsLoading(true);
-      try {
-        const updatedUserObject = removeBlankProperties(userInfo);
-        const response = await updateProfile(updatedUserObject);
-        if (response.succeeded) {
-          if(showPasswordFields){
-            const passwordUpdatePayoad = {
-              "otp": "123456",
-              "mobile": updatedUserObject.phoneNumber,
-              "password": updatedUserObject.password
-            };
-            await resetPassword(passwordUpdatePayoad);
-          }
-          setIsLoading(false);
-          setToaster({
-            type: "success",
-            message: t('Profile updated successfully!'),
-            duration: 3000,
-          });
-          setTimeout(() => {
-            const userInfo = {...loginResponse,...response.data}
-            const { password, ...userInfoWithoutPassword } = userInfo;        
-            setLoginResponse(userInfoWithoutPassword);
-          }, 1000);          
-        } else {
-          setIsLoading(false);
-          Object.values(response.errors).forEach((errorArray) => {
-            errorArray.forEach((errorMessage) => {
-              setToaster({
-                type: "error",
-                message: errorMessage,
-                duration: 3000,
-              });
+    try {
+      const updatedUserObject = removeBlankProperties(userInfo);
+      const response = await updateProfile(updatedUserObject);
+      if (response.succeeded) {
+        if (showPasswordFields) {
+          const passwordUpdatePayoad = {
+            otp: "123456",
+            mobile: updatedUserObject.phoneNumber,
+            password: updatedUserObject.password,
+          };
+          await resetPassword(passwordUpdatePayoad);
+        }
+        setIsLoading(false);
+        setToaster({
+          type: "success",
+          message: t("Profile updated successfully!"),
+          duration: 3000,
+        });
+        setTimeout(() => {
+          const userInfo = { ...loginResponse, ...response.data };
+          const { password, ...userInfoWithoutPassword } = userInfo;
+          setLoginResponse(userInfoWithoutPassword);
+        }, 1000);
+      } else {
+        setIsLoading(false);
+        Object.values(response.errors).forEach((errorArray) => {
+          errorArray.forEach((errorMessage) => {
+            setToaster({
+              type: "error",
+              message: errorMessage,
+              duration: 3000,
             });
           });
-        }
-      } catch (error) {
-        console.error("Error fetching favourite producucts:", error);
+        });
       }
+    } catch (error) {
+      console.error("Error fetching favourite producucts:", error);
+    }
   };
 
   const removeBlankProperties = (obj) => {
@@ -201,22 +204,34 @@ const EditProfile = () => {
 
   const setDob = (date) => {
     // eslint-disable-next-line no-useless-computed-key
-    setUserInfo((prevUserInfo) => ({ ...prevUserInfo, ['dob']: date }));
+    setUserInfo((prevUserInfo) => ({ ...prevUserInfo, ["dob"]: date }));
   };
 
   const handleGenderChange = (event) => {
     // eslint-disable-next-line no-useless-computed-key
-    setUserInfo((prevUserInfo) => ({ ...prevUserInfo, ['gender']: event.target.value }));
+    setUserInfo((prevUserInfo) => ({
+      ...prevUserInfo,
+      // eslint-disable-next-line no-useless-computed-key
+      ["gender"]: event.target.value,
+    }));
   };
 
   const handleEmailNotificationChange = (event) => {
     // eslint-disable-next-line no-useless-computed-key
-    setUserInfo((prevUserInfo) => ({ ...prevUserInfo, ['emailNotification']: !userInfo.emailNotification }));
+    setUserInfo((prevUserInfo) => ({
+      ...prevUserInfo,
+      // eslint-disable-next-line no-useless-computed-key
+      ["emailNotification"]: !userInfo.emailNotification,
+    }));
   };
 
   const handleTextNotificationChange = (event) => {
     // eslint-disable-next-line no-useless-computed-key
-    setUserInfo((prevUserInfo) => ({ ...prevUserInfo, ['textNotification']: !userInfo.textNotification }));
+    setUserInfo((prevUserInfo) => ({
+      ...prevUserInfo,
+      // eslint-disable-next-line no-useless-computed-key
+      ["textNotification"]: !userInfo.textNotification,
+    }));
   };
 
   const handleToasterClose = () => {
@@ -263,14 +278,14 @@ const EditProfile = () => {
     <>
       <Header />
       <div className="dashboardMidContent profilePages">
-      {toaster && (
-        <Toaster
-          type={toaster.type}
-          message={toaster.message}
-          duration={toaster.duration}
-          onClose={handleToasterClose}
-        />
-      )}
+        {toaster && (
+          <Toaster
+            type={toaster.type}
+            message={toaster.message}
+            duration={toaster.duration}
+            onClose={handleToasterClose}
+          />
+        )}
         <ProfileSidebar />
         <div className="profileRightWraper">
           <div className="pointAnalysisWraper">
@@ -290,29 +305,29 @@ const EditProfile = () => {
                   />
                 </div>
                 {errors.fullName && (
-                    <p className="errorText">{errors.fullName}</p>
+                  <p className="errorText">{errors.fullName}</p>
                 )}
                 <div className="indFields">
-                    <label className="fieldLabel">{t("Phone Number")} *</label>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <input
-                            className="foeldInputs"
-                            type="text"
-                            placeholder={t("Enter Phone Number")}
-                            name="phoneNumber"
-                            value={userInfo.phoneNumber}
-                            onChange={handleInputChange}
-                            readOnly
-                        />
-                        <FontAwesomeIcon 
-                            icon={faLock} 
-                            style={{ 
-                                marginLeft: '10px', 
-                                fontSize: '19px', 
-                                marginTop: '-17px' 
-                            }} 
-                        />
-                    </div>
+                  <label className="fieldLabel">{t("Phone Number")} *</label>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <input
+                      className="foeldInputs"
+                      type="text"
+                      placeholder={t("Enter Phone Number")}
+                      name="phoneNumber"
+                      value={userInfo.phoneNumber}
+                      onChange={handleInputChange}
+                      readOnly
+                    />
+                    <FontAwesomeIcon
+                      icon={faLock}
+                      style={{
+                        marginLeft: "10px",
+                        fontSize: "19px",
+                        marginTop: "-17px",
+                      }}
+                    />
+                  </div>
                 </div>
                 {errors.phoneNumber && (
                   <p className="errorText">{errors.phoneNumber}</p>
@@ -328,81 +343,90 @@ const EditProfile = () => {
                     onChange={handleInputChange}
                   />
                 </div>
-                {errors.email && (
-                    <p className="errorText">{errors.email}</p>
-                )}
+                {errors.email && <p className="errorText">{errors.email}</p>}
                 <div className="indFields date-picker">
-                  <label className="fieldLabel">{t("Date of Birth")}</label> 
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <DatePicker
-                    renderCustomHeader={({
-                      date,
-                      changeYear,
-                      changeMonth,
-                      decreaseMonth,
-                      increaseMonth,
-                      prevMonthButtonDisabled,
-                      nextMonthButtonDisabled,
-                    }) => (
-                      <div
-                        style={{
-                          margin: 10,
-                          display: "flex",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
-                          {"<"}
-                        </button>
-                        <select
-                          value={getYear(date)}
-                          onChange={({ target: { value } }) => changeYear(value)}
+                  <label className="fieldLabel">{t("Date of Birth")}</label>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <DatePicker
+                      renderCustomHeader={({
+                        date,
+                        changeYear,
+                        changeMonth,
+                        decreaseMonth,
+                        increaseMonth,
+                        prevMonthButtonDisabled,
+                        nextMonthButtonDisabled,
+                      }) => (
+                        <div
+                          style={{
+                            margin: 10,
+                            display: "flex",
+                            justifyContent: "center",
+                          }}
                         >
-                          {years.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
+                          <button
+                            onClick={decreaseMonth}
+                            disabled={prevMonthButtonDisabled}
+                          >
+                            {"<"}
+                          </button>
+                          <select
+                            value={getYear(date)}
+                            onChange={({ target: { value } }) =>
+                              changeYear(value)
+                            }
+                          >
+                            {years.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
 
-                        <select
-                          value={months[getMonth(date)]}
-                          onChange={({ target: { value } }) =>
-                            changeMonth(months.indexOf(value))
-                          }
-                        >
-                          {months.map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
+                          <select
+                            value={months[getMonth(date)]}
+                            onChange={({ target: { value } }) =>
+                              changeMonth(months.indexOf(value))
+                            }
+                          >
+                            {months.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
 
-                        <button onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
-                          {">"}
-                        </button>
-                      </div>
-                    )}
-                    selected={userInfo.dob ? new Date(userInfo.dob) : null} 
-                    onChange={(date) => setDob(date)} 
-                    className="foeldInputs"
-                    maxDate={new Date()}  
-                  />            
-                
-                  <FontAwesomeIcon 
-                      icon={faCalendar} 
-                      style={{ 
-                          marginLeft: '10px', 
-                          fontSize: '19px', 
-                          marginTop: '-17px' 
+                          <button
+                            onClick={increaseMonth}
+                            disabled={nextMonthButtonDisabled}
+                          >
+                            {">"}
+                          </button>
+                        </div>
+                      )}
+                      selected={userInfo.dob ? new Date(userInfo.dob) : null}
+                      onChange={(date) => setDob(date)}
+                      className="foeldInputs"
+                      maxDate={new Date()}
+                    />
+
+                    <FontAwesomeIcon
+                      icon={faCalendar}
+                      style={{
+                        marginLeft: "10px",
+                        fontSize: "19px",
+                        marginTop: "-17px",
                       }}
-                  />
+                    />
+                  </div>
                 </div>
-                
-                </div>
-                {errors.dob && (
-                    <p className="errorText">{errors.dob}</p>
-                  )}
+                {errors.dob && <p className="errorText">{errors.dob}</p>}
                 <div className="indFields">
                   <div className="inlineOptions">
                     <label className="fieldLabel">{t("Gender")}</label>
@@ -427,40 +451,40 @@ const EditProfile = () => {
                         onChange={handleGenderChange}
                       />
                         <label for="Female">{t("Female")}</label>
-                    </span>                    
+                    </span>
                   </div>
                 </div>
-                {errors.gender && (
-                      <p className="errorText">{errors.gender}</p>
-                    )}
+                {errors.gender && <p className="errorText">{errors.gender}</p>}
                 <div className="indFields">
                   <div className="inlineOptions">
                     <label className="fieldLabel switchOptions">
                       {t("I would like to receive")} <br /> {t("Notifications")}
                     </label>
                     <span className="optionsInline">
-                    <label className="switch">
-                      <input
-                        type="checkbox"
-                        checked={userInfo.emailNotification}
-                        onChange={handleEmailNotificationChange}
-                      />
-                      <span className="slider round"></span>
-                    </label>
-                    <label htmlFor="Male">{t("Email")}</label>{" "}
-                    <label className="switch">
-                      <input
-                        type="checkbox"
-                        checked={userInfo.textNotification}
-                        onChange={handleTextNotificationChange}
-                      />
-                      <span className="slider round"></span>
-                    </label>
-                    <label htmlFor="Female">{t("Text Messages")}</label>
-                  </span>
+                      <label className="switch">
+                        <input
+                          type="checkbox"
+                          checked={userInfo.emailNotification}
+                          onChange={handleEmailNotificationChange}
+                        />
+                        <span className="slider round"></span>
+                      </label>
+                      <label htmlFor="Male">{t("Email")}</label>{" "}
+                      <label className="switch">
+                        <input
+                          type="checkbox"
+                          checked={userInfo.textNotification}
+                          onChange={handleTextNotificationChange}
+                        />
+                        <span className="slider round"></span>
+                      </label>
+                      <label htmlFor="Female">{t("Text Messages")}</label>
+                    </span>
                   </div>
                 </div>
-                <p className="changePassOptions" onClick={handleToggleClick}>{t("Change Password")}</p>
+                <p className="changePassOptions" onClick={handleToggleClick}>
+                  {t("Change Password")}
+                </p>
                 {showPasswordFields && (
                   <div>
                     <div className="indFields">
@@ -478,7 +502,9 @@ const EditProfile = () => {
                       <p className="errorText">{errors.password}</p>
                     )}
                     <div className="indFields">
-                      <label className="fieldLabel">{t("Confirm Password")} *</label>
+                      <label className="fieldLabel">
+                        {t("Confirm Password")} *
+                      </label>
                       <input
                         className="foeldInputs"
                         type="password"
@@ -493,20 +519,20 @@ const EditProfile = () => {
                     )}
                   </div>
                 )}
-                <button className="submitInfo" onClick={handleSubmit}> 
-                {isLoading ? (
-                  <div className="buttonloader">
-                    <Loader
-                      showOverlay={false}
-                      size={12}
-                      color="#ffffff"
-                      isLoading={true}
-                    />
-                  </div>                  
+                <button className="submitInfo" onClick={handleSubmit}>
+                  {isLoading ? (
+                    <div className="buttonloader">
+                      <Loader
+                        showOverlay={false}
+                        size={12}
+                        color="#ffffff"
+                        isLoading={true}
+                      />
+                    </div>
                   ) : (
                     t("Submit")
                   )}
-              </button>
+                </button>
               </div>
             </div>
           </div>

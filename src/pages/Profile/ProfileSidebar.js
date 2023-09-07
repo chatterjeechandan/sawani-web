@@ -1,8 +1,4 @@
-import React, {
-  useState,
-  useContext,
-  useRef
-} from "react";
+import React, { useState, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import profileIcon from "../../assets/images/camelIcon.png";
 import reward from "../../assets/images/rewardStar.png";
@@ -16,9 +12,9 @@ import barCode from "../../assets/images/barCode.png";
 import { useTranslation } from "react-i18next";
 import { AuthContext } from "../../utils/AuthContext";
 import noUserImage from "../../assets/images/no-user.png";
-import {updateAvatar } from "../../api/customer";
+import { updateAvatar } from "../../api/customer";
 import Loader from "../../components/common/Loader/Loader";
-import CONFIG from '../../config/site.config';
+import { getConfig } from "../../config/site.config";
 import { useLocation, useParams } from "react-router-dom";
 
 const ProfileSidebar = () => {
@@ -32,31 +28,32 @@ const ProfileSidebar = () => {
   };
   const { t } = useTranslation();
   const fileInputRef = useRef(null);
+  const SITE_CONFIG = getConfig();
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
-      const base64String = reader.result.replace("data:", "").replace(/^.+,/, "");
+      const base64String = reader.result
+        .replace("data:", "")
+        .replace(/^.+,/, "");
       updateUserAvatar(base64String);
-     
     };
     if (file) {
       reader.readAsDataURL(file);
     }
   };
 
-
   const updateUserAvatar = async (img) => {
     setIsLoading(true);
-    const updatedUserObject = {  ...loginResponse, "avatar": img };
+    const updatedUserObject = { ...loginResponse, avatar: img };
     const response = await updateAvatar(updatedUserObject);
     if (response.succeeded) {
-      const userInfo = {...loginResponse, "avatar": response.data.avatar};
-      localStorage.setItem('loginInfo', JSON.stringify(userInfo));
-      const image = document.querySelector('.profileImages');
+      const userInfo = { ...loginResponse, avatar: response.data.avatar };
+      localStorage.setItem("loginInfo", JSON.stringify(userInfo));
+      const image = document.querySelector(".profileImages");
       image.src = `data:image/png;base64,${img}`;
-      const image2 = document.querySelector('img.profile');
+      const image2 = document.querySelector("img.profile");
       image2.src = `data:image/png;base64,${img}`;
       setIsLoading(false);
     }
@@ -73,44 +70,58 @@ const ProfileSidebar = () => {
       <div className="sideProfileTop">
         <div className="profileImgWraper">
           <span className="profileImg">
-           { isLoading && (
-            <Loader
-            showOverlay={false}
-            size={15}
-            color="#000"
-            isLoading={false}
-          />
-           )} 
-            <img src={
+            {isLoading && (
+              <Loader
+                showOverlay={false}
+                size={15}
+                color="#000"
+                isLoading={false}
+              />
+            )}
+            <img
+              src={
                 loginResponse?.avatar
-                ? `${CONFIG.baseUrl}/${loginResponse.avatar}`
+                  ? `${SITE_CONFIG.apiUrl}/${loginResponse.avatar}`
                   : noUserImage
-              } className="profileImages" alt="" />
-            <img src={profileIcon} className="profileCamel" alt="" onClick={handleIconClick} />
-            <input 
-              type="file" 
+              }
+              className="profileImages"
+              alt=""
+            />
+            <img
+              src={profileIcon}
+              className="profileCamel"
+              alt=""
+              onClick={handleIconClick}
+            />
+            <input
+              type="file"
               accept="image/*"
-              style={{ display: 'none' }} 
-              ref={fileInputRef} 
-              onChange={handleImageUpload} 
+              style={{ display: "none" }}
+              ref={fileInputRef}
+              onChange={handleImageUpload}
             />
           </span>
           <p className="profileName">{loginResponse?.fullname}</p>
         </div>
         <div className="profilePointWraper">
           <span className="editPointsSec">
-            <Link to="/profile/edit-profile"><img src={edits} alt="" /></Link>
+            <Link to="/profile/edit-profile">
+              <img src={edits} alt="" />
+            </Link>
           </span>
           <div className="pointsProfileWrapers">
             <h3>{loginResponse.points}</h3>
             <img src={reward} alt="" />
           </div>
           <p className="converstionRate">
-            {t("Equals to")} <span>{Number(loginResponse.points)/Number(10)} {t("SAR")}</span>
+            {t("Equals to")}{" "}
+            <span>
+              {Number(loginResponse.points) / Number(10)} {t("SAR")}
+            </span>
           </p>
           <p className="numberInfo">{t("Your Sawani Rewards Number")}</p>
           <div className="codeQr" onClick={setIsQrOpenFn}>
-            <img src={qr} className="codeScan" alt=''/>
+            <img src={qr} className="codeScan" alt="" />
             E01N-98OL-3D5U
           </div>
         </div>
@@ -122,34 +133,57 @@ const ProfileSidebar = () => {
           <li className={location.pathname === "/profile" ? "activated" : ""}>
             <Link to="/profile" className="profileLinksTag">
               <span className="iconName">
-                <img src={routIcon1} className="routIcon" alt=''/>
+                <img src={routIcon1} className="routIcon" alt="" />
               </span>
               <span className="nameLink">{t("Points Analysis")}</span>
               <i className="fa fa-chevron-right" aria-hidden="true"></i>
             </Link>
           </li>
-          <li className={location.pathname === "/profile/favourite-store" || location.pathname === "/profile/favourite-product" ? "activated" : ""}>
+          <li
+            className={
+              location.pathname === "/profile/favourite-store" ||
+              location.pathname === "/profile/favourite-product"
+                ? "activated"
+                : ""
+            }
+          >
             <Link to="/profile/favourite-product" className="profileLinksTag">
               <span className="iconName">
-                <img src={routIcon2} className="routIcon" alt=''/>
+                <img src={routIcon2} className="routIcon" alt="" />
               </span>
               <span className="nameLink">{t("Favorites")}</span>
               <i className="fa fa-chevron-right" aria-hidden="true"></i>
             </Link>
           </li>
-          <li className={location.pathname === "/profile/saved-card" || location.pathname === "/profile/card-add" || location.pathname === `/profile/card-edit/${id}` ? "activated" : ""}>
+          <li
+            className={
+              location.pathname === "/profile/saved-card" ||
+              location.pathname === "/profile/card-add" ||
+              location.pathname === `/profile/card-edit/${id}`
+                ? "activated"
+                : ""
+            }
+          >
             <Link to="/profile/saved-card" className="profileLinksTag">
               <span className="iconName">
-                <img src={routIcon3} className="routIcon" alt=''/>
+                <img src={routIcon3} className="routIcon" alt="" />
               </span>
               <span className="nameLink">{t("My Cards")}</span>
               <i className="fa fa-chevron-right" aria-hidden="true"></i>
             </Link>
           </li>
-          <li className={location.pathname === "/profile/saved-address" || location.pathname === "/profile/address-add" || location.pathname === `/profile/edit-address/${id}` ? "activated" : ""}>
+          <li
+            className={
+              location.pathname === "/profile/saved-address" ||
+              location.pathname === "/profile/address-add" ||
+              location.pathname === `/profile/edit-address/${id}`
+                ? "activated"
+                : ""
+            }
+          >
             <Link to="/profile/saved-address" className="profileLinksTag">
               <span className="iconName">
-                <img src={routIcon4} className="routIcon" alt=''/>
+                <img src={routIcon4} className="routIcon" alt="" />
               </span>
               <span className="nameLink">{t("My Addresses")}</span>
               <i className="fa fa-chevron-right" aria-hidden="true"></i>
@@ -173,7 +207,7 @@ const ProfileSidebar = () => {
               {t("Scan to earn")}
               <br /> <span>SAWANI©</span> {t("POINTS")}
             </p>
-            <img src={barCode} className="barCodeImg" alt=''/>
+            <img src={barCode} className="barCodeImg" alt="" />
             <p className="idBar">E01N-98OL-3D5U</p>
           </div>
         </div>
